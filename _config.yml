@@ -1,6 +1,6 @@
-name: Your New Jekyll Site
-description: Blogging about stuffs
-meta_description: "Your New Jekyll Site, Blogging about stuffs"
+name: Gladiola Black Magic
+description: Web Development Blog
+meta_description: "Web development blog to accompany gladiola/blackmagic repo"
 
 aboutPage: true
 
@@ -16,8 +16,8 @@ disqus_shortname: 'your-disqus-shortname'
 
 # Details for the RSS feed generator
 url:            'http://your-blog-url.example.com'
-author:         'Your Name'
-authorTwitter:  'YourTwitterUsername'
+author:         'Gladiola'
+authorTwitter:  '@AgXphoto'
 
 permalink:       /:year/:title/
 
