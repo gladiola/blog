@@ -4,6 +4,6 @@ permalink: about/
 profile: true
 ---
 
-This is a static page. It could be an 'about page' if you'd like.
+blackmagic repo is a collection of web development demo programs.
 
 {% include footer.html %}
