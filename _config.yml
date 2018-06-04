@@ -1,5 +1,5 @@
 name: Gladiola Black Magic
-description: Web development blog to accompany gladiola/blackmagic repo
+description: Blog to accompany gladiola/blackmagic repo
 meta_description: "Web development blog to accompany gladiola/blackmagic repo"
 
 aboutPage: true
@@ -9,15 +9,15 @@ highlighter: rouge
 
 plugins: [jekyll-paginate]
 paginate: 20
-domain_name: 'http://yourblog-domain.com'
+domain_name: 'https://gladiola.github.io/blog/'
 google_analytics: 'UA-XXXXXXXX-X'
 disqus: false
 disqus_shortname: 'your-disqus-shortname'
 
 # Details for the RSS feed generator
-url:            'http://your-blog-url.example.com'
+url:            'https://gladiola.github.io/blog/'
 author:         'Gladiola'
-authorTwitter:  '@AgXphoto'
+authorTwitter:  'AgXphoto'
 
 permalink:       /:year/:title/
 
