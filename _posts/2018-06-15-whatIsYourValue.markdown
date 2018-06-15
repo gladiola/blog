@@ -20,7 +20,7 @@ I have only had one person attempt to parse the pay during negotiations by count
 
 # What is their margin on your work?
 
-There was a counteracting pressure in that employers were seeking to drive down wages.  As our economy "improves," we see one trend not improving:  wages.  As businesses get richer, top executives continue to retain larger and larger percentages of the profits.  We're already near seeing CEOs take in 270x what the average worker makes. [1][1] Given those conditions, I have few qualms about sharpening up on pay.  
+There was a counteracting pressure in that employers were seeking to drive down wages.  As our economy "improves," we see one trend not improving:  wages.  As businesses get richer, top executives continue to retain larger and larger percentages of the profits.  We're already near seeing CEOs take in 270x what the average worker makes. [1] Given those conditions, I have few qualms about sharpening up on pay.  
 
 Meanwhile, some employers are frank in how they make their profit off of programmers.  There are two key areas that we need to respect:
 - Profit from possession of proprietary programs
@@ -34,7 +34,7 @@ Do you know how much your work contributed to success at a past employer?  If yo
 
 What kind of benefit did the employer receive from your programs?  Were they protected from a liability, or did they gain new business as a result of having the asset of your code?  "New business" sales can show what kind of gains your services contributed to; or, on the other side, avoiding the reoccurrence of a lawsuit can show the impact of your protective actions.  Both seeing good growth occur and the avoidance of past negative events can provide a clue as to the value of your programs.
 
-# "Lumburg wants me to work on Saturday" [4][4]
+# "Lumburg wants me to work on Saturday" [4]
 
 At one job I was called to work 13 Saturdays in a four month period.  The company was making some major rennovations to their data center.  Some programs had a modest DFIR risk for the company.  They brought in a fair amount of money, and an interruption in their performance could have had an impact on profit.  As part of the risk controls, the company decided that when certain changes were made, a knowledgable programmer needed to be on hand to check on the performance of the program.  Some of the details of the situation put me in a position where I would need to check on the program every few hours for the duration of the changes in the data center.  As a result, I was effectively tied to a computer terminal for most of the day on a Saturday or Sunday.  In the end, there would be a simple conference call for us all to report our findings.  To me, what this meant at the time was that I lost all of one day of my weekend.  
 
@@ -44,7 +44,7 @@ Perhaps as you reflect on your career in computing, you might see instances like
 
 # Salary exceptions for computer workers
 
-Those after-hours moments are another point of pay negotiations:  taxes.  Labor laws in the US have special provisions for computer workers. [2][2] What this means to pay negotiations is that employers can treat programmers as exempt.  The employer's cry for this tax exemption relates to the idea that they may have to call on programmers at all hours of the day or night.  As programmers, perhaps we don't often think that we are expected to work more than 40 hours a week, unless "we have to."  
+Those after-hours moments are another point of pay negotiations:  taxes.  Labor laws in the US have special provisions for computer workers. [2] What this means to pay negotiations is that employers can treat programmers as exempt.  The employer's cry for this tax exemption relates to the idea that they may have to call on programmers at all hours of the day or night.  As programmers, perhaps we don't often think that we are expected to work more than 40 hours a week, unless "we have to."  
 
 The mere fact that so many employers need this protection that it has become its own special law should signal to us that there will be no additional compensation or balance if an emergency arises.  So, when we are negotiating for pay, it behooves us to negotiate for a rate that will justify these incursions.  Managing workload and projects to keep those infractions to a minimum will be the hallmark of a successful employer and manager.  But, regardless of our opinions of whether or not they should occur every week, we have to plan in advance for the paycheck compensations for these problems.  
 
@@ -82,7 +82,7 @@ Interviews are a good time to get management to talk about themselves.  Often, w
 
 # Where am I on this scale, anyway?
 
-As I moved from one field to another, I was at a loss for where I might begin negotiations.  I remembered the old Occupational Outlook Handbook from junior high classes on career guidance.  Today's version is a collection of online websites sponsored by the US Department of Labor.  Consulting those, we can find graphs based on a statistical analysis of pay rates reported to the United States government.  We can find reports like [this one](https://www.bls.gov/ooh/computer-and-information-technology/software-developers.htm#tab-5).  [3][3]
+As I moved from one field to another, I was at a loss for where I might begin negotiations.  I remembered the old Occupational Outlook Handbook from junior high classes on career guidance.  Today's version is a collection of online websites sponsored by the US Department of Labor.  Consulting those, we can find graphs based on a statistical analysis of pay rates reported to the United States government.  We can find reports like [this one](https://www.bls.gov/ooh/computer-and-information-technology/software-developers.htm#tab-5).  [3]
 
 ![payGraph](https://gladiola.github.io/blog/assets/images/SoftwareDeveloperSalary2017.PNG)
 
