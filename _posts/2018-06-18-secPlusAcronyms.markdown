@@ -1,5 +1,5 @@
 ---
-title:  "A List of Acronyms Used to Study for Security+ Cert"
+title:  "A List of Acronyms Used to Study for Security+"
 date:   2018-06-15 08:30:00
 description: A List of Acronyms Used to Study for Security+ Cert
 ---
