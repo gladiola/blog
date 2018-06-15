@@ -9,8 +9,6 @@ Our repo is up at: <a href="https://github.com/gladiola/blackmagic">gladiola/bla
 # Demo Programs
 Listed below are some selected programs from the repo, by language or system.
 
-## Folder [ASP.NET Core 2.0](https://github.com/gladiola/blackmagic/tree/Demo/ASP.NETCore2.0)
-
 ### Program [JPO_02APR2018A](https://github.com/gladiola/blackmagic/tree/Demo/ASP.NETCore2.0/JPO_02APR2018A)
 Selected files from an ASP.NET Core 2.0 program. References to Microsoft tutorials and reference docs are included in the source code.
 
@@ -24,8 +22,6 @@ Main effect achieved here was to allow a scaffolded project to include:
 - Redirects HTTP to HTTPS
 - Use of UserSecrets in development for holding critical values
 
-
-## Folder [PowerShell](https://github.com/gladiola/blackmagic/tree/Demo/PowerShell)
 ### Program [SystemCheck.ps1](https://github.com/gladiola/blackmagic/blob/Demo/PowerShell/CPSC5700_Benchmarking/SystemCheck.ps1)
 Abbreviated version of system checks used with benchmarking tests. Presented here as a simple time-saving utility for gathering data on a machine. Gathers data on the machine executing the script and places output in a text file.
 
