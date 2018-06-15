@@ -1,9 +1,9 @@
 ---
-title:  "Sec Plus Acronyms"
+title:  "A List of Acronyms Used to Study for Security+ Cert"
 date:   2018-06-15 08:30:00
 description: A List of Acronyms Used to Study for Security+ Cert
 ---
-# A List of Acronyms Used to Study for Security+ Cert
+# SYO-401 Acronyms
 While studying for the Security+ certification exam, I noticed that in my practice tests sometimes I was getting tripped up by common acronyms.  To avoid those problems, I went through the test objectives listed in a study guide I was using; and, I pulled out a list of acronyms and made some flashcards.  A transcribed list of those terms is below.
 
 <table>
