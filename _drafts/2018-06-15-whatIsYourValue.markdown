@@ -1,6 +1,6 @@
 ---
 title:  "What Is Your Value?"
-date:   2018-06-04 08:30:00
+date:   2018-06-15 08:30:00
 description: Exploring Pricing and Marketability for Programmers
 ---
 
@@ -20,7 +20,7 @@ I have only had one person attempt to parse the pay during negotiations by count
 
 # What is their margin on your work?
 
-There was a counteracting pressure in that employers were seeking to drive down wages.  As our economy "improves," we see one trend not improving:  wages.  As businesses get richer, top executives continue to retain larger and larger percentages of the profits.  We're already near seeing CEOs take in 270x what the average worker makes.[^1] Given those conditions, I have few qualms about sharpening up on pay.  
+There was a counteracting pressure in that employers were seeking to drive down wages.  As our economy "improves," we see one trend not improving:  wages.  As businesses get richer, top executives continue to retain larger and larger percentages of the profits.  We're already near seeing CEOs take in 270x what the average worker makes. [1] Given those conditions, I have few qualms about sharpening up on pay.  
 
 Meanwhile, some employers are frank in how they make their profit off of programmers.  There are two key areas that we need to respect:
 - Profit from possession of proprietary programs
@@ -84,13 +84,13 @@ Interviews are a good time to get management to talk about themselves.  Often, w
 
 As I moved from one field to another, I was at a loss for where I might begin negotiations.  I remembered the old Occupational Outlook Handbook from junior high classes on career guidance.  Today's version is a collection of online websites sponsored by the US Department of Labor.  Consulting those, we can find graphs based on a statistical analysis of pay rates reported to the United States government.  We can find reports like [this one](https://www.bls.gov/ooh/computer-and-information-technology/software-developers.htm#tab-5).  [3]
 
-![payGraph](https://gladiola.github.io/blog/assets/SoftwareDeveloperSalary2017.PNG)
+![payGraph](https://gladiola.github.io/blog/assets/images/SoftwareDeveloperSalary2017.PNG)
 
 
 
 
 
-[1]:  Donnelly, Grace.  Fortune, INTERNET:  http://fortune.com/2017/07/20/ceo-pay-ratio-2016/ 
-[2]: https://www.dol.gov/whd/overtime/fs17a_overview.htm
-[3]: https://www.bls.gov/ooh/computer-and-information-technology/software-developers.htm#tab-5
+[1]:  Donnelly, Grace.  Fortune, INTERNET: ` http://fortune.com/2017/07/20/ceo-pay-ratio-2016/ `
+[2]: ` https://www.dol.gov/whd/overtime/fs17a_overview.htm `
+[3]: ` https://www.bls.gov/ooh/computer-and-information-technology/software-developers.htm#tab-5 `
 [4]: Judge, Mike.  "Office Space," February 1999.  Movie, 1h 30m.
