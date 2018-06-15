@@ -32,23 +32,6 @@ Abbreviated version of system checks used with benchmarking tests. Presented her
 - Operating sytem
 - Current processes
 
-### Program [JPO_runBenchmarks.ps1.txt](https://github.com/gladiola/blackmagic/blob/Demo/PowerShell/CPSC5700_Benchmarking/JPO_runBenchmarks.ps1.txt)
-Runs a SystemCheck.ps1 code segment, and then executes some benchmark programs that would be expected in a nearby folder. Those benchmark programs are not included here.
-
-#### Demonstrates:
-- automated creation of files and directories
-- automated creation of dynamic names of files based on time
-- executing benchmark programs in batch
-- routing output to specific files
-
-### Program [JPO_pullKeyDataItemsFromBenchmarksB.ps1.txt](https://github.com/gladiola/blackmagic/blob/Demo/PowerShell/CPSC5700_Benchmarking/JPO_pullKeyDataItemsFromBenchmarksB.ps1.txt)
-Program to navigate to benchmark output text file; extract critical data points from file; hold varying amounts of data, discovered before and after a pattern match, in an object; aggregate data about a given benchmark test; deposit summary in another file.
-
-#### Demonstrates:
-- object creation and property value assignment
-- looping
-- pattern searching a string with context
-
 ### Program [greenXterm.sh](https://github.com/gladiola/blackmagic/blob/Demo/FreeBSD/greenXterm.sh)
 Simple shell script to make green and black terminal windows in X11.
 
