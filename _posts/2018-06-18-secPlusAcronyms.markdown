@@ -1,6 +1,6 @@
 ---
 title:  "Sec Plus Acronyms"
-date:   2018-06-04 08:30:00
+date:   2018-06-15 08:30:00
 description: A List of Acronyms Used to Study for Security+ Cert
 ---
 
@@ -209,7 +209,7 @@ While studying for the Security+ certification exam, I noticed that in my practi
         </tr>
         <tr>
             <td>NIDS</td>
-            <td>Netowrk Intrusion Detection System</td>
+            <td>Network Intrusion Detection System</td>
         </tr>
         <tr>
             <td>Type I Error</td>
@@ -385,6 +385,7 @@ Part of the study objectives for these cards was to note:
 * What port numbers were used in client-server pairs
 * What algorithms represented hashing, symmertic or asymmetric procedures
 * What bit levels were associated with algos, for describing their relative complexity
+
 
 The purpose of studying with the flashcards was to make quick connections second nature so that I could concentrate better on the higher thought portions of the question.  We might rarely see simple questions which allow us to directly identify an attribute based on knowing what an acronym means.  Instead, practice questions would often show that a higher topic was being discussed and the acronyms were a vehicle for understanding abbreviated information that would lead to accepting or rejecting given choices as a possible answer.  To cut down on the amount of thought that was devoted to understanding the questions and possible answers, it just made sense to study the acronyms to better decode the presented information.
 
