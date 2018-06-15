@@ -90,7 +90,7 @@ As I moved from one field to another, I was at a loss for where I might begin ne
 
 
 
-[1]:  Donnelly, Grace.  Fortune, INTERNET:  http://fortune.com/2017/07/20/ceo-pay-ratio-2016/ 
-[2]: https://www.dol.gov/whd/overtime/fs17a_overview.htm
-[3]: https://www.bls.gov/ooh/computer-and-information-technology/software-developers.htm#tab-5
+[1]:  Donnelly, Grace.  Fortune, INTERNET: ` http://fortune.com/2017/07/20/ceo-pay-ratio-2016/ `
+[2]: ` https://www.dol.gov/whd/overtime/fs17a_overview.htm `
+[3]: ` https://www.bls.gov/ooh/computer-and-information-technology/software-developers.htm#tab-5 `
 [4]: Judge, Mike.  "Office Space," February 1999.  Movie, 1h 30m.
