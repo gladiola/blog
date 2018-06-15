@@ -2,7 +2,7 @@
     {% for post in paginator.posts %}
         <li>
             <a href="{{ "/" | relative_url  }}{{ post.url | remove_first: '/' }}"><aside class="dates"><i class="far fa-calendar-check"></i>{{ post.date | date:"%b %d" }}</aside></a>
-            <a href="{{ "/" | relative_url  }}{{ post.url | remove_first: '/' }}">{{ post.title }} <h2><i class="far fa-comment"></i>{{ post.description }}</h2></a>
+            <a href="{{ "/" | relative_url  }}{{ post.url | remove_first: '/' }}">{{ post.title }} <h2>{{ post.description }}</h2></a>
         </li>
     {% endfor %}
 </ul>
