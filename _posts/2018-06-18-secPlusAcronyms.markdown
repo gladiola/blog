@@ -3,7 +3,7 @@ title:  "Sec Plus Acronyms"
 date:   2018-06-15 08:30:00
 description: A List of Acronyms Used to Study for Security+ Cert
 ---
-
+# A List of Acronyms Used to Study for Security+ Cert
 While studying for the Security+ certification exam, I noticed that in my practice tests sometimes I was getting tripped up by common acronyms.  To avoid those problems, I went through the test objectives listed in a study guide I was using; and, I pulled out a list of acronyms and made some flashcards.  A transcribed list of those terms is below.
 
 <table>
@@ -379,6 +379,7 @@ While studying for the Security+ certification exam, I noticed that in my practi
     </tbody>
 </table>
 
+# Goals of Acronym Review
 Part of the study objectives for these cards was to note:
 * What acronyms were second nature
 * If the acronym stimulated the test-related response value in memory (e.g. "MAC", "CSR", "RTO")
@@ -386,7 +387,7 @@ Part of the study objectives for these cards was to note:
 * What algorithms represented hashing, symmertic or asymmetric procedures
 * What bit levels were associated with algos, for describing their relative complexity
 
-
+# Applying Acronym Review to Questions
 The purpose of studying with the flashcards was to make quick connections second nature so that I could concentrate better on the higher thought portions of the question.  We might rarely see simple questions which allow us to directly identify an attribute based on knowing what an acronym means.  Instead, practice questions would often show that a higher topic was being discussed and the acronyms were a vehicle for understanding abbreviated information that would lead to accepting or rejecting given choices as a possible answer.  To cut down on the amount of thought that was devoted to understanding the questions and possible answers, it just made sense to study the acronyms to better decode the presented information.
 
 Perhaps you might find a lot of those to be very easy.  Just set those aside.  Maybe a few of these would prompt out-of-context responses : react to those.  Almost all of these terms have some in-depth study behind them; of course, merely learning the acronyms with flashcards is about smoothing and improving performance on test day; knowing and understanding the topics in a deeper way is a separate study mechanism.  
