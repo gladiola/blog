@@ -11,7 +11,7 @@ Listed below are some selected programs from the repo, by language or system.
 
 ## [ASP.NET Core 2.0](https://github.com/gladiola/blackmagic/tree/Demo/ASP.NETCore2.0)
 
-### JPO_02APR2018A
+### [JPO_02APR2018A](https://github.com/gladiola/blackmagic/tree/Demo/ASP.NETCore2.0/JPO_02APR2018A)
 Selected files from an ASP.NET Core 2.0 program. References to Microsoft tutorials and reference docs are included in the source code.
 
 #### Features
