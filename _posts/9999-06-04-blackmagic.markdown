@@ -8,10 +8,10 @@ Our repo is up at: <a href="https://github.com/gladiola/blackmagic">gladiola/bla
 
 ## [ASP.NET Core 2.0](https://github.com/gladiola/blackmagic/tree/Demo/ASP.NETCore2.0)
 
-###JPO_02APR2018A
+### JPO_02APR2018A
 Selected files from an ASP.NET Core 2.0 program. References to Microsoft tutorials and reference docs are included in the source code.
 
-####Features
+#### Features
 Main effect achieved here was to allow a scaffolded project to include:
 
 - QR code 2 Factor Authentication that works with Microsoft Authenticator
