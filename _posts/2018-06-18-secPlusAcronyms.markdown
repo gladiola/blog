@@ -382,7 +382,7 @@ While studying for the Security+ certification exam, I noticed that in my practi
 # Goals of Acronym Review
 Part of the study objectives for these cards was to note:
 * What acronyms were second nature
-* If the acronym stimulated the test-related response value in memory (e.g. "MAC", "CSR", "RTO")
+* If the acronym stimulated the test-related response value in memory or if it brought to mind some other idea (e.g. "MAC", "CSR", "RTO")
 * What port numbers were used in client-server pairs
 * What algorithms represented hashing, symmertic or asymmetric procedures
 * What bit levels were associated with algos, for describing their relative complexity
