@@ -82,7 +82,7 @@ Interviews are a good time to get management to talk about themselves.  Often, w
 
 # Where am I on this scale, anyway?
 
-As I moved from one field to another, I was at a loss for where I might begin negotiations.  I remembered the old Occupational Outlook Handbook from junior high classes on career guidance.  Today's version is a collection of online websites sponsored by the US Department of Labor.  Consulting those, we can find graphs based on a statistical analysis of pay rates reported to the United States government.  We can find reports like [this one](https://www.bls.gov/ooh/computer-and-information-technology/software-developers.htm#tab-5).  [3]
+As I moved from one field to another, I was at a loss for where I might begin negotiations.  I remembered the old Occupational Outlook Handbook from junior high classes on career guidance.  Today's version is a collection of online websites sponsored by the US Department of Labor.  Consulting those, we can find graphs based on a statistical analysis of pay rates reported to the United States government.  We can find reports like [this one](https://www.bls.gov/ooh/computer-and-information-technology/software-developers.htm#tab-5 ).  [3]
 
 ![payGraph](https://gladiola.github.io/blog/assets/images/SoftwareDeveloperSalary2017.PNG)
 
@@ -94,3 +94,6 @@ As I moved from one field to another, I was at a loss for where I might begin ne
 [2]: ` https://www.dol.gov/whd/overtime/fs17a_overview.htm `
 [3]: ` https://www.bls.gov/ooh/computer-and-information-technology/software-developers.htm#tab-5 `
 [4]: Judge, Mike.  "Office Space," February 1999.  Movie, 1h 30m.
+
+
+
