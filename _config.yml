@@ -11,8 +11,8 @@ plugins: [jekyll-paginate]
 paginate: 20
 domain_name: 'https://gladiola.github.io/blog/'
 google_analytics: 'UA-XXXXXXXX-X'
-disqus: false
-disqus_shortname: 'your-disqus-shortname'
+disqus: true
+disqus_shortname: 'https-github-com-gladiola-blog'
 
 # Details for the RSS feed generator
 url:            'https://gladiola.github.io/blog/'
