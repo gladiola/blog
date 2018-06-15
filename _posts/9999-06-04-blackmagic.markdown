@@ -23,6 +23,7 @@ Main effect achieved here was to allow a scaffolded project to include:
 - Requires HTTPS
 - Redirects HTTP to HTTPS
 - Use of UserSecrets in development for holding critical values
+<p></p>
 
 ## [PowerShell](https://github.com/gladiola/blackmagic/tree/Demo/PowerShell/CPSC5700_Benchmarking)
 ### [SystemCheck.ps1](https://github.com/gladiola/blackmagic/blob/Demo/PowerShell/CPSC5700_Benchmarking/SystemCheck.ps1)
