@@ -21,6 +21,7 @@ Main effect achieved here was to allow a scaffolded project to include:
 - Requires HTTPS
 - Redirects HTTP to HTTPS
 - Use of UserSecrets in development for holding critical values
+
 [//]: # ()
 
 ### Program [SystemCheck.ps1](https://github.com/gladiola/blackmagic/blob/Demo/PowerShell/CPSC5700_Benchmarking/SystemCheck.ps1)
@@ -32,6 +33,7 @@ Abbreviated version of system checks used with benchmarking tests. Presented her
 - BIOS
 - Operating sytem
 - Current processes
+
 [//]: # ()
 
 ### Program [greenXterm.sh](https://github.com/gladiola/blackmagic/blob/Demo/FreeBSD/greenXterm.sh)
