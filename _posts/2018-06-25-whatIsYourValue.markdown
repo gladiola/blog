@@ -8,7 +8,7 @@ Over the past few years, I have noticed some small changes in marketing programm
 
 ## How much do you cost the boss?
 
-When I was working at a large corporation, one day I received an email from their marketing group that told me I was paid about $17,000 more than I expected.  At first I thought it was an error.  As I read the nearly 20 page PDF the sent me, I realized they were serious.  It wasn't a mistake.  That's what they believed I cost.  To them, I was $17K more expensive than I perceived myself to be.
+When I was working at a large corporation, one day I received an email from their marketing group that told me I was paid about $17,000 more than I expected.  At first I thought it was an error.  As I read the nearly 20 page PDF they sent me, I realized they were serious.  It wasn't a mistake.  That's what they believed I cost.  To them, I was $17K more expensive than I perceived myself to be.
 
 My thoughts on my pay were based on my base annual salary.  To the employer, I was more expensive because they were counting the dollars they spent on the benefits package.  Now, in detail, I objected to some of their calcluations because they ignored the amount of money I had to spend in order to realize the maximum value of those benefits.  I felt that by not recognizing that amount that they were inflating the count.  No matter:  to them, I was $17K more expensive than I thought.
 
@@ -18,7 +18,7 @@ How much do you cost?  The total comp.  Every cent they spend on compensation.  
 
 Later, as I began to negotiate for pay in different hiring situations, I would remember this difference.  When it came time to name a price, I would include the total value of my compensation as my price.  If the employers agreed, often they would agree that value to be the base salary.  Then they would pay more by adding on benefits like bonuses.  Using this technique, I was able to steadily drive up the price of my services to keep pace with the market.  
 
-I have only had one person attempt to parse the pay during negotiations by counteroffering a lower base salary and a differential bonus.  Despite the assumption that employees seem to always name only their salary, most employers did not check on this point.  As a result, they assumed their way to a small loss that resulted in a pay increase for the employee.  Recognizing this habitual failure can provide leverage during pay negotiations.
+I have had only one person attempt to parse the pay during negotiations by counteroffering a lower base salary and a differential bonus.  Despite the assumption that employees seem to always name only their salary, most employers did not check on this point.  As a result, they assumed their way to a small loss that resulted in a pay increase for the employee.  Recognizing this habitual failure can provide leverage during pay negotiations.
 
 ## What is their margin on your work?
 

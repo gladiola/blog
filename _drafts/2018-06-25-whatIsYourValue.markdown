@@ -6,9 +6,9 @@ description: Exploring Pricing and Marketability for Programmers
 
 Over the past few years, I have noticed some small changes in marketing programming skills.  At the Scenic City Summit conference in 2017, I attended a talk on pay negotiations that brought up some techniques I had been using. Curiously, I landed my last job with no pay negotiations whatsoever due to an unusual circumstance.  Meanwhile, here are some ideas that have come up over the past year or so.  Maybe they will help you with your search and negotiations.  
 
-## How Much Do You Cost The Boss?
+## How much do you cost the boss?
 
-When I was working at a large corporation, one day I received an email from their marketing group that told me I was paid about $17,000 more than I expected.  At first I thought it was an error.  As I read the nearly 20 page PDF the sent me, I realized they were serious.  It wasn't a mistake.  That's what they believed I cost.  To them, I was $17K more expensive than I perceived myself to be.
+When I was working at a large corporation, one day I received an email from their marketing group that told me I was paid about $17,000 more than I expected.  At first I thought it was an error.  As I read the nearly 20 page PDF they sent me, I realized they were serious.  It wasn't a mistake.  That's what they believed I cost.  To them, I was $17K more expensive than I perceived myself to be.
 
 My thoughts on my pay were based on my base annual salary.  To the employer, I was more expensive because they were counting the dollars they spent on the benefits package.  Now, in detail, I objected to some of their calcluations because they ignored the amount of money I had to spend in order to realize the maximum value of those benefits.  I felt that by not recognizing that amount that they were inflating the count.  No matter:  to them, I was $17K more expensive than I thought.
 
@@ -18,7 +18,7 @@ How much do you cost?  The total comp.  Every cent they spend on compensation.  
 
 Later, as I began to negotiate for pay in different hiring situations, I would remember this difference.  When it came time to name a price, I would include the total value of my compensation as my price.  If the employers agreed, often they would agree that value to be the base salary.  Then they would pay more by adding on benefits like bonuses.  Using this technique, I was able to steadily drive up the price of my services to keep pace with the market.  
 
-I have only had one person attempt to parse the pay during negotiations by counteroffering a lower base salary and a differential bonus.  Despite the assumption that employees seem to always name only their salary, most employers did not check on this point.  As a result, they assumed their way to a small loss that resulted in a pay increase for the employee.  Recognizing this habitual failure can provide leverage during pay negotiations.
+I have had only one person attempt to parse the pay during negotiations by counteroffering a lower base salary and a differential bonus.  Despite the assumption that employees seem to always name only their salary, most employers did not check on this point.  As a result, they assumed their way to a small loss that resulted in a pay increase for the employee.  Recognizing this habitual failure can provide leverage during pay negotiations.
 
 ## What is their margin on your work?
 
@@ -60,7 +60,7 @@ The programs, not the workers by age, are commanding the greatest influence over
 
 I would suggest that ageism, like a lot of other negative stereotyping paradigms, provides the holder of those beliefs with some sort of positive feedback.  The person who believes ageist ideas will believe that there is a benefit to believing those ideas.  They will find ageist concepts to be a form of insight.  To maintain our advantage over others in the workplace who hold these ideas, we need to identify what positive characteristic ageists believe they are going to get as a result of thinking like this.  Also, during negotiations, we need to be on the lookout for moments when we can consider using their holding of these beliefs as leverage that can work in our favor.
 
-How would the ageist bill for the team?  When a team of programmers working for a consultancy produces programs and computing serives, their leaders will bill at a rate for the team.  This means that, often, the cheapest workers on the team are the most profitable.  Higher paid workers are the less profitable.  So, in order to accept the difference in the lower paid to higher paid of the salary expenses, employers have to have some kind of justification.  While our goal as workers will be to get a raise so that we can enjoy more money, in the eyes of the employer, we are increasing their costs and their risk.  How are our services worth it?
+How would the ageist bill for the team?  When a team of programmers working for a consultancy produces programs and computing services, their leaders will bill at a rate for the team.  This means that, often, the cheapest workers on the team are the most profitable.  Higher paid workers are the less profitable.  So, in order to accept the difference in the lower paid to higher paid of the salary expenses, employers have to have some kind of justification.  While our goal as workers will be to get a raise so that we can enjoy more money, in the eyes of the employer, we are increasing their costs and their risk.  How are our services worth it?
 
 Truth be told, there may only be a few moments in any given project when expertise can really pay off.  Also, it's just as unlikely to see an entire team completely lost in the technical skills needed for the task at hand.  So, the average competency of those at the lower prices in salary to the employer will drive the amount of profit the employer can expect for hiring the programmers as a team.  If the team is skewed towards higher paid programmers, then the employer will often face slim profit margins.  Why?  Because the receiving customer will not see the team, be able to identify points requiring technical expertise, or even see the amount of pay provided to the hired programmers.  To the customer of a consultancy, the most visible point of programming cost is the billed hours on the invoice.  Since those are likely to be aggregated for the influence of the team, the customer is not going to be able guess the profit margin just from the bill.  The IT Manager and the employer will know this.  It creates a paradoxical situation.  
 
@@ -93,9 +93,9 @@ When consulting market reports like these, be honest with yourself where you sta
 
 ## References
 
-[1]:  Donnelly, Grace.  Fortune, INTERNET: ` http://fortune.com/2017/07/20/ceo-pay-ratio-2016/ ` 
-[2]: ` https://www.dol.gov/whd/overtime/fs17a_overview.htm `
-[3]: ` https://www.bls.gov/ooh/computer-and-information-technology/software-developers.htm#tab-5 ` 
+[1]:  http://fortune.com/2017/07/20/ceo-pay-ratio-2016/ 
+[2]:  https://www.dol.gov/whd/overtime/fs17a_overview.htm 
+[3]: https://www.bls.gov/ooh/computer-and-information-technology/software-developers.htm#tab-5 
 [4]: Judge, Mike.  "Office Space," February 1999.  Movie, 1h 30m.
 
 
