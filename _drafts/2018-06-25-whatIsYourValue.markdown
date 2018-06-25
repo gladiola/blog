@@ -1,16 +1,18 @@
 ---
 title:  "What Is Your Value?"
-date:   2018-06-15 08:30:00
+date:   2018-06-25 08:30:00
 description: Exploring Pricing and Marketability for Programmers
 ---
 
-Over the past few years, I have noticed some small changes in marketing programming skills.  At the Scenic City Summit conference in 2017, I attended a talk on pay negotiations that brought up some techniques I had been using.  Here are some ideas that have come up over the past year.  Maybe they will help you with your search and negotiations.
+Over the past few years, I have noticed some small changes in marketing programming skills.  At the Scenic City Summit conference in 2017, I attended a talk on pay negotiations that brought up some techniques I had been using. Curiously, I landed my last job with no pay negotiations whatsoever due to an unusual circumstance.  Meanwhile, here are some ideas that have come up over the past year or so.  Maybe they will help you with your search and negotiations.  
 
 ## How Much Do You Cost The Boss?
 
-When I was working at a large corporation, one day I received an email from their marketing group that told me I was paid about $17,000 more than I expected.  At first I thought it was an error.  As I read the nearly 20 page PDF the sent me, I realized they were serious.  To them, I was $17K more expensive than I perceived myself to be.
+When I was working at a large corporation, one day I received an email from their marketing group that told me I was paid about $17,000 more than I expected.  At first I thought it was an error.  As I read the nearly 20 page PDF the sent me, I realized they were serious.  It wasn't a mistake.  That's what they believed I cost.  To them, I was $17K more expensive than I perceived myself to be.
 
 My thoughts on my pay were based on my base annual salary.  To the employer, I was more expensive because they were counting the dollars they spent on the benefits package.  Now, in detail, I objected to some of their calcluations because they ignored the amount of money I had to spend in order to realize the maximum value of those benefits.  I felt that by not recognizing that amount that they were inflating the count.  No matter:  to them, I was $17K more expensive than I thought.
+
+How much do you cost?  The total comp.  Every cent they spend on compensation.  It's not just base pay; it's salary plus bonus, insurance policies, retirement matching, paid travel; any form of compensation can count as compensation for the employer's perspective.  Rarely do we take care to parse this all out.  Perhaps we should.
 
 ## Assumptions to a pay increase
 
@@ -86,13 +88,14 @@ As I moved from one field to another, I was at a loss for where I might begin ne
 
 ![payGraph](https://gladiola.github.io/blog/assets/images/SoftwareDeveloperSalary2017.PNG)
 
+When consulting market reports like these, be honest with yourself where you stand.  Subtle changes in a job's technology requirements, principal duties, or location can have a great impact on where we might land among a standardized sample.  A small change could move someone from highly paid expert to newbie in a moment; or, changes might not matter much at all.  As with the perceptions of employee cost compared to overall compensation, perceptions of experience also come with the burden of paradigm. 
 
 
+## References
 
-
-[1]:  Donnelly, Grace.  Fortune, INTERNET: ` http://fortune.com/2017/07/20/ceo-pay-ratio-2016/ `
-[2]: ` https://www.dol.gov/whd/overtime/fs17a_overview.htm `
-[3]: ` https://www.bls.gov/ooh/computer-and-information-technology/software-developers.htm#tab-5 `
+[1]:  Donnelly, Grace.  Fortune, INTERNET: [` http://fortune.com/2017/07/20/ceo-pay-ratio-2016/ `](http://fortune.com/2017/07/20/ceo-pay-ratio-2016/)
+[2]: [` https://www.dol.gov/whd/overtime/fs17a_overview.htm `](https://www.dol.gov/whd/overtime/fs17a_overview.htm )
+[3]: [` https://www.bls.gov/ooh/computer-and-information-technology/software-developers.htm#tab-5 `](https://www.bls.gov/ooh/computer-and-information-technology/software-developers.htm#tab-5)
 [4]: Judge, Mike.  "Office Space," February 1999.  Movie, 1h 30m.
 
 
