@@ -6,7 +6,7 @@ description: Exploring Pricing and Marketability for Programmers
 
 Over the past few years, I have noticed some small changes in marketing programming skills.  At the Scenic City Summit conference in 2017, I attended a talk on pay negotiations that brought up some techniques I had been using. Curiously, I landed my last job with no pay negotiations whatsoever due to an unusual circumstance.  Meanwhile, here are some ideas that have come up over the past year or so.  Maybe they will help you with your search and negotiations.  
 
-## How Much Do You Cost The Boss?
+## How much do you cost the boss?
 
 When I was working at a large corporation, one day I received an email from their marketing group that told me I was paid about $17,000 more than I expected.  At first I thought it was an error.  As I read the nearly 20 page PDF the sent me, I realized they were serious.  It wasn't a mistake.  That's what they believed I cost.  To them, I was $17K more expensive than I perceived myself to be.
 
