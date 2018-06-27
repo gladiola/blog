@@ -8,7 +8,7 @@ description: Exercising Known Vulns in XAMPP for Pentesting Practice
 asdfasdfasdf
 
 <table>
-    <caption>Troubleshooting XAMPP Hack</caption>
+    <caption>Troubleshooting:  Initial Default Values Provided</caption>
     <tr>
     <th>Property</th>
     <th>Value</th>
