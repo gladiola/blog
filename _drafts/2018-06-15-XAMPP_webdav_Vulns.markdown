@@ -8,14 +8,14 @@ description: Exercising Known Vulns in XAMPP for Pentesting Practice
 asdfasdfasdf
 
 <table>
-    <caption>sdfgsdfg</caption>
+    <caption>Troubleshooting XAMPP Hack</caption>
     <tr>
     <th>Property</th>
     <th>Value</th>
     <th>Logical Impact</th>
     </tr>
-    <tr><th>XAMPP Version</th><td></td><td>asdf</td></tr>
-    <tr><th>asdf</th><td>asdf</td><td>asdf</td></tr>
+    <tr><th>XAMPP Version</th><td>1.6.0a</td><td>Vuln to known CVEs</td></tr>
+    <tr><th>VirtualBox VM</th><td>Windows 7 with IE11 VM</td><td>Simulated OS</td></tr>
 </table>
 
 ## Annotated Bibliography
