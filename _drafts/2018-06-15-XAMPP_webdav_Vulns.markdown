@@ -16,6 +16,11 @@ asdfasdfasdf
     </tr>
     <tr><th>XAMPP Version</th><td>1.6.0a</td><td>Vuln to known CVEs</td></tr>
     <tr><th>VirtualBox VM</th><td>Windows 7 with IE11 VM</td><td>Simulated OS</td></tr>
+    <tr><th>Metasploit Module</th><td>xampp_webdav_upload_php</td><td>Known working exploit</td></tr>
+    <tr><th></th><td></td><td></td></tr>
+    <tr><th></th><td></td><td></td></tr>
+    <tr><th></th><td></td><td></td></tr>
+    <tr><th></th><td></td><td></td></tr>
 </table>
 
 ## Annotated Bibliography
