@@ -13,7 +13,6 @@ asdfasdfasdf
     <th>asdf</th>
     <th>asdf</th>
     </tr>
-
     <tr><th>asdf</th><td>asdf</td></tr>
     <tr><th></th><td></td></tr>
     <tr><th></th><td></td></tr>
