@@ -5,8 +5,13 @@ description: Exercising Known Vulns in XAMPP for Pentesting Practice
 ---
 
 
-asdfasdfasdf
+## Abstract
+The goal is to hack into a box that is running a Windows VM that's holding an older version of XAMPP with known vulns.  We'll target webdav so that we can use a default metasploit module.  Both the attacker box and target box are in the same physical room on the same net, addressed by the same router.  With user-side access to both machines, they are available to troubleshoot.  When the initial hacks were attempted, the hack failed.  These notes are about why the hack failed, what was done to fix the lab, and what was discovered along the way.
 
+#### Setup
+<img src="https://github.com/gladiola/blog/blob/master/assets/images/XAMPPKali/Diagram_XAMPP_Kali.png" height="430" width="576">
+
+#### Summary Properties of the Machines
 <table>
     <caption>Troubleshooting:  Initial Default Values Provided</caption>
     <tr>
@@ -28,7 +33,7 @@ asdfasdfasdf
     <tr><th>PASSWORD</th><td>xampp</td><td>Default password for auth</td></tr>
 </table>
 
-<img src="https://github.com/gladiola/blog/blob/master/assets/images/XAMPPKali/Diagram_XAMPP_Kali.png" height="430" width="576">
+
 
 ## Annotated Bibliography
 \[1\] _____.  INTERNET: [`https://sourceforge.net/projects/xampp/files/XAMPP%20Windows/`](https://sourceforge.net/projects/xampp/files/XAMPP%20Windows/) 
