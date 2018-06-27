@@ -10,11 +10,11 @@ asdfasdfasdf
 <table>
     <caption>sdfgsdfg</caption>
     <tr>
-    <th></th>
-    <th></th>
+    <th>asdf</th>
+    <th>asdf</th>
     </tr>
 
-    <tr><th></th><td></td></tr>
+    <tr><th>asdf</th><td>asdf</td></tr>
     <tr><th></th><td></td></tr>
     <tr><th></th><td></td></tr>
     <tr><th></th><td></td></tr>
