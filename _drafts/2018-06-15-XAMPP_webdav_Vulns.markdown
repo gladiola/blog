@@ -48,7 +48,10 @@ The questions that were developed were:
 - Can we prove that the attack box could get near the target files?
 - Why was the exploit file not being uploaded to target as in the examples?
 
+## Prove Commo
+The first thing to do was to prove that the two boxes could communicate.  A simple `ping -c 5 <TARGET IP>` did it.  Using a browser, it was possible to call `http://<TARGET IP>/webdav` and see Apache serving a "Webdav test page," although no login challenge and reply was given.  It was just a plain html page.  
 
+    
 
 ## Annotated Bibliography
 \[1\] _____.  INTERNET: [`https://sourceforge.net/projects/xampp/files/XAMPP%20Windows/`](https://sourceforge.net/projects/xampp/files/XAMPP%20Windows/) 
