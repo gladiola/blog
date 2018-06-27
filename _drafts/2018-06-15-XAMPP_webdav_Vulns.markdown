@@ -17,10 +17,12 @@ asdfasdfasdf
     <tr><th>XAMPP Version</th><td>1.6.0a</td><td>Vuln to known CVEs</td></tr>
     <tr><th>VirtualBox VM</th><td>Windows 7 with IE11 VM</td><td>Simulated OS</td></tr>
     <tr><th>Metasploit Module</th><td>xampp_webdav_upload_php</td><td>Known working exploit</td></tr>
-    <tr><th></th><td></td><td></td></tr>
-    <tr><th></th><td></td><td></td></tr>
-    <tr><th></th><td></td><td></td></tr>
-    <tr><th></th><td></td><td></td></tr>
+    <tr>RHOST<th></th><td>192.168.1.9</td><td>Target address</td></tr>
+    <tr>RPORT<th></th><td>80</td><td>Target port</td></tr>
+    <tr>LHOST<th></th><td>192.168.1.10</td><td>Listen address</td></tr>
+    <tr>LPORT<th></th><td>4444</td><td>Listen port</td></tr>
+    <tr>USER<th></th><td>wampp</td><td>Default user for auth</td></tr>
+    <tr>PASSWORD<th></th><td>xampp</td><td>Default password for auth</td></tr>
 </table>
 
 ## Annotated Bibliography
@@ -56,6 +58,10 @@ Source code of the Metasploit module that I used as I was working against XAMPP 
 
 PHP Manual page on the proper use of the mssql_connect command that is associated with one of the CVEs.
 
+\[9\] Weidman, Georgia.  "Chapter 4:  Using the Metasploit Framework," Penetration Testing:  A Hands-On Introduction to Hacking.  No Starch Press.  pp.87-109.  ISBN 978-1-89327-564-8.
+
+Review of techniques to implement a simple attack with default settings with a metasploit module using the msfconsole.  
+
 [//]: # (Hyperlinks)
 [1]: https://sourceforge.net/projects/xampp/files/XAMPP%20Windows/
 [2]: https://www.cvedetails.com/cve/CVE-2007-2080/
@@ -65,3 +71,5 @@ PHP Manual page on the proper use of the mssql_connect command that is associate
 [6]: https://www.mkyong.com/apache/how-to-enable-webdav-in-apache-server-2-2-x-windows/
 [7]: https://www.exploit-db.com/exploits/18367/
 [8]: http://php.net/manual/en/function.mssql-connect.php
+[9]: ``
+[10]: 
