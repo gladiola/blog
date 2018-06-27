@@ -28,7 +28,7 @@ asdfasdfasdf
     <tr><th>PASSWORD</th><td>xampp</td><td>Default password for auth</td></tr>
 </table>
 
-<img src="https://github.com/gladiola/blog/assets/images/XAMPPKali/Diagram_XAMPP_Kali.png" height="430" width="576">
+<img src="https://github.com/gladiola/blog/blob/master/assets/images/XAMPPKali/Diagram_XAMPP_Kali.png" height="430" width="576">
 
 ## Annotated Bibliography
 \[1\] _____.  INTERNET: [`https://sourceforge.net/projects/xampp/files/XAMPP%20Windows/`](https://sourceforge.net/projects/xampp/files/XAMPP%20Windows/) 
