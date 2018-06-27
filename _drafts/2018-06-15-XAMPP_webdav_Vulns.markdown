@@ -15,7 +15,10 @@ asdfasdfasdf
     <th>Logical Impact</th>
     </tr>
     <tr><th>XAMPP Version</th><td>1.6.0a</td><td>Vuln to known CVEs</td></tr>
-    <tr><th>VirtualBox VM</th><td>Windows 7 with IE11 VM</td><td>Simulated OS</td></tr>
+    <tr><th>Target Machine:  VirtualBox VM</th><td>Windows 7 with IE11 VM</td><td>Simulated OS</td></tr>
+    <tr><th>Target Machine:  Host OS</th><td>WIN 10</td><td></td></tr>
+    <tr><th>Attacker Machine:  VirtualBox VM</th><td>Kali</td><td>Attack platform</td></tr>
+    <tr><th>Attacker Machine:  Host OS</th><td>FreeBSD 10.3 RELEASE</td><td>Attack platform OS</td></tr>
     <tr><th>Metasploit Module</th><td>xampp_webdav_upload_php</td><td>Known working exploit</td></tr>
     <tr><th>RHOST</th><td>192.168.1.9</td><td>Target address</td></tr>
     <tr><th>RPORT</th><td>80</td><td>Target port</td></tr>
