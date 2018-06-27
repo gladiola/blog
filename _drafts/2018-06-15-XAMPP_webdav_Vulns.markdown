@@ -12,6 +12,8 @@ The goal is to hack into a box that is running a Windows VM that's holding an ol
 <img src="https://github.com/gladiola/blog/blob/master/assets/images/XAMPPKali/Diagram_XAMPP_Kali.png" height="430" width="576">
 
 #### Summary Properties of the Machines
+Both boxes are running VMs with VirtualBox.  On the attacker box, we are using FreeBSD 10.3 and a Kali VM.  Since the box is FreeBSD, the usual sharing tools are not available.  Since I've used this VM to attack another VM on the same box before, I am aware that it can work.  On the target box, we are running WIN10 with VirtualBox running a Microsoft VM for WIN7 Enterpreise with IE11.  Inside that VM, I have installed XAMPP 1.6.0a.  
+
 <table>
     <caption>Troubleshooting:  Initial Default Values Provided</caption>
     <tr>
@@ -32,6 +34,19 @@ The goal is to hack into a box that is running a Windows VM that's holding an ol
     <tr><th>USER</th><td>wampp</td><td>Default user for auth</td></tr>
     <tr><th>PASSWORD</th><td>xampp</td><td>Default password for auth</td></tr>
 </table>
+
+## Metasploit Attack Tools and The Problem
+Based on the Exploit-db entry, and a review of the Metasploit module code [7], it looked like XAMPP would be setup with default credentials and be in use automatically.  A later review of the setup for webdav on a box [6] suggested that the tools for webdav might be installed, but the service might not necessarily be running if it was not fully enabled.  Meanwhile, there were tutorials that showed the exploit running in a default config [5] with no trouble.  The trouble I observed was that when the `exploit` command was given, the file would not upload.  It was as if a `201` was the HTTP Status given and received by the module code.  [7]
+
+The questions that were developed were:
+- Was the problem with the XAMPP webdav?
+- Was the signal getting through to the target?
+- Was there a permissions conflict?
+- Did XAMPP automatically enable webdav in the target directory?
+- Did we know that webdav was working on the target?
+- Were there problems with the way the Metasploit module was being used?
+- Can we prove that the attack box could get near the target files?
+- Why was the exploit file not being uploaded to target as in the examples?
 
 
 
