@@ -1,18 +1,16 @@
 ---
-title:  "Hacking XAMPP WEBDAV Vulns"
+title:  "Recon VulnHub's Bad Store"
 date:   2018-06-15 08:30:00
-description: Exercising Known Vulns in XAMPP for Pentesting Practice
+description: Practice Notes on Reconaissance of BadStore.iso
 ---
 
-
-## Abstract
-The goal is to hack into a box that is running a Windows VM that's holding an older version of XAMPP with known vulns.  We'll target webdav so that we can use a default metasploit module.  Both the attacker box and target box are in the same physical room on the same net, addressed by the same router.  With user-side access to both machines, they are available to troubleshoot.  When the initial hacks were attempted, the hack failed.  These notes are about why the hack failed, what was done to fix the lab, and what was discovered along the way.
+In this post, we'll cover adapting some of the recon techniques outlined in Georgia Weidman's book [9] to an unknown set of problems found in VulnHub's "Bad Store" ISO.  Our goal will be to use the VulnHub VM as a target.  We'll find what's possible by doing some scanning and enumeration.  
 
 #### Setup
 <img src="https://github.com/gladiola/blog/blob/master/assets/images/XAMPPKali/Diagram_XAMPP_Kali.png" height="430" width="576">
 
 #### Summary Properties of the Machines
-Both boxes are running VMs with VirtualBox.  On the attacker box, we are using FreeBSD 10.3 and a Kali VM.  Since the box is FreeBSD, the usual sharing tools are not available.  Since I've used this VM to attack another VM on the same box before, I am aware that it can work.  On the target box, we are running WIN10 with VirtualBox running a Microsoft VM for WIN7 Enterpreise with IE11.  Inside that VM, I have installed XAMPP 1.6.0a.  
+One box is holding the VulnHub VM; it's running VirtualBox; conducted some simple `ifconfig` and `ping` checks to make sure that it could communicate with other machines on the SOHO network.  Target box is the VM running on a WIN10 laptop.  Attacker box is the aquarium computer; it's running Kali3 in a mineral oil bath with an SSD and a submerged WiFi dongle.  
 
 <table>
     <caption>Troubleshooting:  Initial Default Values Provided</caption>
