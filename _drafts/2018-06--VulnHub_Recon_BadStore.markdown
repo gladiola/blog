@@ -23,7 +23,7 @@ One box is holding the VulnHub VM; it's running VirtualBox; conducted some simpl
     <tr><th>Target Machine:  VirtualBox VM</th><td>VulnHub Bad Store iso in VM</td><td>Target of unknown composition</td></tr>
     <tr><th>Target Machine:  Host OS</th><td>WIN 10</td><td>Target platform host OS</td></tr>
     <tr><th>Attacker Machine:  Kali</th><td>Kali 3</td><td>Live CD as Base OS</td></tr>
-    <tr><th>Target</th><td>192.168.1.9</td><td> `ifconfig` OK</td></tr>
+    <tr><th>Target</th><td>192.168.1.9</td><td><code>ifconfig</code> OK</td></tr>
     <tr><th>Attacker</th><td></td><td></td></tr>
 </table>
 
