@@ -12,6 +12,20 @@ In this post, we'll cover adapting some of the recon techniques outlined in Geor
 #### Summary Properties of the Machines
 One box is holding the VulnHub VM; it's running VirtualBox; conducted some simple `ifconfig` and `ping` checks to make sure that it could communicate with other machines on the SOHO network.  Target box is the VM running on a WIN10 laptop.  Attacker box is the aquarium computer; it's running Kali3 in a mineral oil bath with an SSD and a submerged WiFi dongle.  
 
+<table>
+    <caption>Troubleshooting:  Initial Default Values Provided</caption>
+    <tr>
+    <th>Property</th>
+    <th>Value</th>
+    <th>Logical Impact</th>
+    </tr>
+    <tr><th></th><td>1.6.0a</td><td>Vuln to known CVEs</td></tr>
+    <tr><th>Target Machine:  VirtualBox VM</th><td>VulnHub Bad Store iso in VM</td><td>Target of unknown composition</td></tr>
+    <tr><th>Target Machine:  Host OS</th><td>WIN 10</td><td>Target platform host OS</td></tr>
+    <tr><th>Attacker Machine:  Kali</th><td>Kali 3</td><td>Base OS</td></tr>
+    <tr><th>Target</th><td>192.168.1.9</td><td>`ifconfig` OK</td></tr>
+    <tr><th>Attacker</th><td></td><td></td></tr>
+</table>
 
 
 
