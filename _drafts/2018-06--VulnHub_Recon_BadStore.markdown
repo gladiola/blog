@@ -27,7 +27,7 @@ One box is holding the VulnHub VM; it's running VirtualBox; conducted some simpl
     <tr><th>Attacker</th><td></td><td></td></tr>
 </table>
 
-
+Had a pretty good session.  Used Nessus to do some scans.  Poked around some directories turned up on an nmap scan.   Found and decoded some passwords laying out in the open.  Usernames are based on emails.  Tried to use Burpsuite to do a quick substitution.  Not there yet. Feel like I made some small progress.
 
 ## Annotated Bibliography
 \[1\]  Weidman, Georgia.  "Chapter 4:  Using the Metasploit Framework," Penetration Testing:  A Hands-On Introduction to Hacking.  No Starch Press.  pp.87-109.  ISBN 978-1-89327-564-8.
