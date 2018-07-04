@@ -107,8 +107,7 @@ PORT     STATE SERVICE
 3306/tcp open  mysql
 MAC Address: 00:26:C6:CC:BE:3A (Intel Corporate)
 
-
-# Nmap done at Thu Jun 28 21:58:26 2018 -- 1 IP address (1 host up) scanned in 0.91 seconds
+Nmap done at Thu Jun 28 21:58:26 2018 -- 1 IP address (1 host up) scanned in 0.91 seconds
 {% endhighlight %}
 
 {% highlight shell %}
