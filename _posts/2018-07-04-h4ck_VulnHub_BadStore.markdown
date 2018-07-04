@@ -14,7 +14,7 @@ In this post, we'll cover adapting some of the recon techniques outlined in Geor
 Published in 2004, "Bad Store" \[[4]\] is one of the oldest VMs available for these kinds of penetrations.  The VM target contains a poorly secured storefront website running on a Linux system with a MySQL database and some CGI programming.  The age of the target is significant in that we see much less CGI programming than we used to; also, we will see that the passing of time has revealed new vulnerabilities in the technologies used in the VM that may not have been a part of the initial exercises.
 
 ### Setup
-<img src="https://github.com/gladiola/blog/blob/master/assets/images/KaliBadStore/Diagram_Kali_BadStore.png" height="361" width="436">
+![Diagram showing Kali and Bad Store VM](https://github.com/gladiola/blog/raw/master/assets/images/KaliBadStore/Diagram_Kali_BadStore.png)
 
 ### Summary Properties of the Machines
 One box is holding the VulnHub VM; it's running VirtualBox; conducted some simple `ifconfig` and `ping` checks to make sure that it could communicate with other machines on the SOHO network.  Target box is the VM running on a WIN10 laptop.  On the attacker box, we are using FreeBSD 10.3 and a Kali VM.
