@@ -4,14 +4,14 @@ date:   2018-07-04 08:30:00
 description: Notes on Hacking Vulnhub's "Bad Store" VM
 ---
 
-In this post, we'll cover adapting some of the recon techniques outlined in Georgia Weidman's book \[1\]\[2\]\[3\] to an unknown set of problems found in VulnHub's "Bad Store" ISO.  Our goal will be to use the VulnHub VM as a target.  We'll find what's possible by doing some scanning and enumeration. From there, we'll look at some exploits.  
+In this post, we'll cover adapting some of the recon techniques outlined in Georgia Weidman's book \[1\]\[2\]\[3\] to an unknown set of problems found in VulnHub's "Bad Store" ISO. [4]  Our goal will be to use the VulnHub VM as a target.  We'll find what's possible by doing some scanning and enumeration. From there, we'll look at some exploits.  
 
 ### Spoilers
 <blockquote>
     Throughout this post, we'll reveal some aspects of the "Bad Store" target.  Please note that by looking at some of these details, the VM's instructional quality as a target of unknown composition might be diminished to hackers who will want use the target for technical growth and professional development.  Experience recommends thorough use of the target VM before referring to resources such as these.
 </blockquote>
 
-Published in 2004, "Bad Store" is one of the oldest VMs available for these kinds of penetrations.  The VM target contains a poorly secured storefront website running on a Linux system with a MySQL database and some CGI programming.  The age of the target is significant in that we see much less CGI programming than we used to; also, we will see that the passing of time has revealed new vulnerabilities in the technologies used in the VM that may not have been a part of the initial exercises.
+Published in 2004, "Bad Store" [4] is one of the oldest VMs available for these kinds of penetrations.  The VM target contains a poorly secured storefront website running on a Linux system with a MySQL database and some CGI programming.  The age of the target is significant in that we see much less CGI programming than we used to; also, we will see that the passing of time has revealed new vulnerabilities in the technologies used in the VM that may not have been a part of the initial exercises.
 
 ### Setup
 <img src="https://github.com/gladiola/blog/blob/master/assets/images/KaliBadStore/Diagram_Kali_BadStore.png" height="361" width="436">
@@ -51,11 +51,11 @@ Review of techniques to implement Nessus scans, <code>nmap</code> scans, and <co
 
 Review of techniques to implement substitution of values sent with Burp Suite, using <code>sqlmap</code> for SQLi, and understanding local and remote file inclusion attacks.
 
-
+\[4\]  _____.  "Bad Store 1.2.3," Vulnhub.  INTERNET:  `https://www.vulnhub.com/entry/badstore-123,41/` 
 
 
 [//]: # (Hyperlinks)
 [1]:  ``
 [2]: ``
 [3]: ``
-[4]:  
+[4]:  https://www.vulnhub.com/entry/badstore-123,41/
