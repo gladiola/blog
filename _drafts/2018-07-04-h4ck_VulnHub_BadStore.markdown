@@ -81,8 +81,13 @@ Later on, I would like to see if we can actually make modifications to repair, m
 ## Vulnerability Scanning "Bad Store"
 To support a Reconnaissance phase, we conducted four kinds of vulnerability scans.  Two were Nessus scans (basic network and web applications); one was a collection on `nmap` scans of TCP and UDP protocol ports; another was a `nikto` scan.  We also did some manual observation of the website (directory traversal and simple injection probing), and a `sqlmap` scan; those will be covered separately.  It's obvious that this was very noisy reconnaissance; but, there are no points for stealth going against a home lab VM.  Let's look at what we can learn from these scans.
 
-### nmap scan for TCP
+### Nessus scans for the site
+
+
+
+### nmap scan for TCP, UDP, and versions
 Our collection of `nmap` scans were done to find TCP and UDP ports that might be open.  The scans were run with code like:
+
 {% highlight shell %}
 nmap -sS -oA badStore_nmap 192.168.1.9 
 nmap -sU -oA badStore_nmapU 192.168.1.9
@@ -130,6 +135,21 @@ MAC Address: 00:26:C6:CC:BE:3A (Intel Corporate)
 Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
 # Nmap done at Thu Jun 28 22:00:04 2018 -- 1 IP address (1 host up) scanned in 16.55 seconds
 {% endhighlight %}
+
+So, what does this tell us?  We can see that those three ports are open and nothing else.  This will let us see that we will need to focus on programs that serve HTTP(S) and MySQL.  Trying to attack other applications will probably be fruitless.  
+
+## sqlmap scanning
+
+Since we do have a website up, and since it is running MySQL, it only takes a quick jump to suppose that we might have a chance at getting everything with a quick run of `sqlmap`.  What happens when we give that a try?
+
+## Manual directory checks and source code reading
+One of the first things we can do is to look at the website.  
+- Are there any forms?  
+- Does it react to URL encoding?  
+- Does the source code seem to pull down any outside scripts?  
+- Where are other assets stored?  
+
+Given those questions, we can go hunting for plenty of vulnerabilities without any scanning tools.  What turns up?
 
 
 
