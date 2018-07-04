@@ -16,8 +16,6 @@ Published in 2004, "Bad Store" \[[4]\] is one of the oldest VMs available for th
 ### Setup
 ![Diagram showing Kali and Bad Store VM]({{ site.url }}/assets/images/KaliBadStore/Diagram_Kali_BadStore.png)
 
-You can download the PDF [here]({{ site.url }}/assets/document.pdf).
-
 
 ### Summary Properties of the Machines
 One box is holding the VulnHub VM; it's running VirtualBox; conducted some simple `ifconfig` and `ping` checks to make sure that it could communicate with other machines on the SOHO network.  Target box is the VM running on a WIN10 laptop.  On the attacker box, we are using FreeBSD 10.3 and a Kali VM.
@@ -77,9 +75,10 @@ Later on, I would like to see if we can actually make modifications to repair, m
 ## Vulnerability Scanning "Bad Store"
 To support a Reconnaissance phase, we conducted four kinds of vulnerability scans.  Two were Nessus scans (basic network and web applications); one was a collection on `nmap` scans of TCP and UDP protocol ports; another was a `nikto` scan.  We also did some manual observation of the website (directory traversal and simple injection probing), and a `sqlmap` scan; those will be covered separately.  It's obvious that this was very noisy reconnaissance; but, there are no points for stealth going against a home lab VM.  Let's look at what we can learn from these scans.
 
-{% highlight ruby %}
-some code
+{% highlight XML %}
+![XML include]({{ site.url }}/assets/supportingFiles/KaliBadStore/badStore_nmap.xml)
 {% endhighlight %}
+
 
 
 ## Annotated Bibliography
