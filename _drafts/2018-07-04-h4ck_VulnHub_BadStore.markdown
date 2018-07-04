@@ -6,8 +6,8 @@ description: Notes on Hacking Vulnhub's "Bad Store" VM
 
 In this post, we'll cover adapting some of the recon techniques outlined in Georgia Weidman's book \[1\]\[2\]\[3\] to an unknown set of problems found in VulnHub's "Bad Store" ISO.  Our goal will be to use the VulnHub VM as a target.  We'll find what's possible by doing some scanning and enumeration. From there, we'll look at some exploits.  
 
+### Spoilers
 <blockquote>
-    ### Spoilers
     Throughout the post, we'll reveal some aspects of the "Bad Store" target.  Please note that by looking at some of these details, the VM's instructional quality as a target of unknown composition might be diminished to hackers who use the target for technical growth and professional development.  Experience recommends thorough use of the taget VM before referring to resources such as these.
 </blockquote>
 
