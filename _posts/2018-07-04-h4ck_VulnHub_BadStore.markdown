@@ -77,11 +77,11 @@ To support a Reconnaissance phase, we conducted four kinds of vulnerability scan
 
 {% highlight %}
 
-{% include_relative /assets/supportingFiles/KaliBadStore/badStore_nmap.xml %}
+{% include_relative supportingFiles/KaliBadStore/badStore_nmap.xml %}
 
 {% endhighlight %}
 
-{% include_relative /assets/supportingFiles/KaliBadStore/badStore_nmap.xml %}
+{% include_relative supportingFiles/KaliBadStore/badStore_nmap.xml %}
 
 ## Annotated Bibliography
 \[1\]  Weidman, Georgia.  "Chapter 4:  Using the Metasploit Framework," Penetration Testing:  A Hands-On Introduction to Hacking.  No Starch Press.  pp.87-109.  ISBN 978-1-89327-564-8.
