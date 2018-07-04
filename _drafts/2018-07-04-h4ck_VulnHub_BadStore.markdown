@@ -97,7 +97,7 @@ nmap -sV -oA badStore_nmapV 192.168.1.9
 And provided code output files like the blocks below.  The small difference among the scans was to have `nmap` look for slightly different protocol-related ports.  The default scans look for 1000 ports; one search did TCP, another UDP, and the verbose provided a little more output about the versions found. \[2\]
 
 {% highlight shell %}
-# Nmap 7.25BETA1 scan initiated Thu Jun 28 21:58:25 2018 as: nmap -sS -oA badStore_nmap 192.168.1.9
+Nmap 7.25BETA1 scan initiated Thu Jun 28 21:58:25 2018 as: nmap -sS -oA badStore_nmap 192.168.1.9
 Nmap scan report for 192.168.1.9
 Host is up (0.0097s latency).
 Not shown: 997 closed ports
@@ -112,17 +112,17 @@ MAC Address: 00:26:C6:CC:BE:3A (Intel Corporate)
 {% endhighlight %}
 
 {% highlight shell %}
-# Nmap 7.25BETA1 scan initiated Thu Jun 28 22:01:06 2018 as: nmap -sU -oA badStore_nmapU 192.168.1.9
+Nmap 7.25BETA1 scan initiated Thu Jun 28 22:01:06 2018 as: nmap -sU -oA badStore_nmapU 192.168.1.9
 Nmap scan report for 192.168.1.9
 Host is up (0.014s latency).
 All 1000 scanned ports on 192.168.1.9 are closed (957) or open|filtered (43)
 MAC Address: 00:26:C6:CC:BE:3A (Intel Corporate)
 
-# Nmap done at Thu Jun 28 22:18:24 2018 -- 1 IP address (1 host up) scanned in 1037.61 seconds
+Nmap done at Thu Jun 28 22:18:24 2018 -- 1 IP address (1 host up) scanned in 1037.61 seconds
 {% endhighlight %}
 
 {% highlight shell %}
-# Nmap 7.25BETA1 scan initiated Thu Jun 28 21:59:48 2018 as: nmap -sV -oA badStore_nmapV 192.168.1.9
+Nmap 7.25BETA1 scan initiated Thu Jun 28 21:59:48 2018 as: nmap -sV -oA badStore_nmapV 192.168.1.9
 Nmap scan report for 192.168.1.9
 Host is up (0.0093s latency).
 Not shown: 997 closed ports
@@ -133,7 +133,7 @@ PORT     STATE SERVICE  VERSION
 MAC Address: 00:26:C6:CC:BE:3A (Intel Corporate)
 
 Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
-# Nmap done at Thu Jun 28 22:00:04 2018 -- 1 IP address (1 host up) scanned in 16.55 seconds
+Nmap done at Thu Jun 28 22:00:04 2018 -- 1 IP address (1 host up) scanned in 16.55 seconds
 {% endhighlight %}
 
 So, what does this tell us?  We can see that those three ports are open and nothing else.  This will let us see that we will need to focus on programs that serve HTTP(S) and MySQL.  Trying to attack other applications will probably be fruitless.  
