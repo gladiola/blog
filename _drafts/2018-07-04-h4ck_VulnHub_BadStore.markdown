@@ -87,7 +87,7 @@ Website listing details of the VM on Vulnhub.  Includes screenshots and links to
 
 \[5\]  Brotherston, Lee and Amanda Berlin.  Defensive Security Handbook:  Best Practices for Securing Infrastructure.  O'Reilly, April 2017. pp. 6-9. ISBN 978-1-491-96038-7. 
 
-A description of Lockheed-Martin's Intusion Kill Chain.  
+A description of Lockheed-Martin's Intusion Kill Chain.  Brotherston and Berlin applied their use case of an overview of a ransomware attack to the phases of Lockheed's kill chain.  Their definitions and example serves as guidance for the contstruction of our own, here.
 
 <table>
     <tr><td></td></tr>
