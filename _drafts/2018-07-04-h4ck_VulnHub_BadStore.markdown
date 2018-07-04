@@ -42,10 +42,10 @@ If communication among the boxes cannot be established, then a common point to c
 These commo checks may seem elementary; but, knowing IP addresses and having smooth commo among the boxes can be of help when exporting data.  Kali, in the configuration I was using, did not have an `ftp` command in the terminal.  Also, the FreeBSD version I was using did not have a simple `automount` So, to get files into and out of the attack box, I used FTP uploads through an intermediary website, PuTTY, `ssh`, and `scp`.  Since those details are particular to my setup, I won't cover most of those here.  Meanwhile, in most situations where I have had to use VMs on a variety of systems, being proficient with those kinds of file transfers was a handy skill to have.
 
 ## Kill Chains and Attacking Actions
-Throughout our discussion, we'll try to relate the use of commands in Kali to analysis actions that use the Lockheed-Martin Intrusion Kill Chain.  Brotherston and Berlin, writing in the Defensive Security Handbook, presented an example use case in this format that allowed us to see all sides of the attack. \[[5]\] They included defensive actions and monitoring in correlations with phases of the kill chain.  Their chart headers looked similar to the one below.
+Throughout our discussion, we'll try to relate the use of commands in Kali to analysis actions that use the Lockheed-Martin Intrusion Kill Chain.  Brotherston and Berlin, writing in the Defensive Security Handbook, presented an example use case in this format that allowed us to see all sides of the attack. \[5\] They included defensive actions and monitoring in correlations with phases of the kill chain.  Their chart headers looked similar to the one below.
 
 <table>
-    <caption>Brotherston-Berlin Use Case Format [5]</caption>
+    <caption>Brotherston-Berlin Use Case Format \[5\]</caption>
     <thead>
        <tr><th>Kill Chain Step</th><th>Malicious Action</th><th>Defensive Mitigation</th><th>Potential Monitoring</th></tr> 
     </thead>
@@ -74,7 +74,7 @@ Later on, I would like to see if we can actually make modifications to repair, m
 ## Vulnerability Scanning "Bad Store"
 To support a Reconnaissance phase, we conducted four kinds of vulnerability scans.  Two were Nessus scans (basic network and web applications); one was a collection on `nmap` scans of TCP and UDP protocol ports; another was a `nikto` scan.  We also did some manual observation of the website (directory traversal and simple injection probing), and a `sqlmap` scan; those will be covered separately.  It's obvious that this was very noisy reconnaissance; but, there are no points for stealth going against a home lab VM.  Let's look at what we can learn from these scans.
 
-      
+
 
 
 ## Annotated Bibliography
@@ -133,3 +133,5 @@ A description of Lockheed-Martin's Intusion Kill Chain.  Brotherston and Berlin 
 [2]: ``
 [3]: ``
 [4]:  https://www.vulnhub.com/entry/badstore-123,41/
+[5]: ``
+[6]: 
