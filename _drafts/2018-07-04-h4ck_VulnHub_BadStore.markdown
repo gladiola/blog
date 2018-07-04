@@ -20,7 +20,7 @@ Published in 2004, "Bad Store" \[[4]\] is one of the oldest VMs available for th
 One box is holding the VulnHub VM; it's running VirtualBox; conducted some simple `ifconfig` and `ping` checks to make sure that it could communicate with other machines on the SOHO network.  Target box is the VM running on a WIN10 laptop.  On the attacker box, we are using FreeBSD 10.3 and a Kali VM.
 
 <table>
-    <caption>Initial Default Values Provided</caption>
+    <caption>Initial Commo Checks and Basic Configuation</caption>
     <tr>
     <th>Property</th>
     <th>Value</th>
@@ -34,7 +34,12 @@ One box is holding the VulnHub VM; it's running VirtualBox; conducted some simpl
     <tr><th>Attacker</th><td>192.168.1.10</td><td><code>ifconfig</code> OK</td></tr>
 </table>
 
-Had a pretty good session.  
+## Proving COMMO
+Since we don't have a need for stealth and do have direct access to the controls of both VMs, we'll start off with a simple commo check between the boxes.  By using `ping -c 5 <DESTINATION IP ADDRESS>` and `ifconfig` on both VMs, we could reasonably see that the boxes were communicating.  
+
+If communication among the boxes cannot be established, then a common point to check is the VM network adapter.  Another similar troubleshooting check will be to see if a command line or terminal on the host system can communicate with the VM, and vice versa.  
+
+These commo checks may seem elementary; but, knowing IP addresses and having smooth commo among the boxes can be of help when exporting data.  Kali, in the configuration I was using, did not have an `ftp` command in the terminal.  Also, the FreeBSD version I was using did not have a simple `automount` So, to get files into and out of the attack box, I used FTP uploads through an intermediary website, PuTTY, `ssh`, and `scp`.  Since those details are particular to my setup, I won't cover most of those here.  Meanwhile, in most situations where I have had to use VMs on a variety of systems, being proficient with those kinds of file transfers was a handy skill to have.
 
 ## Kill Chains and Attacking Actions
 Throughout our discussion, we'll try to relate the use of commands in Kali to analysis actions that use the Lockheed-Martin Intrusion Kill Chain.  Brotherston and Berlin, writing in the Defensive Security Handbook, presented an example use case in this format that allowed us to see all sides of the attack. \[[5]\] They included defensive actions and monitoring in correlations with phases of the kill chain.  Their chart headers looked similar to the one below.
@@ -66,6 +71,7 @@ Our needs here are a little different, so we'll modify our chart while following
 
 Later on, I would like to see if we can actually make modifications to repair, modify, or defend that VM, after our penetrations.  For now, that goal will have to remain part of our ambitions, as we work through getting in to the box and learning about the website that's covered in the VM.
 
+## Vulnerability Scanning Bad Store
 
 
 ## Annotated Bibliography
