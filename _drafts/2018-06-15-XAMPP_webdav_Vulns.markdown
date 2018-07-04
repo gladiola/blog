@@ -1,6 +1,6 @@
 ---
 title:  "Hacking XAMPP WEBDAV Vulns"
-date:   2018-06-15 08:30:00
+date:   2018-06-26 08:30:00
 description: Exercising Known Vulns in XAMPP for Pentesting Practice
 ---
 
