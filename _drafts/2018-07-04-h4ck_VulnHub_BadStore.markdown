@@ -45,7 +45,7 @@ These commo checks may seem elementary; but, knowing IP addresses and having smo
 Throughout our discussion, we'll try to relate the use of commands in Kali to analysis actions that use the Lockheed-Martin Intrusion Kill Chain.  Brotherston and Berlin, writing in the Defensive Security Handbook, presented an example use case in this format that allowed us to see all sides of the attack. \[5\] They included defensive actions and monitoring in correlations with phases of the kill chain.  Their chart headers looked similar to the one below.
 
 <table>
-    <caption>Brotherston-Berlin Use Case Format \[5\]</caption>
+    <caption>Brotherston-Berlin Use Case Format [5]</caption>
     <thead>
        <tr><th>Kill Chain Step</th><th>Malicious Action</th><th>Defensive Mitigation</th><th>Potential Monitoring</th></tr> 
     </thead>
