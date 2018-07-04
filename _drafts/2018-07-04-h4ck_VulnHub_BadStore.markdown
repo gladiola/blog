@@ -74,12 +74,23 @@ Later on, I would like to see if we can actually make modifications to repair, m
 
 ## Vulnerability Scanning "Bad Store"
 To support a Reconnaissance phase, we conducted four kinds of vulnerability scans.  Two were Nessus scans (basic network and web applications); one was a collection on `nmap` scans of TCP and UDP protocol ports; another was a `nikto` scan.  We also did some manual observation of the website (directory traversal and simple injection probing), and a `sqlmap` scan; those will be covered separately.  It's obvious that this was very noisy reconnaissance; but, there are no points for stealth going against a home lab VM.  Let's look at what we can learn from these scans.
+
+### nmap scan for TCP
+`nmap -sS -oA badStore_nmap 192.168.1.9`
 {% highlight %}
-asdf
+\# Nmap 7.25BETA1 scan initiated Thu Jun 28 21:58:25 2018 as: nmap -sS -oA badStore_nmap 192.168.1.9
+Nmap scan report for 192.168.1.9
+Host is up (0.0097s latency).
+Not shown: 997 closed ports
+PORT     STATE SERVICE
+80/tcp   open  http
+443/tcp  open  https
+3306/tcp open  mysql
+MAC Address: 00:26:C6:CC:BE:3A (Intel Corporate)
+
+\# Nmap done at Thu Jun 28 21:58:26 2018 -- 1 IP address (1 host up) scanned in 0.91 seconds
 {% endhighlight %}
 
-
-{% include_relative supportingFiles/KaliBadStore/badStore_nmap.nmap %}
 
 
 
