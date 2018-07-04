@@ -36,7 +36,26 @@ One box is holding the VulnHub VM; it's running VirtualBox; conducted some simpl
 
 Had a pretty good session.  
 
+<table>
+    <thead>
+       <tr><th>Kill Chain Step</th><th>Malicious Action</th><th>Defensive Mitigation</th><th>Potential Monitoring</th></tr> 
+    </thead>
+</table>
 
+<table>
+    <thead>
+       <tr><th>Kill Chain Step</th><th>Attacking Action</th><th>Observation</th></tr> 
+    </thead>
+    <tbody>
+    <tr><th>Reconnaissance</th><td></td><td></td></tr>
+    <tr><th>Weaponization</th><td></td><td></td></tr>
+    <tr><th>Delivery</th><td></td><td></td></tr>
+    <tr><th>Exploitation</th><td></td><td></td></tr>
+    <tr><th>Installation</th><td></td><td></td></tr>
+    <tr><th>Command and Control</th><td></td><td></td></tr>
+    <tr><th>Actions and Objectives</th><td></td><td></td></tr>
+    </tbody>
+</table>
 
 ## Annotated Bibliography
 \[1\]  Weidman, Georgia.  "Chapter 4:  Using the Metasploit Framework," Penetration Testing:  A Hands-On Introduction to Hacking.  No Starch Press.  pp.87-109.  ISBN 978-1-89327-564-8.
@@ -55,6 +74,37 @@ Review of techniques to implement substitution of values sent with Burp Suite, u
 
 Website listing details of the VM on Vulnhub.  Includes screenshots and links to download URLs.
 
+\[5\]  Brotherston, Lee and Amanda Berlin.  Defensive Security Handbook:  Best Practices for Securing Infrastructure.  O'Reilly, April 2017. pp. 6-9. ISBN 978-1-491-96038-7. 
+
+A description of Lockheed-Martin's Intusion Kill Chain.  
+
+<table>
+    <tr><td></td></tr>
+</table>
+
+<table>
+    <thead>
+       <tr><th>Kill Chain Step</th><th>Malicious Action</th><th>Defensive Mitigation</th><th>Potential Monitoring</th></tr> 
+    </thead>
+    <tbody>
+    <tr><th></th><td></td><td></td><td></td></tr>
+    </tbody>
+</table>
+
+<table>
+    <thead>
+       <tr><th>Kill Chain Step</th><th>Attacking Action</th><th>Observation</th></tr> 
+    </thead>
+    <tbody>
+    <tr><th>Reconnaissance</th><td></td><td></td></tr>
+    <tr><th>Weaponization</th><td></td><td></td></tr>
+    <tr><th>Delivery</th><td></td><td></td></tr>
+    <tr><th>Exploitation</th><td></td><td></td></tr>
+    <tr><th>Installation</th><td></td><td></td></tr>
+    <tr><th>Command and Control</th><td></td><td></td></tr>
+    <tr><th>Actions and Objectives</th><td></td><td></td></tr>
+    </tbody>
+</table>
 
 [//]: # (Hyperlinks)
 [1]:  ``
