@@ -71,7 +71,10 @@ Our needs here are a little different, so we'll modify our chart while following
 
 Later on, I would like to see if we can actually make modifications to repair, modify, or defend that VM, after our penetrations.  For now, that goal will have to remain part of our ambitions, as we work through getting in to the box and learning about the website that's covered in the VM.
 
-## Vulnerability Scanning Bad Store
+## Vulnerability Scanning "Bad Store"
+To support a Reconnaissance phase, we conducted several vulnerability scans.  Two were Nessus scans (basic network and web applications); one was a collection on `nmap` scans of TCP and UDP protocol ports; another was a `nikto` scan.  
+
+We also did some manual observation of the website (directory traversal and simple injection probing), and a `sqlmap` scan; those will be covered separately.      
 
 
 ## Annotated Bibliography
@@ -95,6 +98,8 @@ Website listing details of the VM on Vulnhub.  Includes screenshots and links to
 
 A description of Lockheed-Martin's Intusion Kill Chain.  Brotherston and Berlin applied their use case of an overview of a ransomware attack to the phases of Lockheed's kill chain.  Their definitions and example serves as guidance for the contstruction of our own, here.
 
+
+## Spare Parts
 <table>
     <tr><td></td></tr>
 </table>
