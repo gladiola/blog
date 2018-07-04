@@ -77,7 +77,7 @@ To support a Reconnaissance phase, we conducted four kinds of vulnerability scan
 
 ### nmap scan for TCP
 `nmap -sS -oA badStore_nmap 192.168.1.9`
-{% highlight %}
+{% highlight shell %}
 \# Nmap 7.25BETA1 scan initiated Thu Jun 28 21:58:25 2018 as: nmap -sS -oA badStore_nmap 192.168.1.9
 Nmap scan report for 192.168.1.9
 Host is up (0.0097s latency).
