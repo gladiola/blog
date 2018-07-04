@@ -37,6 +37,7 @@ One box is holding the VulnHub VM; it's running VirtualBox; conducted some simpl
 Had a pretty good session.  
 
 <table>
+    <caption>Brotherston-Berlin Use Case Format [5]</caption>
     <thead>
        <tr><th>Kill Chain Step</th><th>Malicious Action</th><th>Defensive Mitigation</th><th>Potential Monitoring</th></tr> 
     </thead>
