@@ -37,10 +37,9 @@ One box is holding the VulnHub VM; it's running VirtualBox; conducted some simpl
 
 ## Proving COMMO
 Since we don't have a need for stealth and do have direct access to the controls of both VMs, we'll start off with a simple commo check between the boxes.  By using 
-``` shell
+{% highlight shell %}
 ping -c 5 <DESTINATION IP ADDRESS>
-``` 
-
+{% endhighlight %}
 and **ifconfig** on both VMs, we could reasonably see that the boxes were communicating.  
 
 If communication among the boxes cannot be established, then a common point to check is the VM network adapter.  Another similar troubleshooting check will be to see if a command line or terminal on the host system can communicate with the VM, and vice versa.  
@@ -81,9 +80,9 @@ Later on, I would like to see if we can actually make modifications to repair, m
 To support a Reconnaissance phase, we conducted four kinds of vulnerability scans.  Two were Nessus scans (basic network and web applications); one was a collection on **nmap** scans of TCP and UDP protocol ports; another was a **nikto**scan.  We also did some manual observation of the website (directory traversal and simple injection probing), and a **sqlmap** scan; those will be covered separately.  It's obvious that this was very noisy reconnaissance; but, there are no points for stealth going against a home lab VM.  Let's look at what we can learn from these scans.
 
 ### nmap scan for TCP
-``` shell
+{% highlight shell %}
  nmap -sS -oA badStore_nmap 192.168.1.9 
-```
+{% endhighlight %}
 
 {% highlight shell %}
 # Nmap 7.25BETA1 scan initiated Thu Jun 28 21:58:25 2018 as: nmap -sS -oA badStore_nmap 192.168.1.9
