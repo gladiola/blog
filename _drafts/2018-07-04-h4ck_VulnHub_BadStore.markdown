@@ -51,7 +51,9 @@ Review of techniques to implement Nessus scans, <code>nmap</code> scans, and <co
 
 Review of techniques to implement substitution of values sent with Burp Suite, using <code>sqlmap</code> for SQLi, and understanding local and remote file inclusion attacks.
 
-\[4\]  _____.  "Bad Store 1.2.3," Vulnhub.  INTERNET:  `https://www.vulnhub.com/entry/badstore-123,41/` 
+\[4\]  _____.  "Bad Store 1.2.3," Vulnhub.  INTERNET:  [`https://www.vulnhub.com/entry/badstore-123,41/`](https://www.vulnhub.com/entry/badstore-123,41/) 
+
+Website listing details of the VM on Vulnhub.  Includes screenshots and links to download URLs.
 
 
 [//]: # (Hyperlinks)
