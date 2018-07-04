@@ -36,6 +36,9 @@ One box is holding the VulnHub VM; it's running VirtualBox; conducted some simpl
 
 Had a pretty good session.  
 
+## Kill Chains and Attacking Actions
+Throughout our discussion, we'll try to relate the use of commands in Kali to analysis actions that use the Lockheed-Martin Intrusion Kill Chain.  Brotherston and Berlin, writing in the Defensive Security Handbook, presented an example use case in this format that allowed us to see all sides of the attack. \[[5]\] They included defensive actions and monitoring in correlations with phases of the kill chain.  Their chart headers looked similar to the one below.
+
 <table>
     <caption>Brotherston-Berlin Use Case Format [5]</caption>
     <thead>
@@ -43,7 +46,10 @@ Had a pretty good session.
     </thead>
 </table>
 
+Our needs here are a little different, so we'll modify our chart while following along from their example.  Since this is not a real attack; and since our view is mainly from the penetrator's perspective, we'll abbreviate a summary of some of the steps by relating an attacking action to a step in the kill chain and an observation, using tables like the one below.
+
 <table>
+    <caption>Command to Kill Chain Step Summary</caption>
     <thead>
        <tr><th>Kill Chain Step</th><th>Attacking Action</th><th>Observation</th></tr> 
     </thead>
@@ -57,6 +63,10 @@ Had a pretty good session.
     <tr><th>Actions and Objectives</th><td></td><td></td></tr>
     </tbody>
 </table>
+
+Later on, I would like to see if we can actually make modifications to repair, modify, or defend that VM, after our penetrations.  For now, that goal will have to remain part of our ambitions, as we work through getting in to the box and learning about the website that's covered in the VM.
+
+
 
 ## Annotated Bibliography
 \[1\]  Weidman, Georgia.  "Chapter 4:  Using the Metasploit Framework," Penetration Testing:  A Hands-On Introduction to Hacking.  No Starch Press.  pp.87-109.  ISBN 978-1-89327-564-8.
