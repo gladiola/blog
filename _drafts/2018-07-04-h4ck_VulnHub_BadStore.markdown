@@ -76,6 +76,7 @@ To support a Reconnaissance phase, we conducted four kinds of vulnerability scan
 
 <iframe width=100 height=100 src="./assets/supportingFiles/KaliBadStore/salvage13_BadStore_Web_e1yrt4.html" ></iframe>
 
+{{ {% include_relative somedir/footer.html %} }}
 
 
 ## Annotated Bibliography
