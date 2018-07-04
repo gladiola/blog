@@ -11,6 +11,8 @@ In this post, we'll cover adapting some of the recon techniques outlined in Geor
     Throughout this post, we'll reveal some aspects of the "Bad Store" target.  Please note that by looking at some of these details, the VM's instructional quality as a target of unknown composition might be diminished to hackers who will want use the target for technical growth and professional development.  Experience recommends thorough use of the target VM before referring to resources such as these.
 </blockquote>
 
+
+
 Published in 2004, "Bad Store" \[[4]\] is one of the oldest VMs available for these kinds of penetrations.  The VM target contains a poorly secured storefront website running on a Linux system with a MySQL database and some CGI programming.  The age of the target is significant in that we see much less CGI programming than we used to; also, we will see that the passing of time has revealed new vulnerabilities in the technologies used in the VM that may not have been a part of the initial exercises.
 
 ### Setup
@@ -40,11 +42,11 @@ Since we don't have a need for stealth and do have direct access to the controls
 {% highlight shell %}
 ping -c 5 <DESTINATION IP ADDRESS>
 {% endhighlight %}
-and **ifconfig** on both VMs, we could reasonably see that the boxes were communicating.  
+and `ifconfig` on both VMs, we could reasonably see that the boxes were communicating.  
 
 If communication among the boxes cannot be established, then a common point to check is the VM network adapter.  Another similar troubleshooting check will be to see if a command line or terminal on the host system can communicate with the VM, and vice versa.  
 
-These commo checks may seem elementary; but, knowing IP addresses and having smooth commo among the boxes can be of help when exporting data.  Kali, in the configuration I was using, did not have an **ftp** command in the terminal.  Also, the FreeBSD version I was using did not have a simple **automount** So, to get files into and out of the attack box, I used FTP uploads through an intermediary website, **PuTTY**, **ssh**, and **scp**.  Since those details are particular to my setup, I won't cover most of those here.  Meanwhile, in most situations where I have had to use VMs on a variety of systems, being proficient with those kinds of file transfers was a handy skill to have.
+These commo checks may seem elementary; but, knowing IP addresses and having smooth commo among the boxes can be of help when exporting data.  Kali, in the configuration I was using, did not have an `ftp` command in the terminal.  Also, the FreeBSD version I was using did not have a simple `automount` So, to get files into and out of the attack box, I used FTP uploads through an intermediary website, `PuTTY`, `ssh`, and `scp`.  Since those details are particular to my setup, I won't cover most of those here.  Meanwhile, in most situations where I have had to use VMs on a variety of systems, being proficient with those kinds of file transfers was a handy skill to have.
 
 ## Kill Chains and Attacking Actions
 Throughout our discussion, we'll try to relate the use of commands in Kali to analysis actions that use the Lockheed-Martin Intrusion Kill Chain.  Brotherston and Berlin, writing in the Defensive Security Handbook, presented an example use case in this format that allowed us to see all sides of the attack. \[5\] They included defensive actions and monitoring in correlations with phases of the kill chain.  Their chart headers looked similar to the one below.
@@ -77,12 +79,17 @@ Our needs here are a little different, so we'll modify our chart while following
 Later on, I would like to see if we can actually make modifications to repair, modify, or defend that VM, after our penetrations.  For now, that goal will have to remain part of our ambitions, as we work through getting in to the box and learning about the website that's covered in the VM.
 
 ## Vulnerability Scanning "Bad Store"
-To support a Reconnaissance phase, we conducted four kinds of vulnerability scans.  Two were Nessus scans (basic network and web applications); one was a collection on **nmap** scans of TCP and UDP protocol ports; another was a **nikto**scan.  We also did some manual observation of the website (directory traversal and simple injection probing), and a **sqlmap** scan; those will be covered separately.  It's obvious that this was very noisy reconnaissance; but, there are no points for stealth going against a home lab VM.  Let's look at what we can learn from these scans.
+To support a Reconnaissance phase, we conducted four kinds of vulnerability scans.  Two were Nessus scans (basic network and web applications); one was a collection on `nmap` scans of TCP and UDP protocol ports; another was a `nikto` scan.  We also did some manual observation of the website (directory traversal and simple injection probing), and a `sqlmap` scan; those will be covered separately.  It's obvious that this was very noisy reconnaissance; but, there are no points for stealth going against a home lab VM.  Let's look at what we can learn from these scans.
 
 ### nmap scan for TCP
+Our collection of `nmap` scans were done to find TCP and UDP ports that might be open.  The scans were run with code like:
 {% highlight shell %}
- nmap -sS -oA badStore_nmap 192.168.1.9 
+nmap -sS -oA badStore_nmap 192.168.1.9 
+nmap -sU -oA badStore_nmapU 192.168.1.9
+nmap -sV -oA badStore_nmapV 192.168.1.9
 {% endhighlight %}
+
+And provided code output files like the blocks below.  The small difference among the scans was to have `nmap` look for slightly different protocol-related ports.  The default scans look for 1000 ports; one search did TCP, another UDP, and the verbose provided a little more output about the versions found. \[2\]
 
 {% highlight shell %}
 # Nmap 7.25BETA1 scan initiated Thu Jun 28 21:58:25 2018 as: nmap -sS -oA badStore_nmap 192.168.1.9
@@ -95,9 +102,34 @@ PORT     STATE SERVICE
 3306/tcp open  mysql
 MAC Address: 00:26:C6:CC:BE:3A (Intel Corporate)
 
+
 # Nmap done at Thu Jun 28 21:58:26 2018 -- 1 IP address (1 host up) scanned in 0.91 seconds
 {% endhighlight %}
 
+{% highlight shell %}
+# Nmap 7.25BETA1 scan initiated Thu Jun 28 22:01:06 2018 as: nmap -sU -oA badStore_nmapU 192.168.1.9
+Nmap scan report for 192.168.1.9
+Host is up (0.014s latency).
+All 1000 scanned ports on 192.168.1.9 are closed (957) or open|filtered (43)
+MAC Address: 00:26:C6:CC:BE:3A (Intel Corporate)
+
+# Nmap done at Thu Jun 28 22:18:24 2018 -- 1 IP address (1 host up) scanned in 1037.61 seconds
+{% endhighlight %}
+
+{% highlight shell %}
+# Nmap 7.25BETA1 scan initiated Thu Jun 28 21:59:48 2018 as: nmap -sV -oA badStore_nmapV 192.168.1.9
+Nmap scan report for 192.168.1.9
+Host is up (0.0093s latency).
+Not shown: 997 closed ports
+PORT     STATE SERVICE  VERSION
+80/tcp   open  http     Apache httpd 1.3.28 ((Unix) mod_ssl/2.8.15 OpenSSL/0.9.7c)
+443/tcp  open  ssl/http Apache httpd 1.3.28 ((Unix) mod_ssl/2.8.15 OpenSSL/0.9.7c)
+3306/tcp open  mysql    MySQL 4.1.7-standard
+MAC Address: 00:26:C6:CC:BE:3A (Intel Corporate)
+
+Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+# Nmap done at Thu Jun 28 22:00:04 2018 -- 1 IP address (1 host up) scanned in 16.55 seconds
+{% endhighlight %}
 
 
 
