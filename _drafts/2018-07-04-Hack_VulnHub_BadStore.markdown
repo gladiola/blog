@@ -36,6 +36,8 @@ One box is holding the VulnHub VM; it's running VirtualBox; conducted some simpl
 
 Had a pretty good session.  
 
+
+
 ## Annotated Bibliography
 \[1\]  Weidman, Georgia.  "Chapter 4:  Using the Metasploit Framework," Penetration Testing:  A Hands-On Introduction to Hacking.  No Starch Press.  pp.87-109.  ISBN 978-1-89327-564-8.
 
