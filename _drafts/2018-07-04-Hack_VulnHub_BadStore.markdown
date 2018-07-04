@@ -20,7 +20,7 @@ Published in 2004, "Bad Store" is one of the oldest VMs available for these kind
 One box is holding the VulnHub VM; it's running VirtualBox; conducted some simple `ifconfig` and `ping` checks to make sure that it could communicate with other machines on the SOHO network.  Target box is the VM running on a WIN10 laptop.  On the attacker box, we are using FreeBSD 10.3 and a Kali VM.
 
 <table>
-    <caption>Troubleshooting:  Initial Default Values Provided</caption>
+    <caption>Initial Default Values Provided</caption>
     <tr>
     <th>Property</th>
     <th>Value</th>
@@ -35,6 +35,7 @@ One box is holding the VulnHub VM; it's running VirtualBox; conducted some simpl
 </table>
 
 Had a pretty good session.  
+
 ## Annotated Bibliography
 \[1\]  Weidman, Georgia.  "Chapter 4:  Using the Metasploit Framework," Penetration Testing:  A Hands-On Introduction to Hacking.  No Starch Press.  pp.87-109.  ISBN 978-1-89327-564-8.
 
