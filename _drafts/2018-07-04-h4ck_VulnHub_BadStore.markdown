@@ -82,10 +82,13 @@ Later on, I would like to see if we can actually make modifications to repair, m
 To support a Reconnaissance phase, we conducted four kinds of vulnerability scans.  Two were Nessus scans (basic network and web applications); one was a collection on `nmap` scans of TCP and UDP protocol ports; another was a `nikto` scan.  We also did some manual observation of the website (directory traversal and simple injection probing), and a `sqlmap` scan; those will be covered separately.  It's obvious that this was very noisy reconnaissance; but, there are no points for stealth going against a home lab VM.  Let's look at what we can learn from these scans.
 
 ### Nessus scans for the site
+Given some basic directions for running a Nessus scan,  \[2\] we ran a couple of them against the "Bad Store" VM.  A quick skimming of those results showed several OpenSSL-related vulnerabilities; that's when we began to see how many of the vulns might be historic.  Also listed was a vuln related to an old Apache version.   
 
-[PDF of Nessus scan using the Basic Network scan type](https://github.com/gladiola/blackmagic/blob/Demo/blog_support/salvage13_BasicNetwork_BadStore_ya6pkz.pdf)
+Copies of the Nessus scan results that we ran against the VM are available through these links:
+- [PDF of Nessus scan using the Basic Network scan type](https://github.com/gladiola/blackmagic/blob/Demo/blog_support/salvage13_BasicNetwork_BadStore_ya6pkz.pdf)
+- [PDF of Nessus scan using the Web Application scan type](https://github.com/gladiola/blackmagic/blob/Demo/blog_support/salvage13_BadStore_Web_e1yrt4.pdf)
 
-[PDF of Nessus scan using the Web Application scan type](https://github.com/gladiola/blackmagic/blob/Demo/blog_support/salvage13_BadStore_Web_e1yrt4.pdf)
+We clicked around some to look up those vulnerabilities on hyperlinks related to the Tenable website; while well supported with CVE documentation and the like, there were easier to exploit possibilties likely.  For the time being, we turned our attention over to some of the other vuln scans like `nmap`.
 
 ### nmap scan for TCP, UDP, and versions
 Our collection of `nmap` scans were done to find TCP and UDP ports that might be open.  The scans were run with code like:
