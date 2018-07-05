@@ -85,7 +85,7 @@ To support a Reconnaissance phase, we conducted four kinds of vulnerability scan
 
 ![PDF of Nessus scan using the Basic Network scan type](https://github.com/gladiola/blackmagic/blob/Demo/blog_support/salvage13_BasicNetwork_BadStore_ya6pkz.pdf)
 
-![PDF of Nessus scan using the Web Application scan type](https://github.com/gladiola/blackmagic/blob/Demo/blackmagic/blog_support/salvage13_BadStore_Web_e1yrt4.pdf)
+![PDF of Nessus scan using the Web Application scan type](https://github.com/gladiola/blackmagic/blob/Demo/blog_support/salvage13_BadStore_Web_e1yrt4.pdf)
 
 ### nmap scan for TCP, UDP, and versions
 Our collection of `nmap` scans were done to find TCP and UDP ports that might be open.  The scans were run with code like:
