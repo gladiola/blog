@@ -167,7 +167,7 @@ When the passwords were downloaded, by outputting the SQL to a text file, the pa
 ### Where is the potfile?
 After the first console display of the hashes, it was hard to see the cracked passwords for a moment.  When `hashcat` cracks a hash, by design, it will probably not attempt to crack that hash again.  In this way, `hashcat` can run faster and faster; with only unresolved hashes remaining, it will have less and less search area to cover.  
 
-Meanwhile, as noobs running `hashcat` for the first few times, we were wondering, "Where the hell are my cracked hashes?"  The documentation told us that it would be in the potfile.  That potfile would be in the directory where `hashcat` was run.  By looking at the directory, it didn't seem to be there.  
+Meanwhile, as noobs running `hashcat` for the first few times, we were wondering, "Where the hell are my cracked hashes?" \[6\]\[7\]\[8\] The documentation told us that it would be in the potfile.  That potfile would be in the directory where `hashcat` was run.  By looking at the directory, it didn't seem to be there.  
 
 The *potfile* is a file that holds all of the cracked hashes.  The hashcat documentation refers to it repeatedly; the potfile is in a hidden directory, in the same directory that `hashcat` was run in.  To list it and see the contents, from the directory where `hashcat` was run, try:
 
