@@ -153,6 +153,11 @@ Given those questions, we can go hunting for plenty of vulnerabilities without a
 ## Cracking hashed passwords with hashcat
 
 ## Where is the potfile?
+The *potfile* is a file that holds all of the cracked hashes.  The hashcat documentation refers to it repeatedly; the potfile is in a hidden directory, in the same directory that `hashcat` was run in.  To list it and see the contents, from the directory where `hashcat` was run, try:
+
+{% highlight shell %}
+ls -lista .hashcat/hashcat.pot
+{% endhighlight %}
 
 
 ## Results
@@ -185,6 +190,11 @@ Website listing details of the VM on Vulnhub.  Includes screenshots and links to
 
 A description of Lockheed-Martin's Intusion Kill Chain.  Brotherston and Berlin applied their use case of an overview of a ransomware attack to the phases of Lockheed's kill chain.  Their definitions and example serves as guidance for the contstruction of our own, here.
 
+\[6\] _____.  "What is a potfile?" Hashcat Wiki.  INTERNET:  [`https://hashcat.net/wiki/doku.php?id=frequently_asked_questions#how_can_i_show_previously_cracked_passwords_and_output_them_in_a_specific_format_eg_emailpassword`](https://hashcat.net/wiki/doku.php?id=frequently_asked_questions#how_can_i_show_previously_cracked_passwords_and_output_them_in_a_specific_format_eg_emailpassword)
+
+\[7\] _____.  "How can I show previously cracked passwords, and output them in a specific format (e.g. email:password)?" Hashcat Wiki.  INTERNET:  [`https://hashcat.net/wiki/doku.php?id=frequently_asked_questions#how_can_i_show_previously_cracked_passwords_and_output_them_in_a_specific_format_eg_emailpassword`](https://hashcat.net/wiki/doku.php?id=frequently_asked_questions#how_can_i_show_previously_cracked_passwords_and_output_them_in_a_specific_format_eg_emailpassword)
+
+\[8\]  _____.  "Hashcat reports "Status: Cracked", but did not print the hash value, and the outfile is empty. What happened?" Hashcat Wiki.  INTERNET: [`https://hashcat.net/wiki/doku.php?id=frequently_asked_questions#hashcat_reports_statuscracked_but_did_not_print_the_hash_value_and_the_outfile_is_empty_what_happened`](https://hashcat.net/wiki/doku.php?id=frequently_asked_questions#hashcat_reports_statuscracked_but_did_not_print_the_hash_value_and_the_outfile_is_empty_what_happened)
 
 ## Spare Parts
 
@@ -227,4 +237,7 @@ A description of Lockheed-Martin's Intusion Kill Chain.  Brotherston and Berlin 
 [3]: ``
 [4]:  https://www.vulnhub.com/entry/badstore-123,41/
 [5]: ``
-[6]: 
+[6]: https://hashcat.net/wiki/doku.php?id=frequently_asked_questions#what_is_a_potfile
+[7]: https://hashcat.net/wiki/doku.php?id=frequently_asked_questions#how_can_i_show_previously_cracked_passwords_and_output_them_in_a_specific_format_eg_emailpassword
+[8]:  https://hashcat.net/wiki/doku.php?id=frequently_asked_questions#hashcat_reports_statuscracked_but_did_not_print_the_hash_value_and_the_outfile_is_empty_what_happened
+[9]: 
