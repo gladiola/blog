@@ -152,7 +152,9 @@ Given those questions, we can go hunting for plenty of vulnerabilities without a
 
 ## Cracking hashed passwords with hashcat
 
-## Where is the potfile?
+
+
+### Where is the potfile?
 The *potfile* is a file that holds all of the cracked hashes.  The hashcat documentation refers to it repeatedly; the potfile is in a hidden directory, in the same directory that `hashcat` was run in.  To list it and see the contents, from the directory where `hashcat` was run, try:
 
 {% highlight shell %}
@@ -160,7 +162,7 @@ ls -lista .hashcat/hashcat.pot
 {% endhighlight %}
 
 
-## Results
+### Results
 {% highlight shell %}
 5ebe2294ecd0e0f08eab7690d2a6ee69:secret
 5f4dcc3b5aa765d61d8327deb882cf99:password
