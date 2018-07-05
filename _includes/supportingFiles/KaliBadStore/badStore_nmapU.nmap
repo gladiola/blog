@@ -1,7 +1,0 @@
-# Nmap 7.25BETA1 scan initiated Thu Jun 28 22:01:06 2018 as: nmap -sU -oA badStore_nmapU 192.168.1.9
-Nmap scan report for 192.168.1.9
-Host is up (0.014s latency).
-All 1000 scanned ports on 192.168.1.9 are closed (957) or open|filtered (43)
-MAC Address: 00:26:C6:CC:BE:3A (Intel Corporate)
-
-# Nmap done at Thu Jun 28 22:18:24 2018 -- 1 IP address (1 host up) scanned in 1037.61 seconds

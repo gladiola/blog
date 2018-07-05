@@ -150,6 +150,18 @@ One of the first things we can do is to look at the website.
 
 Given those questions, we can go hunting for plenty of vulnerabilities without any scanning tools.  What turns up?
 
+## Cracking hashed passwords with hashcat
+
+## Where is the potfile?
+
+
+## Results
+{% highlight shell %}
+5ebe2294ecd0e0f08eab7690d2a6ee69:secret
+5f4dcc3b5aa765d61d8327deb882cf99:password
+9726255eec083aa56dc0449a21b33190:money
+...
+{% endhighlight %}
 
 
 ## Annotated Bibliography
@@ -175,6 +187,12 @@ A description of Lockheed-Martin's Intusion Kill Chain.  Brotherston and Berlin 
 
 
 ## Spare Parts
+
+{% highlight shell %}
+
+{% endhighlight %}
+
+
 <table>
     <tr><td></td></tr>
 </table>
