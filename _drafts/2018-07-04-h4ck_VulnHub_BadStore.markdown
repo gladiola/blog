@@ -146,6 +146,8 @@ So, what does this tell us?  We can see that those three ports are open and noth
 
 Since we do have a website up, and since it is running MySQL, it only takes a quick jump to suppose that we might have a chance at getting everything with a quick run of `sqlmap`.  What happens when we give that a try?
 
+Not much.  That is, `sqlmap` ran its default scan against the target, but didn't find what it was usually looking for.  So, our friend from many commercial engagements, `sqlmap`, would not be of much help here.
+
 ## Manual directory checks and source code reading
 One of the first things we can do is to look at the website.  
 - Are there any forms?  
