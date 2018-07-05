@@ -157,6 +157,12 @@ One of the first things we can do is to look at the website.
 
 Given those questions, we can go hunting for plenty of vulnerabilities without any scanning tools.  What turns up?
 
+## Tickmark 1 equals 1, Son
+
+## Some handy facts laying out in the plain
+
+## The CGI guestbook and scripts
+
 ## We got the gold
 By running some MySQL auxilliaries with `msfconsole`, we were able to send SQL directly to the MySQL engine, dump schema, and `SELECT` a bunch of useful content.  One of the results was that we were able to get database records for usernames as email addresses (this particular website logs users in by email addy), passwords, bank account numbers, and detailed transaction information.  
 
