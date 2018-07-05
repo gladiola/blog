@@ -157,25 +157,34 @@ One of the first things we can do is to look at the website.
 
 Given those questions, we can go hunting for plenty of vulnerabilities without any scanning tools.  What turns up?
 
-## Cracking hashed passwords with hashcat
+## We got the gold
+By running some MySQL auxilliaries with `msfconsole`, we were able to send SQL directly to the MySQL engine, dump schema, and `SELECT` a bunch of useful content.  One of the results was that we were able to get database records for usernames as email addresses (this particular website logs users in by email addy), passwords, bank account numbers, and detailed transaction information.  
 
+## Cracking hashed passwords with hashcat
+When the passwords were downloaded, by outputting the SQL to a text file, the passwords were hashed.  That simply wouldn't do.  In order to get a readily usable copy of those passwords, we'd need to crack the hash.  Hello, `hashcat`.
 
 
 ### Where is the potfile?
+After the first console display of the hashes, it was hard to see the cracked passwords for a moment.  When `hashcat` cracks a hash, by design, it will probably not attempt to crack that hash again.  In this way, `hashcat` can run faster and faster; with only unresolved hashes remaining, it will have less and less search area to cover.  
+
+Meanwhile, as noobs running `hashcat` for the first few times, we were wondering, "Where the hell are my cracked hashes?"  The documentation told us that it would be in the potfile.  That potfile would be in the directory where `hashcat` was run.  By looking at the directory, it didn't seem to be there.  
+
 The *potfile* is a file that holds all of the cracked hashes.  The hashcat documentation refers to it repeatedly; the potfile is in a hidden directory, in the same directory that `hashcat` was run in.  To list it and see the contents, from the directory where `hashcat` was run, try:
 
 {% highlight shell %}
 ls -lista .hashcat/hashcat.pot
 {% endhighlight %}
 
+The potfile we had for this run had entries that looked like this:
 
-### Results
 {% highlight shell %}
 5ebe2294ecd0e0f08eab7690d2a6ee69:secret
 5f4dcc3b5aa765d61d8327deb882cf99:password
 9726255eec083aa56dc0449a21b33190:money
 ...
 {% endhighlight %}
+
+In another peculiarity, the entries in the `hashcat` potfile didn't seem to be in the expected order.  A careful comparison of the hashes put in and the hashes in the potfile showed that they were not printed in the expected order.  The sequence of the input file was not the same as the sequence of hashes in the potfile.  Since the hashes were there beside their cracked values, a common search or `grep` would yield the correct answer; just be careful about skimming down the file or jumping to the last hash plaintext value; the last value in the potfile does not necessarily represent the last hash provided to `hashcat` to crack.
 
 
 ## Annotated Bibliography
