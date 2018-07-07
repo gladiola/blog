@@ -143,10 +143,26 @@ Nmap done at Thu Jun 28 22:00:04 2018 -- 1 IP address (1 host up) scanned in 16.
 So, what does this tell us?  We can see that those three ports are open and nothing else.  This will let us see that we will need to focus on programs that serve HTTP(S) and MySQL.  Trying to attack other applications will probably be fruitless.  
 
 ## sqlmap scanning
-
 Since we do have a website up, and since it is running MySQL, it only takes a quick jump to suppose that we might have a chance at getting everything with a quick run of `sqlmap`.  What happens when we give that a try?
 
 Not much.  That is, `sqlmap` ran its default scan against the target, but didn't find what it was usually looking for.  So, our friend from many commercial engagements, `sqlmap`, would not be of much help here.
+
+## nikto scanning
+Quick and easy, `nikto` scannig did a directory traverse that seemed easy to use.  It coughed up five or size directories to check into.  For brevity, We'll show what we eventually found with some of those.  
+
+The supplier directory was referred to in robots.txt.  Looking up robots.txt showed that a user-agent of a certain name would not be disallowed.  This looked useful.  Also, robots.txt mentioned an `/upload` directory.  That, combined with a file upload dialog, implied an remote or local file inclusion vulnerability possibility.
+
+The `cgi-bin/` showed a couple of things.  First, laying around was a `test.cgi` file.  Later, after finding some hashes, it would match up with a sysadmin's account.  Apparently, this was a leftover test laying around in the plain.  It showed clearly that there were base64 and MD5 hashes in use; but, that would be close to quickly recognized by the shape of the strings found later.
+
+There was a `/supplier/accounts` laying around.  This was a text file with about four lines associating a number with a base64 encoded string.  Recognizable by its trailing "=", the base64 was quickly decoded.  
+
+{% highlight shell %}
+echo <TARGET STRING> | base64 --decode
+{% endhighlight %}
+
+The output showed a pattern like:
+`<100X>:<USER>/<PASSWORD>/<?OPTIONAL METAL WORD>/<IP ADDRESS>`
+These later proved to be an association between item numbers, a supplier, their password, and IP.  However, the site used email addresses to run the logins, so these account rows did nto get me into anyone's account.
 
 ## Manual directory checks and source code reading
 One of the first things we can do is to look at the website.  
@@ -157,18 +173,35 @@ One of the first things we can do is to look at the website.
 
 Given those questions, we can go hunting for plenty of vulnerabilities without any scanning tools.  What turns up?
 
-## Tickmark 1 equals 1, Son
+## Tickmark 1 equals 1
+Almost every single text input I tried showed some kind of vulnerability to `' OR '1'='1' `.  Often, it showed an error.  In the case of the CGI guestbook, it accepted the call as text and displayed it on th eweb page without throwing the usual errors.  When placed in the supplier login text input, the `'1=1` hack would make the file upload dialog pop up.  Maybe useful later.
 
 ## Some handy facts laying out in the plain
+A look at the source code of each page revealed that a lot of form processing was being donw in CGI.  Much luck for me; I never got into CGI.  So, that lead would require more research to use.  
 
-## The CGI guestbook and scripts
+Meanwhile, it also turned up a script, `frmvrfy.js` that compares two password values.  Apparently part of the reset routine.  
+
+## Minor stump
+At this point, I had a lot of information, but no real login.  I didn't want to give in and read the provided directions that are on the site.  Time to plink around a little more and see what I could do.  Overall, I felt that I should be getting a login and a chance to see veryone's account history from the site.  Not being able to do that was a little discouraging.  I would have to find a way to ge that somehow.
+
+I tried a couple of Metasploit modules; but, really, a moment of success came by running some of the MySQL-realted auxilliaries.
 
 ## We got the gold
-By running some MySQL auxilliaries with `msfconsole`, we were able to send SQL directly to the MySQL engine, dump schema, and `SELECT` a bunch of useful content.  One of the results was that we were able to get database records for usernames as email addresses (this particular website logs users in by email addy), passwords, bank account numbers, and detailed transaction information.  
+By running some MySQL auxilliaries with `msfconsole`, we were able to send SQL directly to the MySQL engine, dump schema, and `SELECT` a bunch of useful content.  One of the results was that we were able to get database records for usernames as email addresses (this particular website logs users in by email addy), passwords, bank account numbers, and detailed transaction information. 
+
+By `SELECT`ing those email addresses and passwords from the userdb table, `msfconsole` was able to output a simple text file that could be trimmed and used as input for `hashcat`. 
 
 ## Cracking hashed passwords with hashcat
-When the passwords were downloaded, by outputting the SQL to a text file, the passwords were hashed.  That simply wouldn't do.  In order to get a readily usable copy of those passwords, we'd need to crack the hash.  Hello, `hashcat`.
+When the passwords were downloaded, by outputting the SQL to a text file, the passwords were hashed with MD5.  That simply wouldn't do.  In order to get a readily usable copy of those passwords, we'd need to crack the hash.  Hello, `hashcat`.
 
+To crack one, commands go like:
+{% highlight shell %}
+hashcat -m0 <TARGET HASH TO CRACK> /usr/share/wordlists/rockyou.txt --force
+{% endhighlight %}
+
+A couple things happened here.  I had to use the `--force` to get past an error; I had to do some file transfers because my version of Kali wasn't up to date; and I had to turn on `rockyou.txt` for the first time on that machine.  
+
+One more thing happened:  when feeding hashes in to `hashcat`, they would disappear from console output after the first crack.  The answers would turn up in the potfile, below.  It became clear that when feeding a big block of hashes to crack to `hashcat`, it was important to plan for an out-of-order extraction of answers.  For example, the fifth hash input would not necessarily be the fifth-from-last hash in the potfile.  So, in the future, we would need to prepare more to prevent fumbling when getting the cracked password back out.  This time, the result set was so small that simple comparison was still practical.
 
 ### Where is the potfile?
 After the first console display of the hashes, it was hard to see the cracked passwords for a moment.  When `hashcat` cracks a hash, by design, it will probably not attempt to crack that hash again.  In this way, `hashcat` can run faster and faster; with only unresolved hashes remaining, it will have less and less search area to cover.  
@@ -190,8 +223,12 @@ The potfile we had for this run had entries that looked like this:
 ...
 {% endhighlight %}
 
-In another peculiarity, the entries in the `hashcat` potfile didn't seem to be in the expected order.  A careful comparison of the hashes put in and the hashes in the potfile showed that they were not printed in the expected order.  The sequence of the input file was not the same as the sequence of hashes in the potfile.  Since the hashes were there beside their cracked values, a common search or `grep` would yield the correct answer; just be careful about skimming down the file or jumping to the last hash plaintext value; the last value in the potfile does not necessarily represent the last hash provided to `hashcat` to crack.
+As mentioned earlier, the entries in the `hashcat` potfile didn't seem to be in the expected order.  A careful comparison of the hashes put in and the hashes in the potfile showed that they were not printed in the expected order.  The sequence of the input file was not the same as the sequence of hashes in the potfile.  Since the hashes were there beside their cracked values, a common search or `grep` would yield the correct answer; just be careful about skimming down the file or jumping to the last hash plaintext value; the last value in the potfile does not necessarily represent the last hash provided to `hashcat` to crack.
 
+As a noob, this might seem counterintuitive.  Why would `hashcat` not simply answer with the cracked hash in the order that it received one to crack?  Keep in mind, that this is kind of a tiny "toy" use case.  `hashcat` is meant for bigger work.  If you wanted to crack many, many hashes using some GPUs, then `hashcat` was built for you.  This simple set of block extractions was almost an edge case.
+
+## Next goals
+At this point, it was time to set some new goals.  Thoroughly scanned, with a database coughing up pretty much whatever we wanted, the site would yield whatever information simple account impersonation might provide.  That said, it was not enough.  A lot of what was done thus far was passive.  A malicious attacker would shape and control the box so that it could be used for her own ends.  
 
 ## Annotated Bibliography
 \[1\]  Weidman, Georgia.  "Chapter 4:  Using the Metasploit Framework," Penetration Testing:  A Hands-On Introduction to Hacking.  No Starch Press.  pp.87-109.  ISBN 978-1-89327-564-8.
