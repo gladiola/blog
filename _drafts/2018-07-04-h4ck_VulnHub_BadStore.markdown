@@ -37,6 +37,14 @@ One box is holding the VulnHub VM; it's running VirtualBox; conducted some simpl
     <tr><th>Attacker</th><td>192.168.1.10</td><td><code>ifconfig</code> OK</td></tr>
 </table>
 
+<dl>
+    <dt>
+![Kali VM]({{ site.url }}/assets/images/KaliBadStore/2018-07-07-182516_1366x768_scrot.png)
+    </dt>
+    <dd>
+        Figure 2.  Kali running in VirtualBox VM.
+    </dd>
+</dl>
 ## Proving COMMO
 Since we don't have a need for stealth and do have direct access to the controls of both VMs, we'll start off with a simple commo check between the boxes.  By using 
 {% highlight shell %}
@@ -297,7 +305,7 @@ A description of Lockheed-Martin's Intusion Kill Chain.  Brotherston and Berlin 
 
 ## Photos
 
-![Kali VM]({{ site.url }}/assets/images/KaliBadStore/2018-07-07-182516_1366x768_scrot.png)
+
 ![nikto recommendations]({{ site.url }}/assets/images/KaliBadStore/2018-07-07-183641_1366x768_scrot.png)
 ![msf auxilliary schema dump]({{ site.url }}/assets/images/KaliBadStore/2018-07-07-184427_1366x768_scrot.png)
 ![mysql status from direct call to remote db engine]({{ site.url }}/assets/images/KaliBadStore/2018-07-07-192718_1366x768_scrot.png)
