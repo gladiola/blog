@@ -37,14 +37,8 @@ One box is holding the VulnHub VM; it's running VirtualBox; conducted some simpl
     <tr><th>Attacker</th><td>192.168.1.10</td><td><code>ifconfig</code> OK</td></tr>
 </table>
 
-<dl>
-    <dt>
-        ![Kali VM]({{ site.url }}/assets/images/KaliBadStore/2018-07-07-182516_1366x768_scrot.png)
-    </dt>
-    <dd>
-        Figure 2.  Kali running in VirtualBox VM.
-    </dd>
-</dl>
+![Kali VM]({{ site.url }}/assets/images/KaliBadStore/2018-07-07-182516_1366x768_scrot.png)
+
 ## Proving COMMO
 Since we don't have a need for stealth and do have direct access to the controls of both VMs, we'll start off with a simple commo check between the boxes.  By using 
 {% highlight shell %}
@@ -159,6 +153,8 @@ Since we do have a website up, and since it is running MySQL, it only takes a qu
 Not much.  That is, `sqlmap` ran its default scan against the target, but didn't find what it was usually looking for.  So, our friend from many commercial engagements, `sqlmap`, would not be of much help here.
 
 ## nikto scanning
+![nikto recommendations]({{ site.url }}/assets/images/KaliBadStore/2018-07-07-183641_1366x768_scrot.png)
+
 Quick and easy, `nikto` scannig did a directory traverse that seemed easy to use.  It coughed up five or size directories to check into.  For brevity, We'll show what we eventually found with some of those.  
 
 The supplier directory was referred to in robots.txt.  Looking up robots.txt showed that a user-agent of a certain name would not be disallowed.  This looked useful.  Also, robots.txt mentioned an `/upload` directory.  That, combined with a file upload dialog, implied an remote or local file inclusion vulnerability possibility.
@@ -185,6 +181,8 @@ One of the first things we can do is to look at the website.
 Given those questions, we can go hunting for plenty of vulnerabilities without any scanning tools.  What turns up?
 
 ## Tickmark 1 equals 1
+![sqli error from one equals one]({{ site.url }}/assets/images/KaliBadStore/2018-07-07-210740_1366x768_scrot.png)
+
 Almost every single text input I tried showed some kind of vulnerability to `' OR '1'='1' `.  Often, it showed an error.  In the case of the CGI guestbook, it accepted the call as text and displayed it on th eweb page without throwing the usual errors.  When placed in the supplier login text input, the `'1=1` hack would make the file upload dialog pop up.  Maybe useful later.
 
 ## Some handy facts laying out in the plain
@@ -198,6 +196,8 @@ At this point, I had a lot of information, but no real login.  I didn't want to 
 I tried a couple of Metasploit modules; but, really, a moment of success came by running some of the MySQL-realted auxilliaries.
 
 ## We got the gold
+![msf auxilliary schema dump]({{ site.url }}/assets/images/KaliBadStore/2018-07-07-184427_1366x768_scrot.png)
+
 By running some MySQL auxilliaries with `msfconsole`, we were able to send SQL directly to the MySQL engine, dump schema, and `SELECT` a bunch of useful content.  One of the results was that we were able to get database records for usernames as email addresses (this particular website logs users in by email addy), passwords, bank account numbers, and detailed transaction information. 
 
 By `SELECT`ing those email addresses and passwords from the userdb table, `msfconsole` was able to output a simple text file that could be trimmed and used as input for `hashcat`. 
@@ -306,12 +306,14 @@ A description of Lockheed-Martin's Intusion Kill Chain.  Brotherston and Berlin 
 ## Photos
 
 
-![nikto recommendations]({{ site.url }}/assets/images/KaliBadStore/2018-07-07-183641_1366x768_scrot.png)
-![msf auxilliary schema dump]({{ site.url }}/assets/images/KaliBadStore/2018-07-07-184427_1366x768_scrot.png)
+
+
+
+
 ![mysql status from direct call to remote db engine]({{ site.url }}/assets/images/KaliBadStore/2018-07-07-192718_1366x768_scrot.png)
 ![mysql error from calling select db zero]({{ site.url }}/assets/images/KaliBadStore/2018-07-07-195544_1366x768_scrot.png)
 ![mysql skip grant tables]({{ site.url }}/assets/images/KaliBadStore/2018-07-07-204857_1366x768_scrot.png)
-![sqli error from one equals one]({{ site.url }}/assets/images/KaliBadStore/2018-07-07-210740_1366x768_scrot.png)
+
 ![identifying form action url and injectable controls]({{ site.url }}/assets/images/KaliBadStore/2018-07-07-211524_1366x768_scrot.png)
 ![identifying form submit button name]({{ site.url }}/assets/images/KaliBadStore/2018-07-07-212240_1366x768_scrot.png)
 ![sqlmap confirms injectable control]({{ site.url }}/assets/images/KaliBadStore/2018-07-07-214245_1366x768_scrot.png)
