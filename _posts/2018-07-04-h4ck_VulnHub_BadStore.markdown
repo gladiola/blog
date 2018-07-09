@@ -37,7 +37,7 @@ One box is holding the VulnHub VM; it's running VirtualBox; conducted some simpl
     <tr><th>Attacker</th><td>192.168.1.10</td><td><code>ifconfig</code> OK</td></tr>
 </table>
 
-
+![Kali VM]({{ site.url }}/assets/images/KaliBadStore/2018-07-07-182516_1366x768_scrot.png)
 
 ## Proving COMMO
 Since we don't have a need for stealth and do have direct access to the controls of both VMs, we'll start off with a simple commo check between the boxes.  By using 
@@ -152,9 +152,9 @@ Since we do have a website up, and since it is running MySQL, it only takes a qu
 
 Not much.  That is, `sqlmap` ran its default scan against the target, but didn't find what it was usually looking for.  So, our friend from many commercial engagements, `sqlmap`, would not be of much help here.
 
+## nikto scanning
 ![nikto recommendations]({{ site.url }}/assets/images/KaliBadStore/2018-07-07-183641_1366x768_scrot.png)
 
-## nikto scanning
 Quick and easy, `nikto` scannig did a directory traverse that seemed easy to use.  It coughed up five or size directories to check into.  For brevity, We'll show what we eventually found with some of those.  
 
 The supplier directory was referred to in robots.txt.  Looking up robots.txt showed that a user-agent of a certain name would not be disallowed.  This looked useful.  Also, robots.txt mentioned an `/upload` directory.  That, combined with a file upload dialog, implied an remote or local file inclusion vulnerability possibility.
@@ -301,8 +301,8 @@ A description of Lockheed-Martin's Intusion Kill Chain.  Brotherston and Berlin 
 
 ## Photos
 
-![Kali VM]({{ site.url }}/assets/images/KaliBadStore/2018-07-07-182516_1366x768_scrot.png)
-Figure 2.  Kali running in VirtualBox VM. 
+
+
 
 
 ![msf auxilliary schema dump]({{ site.url }}/assets/images/KaliBadStore/2018-07-07-184427_1366x768_scrot.png)
