@@ -38,11 +38,12 @@ One box is holding the VulnHub VM; it's running VirtualBox; conducted some simpl
 </table>
 
 <dl>
-    <dt>
 ![Kali VM]({{ site.url }}/assets/images/KaliBadStore/2018-07-07-182516_1366x768_scrot.png)
+    <dt>
+        Figure 2.
     </dt>
     <dd>
-        Figure 2.  Kali running in VirtualBox VM.
+        Kali running in VirtualBox VM.
     </dd>
 </dl>
 ## Proving COMMO
