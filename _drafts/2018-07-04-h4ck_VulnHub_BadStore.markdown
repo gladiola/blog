@@ -48,6 +48,9 @@ If communication among the boxes cannot be established, then a common point to c
 
 These commo checks may seem elementary; but, knowing IP addresses and having smooth commo among the boxes can be of help when exporting data.  Kali, in the configuration I was using, did not have an `ftp` command in the terminal.  Also, the FreeBSD version I was using did not have a simple `automount` So, to get files into and out of the attack box, I used FTP uploads through an intermediary website, `PuTTY`, `ssh`, and `scp`.  Since those details are particular to my setup, I won't cover most of those here.  Meanwhile, in most situations where I have had to use VMs on a variety of systems, being proficient with those kinds of file transfers was a handy skill to have.
 
+
+
+
 ## Kill Chains and Attacking Actions
 Throughout our discussion, we'll try to relate the use of commands in Kali to analysis actions that use the Lockheed-Martin Intrusion Kill Chain.  Brotherston and Berlin, writing in the Defensive Security Handbook, presented an example use case in this format that allowed us to see all sides of the attack. \[5\] They included defensive actions and monitoring in correlations with phases of the kill chain.  Their chart headers looked similar to the one below.
 
@@ -292,6 +295,20 @@ A description of Lockheed-Martin's Intusion Kill Chain.  Brotherston and Berlin 
     </tbody>
 </table>
 
+## Photos
+
+![ALT]({{ site.url }}/assets/images/KaliBadStore/Diagram_Kali_BadStore.png)
+![ALT]({{ site.url }}/assets/images/KaliBadStore/2018-07-07-182516_1366x768_scrot.png)
+![ALT]({{ site.url }}/assets/images/KaliBadStore/2018-07-07-183641_1366x768_scrot.png)
+![ALT]({{ site.url }}/assets/images/KaliBadStore/2018-07-07-184427_1366x768_scrot.png)
+![ALT]({{ site.url }}/assets/images/KaliBadStore/2018-07-07-192718_1366x768_scrot.png)
+![ALT]({{ site.url }}/assets/images/KaliBadStore/2018-07-07-195544_1366x768_scrot.png)
+![ALT]({{ site.url }}/assets/images/KaliBadStore/2018-07-07-204857_1366x768_scrot.png)
+![ALT]({{ site.url }}/assets/images/KaliBadStore/2018-07-07-210740_1366x768_scrot.png)
+![ALT]({{ site.url }}/assets/images/KaliBadStore/2018-07-07-211524_1366x768_scrot.png)
+![ALT]({{ site.url }}/assets/images/KaliBadStore/2018-07-07-212240_1366x768_scrot.png)
+![ALT]({{ site.url }}/assets/images/KaliBadStore/2018-07-07-214245_1366x768_scrot.png)
+![ALT]({{ site.url }}/assets/images/KaliBadStore/2018-07-07-214600_1366x768_scrot.png)
 [//]: # (Hyperlinks)
 [1]:  ``
 [2]: ``
