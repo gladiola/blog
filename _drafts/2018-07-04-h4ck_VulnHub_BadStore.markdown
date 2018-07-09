@@ -297,18 +297,19 @@ A description of Lockheed-Martin's Intusion Kill Chain.  Brotherston and Berlin 
 
 ## Photos
 
-![ALT]({{ site.url }}/assets/images/KaliBadStore/Diagram_Kali_BadStore.png)
-![ALT]({{ site.url }}/assets/images/KaliBadStore/2018-07-07-182516_1366x768_scrot.png)
-![ALT]({{ site.url }}/assets/images/KaliBadStore/2018-07-07-183641_1366x768_scrot.png)
-![ALT]({{ site.url }}/assets/images/KaliBadStore/2018-07-07-184427_1366x768_scrot.png)
-![ALT]({{ site.url }}/assets/images/KaliBadStore/2018-07-07-192718_1366x768_scrot.png)
-![ALT]({{ site.url }}/assets/images/KaliBadStore/2018-07-07-195544_1366x768_scrot.png)
-![ALT]({{ site.url }}/assets/images/KaliBadStore/2018-07-07-204857_1366x768_scrot.png)
-![ALT]({{ site.url }}/assets/images/KaliBadStore/2018-07-07-210740_1366x768_scrot.png)
-![ALT]({{ site.url }}/assets/images/KaliBadStore/2018-07-07-211524_1366x768_scrot.png)
-![ALT]({{ site.url }}/assets/images/KaliBadStore/2018-07-07-212240_1366x768_scrot.png)
-![ALT]({{ site.url }}/assets/images/KaliBadStore/2018-07-07-214245_1366x768_scrot.png)
-![ALT]({{ site.url }}/assets/images/KaliBadStore/2018-07-07-214600_1366x768_scrot.png)
+![Kali VM]({{ site.url }}/assets/images/KaliBadStore/2018-07-07-182516_1366x768_scrot.png)
+![nikto recommendations]({{ site.url }}/assets/images/KaliBadStore/2018-07-07-183641_1366x768_scrot.png)
+![msf auxilliary schema dump]({{ site.url }}/assets/images/KaliBadStore/2018-07-07-184427_1366x768_scrot.png)
+![mysql status from direct call to remote db engine]({{ site.url }}/assets/images/KaliBadStore/2018-07-07-192718_1366x768_scrot.png)
+![mysql error from calling select db zero]({{ site.url }}/assets/images/KaliBadStore/2018-07-07-195544_1366x768_scrot.png)
+![mysql skip grant tables]({{ site.url }}/assets/images/KaliBadStore/2018-07-07-204857_1366x768_scrot.png)
+![sqli error from one equals one]({{ site.url }}/assets/images/KaliBadStore/2018-07-07-210740_1366x768_scrot.png)
+![identifying form action url and injectable controls]({{ site.url }}/assets/images/KaliBadStore/2018-07-07-211524_1366x768_scrot.png)
+![identifying form submit button name]({{ site.url }}/assets/images/KaliBadStore/2018-07-07-212240_1366x768_scrot.png)
+![sqlmap confirms injectable control]({{ site.url }}/assets/images/KaliBadStore/2018-07-07-214245_1366x768_scrot.png)
+![sqlmap displays suggested exploit calls]({{ site.url }}/assets/images/KaliBadStore/2018-07-07-214600_1366x768_scrot.png)
+
+
 [//]: # (Hyperlinks)
 [1]:  ``
 [2]: ``
