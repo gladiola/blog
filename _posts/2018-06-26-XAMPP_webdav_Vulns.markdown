@@ -62,7 +62,7 @@ If the pass is not set to the expected value, then the default creds are not in 
 ## Abandoned.
 Cut my losses with this project.  Abandoned it for now.  Maybe I will come back to it later.  Trials included re-hashing clue-words for use as a password; those candidates did get close in value; but, none of them was an easy match.  Did find a PowerShell script to quickly run the MD5's on the strings.
 
-
+WEBDAV may be installed as an option by default, but if it is not set up and running at all; well, then how would we expect to exploit it?  I was not so sure that I actually saw the service working.  Since the exploits are based on the premise that the service is somehow running unobserved in the background by default, I am not so sure that we are actually meeting the conditions necessary to have something that we can work against.
 
 
 ## Annotated Bibliography
