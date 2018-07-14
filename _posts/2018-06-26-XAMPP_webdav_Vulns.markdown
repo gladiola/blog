@@ -9,7 +9,7 @@ description: Exercising Known Vulns in XAMPP for Pentesting Practice
 The goal is to hack into a box that is running a Windows VM that's holding an older version of XAMPP with known vulns.  We'll target webdav so that we can use a default metasploit module.  Both the attacker box and target box are in the same physical room on the same net, addressed by the same router.  With user-side access to both machines, they are available to troubleshoot.  When the initial hacks were attempted, the hack failed.  These notes are about why the hack failed, what was done to fix the lab, and what was discovered along the way.
 
 #### Setup
-<img src="https://github.com/gladiola/blog/blob/master/assets/images/XAMPPKali/Diagram_XAMPP_Kali.png" height="430" width="576">
+![setup diagram]({{ site.url }}/assets/images/XAMPPKali/Diagram_XAMPP_Kali.png)
 
 #### Summary Properties of the Machines
 Both boxes are running VMs with VirtualBox.  On the attacker box, we are using FreeBSD 10.3 and a Kali VM.  Since the box is FreeBSD, the usual sharing tools are not available.  Since I've used this VM to attack another VM on the same box before, I am aware that it can work.  On the target box, we are running WIN10 with VirtualBox running a Microsoft VM for WIN7 Enterpreise with IE11.  Inside that VM, I have installed XAMPP 1.6.0a.  
