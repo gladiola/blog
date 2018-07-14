@@ -150,7 +150,7 @@ So, what does this tell us?  We can see that those three ports are open and noth
 ## sqlmap scanning
 Since we do have a website up, and since it is running MySQL, it only takes a quick jump to suppose that we might have a chance at getting everything with a quick run of `sqlmap`.  What happens when we give that a try?
 
-Not much.  That is, `sqlmap` ran its default scan against the target, but didn't find what it was usually looking for.  So, our friend from many commercial engagements, `sqlmap`, would not be of much help here.
+Not much.  That is, `sqlmap` ran its default scan against the target, but didn't find what it was usually looking for.  In order to run `sqlmap` effectively, we would need to provide it some better information.  We'll return to using `sqlmap` later.
 
 ## nikto scanning
 ![nikto recommendations]({{ site.url }}/assets/images/KaliBadStore/2018-07-07-183641_1366x768_scrot.png)
@@ -241,6 +241,42 @@ As a noob, this might seem counterintuitive.  Why would `hashcat` not simply ans
 ## Next goals
 At this point, it was time to set some new goals.  Thoroughly scanned, with a database coughing up pretty much whatever we wanted, the site would yield whatever information simple account impersonation might provide.  That said, it was not enough.  A lot of what was done thus far was passive.  A malicious attacker would shape and control the box so that it could be used for her own ends.  
 
+## Using MySQL to call the target db
+At this point, we had just enough information to see if we could call up the database and poke around and see what we could find.  The Metasploit Framework auxilliary scripts had already shown us that our computer could get in.  How could we mimic that with our own skills?  
+
+![mysql error from calling select db zero]({{ site.url }}/assets/images/KaliBadStore/2018-07-07-195544_1366x768_scrot.png)
+
+Even if we had only manually attempted to probe the website, we could still learn some database information from our past injection calls.  Given the example above, we can see that simple calls could allow us to plink away at database tables and eventually learn about the columns.  Compared to the schema dump commands that we saw through `msfconsole`, we can see that there'd come a point when we'd want to just get in there and start administering the box.  
+
+
+For the first try, we can call up an instance of MySQL on the target machine using commands just as if we were normally administering one of our own.  
+![mysql status from direct call to remote db engine]({{ site.url }}/assets/images/KaliBadStore/2018-07-07-192718_1366x768_scrot.png)
+
+
+While on the machine, we will want to be able to do things like install another user, grant permissions, and maybe even change the password to our discovered "sysadmin" account on the target box.  Most of these user-installation activities will involve a `GRANT` command; when we try to give similar commands, we can see this warning about `--skip-grant-tables`.  For now, this basically foils our ability to tamper with the database engine accounts.
+![mysql skip grant tables]({{ site.url }}/assets/images/KaliBadStore/2018-07-07-204857_1366x768_scrot.png)
+
+## Preparing to use sqlmap
+Perhaps a return to automated hacking tools will help us.  Earlier, default runs of `sqlmap` didn't have enough information to do anything effectuve.  However, now, we have learned some facts about the website so that we can use `sqlmap` in an effective way.  Namely, we have discovered on our own some injectable controls so that `sqlmap` can have a chance at exploiting them.  The pictures below show some of the details we were able to discover through simple observation of the forms with an ordinary browser.
+
+![identifying form action url and injectable controls]({{ site.url }}/assets/images/KaliBadStore/2018-07-07-211524_1366x768_scrot.png)
+In the picture above, we see finding the URL that the form uses for submission.  In the picture below, we see the discovery of the button name that sets off that form submission.  Since our form is submitted with a POST action, our steps are a little different from a common GET submission.  
+
+![identifying form submit button name]({{ site.url }}/assets/images/KaliBadStore/2018-07-07-212240_1366x768_scrot.png)
+
+To make our life easier, we can use Burp Suite's proxy readouts to show us what the submitted POST will look like.  From there, we'll save a copy of that POST message to a file, alter it slightly, and use it alongside our `sqlmap` to give the script a way to get an exploit installed.  
+
+![sqlmap confirms injectable control]({{ site.url }}/assets/images/KaliBadStore/2018-07-07-214245_1366x768_scrot.png)
+In the picture above, we see that `sqlmap` has been able to identify the injectable control.  
+
+![sqlmap displays suggested exploit calls]({{ site.url }}/assets/images/KaliBadStore/2018-07-07-214600_1366x768_scrot.png)
+In the picture above, we see what `sqlmap` suggests for use as a command that would allow us to pawn the box.  The program determined that these commands were good choices after doing some methodical testing with repetitive calls.  It's a noisy process, as with most scans, but we can see that the program was able to recommend these prefabricated calls that it knows will work.
+
+## Preparing to exploit the target box
+From here, we would normally allow `sqlmap` to prepare a prefabricated exploit.  The program would ask us a simple quiz dialog about what kind of technology we think the target server might be using.  ASP, JSP, and PHP are common targets.  However, in this case, I think our target box is running an HTML/CGI config that probably uses Perl.  A quick look around didn't reveal any simple choices.  Instead, it seems to me that the thing to do will be to break into the box in a way that lets us use Perl to write and install our own Perl scripts; run them; and then use the browser to navigate to predetermined places with a URL in order to read the output.  
+
+Time to learn a little more about Perl.
+
 ## Annotated Bibliography
 \[1\]  Weidman, Georgia.  "Chapter 4:  Using the Metasploit Framework," Penetration Testing:  A Hands-On Introduction to Hacking.  No Starch Press.  pp.87-109.  ISBN 978-1-89327-564-8.
 
@@ -310,14 +346,7 @@ A description of Lockheed-Martin's Intusion Kill Chain.  Brotherston and Berlin 
 
 
 
-![mysql status from direct call to remote db engine]({{ site.url }}/assets/images/KaliBadStore/2018-07-07-192718_1366x768_scrot.png)
-![mysql error from calling select db zero]({{ site.url }}/assets/images/KaliBadStore/2018-07-07-195544_1366x768_scrot.png)
-![mysql skip grant tables]({{ site.url }}/assets/images/KaliBadStore/2018-07-07-204857_1366x768_scrot.png)
 
-![identifying form action url and injectable controls]({{ site.url }}/assets/images/KaliBadStore/2018-07-07-211524_1366x768_scrot.png)
-![identifying form submit button name]({{ site.url }}/assets/images/KaliBadStore/2018-07-07-212240_1366x768_scrot.png)
-![sqlmap confirms injectable control]({{ site.url }}/assets/images/KaliBadStore/2018-07-07-214245_1366x768_scrot.png)
-![sqlmap displays suggested exploit calls]({{ site.url }}/assets/images/KaliBadStore/2018-07-07-214600_1366x768_scrot.png)
 
 
 [//]: # (Hyperlinks)
