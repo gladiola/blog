@@ -260,11 +260,11 @@ While on the machine, we will want to be able to do things like install another 
 Perhaps a return to automated hacking tools will help us.  Earlier, default runs of `sqlmap` didn't have enough information to do anything effectuve.  However, now, we have learned some facts about the website so that we can use `sqlmap` in an effective way.  Namely, we have discovered on our own some injectable controls so that `sqlmap` can have a chance at exploiting them.  The pictures below show some of the details we were able to discover through simple observation of the forms with an ordinary browser.
 
 ![identifying form action url and injectable controls]({{ site.url }}/assets/images/KaliBadStore/2018-07-07-211524_1366x768_scrot.png)
-In the picture above, we see finding the URL that the form uses for submission.  In the picture below, we see the discovery of the button name that sets off that form submission.  Since our form is submitted with a POST action, our steps are a little different from a common GET submission.  
+In the picture above, we see finding the URL that the form uses for submission.  In the picture below, we see the discovery of the button name that sets off that form submission.  Since our form is submitted with a POST action, our steps are a little different from a common GET submission.  \[[9]\]\[[12]\]
 
 ![identifying form submit button name]({{ site.url }}/assets/images/KaliBadStore/2018-07-07-212240_1366x768_scrot.png)
 
-To make our life easier, we can use Burp Suite's proxy readouts to show us what the submitted POST will look like.  From there, we'll save a copy of that POST message to a file, alter it slightly, and use it alongside our `sqlmap` to give the script a way to get an exploit installed.  
+To make our life easier, we can use Burp Suite's proxy readouts to show us what the submitted POST will look like. [12]  From there, we'll save a copy of that POST message to a file, alter it slightly, and use it alongside our `sqlmap` to give the script a way to get an exploit installed.  \[[9]\]\[[10]\]\[[11]\]\[[12]\]
 
 ![sqlmap confirms injectable control]({{ site.url }}/assets/images/KaliBadStore/2018-07-07-214245_1366x768_scrot.png)
 In the picture above, we see that `sqlmap` has been able to identify the injectable control.  
@@ -303,6 +303,19 @@ A description of Lockheed-Martin's Intusion Kill Chain.  Brotherston and Berlin 
 \[7\] _____.  "How can I show previously cracked passwords, and output them in a specific format (e.g. email:password)?" Hashcat Wiki.  INTERNET:  [`https://hashcat.net/wiki/doku.php?id=frequently_asked_questions#how_can_i_show_previously_cracked_passwords_and_output_them_in_a_specific_format_eg_emailpassword`](https://hashcat.net/wiki/doku.php?id=frequently_asked_questions#how_can_i_show_previously_cracked_passwords_and_output_them_in_a_specific_format_eg_emailpassword)
 
 \[8\]  _____.  "Hashcat reports "Status: Cracked", but did not print the hash value, and the outfile is empty. What happened?" Hashcat Wiki.  INTERNET: [`https://hashcat.net/wiki/doku.php?id=frequently_asked_questions#hashcat_reports_statuscracked_but_did_not_print_the_hash_value_and_the_outfile_is_empty_what_happened`](https://hashcat.net/wiki/doku.php?id=frequently_asked_questions#hashcat_reports_statuscracked_but_did_not_print_the_hash_value_and_the_outfile_is_empty_what_happened)
+
+\[9\] Abouzeid, Halim.  "From SQL Injection to WebShell"  RSA.  INTERNET:  [`https://community.rsa.com/community/products/netwitness/blog/2017/04/10/from-sql-injection-to-webshell`](https://community.rsa.com/community/products/netwitness/blog/2017/04/10/from-sql-injection-to-webshell)
+
+Step by step tutorial on using `sqlmap` to pop a shell on a target box.  Shows both the use of automated exploits for JSP, ASP, and PHP, and also the use of uploading custom scripts.  
+
+\[10\] _____.  INTERNET:  [`https://w00troot.blogspot.com/2017/05/getting-reverse-shell-from-web-shell.html`](https://w00troot.blogspot.com/2017/05/getting-reverse-shell-from-web-shell.html)
+Some reverse shell script suggestions for various systems.  
+
+\[11\] _____.  INTERNET:  [`https://www.darkmoreops.com/2014/08/28/use-sqlmap-sql-injection-hack-website-database/`](https://www.darkmoreops.com/2014/08/28/use-sqlmap-sql-injection-hack-website-database/)
+A tutorial showing some `sqlmap` hacks by injection.  Includes another example of get a hashed password and crack it using a modified form of `hashcat`.
+
+\[12\] _____.  INTERNET:  [`https://sneakerhax.com/tool-tips-sqlmap-with-post-requests/`](https://sneakerhax.com/tool-tips-sqlmap-with-post-requests/)
+Tutorial showing some steps for using Burp Suite to pick up POST messages to injectable programs and modify them for use with `sqlmap`.
 
 ## Spare Parts
 
@@ -358,4 +371,8 @@ A description of Lockheed-Martin's Intusion Kill Chain.  Brotherston and Berlin 
 [6]: https://hashcat.net/wiki/doku.php?id=frequently_asked_questions#what_is_a_potfile
 [7]: https://hashcat.net/wiki/doku.php?id=frequently_asked_questions#how_can_i_show_previously_cracked_passwords_and_output_them_in_a_specific_format_eg_emailpassword
 [8]:  https://hashcat.net/wiki/doku.php?id=frequently_asked_questions#hashcat_reports_statuscracked_but_did_not_print_the_hash_value_and_the_outfile_is_empty_what_happened
-[9]: 
+[9]: https://community.rsa.com/community/products/netwitness/blog/2017/04/10/from-sql-injection-to-webshell
+[10]: https://w00troot.blogspot.com/2017/05/getting-reverse-shell-from-web-shell.html
+[11]: https://www.darkmoreops.com/2014/08/28/use-sqlmap-sql-injection-hack-website-database/
+[12]: https://sneakerhax.com/tool-tips-sqlmap-with-post-requests/
+[13]: 
