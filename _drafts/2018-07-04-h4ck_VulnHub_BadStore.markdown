@@ -51,8 +51,6 @@ If communication among the boxes cannot be established, then a common point to c
 These commo checks may seem elementary; but, knowing IP addresses and having smooth commo among the boxes can be of help when exporting data.  Kali, in the configuration I was using, did not have an `ftp` command in the terminal.  Also, the FreeBSD version I was using did not have a simple `automount` So, to get files into and out of the attack box, I used FTP uploads through an intermediary website, `PuTTY`, `ssh`, and `scp`.  Since those details are particular to my setup, I won't cover most of those here.  Meanwhile, in most situations where I have had to use VMs on a variety of systems, being proficient with those kinds of file transfers was a handy skill to have.
 
 
-
-
 ## Kill Chains and Attacking Actions
 Throughout our discussion, we'll try to relate the use of commands in Kali to analysis actions that use the Lockheed-Martin Intrusion Kill Chain.  Brotherston and Berlin, writing in the Defensive Security Handbook, presented an example use case in this format that allowed us to see all sides of the attack. \[5\] They included defensive actions and monitoring in correlations with phases of the kill chain.  Their chart headers looked similar to the one below.
 
@@ -90,8 +88,8 @@ To support a Reconnaissance phase, we conducted four kinds of vulnerability scan
 Given some basic directions for running a Nessus scan,  \[2\] we ran a couple of them against the "Bad Store" VM.  A quick skimming of those results showed several OpenSSL-related vulnerabilities; that's when we began to see how many of the vulns might be historic.  Also listed was a vuln related to an old Apache version.   
 
 Copies of the Nessus scan results that we ran against the VM are available through these links:
-- [PDF of Nessus scan using the Basic Network scan type](https://github.com/gladiola/blackmagic/blob/Demo/blog_support/salvage13_BasicNetwork_BadStore_ya6pkz.pdf)
-- [PDF of Nessus scan using the Web Application scan type](https://github.com/gladiola/blackmagic/blob/Demo/blog_support/salvage13_BadStore_Web_e1yrt4.pdf)
+- [PDF of Nessus scan using the Basic Network scan type](https://github.com/gladiola/blackmagic/blob/Demo/agkistrodon/contortix/Clytemnestra/Nessus/salvage13_BasicNetwork_BadStore_ya6pkz.pdf)
+- [PDF of Nessus scan using the Web Application scan type](https://github.com/gladiola/blackmagic/blob/Demo/agkistrodon/contortix/Clytemnestra/Nessus/salvage13_BadStore_Web_e1yrt4.pdf)
 
 We clicked around some to look up those vulnerabilities on hyperlinks related to the Tenable website; while well supported with CVE documentation and the like, there were easier to exploit possibilties likely.  For the time being, we turned our attention over to some of the other vuln scans like `nmap`.
 
@@ -242,7 +240,7 @@ As a noob, this might seem counterintuitive.  Why would `hashcat` not simply ans
 At this point, it was time to set some new goals.  Thoroughly scanned, with a database coughing up pretty much whatever we wanted, the site would yield whatever information simple account impersonation might provide.  That said, it was not enough.  A lot of what was done thus far was passive.  A malicious attacker would shape and control the box so that it could be used for her own ends.  
 
 ## Using MySQL to call the target db
-At this point, we had just enough information to see if we could call up the database and poke around and see what we could find.  The Metasploit Framework auxilliary scripts had already shown us that our computer could get in.  How could we mimic that with our own skills?  
+At this point, we had just enough information to see if we could call up the database and poke around and see what we could find.  The Metasploit Framework auxilliary scripts had already shown us that our computer could get in.  How could we mimic that with our own skills?  Can we use our normal database administration skills to do some damage to this instance of MySQL on the target box?  Or, maybe, can we just set up things to run the way we want instead of the way they were supposed to?
 
 ![mysql error from calling select db zero]({{ site.url }}/assets/images/KaliBadStore/2018-07-07-195544_1366x768_scrot.png)
 
@@ -253,7 +251,7 @@ For the first try, we can call up an instance of MySQL on the target machine usi
 ![mysql status from direct call to remote db engine]({{ site.url }}/assets/images/KaliBadStore/2018-07-07-192718_1366x768_scrot.png)
 
 
-While on the machine, we will want to be able to do things like install another user, grant permissions, and maybe even change the password to our discovered "sysadmin" account on the target box.  Most of these user-installation activities will involve a `GRANT` command; when we try to give similar commands, we can see this warning about `--skip-grant-tables`.  For now, this basically foils our ability to tamper with the database engine accounts.
+While on the machine, we will want to be able to do things like install another user \[[12]\], grant permissions \[[13]\], and maybe even change the password to our discovered "sysadmin" account on the target box.  Most of these user-installation activities will involve a `GRANT` command; when we try to give similar commands, we can see this warning about `--skip-grant-tables`.  For now, this basically foils our ability to tamper with the database engine accounts.  Meanwhile, if we were ambitious, we might find a way to modify the initialization files for the MySQL engine to hack our way past this constraint and reset root. \[[15]\] \[[16]\]  But, this brings us back around to what we still need to do:  exploit the box.  Perhaps we can try this in post-exploitation.
 ![mysql skip grant tables]({{ site.url }}/assets/images/KaliBadStore/2018-07-07-204857_1366x768_scrot.png)
 
 ## Preparing to use sqlmap
@@ -276,6 +274,9 @@ In the picture above, we see what `sqlmap` suggests for use as a command that wo
 From here, we would normally allow `sqlmap` to prepare a prefabricated exploit.  The program would ask us a simple quiz dialog about what kind of technology we think the target server might be using.  ASP, JSP, and PHP are common targets.  However, in this case, I think our target box is running an HTML/CGI config that probably uses Perl.  A quick look around didn't reveal any simple choices.  Instead, it seems to me that the thing to do will be to break into the box in a way that lets us use Perl to write and install our own Perl scripts; or, maybe do something similar with `sh` for UNIX scripts; run them; and then use the browser to navigate to predetermined places with a URL in order to read the output.  
 
 Time to learn a little more about Perl.
+
+## Follow-on uploads and actions
+We were able to upload a Perl script file to the CGI-BIN directory; and, judging by the error messages, it was there.  However, we did not have good user permissions to change permissions on the file.  Given some more hours of exploration, it was time to abandon the attempts for now.  
 
 ## Annotated Bibliography
 \[1\]  Weidman, Georgia.  "Chapter 4:  Using the Metasploit Framework," Penetration Testing:  A Hands-On Introduction to Hacking.  No Starch Press.  pp.87-109.  ISBN 978-1-89327-564-8.
@@ -316,6 +317,18 @@ A tutorial showing some `sqlmap` hacks by injection.  Includes another example o
 
 \[12\] _____.  INTERNET:  [`https://sneakerhax.com/tool-tips-sqlmap-with-post-requests/`](https://sneakerhax.com/tool-tips-sqlmap-with-post-requests/)
 Tutorial showing some steps for using Burp Suite to pick up POST messages to injectable programs and modify them for use with `sqlmap`.
+
+\[13\]  INTERNET:  [`https://dev.mysql.com/doc/refman/5.5/en/create-user.html`](https://dev.mysql.com/doc/refman/5.5/en/create-user.html)
+MySQL Handbook for a later version; commands similar to what's installed on the target box.  Commands for creating a new user with MySQL.
+
+\[14\]  INTERNET:  [`https://dev.mysql.com/doc/refman/5.5/en/grant.html`](https://dev.mysql.com/doc/refman/5.5/en/grant.html)
+Commands for GRANT with MySQL.  Critical basic commands for setting privileges on an account with MySQL.
+
+\[15\]  INTERNET:  [`https://stackoverflow.com/questions/1708409/how-to-start-mysql-with-skip-grant-tables`](https://stackoverflow.com/questions/1708409/how-to-start-mysql-with-skip-grant-tables)
+Stack Overflow post suggesting that skip grant tables might be overridden with reconfiguring some ini files.
+
+\[16\]  INTERNET:  [`https://superuser.com/questions/1127299/how-to-restart-mysql-with-skip-grant-tables-if-you-cant-use-the-root-password`](https://superuser.com/questions/1127299/how-to-restart-mysql-with-skip-grant-tables-if-you-cant-use-the-root-password)
+Suggestion that bypassing the skip grant tables arguments can be used in a risky operation to reset the ROOT account password with MySQL.
 
 ## Spare Parts
 
@@ -375,4 +388,7 @@ Tutorial showing some steps for using Burp Suite to pick up POST messages to inj
 [10]: https://w00troot.blogspot.com/2017/05/getting-reverse-shell-from-web-shell.html
 [11]: https://www.darkmoreops.com/2014/08/28/use-sqlmap-sql-injection-hack-website-database/
 [12]: https://sneakerhax.com/tool-tips-sqlmap-with-post-requests/
-[13]: 
+[13]: https://dev.mysql.com/doc/refman/5.5/en/create-user.html
+[14]: https://dev.mysql.com/doc/refman/5.5/en/grant.html
+[15]: https://stackoverflow.com/questions/1708409/how-to-start-mysql-with-skip-grant-tables
+[16]: https://superuser.com/questions/1127299/how-to-restart-mysql-with-skip-grant-tables-if-you-cant-use-the-root-password
