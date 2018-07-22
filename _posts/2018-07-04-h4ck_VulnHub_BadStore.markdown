@@ -191,7 +191,7 @@ Almost every single text input I tried showed some kind of vulnerability to `' O
 ## Some handy facts laying out in the plain
 A look at the source code of each page revealed that a lot of form processing was being donw in CGI.  Much luck for me; I never got into CGI.  So, that lead would require more research to use.  
 
- ![Clues left lying around]({{ site.url }}/assets/images/KaliBadStore/ClueLeftLyingAround.png)
+ ![Clues left lying around]({{ site.url }}/assets/images/KaliBadStore/CluesLeftLyingAround.png)
 
 Meanwhile, it also turned up a script, `frmvrfy.js` that compares two password values.  Apparently part of the reset routine.  This was a program I felt we should exploit with our Javascript skills, but we set it aside for the time being.  
 
