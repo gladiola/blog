@@ -186,7 +186,9 @@ Almost every single text input I tried showed some kind of vulnerability to `' O
 ## Some handy facts laying out in the plain
 A look at the source code of each page revealed that a lot of form processing was being donw in CGI.  Much luck for me; I never got into CGI.  So, that lead would require more research to use.  
 
-Meanwhile, it also turned up a script, `frmvrfy.js` that compares two password values.  Apparently part of the reset routine.  
+ ![Clues left lying around]({{ site.url }}/assets/images/KaliBadStore/ClueLeftLyingAround.png)
+
+Meanwhile, it also turned up a script, `frmvrfy.js` that compares two password values.  Apparently part of the reset routine.  This was a program I felt we should exploit with our Javascript skills, but we set it aside for the time being.  
 
 ## Minor stump
 At this point, I had a lot of information, but no real login.  I didn't want to give in and read the provided directions that are on the site.  Time to plink around a little more and see what I could do.  Overall, I felt that I should be getting a login and a chance to see veryone's account history from the site.  Not being able to do that was a little discouraging.  I would have to find a way to ge that somehow.
@@ -275,8 +277,79 @@ From here, we would normally allow `sqlmap` to prepare a prefabricated exploit. 
 
 Time to learn a little more about Perl.
 
+## Using `sqlmap` to upload and download files 
+Near this time, we entered a phase where we were basically exploiting the box.  By being able to upload and download files, we had a means of obtaining data and trying to plant data.  Throughout the exercise, I failed to write data to the directory as desired.  We were able to write to the database, but not the immediate Linux file structure.  Some sample techniques are below.
+
+{% highlight shell %}
+sqlmap -d `mysql://root:secret@192.168.1.9:3306/badstoredb --file-read="/usr/local/apache/cgi-bin/badstore.cgi"
+{% endhighlight %}
+An example of reading a file from the target box using `sqlmap` and a direct database connection.
+
+{% highlight shell %}
+sqlmap -d `mysql://root:secret@192.168.1.9:3306/badstoredb --file-dest="/usr/local/apache/cgi-bin/hello.cgi" --file-write="hello.cgi" --user-agent="badstore_webcrawler"
+{% endhighlight %}
+An example of attempting to write a file from the attacker box's current directory to a CGI-BIN directory in Apache 1.3 on the target box using `sqlmap` with a direct database connection.  We applied the `--user-agent` argument to match a value that turned up in analyzing the `robots.txt` file.  In there, it became plain that some User-Agents were permitted in some directories and others not.  Adjusting this was an attempt to avoid a denial.
+
+{% highlight shell%}
+sqlmap -r badStore_postEmail.txt -p email --threads=10 --dbms=mysql -D badstoredb -v 5
+{% endhighlight}
+An example of using `sqlmap` to read a POST message and apply its contents to a parameter, using `-p <PARAMETER_NAME>`.  The POST message was previously intercepted with Burp Suite and then copied to a text file.  That text file was edited to adjust some parameters.  Using these techniques, a POST message can be edited and applied with `sqlmap` to try to gain access specific to certain user accounts, cookies, etc., based on the design of the site's input validation checks in the receiving program.  In this way, if we wanted to use common anonymous access to use information we had or suspected about an admin account, we might try to forge our way into an admin login.  
+
+This kind of POST file read technique can be combine with the other `--file-dest` and `--file-write` arguments in `sqlmap` to try to upload a file as a given user.
+
+## Using direct connections with MySQL
+In addition to being able to use `sqlmap`, at one point I noticed that what account I was using to smash my way in just didn't matter.  That is, once we could get it with SQLi on a known injectable control, what account we were using didn't have a bearing on what we could do.  For example, `msfconsole` had some interesting tools which worked just fine to reveal the schema and send some SQL commands to the database engine.
+
+{% highlight shell %}
+use auxiliary/scanner/mysql/mysql_schemadump
+show options
+exploit
+
+use auxiliary/admin/mysql/mysql_sql
+show options
+set RHOST 192.168.1.9
+set SQL "SELECT * FROM badstoredb.acctdb"
+exploit
+
+set SQL "show columns"
+exploit
+{% endhighlight %}
+`msfconsole` commands like these came in handy to reveal most of what we wanted to know about the database supporting the dynamic website.  Given these simple utilities, we were able to get any table we wanted and to see the entire schema.  Some of the prefabricated scripts for attacking this older version of MySQL database didn't work well because of the lack of an `INFORMATION_SCHEMA` database and standardized tables to cover the meta-structure of the databaases; but, that didn't stop our ability to glean the information we needed using the techniques above and some simple manual processes.  
+
+![screenshot of user accounts and passwords]({{ site.url }}/assets/images/KaliBadStore/BadStorePasswords.png)
+
 ## Follow-on uploads and actions
-We were able to upload a Perl script file to the CGI-BIN directory; and, judging by the error messages, it was there.  However, we did not have good user permissions to change permissions on the file.  Given some more hours of exploration, it was time to abandon the attempts for now.  
+We were able to try to upload a Perl script file to the CGI-BIN directory; and, judging by the error messages, the transmissions failed.  I attempted several file upload actions through `sqlmap` that ended in failures.  No matter where or how I attempted to write, we were denied permission by the target computer.  During these attempts, I realized just how valuable it could be to have database accounts that were totally foreign to the permissions required for file writing.  Several of the error messages that `sqlmap` returned showed us this would be the case.
+
+![screenshot of denied file writes]({{ site.url }}/assets/images/KaliBadStore/B403OnUploadedFiles.png)
+By viewing 403s like this, I wondered if the files were written but just not provided with the correct permissions.  Every time I found that this was not the case.  It's likely that the permissions on the directory were set to completely deny the file writes altogether.  In those instances, I had expected to see a 404, but my requests returned a 403.  It's likely that the short-circuit on the status codes simply encountered a sooner reason for denial.
+
+
+![screenshot of failure to implement chmod through file upload dialog]({{ site.url }}/assets/images/KaliBadStore/chmodFailure.png)
+In the example above, I failed to get a `chmod` command to run against a file I had uploaded through that dialog.
+
+
+Still, I had a dream of being able to penetrate that box, pop a shell, and then begin updating it from the outside.  I really wanted to leave that box better off than when I found it.  
+
+To that end, I attempted to gain more information about the box. With the entire database schema and selected tables downloaded, I still wanted more modifications.  
+
+I began downloading selected files and programs in an attempt to gain more information.  First, I downloaded some of the CGI programs I had been poking against.  I was a little surprised at what I saw in the `badstore.cgi`.  There were a couple of surprises I hadn't touched.  Next, I began hunting for system files.  I never did find the desired boot file; I checked for cronjobs; I downloaded `/etc/passwd`, `/etc/fstab`, `/etc/hosts`, `/etc/profile` and others.  Generally, the empty files with just a null byte that came down would indicate that nothing was found at the address I requested.
+
+![sqlmap output files]({{ site.url }}/assets/images/KaliBadStore/sqlmapOutputFiles.png)
+`sqlmap` automatically catalogs downloaded files in its own hidden directory.  We navigated there and took a look.  It automatically converted directory slashes to underscores in the filenames.  To find out if there was anything in the file, all we had to do was to see if the file size was more than 4 bytes.  The four byte files simply held a null character.  In those cases, we had attempted to download a file that was either not there or not available. 
+
+ ![badstore.cgi admin portal]({{ site.url }}/assets/images/KaliBadStore/Capture_secretAdminPortal.png)
+
+ ![badstore.cgi log files]({{ site.url }}/assets/images/KaliBadStore/logs.png)
+ 
+ ![badstore.cgi database connection]({{ site.url }}/assets/images/KaliBadStore/Capture_dbConnectionInCGI.png)
+ 
+
+ Downloading the `badstore.cgi` file itself yielded a wealth of information.  Pretty much the heart of the entire exercise, this program showed us some other directories to check up on.  It also showed us some hardcoded password values and some program aspects that we didn't hit on by ourselves.  There were other features in there available for exploit.  However, since most of them were encompassed by the program, we chose not to follow those leads at the time.  
+
+I continued looking for a mechanism to pop a shell with.  With no JSP, ASP, or PHP server-side programs enabled, there were slim pickings.  The MySQL was in a version below 5.0; so, there was no "INFOMRATION_SCHEMA" to play with.  Metasploit modules for Heartbleed and Shellshock weren't working.  After some time, I had to recognize that it was fruitless to continue further exploitation attempts.  As far as I can tell, I wasn't going to get any further in on this one.  
+
+  
 
 ## Annotated Bibliography
 \[1\]  Weidman, Georgia.  "Chapter 4:  Using the Metasploit Framework," Penetration Testing:  A Hands-On Introduction to Hacking.  No Starch Press.  pp.87-109.  ISBN 978-1-89327-564-8.
@@ -366,8 +439,6 @@ Suggestion that bypassing the skip grant tables arguments can be used in a risky
 </table>
 
 ## Photos
-
-
 
 
 
