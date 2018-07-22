@@ -61,7 +61,7 @@ Throughout our discussion, we'll try to relate the use of commands in Kali to an
     </thead>
 </table>
 
-Our needs here are a little different, so we'll modify our chart while following along from their example.  Since this is not a real attack; and since our view is mainly from the penetrator's perspective, we'll abbreviate a summary of some of the steps by relating an attacking action to a step in the kill chain and an observation, using tables like the one below.
+Our needs here are a little different, so we'll modify our chart while following along from their example.  Since this is not a real attack; and since our view is mainly from the penetrator's perspective, we'll abbreviate a summary of some of the steps by relating an attacking action to a step in the kill chain and an observation, using tables like the one below.  As we can see, this format is similar to descriptions we might find about the phases of pentesting \[[26]\]
 
 <table>
     <caption>Command to Kill Chain Step Summary</caption>
@@ -79,7 +79,12 @@ Our needs here are a little different, so we'll modify our chart while following
     </tbody>
 </table>
 
+![NIST 4 phases]({{ site.url }}/assets/images/KaliBadStore/NISTfourPhases.png)
+
+Adapting a vernacular of different phases is a common practice.  As we can see from NIST publications like 800-115, similar analysis mechansims might divide up an operation into four phases; \[[36]\] some other evaluators might use five or more. \[[26]\]  So long as we can be clear with our recipients, the breaking up of the anaylsis into phases may not matter.
+
 Later on, I would like to see if we can actually make modifications to repair, modify, or defend that VM, after our penetrations.  For now, that goal will have to remain part of our ambitions, as we work through getting in to the box and learning about the website that's covered in the VM.
+
 
 ## Vulnerability Scanning "Bad Store"
 To support a Reconnaissance phase, we conducted four kinds of vulnerability scans.  Two were Nessus scans (basic network and web applications); one was a collection on `nmap` scans of TCP and UDP protocol ports; another was a `nikto` scan.  We also did some manual observation of the website (directory traversal and simple injection probing), and a `sqlmap` scan; those will be covered separately.  It's obvious that this was very noisy reconnaissance; but, there are no points for stealth going against a home lab VM.  Let's look at what we can learn from these scans.
@@ -88,8 +93,8 @@ To support a Reconnaissance phase, we conducted four kinds of vulnerability scan
 Given some basic directions for running a Nessus scan,  \[2\] we ran a couple of them against the "Bad Store" VM.  A quick skimming of those results showed several OpenSSL-related vulnerabilities; that's when we began to see how many of the vulns might be historic.  Also listed was a vuln related to an old Apache version.   
 
 Copies of the Nessus scan results that we ran against the VM are available through these links:
-- [PDF of Nessus scan using the Basic Network scan type](https://github.com/gladiola/blackmagic/blob/Demo/agkistrodon/contortix/Clytemnestra/Nessus/salvage13_BasicNetwork_BadStore_ya6pkz.pdf)
-- [PDF of Nessus scan using the Web Application scan type](https://github.com/gladiola/blackmagic/blob/Demo/agkistrodon/contortix/Clytemnestra/Nessus/salvage13_BadStore_Web_e1yrt4.pdf)
+- [PDF of Nessus scan using the Basic Network scan type](https://github.com/gladiola/blackmagic/blob/Demo/agkistrodon/contortix/Penelope/BadStore/Nessus/salvage13_BasicNetwork_BadStore_ya6pkz.pdf)
+- [PDF of Nessus scan using the Web Application scan type](https://github.com/gladiola/blackmagic/blob/Demo/agkistrodon/contortix/Penelope/BadStore/Nessus/salvage13_BadStore_Web_e1yrt4.pdf)
 
 We clicked around some to look up those vulnerabilities on hyperlinks related to the Tenable website; while well supported with CVE documentation and the like, there were easier to exploit possibilties likely.  For the time being, we turned our attention over to some of the other vuln scans like `nmap`.
 
@@ -314,7 +319,9 @@ exploit
 set SQL "show columns"
 exploit
 {% endhighlight %}
-`msfconsole` commands like these came in handy to reveal most of what we wanted to know about the database supporting the dynamic website.  Given these simple utilities, we were able to get any table we wanted and to see the entire schema.  Some of the prefabricated scripts for attacking this older version of MySQL database didn't work well because of the lack of an `INFORMATION_SCHEMA` database and standardized tables to cover the meta-structure of the databaases; but, that didn't stop our ability to glean the information we needed using the techniques above and some simple manual processes.  
+`msfconsole` commands like these came in handy to reveal most of what we wanted to know about the database supporting the dynamic website. \[[27]\]  Given these simple utilities, we were able to get any table we wanted and to see the entire schema.  Some of the prefabricated scripts for attacking this older version of MySQL database didn't work well because of the lack of an `INFORMATION_SCHEMA` database and standardized tables to cover the meta-structure of the databaases; but, that didn't stop our ability to glean the information we needed using the techniques above and some simple manual processes.  
+
+Aroung this time we realized there was nothing to lose from just calling `mysql` with common remote commands.  Given an IP address, known port, and working username and password combination, it was no different than calling a remote instance of `mysql` normally.  This got us the usual command prompt and we could proceed without the fuss of even bothering with `msfconsole auxiliary`.
 
 ![screenshot of user accounts and passwords]({{ site.url }}/assets/images/KaliBadStore/BadStorePasswords.png)
 
@@ -322,18 +329,19 @@ exploit
 We were able to try to upload a Perl script file to the CGI-BIN directory; and, judging by the error messages, the transmissions failed.  I attempted several file upload actions through `sqlmap` that ended in failures.  No matter where or how I attempted to write, we were denied permission by the target computer.  During these attempts, I realized just how valuable it could be to have database accounts that were totally foreign to the permissions required for file writing.  Several of the error messages that `sqlmap` returned showed us this would be the case.
 
 ![screenshot of denied file writes]({{ site.url }}/assets/images/KaliBadStore/B403OnUploadedFiles.png)
-By viewing 403s like this, I wondered if the files were written but just not provided with the correct permissions.  Every time I found that this was not the case.  It's likely that the permissions on the directory were set to completely deny the file writes altogether.  In those instances, I had expected to see a 404, but my requests returned a 403.  It's likely that the short-circuit on the status codes simply encountered a sooner reason for denial.
 
+By viewing 403s like this, I wondered if the files were written but just not provided with the correct permissions.  Every time I found that this was not the case.  It's likely that the permissions on the directory were set to completely deny the file writes altogether.  In those instances, I had expected to see a 404, but my requests returned a 403.  It's likely that the short-circuit on the status codes simply encountered a sooner reason for denial. \[[21]\]\[[22]\]\[[23]\]\[[24]\]\[[25]\]
+
+At one point, our goals included the idea of writing scripts to add a user, modify an existing user, or otherwise misuse current user information. \[[35]\] \[[36]\]
 
 ![screenshot of failure to implement chmod through file upload dialog]({{ site.url }}/assets/images/KaliBadStore/chmodFailure.png)
 In the example above, I failed to get a `chmod` command to run against a file I had uploaded through that dialog.
-
 
 Still, I had a dream of being able to penetrate that box, pop a shell, and then begin updating it from the outside.  I really wanted to leave that box better off than when I found it.  
 
 To that end, I attempted to gain more information about the box. With the entire database schema and selected tables downloaded, I still wanted more modifications.  
 
-I began downloading selected files and programs in an attempt to gain more information.  First, I downloaded some of the CGI programs I had been poking against.  I was a little surprised at what I saw in the `badstore.cgi`.  There were a couple of surprises I hadn't touched.  Next, I began hunting for system files.  I never did find the desired boot file; I checked for cronjobs; I downloaded `/etc/passwd`, `/etc/fstab`, `/etc/hosts`, `/etc/profile` and others.  Generally, the empty files with just a null byte that came down would indicate that nothing was found at the address I requested.
+I began downloading selected files and programs in an attempt to gain more information. \[[31]\] First, I downloaded some of the CGI programs I had been poking against.  I was a little surprised at what I saw in the `badstore.cgi`.  There were a couple of surprises I hadn't touched.  Next, I began hunting for system files.  I never did find the desired boot file; I checked for cronjobs; I downloaded `/etc/passwd`, `/etc/fstab`, `/etc/hosts`, `/etc/profile` and others.  Generally, the empty files with just a null byte that came down would indicate that nothing was found at the address I requested.
 
 ![sqlmap output files]({{ site.url }}/assets/images/KaliBadStore/sqlmapOutputFiles.png)
 `sqlmap` automatically catalogs downloaded files in its own hidden directory.  We navigated there and took a look.  It automatically converted directory slashes to underscores in the filenames.  To find out if there was anything in the file, all we had to do was to see if the file size was more than 4 bytes.  The four byte files simply held a null character.  In those cases, we had attempted to download a file that was either not there or not available. 
@@ -347,7 +355,7 @@ I began downloading selected files and programs in an attempt to gain more infor
 
  Downloading the `badstore.cgi` file itself yielded a wealth of information.  Pretty much the heart of the entire exercise, this program showed us some other directories to check up on.  It also showed us some hardcoded password values and some program aspects that we didn't hit on by ourselves.  There were other features in there available for exploit.  However, since most of them were encompassed by the program, we chose not to follow those leads at the time.  
 
-I continued looking for a mechanism to pop a shell with.  With no JSP, ASP, or PHP server-side programs enabled, there were slim pickings.  The MySQL was in a version below 5.0; so, there was no "INFOMRATION_SCHEMA" to play with.  Metasploit modules for Heartbleed and Shellshock weren't working.  After some time, I had to recognize that it was fruitless to continue further exploitation attempts.  As far as I can tell, I wasn't going to get any further in on this one.  
+I continued looking for a mechanism to pop a shell with.  With no JSP, ASP, or PHP server-side programs enabled, there were slim pickings.  The MySQL was in a version below 5.0; so, there was no "INFOMRATION_SCHEMA" to play with.  Metasploit modules for Heartbleed and Shellshock weren't working. \[[28]\] \[[29]\] \[[30]\] \[[33]\]  After some time, I had to recognize that it was fruitless to continue further exploitation attempts.  As far as I can tell, I wasn't going to get any further in on this one.  
 
   
 
@@ -403,48 +411,65 @@ Stack Overflow post suggesting that skip grant tables might be overridden with r
 \[16\]  INTERNET:  [`https://superuser.com/questions/1127299/how-to-restart-mysql-with-skip-grant-tables-if-you-cant-use-the-root-password`](https://superuser.com/questions/1127299/how-to-restart-mysql-with-skip-grant-tables-if-you-cant-use-the-root-password)
 Suggestion that bypassing the skip grant tables arguments can be used in a risky operation to reset the ROOT account password with MySQL.
 
-## Spare Parts
+\[17\]  INTERNET:  [`http://seclists.org/metasploit/2012/q3/40`](http://seclists.org/metasploit/2012/q3/40)
+Got turned on to `spool` for Metasploit commands.
 
-{% highlight shell %}
+\[18\]  INTERNET: [`http://www.guninski.com/modproxy1.html`](http://www.guninski.com/modproxy1.html)
+Post on `mod_proxy`
 
-{% endhighlight %}
+\[19\]  INTERNET: [`https://hack2rule.wordpress.com/2017/02/25/sql-injection-to-meterpreter/`](https://hack2rule.wordpress.com/2017/02/25/sql-injection-to-meterpreter/)
+Blog post on using `sqlmap`, `Meterpreter`, `Burp` and others.
 
+\[20\]  INTERNET: [`https://github.com/sqlmapproject/sqlmap/wiki/Usage`](https://github.com/sqlmapproject/sqlmap/wiki/Usage)
+`sqlmap` github site explaining the usage of the arguments; man pages.
 
-<table>
-    <tr><td></td></tr>
-</table>
+\[21\]  INTERNET: [`https://www.tutorialspoint.com/perl/perl_cgi.htm`](https://www.tutorialspoint.com/perl/perl_cgi.htm)
+Tutorial on simple Perl CGI scripts.  These would have been the basis for some of our initial attempts to write scripts to the box.  
 
-<table>
-    <thead>
-       <tr><th>Kill Chain Step</th><th>Malicious Action</th><th>Defensive Mitigation</th><th>Potential Monitoring</th></tr> 
-    </thead>
-    <tbody>
-    <tr><th></th><td></td><td></td><td></td></tr>
-    </tbody>
-</table>
+\[22\]  Kamthan, Pankaj.  INTERNET: [`https://www.irt.org/articles/js184/#origins_consequences`](https://www.irt.org/articles/js184/#origins_consequences)
+Article explaining some of the details of CGI security.  This looked like it would offer some good advice on setting up CGI scripts.
 
-<table>
-    <thead>
-       <tr><th>Kill Chain Step</th><th>Attacking Action</th><th>Observation</th></tr> 
-    </thead>
-    <tbody>
-    <tr><th>Reconnaissance</th><td></td><td></td></tr>
-    <tr><th>Weaponization</th><td></td><td></td></tr>
-    <tr><th>Delivery</th><td></td><td></td></tr>
-    <tr><th>Exploitation</th><td></td><td></td></tr>
-    <tr><th>Installation</th><td></td><td></td></tr>
-    <tr><th>Command and Control</th><td></td><td></td></tr>
-    <tr><th>Actions and Objectives</th><td></td><td></td></tr>
-    </tbody>
-</table>
+\[23\]  INTERNET: [`https://httpd.apache.org/docs/2.4/howto/cgi.html`](https://httpd.apache.org/docs/2.4/howto/cgi.html)
+Apache documentation on setting up CGI with Apache 2.4.
 
-## Photos
+\[24\]  INTERNET: [`https://www.techrepublic.com/article/get-it-done-installing-apache-web-server-on-linux/`](https://www.techrepublic.com/article/get-it-done-installing-apache-web-server-on-linux/)
+An overview of instructions on how to install Apache 1.3.  This provided a quick reference on what might have been pertinent to the author of the VM when installing the web server we were attacking.
 
+\[25\]  INTERNET: [`https://www.cybrary.it/forums/topic/how-to-bypass-error-403-forbidden/`](https://www.cybrary.it/forums/topic/how-to-bypass-error-403-forbidden/)
+Forum posts on other people getting 403s.  No big surprises here; but some sound advice on a statement of the conditions.
 
+\[26\]  INTERNET: [`https://www.cybrary.it/2015/05/summarizing-the-five-phases-of-penetration-testing/`](https://www.cybrary.it/2015/05/summarizing-the-five-phases-of-penetration-testing/)
+Description of the five phases of pentesting.
 
+\[27\]  INTERNET: [`https://www.offensive-security.com/metasploit-unleashed/scanner-http-auxiliary-modules/`](https://www.offensive-security.com/metasploit-unleashed/scanner-http-auxiliary-modules/)
+Offensive Security's documentation on Metasploit's auxiliary modules.  Shows the modules in use, commonly adjusted settings, and a brief description of each.
 
+\[28\]  INTERNET: [`https://www.rapid7.com/db/modules/auxiliary/scanner/ssl/openssl_heartbleed`](https://www.rapid7.com/db/modules/auxiliary/scanner/ssl/openssl_heartbleed)
+Rapid7's description of an openssl_hearbleed scanner in Metasploit.
 
+\[29\]  INTERNET: [`https://www.trojanhorsesecurity.com/shellshock`](https://www.trojanhorsesecurity.com/shellshock)
+Trojan Horse Security's description of a Shellshock scanner and exploit in Metasploit.
 
+\[30\]  INTERNET: [`https://www.rapid7.com/db/modules/exploit/multi/http/apache_mod_cgi_bash_env_exec`](https://www.rapid7.com/db/modules/exploit/multi/http/apache_mod_cgi_bash_env_exec)
+Rapid7's description of a Shellshock exploit in Metasploit.
+
+\[31\]  INTERNET: [`https://bytebin.wordpress.com/2011/04/25/how-to-check-debian-boot-log-messages/`](https://bytebin.wordpress.com/2011/04/25/how-to-check-debian-boot-log-messages/)
+Blog post on where to find Debian boot logs.  Useful notes when we were trying to locate BadStore VM's boot-up information.
+
+\[32\]  INTERNET: [`https://www.cvedetails.com/vulnerability-list/vendor_id-185/product_id-316/version_id-31799/Mysql-Mysql-4.0.25.html`](https://www.cvedetails.com/vulnerability-list/vendor_id-185/product_id-316/version_id-31799/Mysql-Mysql-4.0.25.html)
+Web page on some CVEs related to early versions of MySQL.
+
+\[33\]  INTERNET: [`https://packetstormsecurity.com/files/128447/Apache-mod_cgi-Bash-Environment-Variable-Code-Injection.html`](https://packetstormsecurity.com/files/128447/Apache-mod_cgi-Bash-Environment-Variable-Code-Injection.html)
+Blog post outlining the source code for a custom Metasploit module to work against Apache mod_cgi Bash.
+
+\[34\]  INTERNET: [`https://www.digitalocean.com/community/tutorials/how-to-use-passwd-and-adduser-to-manage-passwords-on-a-linux-vps`](https://www.digitalocean.com/community/tutorials/how-to-use-passwd-and-adduser-to-manage-passwords-on-a-linux-vps)
+Tutorial on `/etc/passwd` that helped us understand what we saw when we downloaded a copy from BadStore.
+
+\[35\]  INTERNET: [`https://www.tldp.org/LDP/sag/html/adduser.html`](https://www.tldp.org/LDP/sag/html/adduser.html)
+Linux Documentation Project's page on how to add a user.
+
+\[36\]  INTERNET: [`https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-115.pdf`](https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-115.pdf)
+NIST documents includes descriptions of vulnerability scanning, penetration testing, password cracking, and other critical terms of applicable techniques.
 
 [//]: # (Hyperlinks)
 [1]:  ``
@@ -463,3 +488,24 @@ Suggestion that bypassing the skip grant tables arguments can be used in a risky
 [14]: https://dev.mysql.com/doc/refman/5.5/en/grant.html
 [15]: https://stackoverflow.com/questions/1708409/how-to-start-mysql-with-skip-grant-tables
 [16]: https://superuser.com/questions/1127299/how-to-restart-mysql-with-skip-grant-tables-if-you-cant-use-the-root-password
+[17]: http://seclists.org/metasploit/2012/q3/40
+[18]: http://www.guninski.com/modproxy1.html
+[19]: https://hack2rule.wordpress.com/2017/02/25/sql-injection-to-meterpreter/
+[20]: https://github.com/sqlmapproject/sqlmap/wiki/Usage
+[21]: https://www.tutorialspoint.com/perl/perl_cgi.htm
+[22]: https://www.irt.org/articles/js184/#origins_consequences
+[23]: https://httpd.apache.org/docs/2.4/howto/cgi.html
+[24]: https://www.techrepublic.com/article/get-it-done-installing-apache-web-server-on-linux/
+[25]: https://www.cybrary.it/forums/topic/how-to-bypass-error-403-forbidden/
+[26]: https://www.cybrary.it/2015/05/summarizing-the-five-phases-of-penetration-testing/
+[27]: https://www.offensive-security.com/metasploit-unleashed/scanner-http-auxiliary-modules/
+[28]: https://www.rapid7.com/db/modules/auxiliary/scanner/ssl/openssl_heartbleed
+[29]: https://www.trojanhorsesecurity.com/shellshock
+[30]: https://www.rapid7.com/db/modules/exploit/multi/http/apache_mod_cgi_bash_env_exec
+[31]: https://bytebin.wordpress.com/2011/04/25/how-to-check-debian-boot-log-messages/
+[32]: https://www.cvedetails.com/vulnerability-list/vendor_id-185/product_id-316/version_id-31799/Mysql-Mysql-4.0.25.html
+[33]: https://packetstormsecurity.com/files/128447/Apache-mod_cgi-Bash-Environment-Variable-Code-Injection.html
+[34]: https://www.digitalocean.com/community/tutorials/how-to-use-passwd-and-adduser-to-manage-passwords-on-a-linux-vps
+[35]: https://www.tldp.org/LDP/sag/html/adduser.html
+[36]: https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-115.pdf
+
