@@ -297,7 +297,7 @@ An example of attempting to write a file from the attacker box's current directo
 
 {% highlight shell%}
 sqlmap -r badStore_postEmail.txt -p email --threads=10 --dbms=mysql -D badstoredb -v 5
-{% endhighlight}
+{% endhighlight %}
 An example of using `sqlmap` to read a POST message and apply its contents to a parameter, using `-p <PARAMETER_NAME>`.  The POST message was previously intercepted with Burp Suite and then copied to a text file.  That text file was edited to adjust some parameters.  Using these techniques, a POST message can be edited and applied with `sqlmap` to try to gain access specific to certain user accounts, cookies, etc., based on the design of the site's input validation checks in the receiving program.  In this way, if we wanted to use common anonymous access to use information we had or suspected about an admin account, we might try to forge our way into an admin login.  
 
 This kind of POST file read technique can be combine with the other `--file-dest` and `--file-write` arguments in `sqlmap` to try to upload a file as a given user.
