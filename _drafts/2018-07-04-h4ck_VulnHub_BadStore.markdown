@@ -308,10 +308,11 @@ As a noob, this might seem counterintuitive.  Why would `hashcat` not simply ans
        <tr><th>Kill Chain Step</th><th>Attacking Action</th><th>Observation</th></tr> 
     </thead>
     <tbody>
-    <tr><th rowspan="3">Attack</th>
+    <tr><th rowspan="4">Attack</th>
         <td>msfconsole mysql schema dump</td><td>Get database schema</td></tr>
     <tr><td>msf mysql sql</td><td>Obtain users table with passwords</td></tr>
     <tr><td>hashcat</td><td>Offline password cracking in bulk</td></tr>
+    <tr><td>SQLi `' '1'='1' OR -- `</td><td>Injectable controls all over</td></tr>
     </tbody>
 </table>
 
@@ -335,6 +336,10 @@ As a noob, this might seem counterintuitive.  Why would `hashcat` not simply ans
         <tr>
             <td>hashcat</td>
             <td>Password cracking with wordlists in a reasonable time allowed use of accounts uncovered in previous steps.</td>
+        </tr>
+        <tr>
+            <td>SQLi</td>
+            <td>Injectable controls in almost all inputs and file upload dialogs; other inputs showed CGI filtering of URL-encoded values</td>
         </tr>
     </tbody>
 </table>
