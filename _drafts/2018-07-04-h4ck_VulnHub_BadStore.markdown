@@ -1,10 +1,10 @@
 ---
-title:  "Hacking Vulnhub's \"Bad Store\""
+title:  "h4cking Vulnhub's \"Bad Store\""
 date:   2018-07-04 08:30:00
 description: Notes on Hacking Vulnhub's "Bad Store" VM
 ---
 
-In this post, we'll cover adapting some of the recon techniques outlined in Georgia Weidman's book \[1\]\[2\]\[3\] to an unknown set of problems found in VulnHub's "Bad Store" ISO. \[[4]\]  Our goal will be to use the VulnHub VM as a target.  We'll find what's possible by doing some scanning and enumeration. From there, we'll look at some exploits.  
+In this post, we'll cover adapting some of the recon techniques outlined in Georgia Weidman's book, *Pentration Testing* \[1\]\[2\]\[3\] to an unknown set of problems found in VulnHub's "Bad Store" ISO. \[[4]\]  Our goal will be to use the VulnHub VM as a target.  We'll find what's possible by doing some scanning and enumeration. From there, we'll look at some exploits.  
 
 ### Spoilers
 <blockquote>
@@ -13,14 +13,14 @@ In this post, we'll cover adapting some of the recon techniques outlined in Geor
 
 
 
-Published in 2004, "Bad Store" \[[4]\] is one of the oldest VMs available for these kinds of penetrations.  The VM target contains a poorly secured storefront website running on a Linux system with a MySQL database and some CGI programming.  The age of the target is significant in that we see much less CGI programming than we used to; also, we will see that the passing of time has revealed new vulnerabilities in the technologies used in the VM that may not have been a part of the initial exercises.
+Published in 2004, "Bad Store" \[[4]\] is one of the oldest VMs on Vulnhub available for these kinds of penetrations.  The VM target contains a poorly secured storefront website running on a Linux system with a MySQL database and some CGI programming.  The age of the target is significant in that, commercially, we see much less CGI programming than we used to; also, we will see that the passing of time has revealed new vulnerabilities in the technologies used in the VM that may not have been a part of the initial exercises.
 
 ### Setup
 ![Diagram showing Kali and Bad Store VM]({{ site.url }}/assets/images/KaliBadStore/Diagram_Kali_BadStore.png)
 
 
 ### Summary Properties of the Machines
-One box is holding the VulnHub VM; it's running VirtualBox; conducted some simple `ifconfig` and `ping` checks to make sure that it could communicate with other machines on the SOHO network.  Target box is the VM running on a WIN10 laptop.  On the attacker box, we are using FreeBSD 10.3 and a Kali VM.
+One box is holding the VulnHub VM; it's running VirtualBox; we conducted some simple `ifconfig` and `ping` checks to make sure that it could communicate with other machines on the SOHO network.  This target box is the VM running on a WIN10 laptop.  On the attacker box, we are using FreeBSD 10.3 and a VirtualBox hypervisor running Kali in a VM.
 
 <table>
     <caption>Initial Commo Checks and Basic Configuation</caption>
@@ -48,8 +48,10 @@ and `ifconfig` on both VMs, we could reasonably see that the boxes were communic
 
 If communication among the boxes cannot be established, then a common point to check is the VM network adapter.  Another similar troubleshooting check will be to see if a command line or terminal on the host system can communicate with the VM, and vice versa.  
 
-These commo checks may seem elementary; but, knowing IP addresses and having smooth commo among the boxes can be of help when exporting data.  Kali, in the configuration I was using, did not have an `ftp` command in the terminal.  Also, the FreeBSD version I was using did not have a simple `automount` So, to get files into and out of the attack box, I used FTP uploads through an intermediary website, `PuTTY`, `ssh`, and `scp`.  Since those details are particular to my setup, I won't cover most of those here.  Meanwhile, in most situations where I have had to use VMs on a variety of systems, being proficient with those kinds of file transfers was a handy skill to have.
+These commo checks may seem elementary; but, knowing IP addresses and having smooth commo among the boxes can be of help when exporting data. To get files into and out of the attack box, I used FTP uploads through an intermediary website, `PuTTY`, `ssh`, and `scp`.  In most situations where I have had to use VMs on a variety of systems, being proficient with those kinds of file transfers was a handy skill to have.
 
+## ISO Reset
+When working with the "Bad Store" VM, it was noted in some of the early directions that the VM would reset itself if restarted.  This became more of a consideration, later, when thinking up what type of exploits could be used inside the target.  Meanwhile, we decided not to turn the VM completely off; instead, when it was time to end a study session the VMs for both the attacker and the target would have their states saved before the computers were shut down.  This, in conjunction with giving no real commands on the target box, was one of the few rules of this exercise.
 
 ## Kill Chains and Attacking Actions
 Throughout our discussion, we'll try to relate the use of commands in Kali to analysis actions that use the Lockheed-Martin Intrusion Kill Chain.  Brotherston and Berlin, writing in the Defensive Security Handbook, presented an example use case in this format that allowed us to see all sides of the attack. \[5\] They included defensive actions and monitoring in correlations with phases of the kill chain.  Their chart headers looked similar to the one below.
@@ -83,22 +85,31 @@ Our needs here are a little different, so we'll modify our chart while following
 
 Adapting a vernacular of different phases is a common practice.  As we can see from NIST publications like 800-115, similar analysis mechansims might divide up an operation into four phases; \[[36]\] some other evaluators might use five or more. \[[26]\]  So long as we can be clear with our recipients, the breaking up of the anaylsis into phases may not matter.
 
-Later on, I would like to see if we can actually make modifications to repair, modify, or defend that VM, after our penetrations.  For now, that goal will have to remain part of our ambitions, as we work through getting in to the box and learning about the website that's covered in the VM.
+As we go through some of the phases of the hack, we'll cover some of the NIST-style Discovery and Attack cycles.  In retrospect, this fit a chronology of our actual actions better than the Kill Chain style of analysis.  So, as some of the Discovery and Attack cycles build up information, we'll see them grouped together in some subsections of the Kill Chains.  
+
+The Planning phase of the penetration testing methodology was almost nonexistent.  We decided not to consult any in-depth directions because in the past those seemed to spoil the discovery.  The plans were boiled down to three simple rules:
+- Do not read the directions.
+- Always read the references.
+- Wait two days before deciding to give in and read the answer.
+
+Those rules held.  Likewise, our reporting phase is just this blog entry.  By the time we got through the exercise, we had about five distinct Discovery and Attack cycles that were naturally following the suggested pattern of discovery, attack, and additional discovery.
+
+Early on, we wanted to see if we could actually make modifications to repair, modify, or defend that VM, after our penetrations.  In the beginning, that goal had to remain part of our ambitions, as we worked through getting in to the box and learning about the website that's covered in the VM.  This first step of vulnerability scanning began our first Discovery and Attack cycle.
 
 
 ## Vulnerability Scanning "Bad Store"
 To support a Reconnaissance phase, we conducted four kinds of vulnerability scans.  Two were Nessus scans (basic network and web applications); one was a collection on `nmap` scans of TCP and UDP protocol ports; another was a `nikto` scan.  We also did some manual observation of the website (directory traversal and simple injection probing), and a `sqlmap` scan; those will be covered separately.  It's obvious that this was very noisy reconnaissance; but, there are no points for stealth going against a home lab VM.  Let's look at what we can learn from these scans.
 
-### Nessus scans for the site
+### `Nessus` scans for the site
 Given some basic directions for running a Nessus scan,  \[2\] we ran a couple of them against the "Bad Store" VM.  A quick skimming of those results showed several OpenSSL-related vulnerabilities; that's when we began to see how many of the vulns might be historic.  Also listed was a vuln related to an old Apache version.   
 
 Copies of the Nessus scan results that we ran against the VM are available through these links:
 - [PDF of Nessus scan using the Basic Network scan type](https://github.com/gladiola/blackmagic/blob/Demo/agkistrodon/contortix/Penelope/BadStore/Nessus/salvage13_BasicNetwork_BadStore_ya6pkz.pdf)
 - [PDF of Nessus scan using the Web Application scan type](https://github.com/gladiola/blackmagic/blob/Demo/agkistrodon/contortix/Penelope/BadStore/Nessus/salvage13_BadStore_Web_e1yrt4.pdf)
 
-We clicked around some to look up those vulnerabilities on hyperlinks related to the Tenable website; while well supported with CVE documentation and the like, there were easier to exploit possibilties likely.  For the time being, we turned our attention over to some of the other vuln scans like `nmap`.
+We clicked around some to look up those vulnerabilities on hyperlinks related to the Tenable website; while well supported with CVE documentation and the like, there were easier to exploit possibilties likely.  We continued with some of the other vuln scans like `nmap`.
 
-### nmap scan for TCP, UDP, and versions
+### `nmap` scan for TCP, UDP, and versions
 Our collection of `nmap` scans were done to find TCP and UDP ports that might be open.  The scans were run with code like:
 
 {% highlight shell %}
@@ -148,23 +159,18 @@ Service detection performed. Please report any incorrect results at https://nmap
 Nmap done at Thu Jun 28 22:00:04 2018 -- 1 IP address (1 host up) scanned in 16.55 seconds
 {% endhighlight %}
 
-So, what does this tell us?  We can see that those three ports are open and nothing else.  This will let us see that we will need to focus on programs that serve HTTP(S) and MySQL.  Trying to attack other applications will probably be fruitless.  
+So, what does this tell us?  We can see that those three ports are open.  This will let us see that we will need to focus on programs that serve HTTP(S) and MySQL.  Trying to attack other applications will probably be fruitless.  
 
-## sqlmap scanning
-Since we do have a website up, and since it is running MySQL, it only takes a quick jump to suppose that we might have a chance at getting everything with a quick run of `sqlmap`.  What happens when we give that a try?
-
-Not much.  That is, `sqlmap` ran its default scan against the target, but didn't find what it was usually looking for.  In order to run `sqlmap` effectively, we would need to provide it some better information.  We'll return to using `sqlmap` later.
-
-## nikto scanning
+## `nikto` scanning
 ![nikto recommendations]({{ site.url }}/assets/images/KaliBadStore/2018-07-07-183641_1366x768_scrot.png)
 
-Quick and easy, `nikto` scannig did a directory traverse that seemed easy to use.  It coughed up five or size directories to check into.  For brevity, We'll show what we eventually found with some of those.  
+Quick and easy, `nikto` scanning did a directory traverse that seemed easy to use.  It coughed up five or size directories to check into.  For brevity, We'll show what we eventually found with some of those.  
 
-The supplier directory was referred to in robots.txt.  Looking up robots.txt showed that a user-agent of a certain name would not be disallowed.  This looked useful.  Also, robots.txt mentioned an `/upload` directory.  That, combined with a file upload dialog, implied an remote or local file inclusion vulnerability possibility.
+The supplier directory was referred to in robots.txt.  Looking up robots.txt showed that a user-agent of a certain name would not be disallowed.  This looked useful.  Also, robots.txt mentioned an `/upload` directory.  That, combined with a file upload dialog, implied an remote or local file inclusion vulnerability possibility.  We could also see how directory rules woudl cycle and recycle scanning bots of the wrong type.  To understand this, we had to compare robots.txt alongside a Javascript script.
 
 The `cgi-bin/` showed a couple of things.  First, laying around was a `test.cgi` file.  Later, after finding some hashes, it would match up with a sysadmin's account.  Apparently, this was a leftover test laying around in the plain.  It showed clearly that there were base64 and MD5 hashes in use; but, that would be close to quickly recognized by the shape of the strings found later.
 
-There was a `/supplier/accounts` laying around.  This was a text file with about four lines associating a number with a base64 encoded string.  Recognizable by its trailing "=", the base64 was quickly decoded.  
+There was a `/supplier/accounts` file laying around.  This was a text file with about four lines associating a number with a base64 encoded string.  Recognizable by its trailing "=", the base64 was quickly decoded.  
 
 {% highlight shell %}
 echo <TARGET STRING> | base64 --decode
@@ -172,7 +178,7 @@ echo <TARGET STRING> | base64 --decode
 
 The output showed a pattern like:
 `<100X>:<USER>/<PASSWORD>/<?OPTIONAL METAL WORD>/<IP ADDRESS>`
-These later proved to be an association between item numbers, a supplier, their password, and IP.  However, the site used email addresses to run the logins, so these account rows did nto get me into anyone's account.
+These later proved to be an association between item numbers, a supplier, their password, and IP.  However, the site used email addresses to run the logins, so these account rows did not get us into anyone's account.
 
 ## Manual directory checks and source code reading
 One of the first things we can do is to look at the website.  
@@ -182,6 +188,8 @@ One of the first things we can do is to look at the website.
 - Where are other assets stored?  
 
 Given those questions, we can go hunting for plenty of vulnerabilities without any scanning tools.  What turns up?
+
+In summary, every possible page deserved a review of its visible source code.  What inputs were there?  What files were called as a part of making the website page possible?  Following these ideas also led us into a credit card validation routine in Javascript that might offer some opportunities later.
 
 ## Tickmark 1 equals 1
 ![sqli error from one equals one]({{ site.url }}/assets/images/KaliBadStore/2018-07-07-210740_1366x768_scrot.png)
@@ -193,7 +201,23 @@ A look at the source code of each page revealed that a lot of form processing wa
 
  ![Clues left lying around]({{ site.url }}/assets/images/KaliBadStore/CluesLeftLyingAround.png)
 
-Meanwhile, it also turned up a script, `frmvrfy.js` that compares two password values.  Apparently part of the reset routine.  This was a program I felt we should exploit with our Javascript skills, but we set it aside for the time being.  
+Meanwhile, it also turned up another script, `frmvrfy.js` that compares two password values.  Apparently part of the reset routine.  This was a program I felt we should exploit with our Javascript skills, but we set it aside for the time being.  
+
+### Analysis Check
+<table>
+    <caption>Command to Kill Chain Step Summary</caption>
+    <thead>
+       <tr><th>Kill Chain Step</th><th>Attacking Action</th><th>Observation</th></tr> 
+    </thead>
+    <tbody>
+    <tr><th rowspan="3">Reconnaissance</th>
+        <td>Nessus Basic Network</td><td>Apache 1.3 and OpenSSL < 0.9</td></tr>
+    <tr><td>Nessus Web</td><td>Apache 1.3 and OpenSSL < 0.9</td></tr>
+    <tr><td>nmap</td><td>Open ports, server versions</td></tr>
+    <tr><td>nikto</td><td>Diretoried and open ports</td></tr>
+    <tr><td>Manual probing</td><td>Exposed files and injectable inputs</td></tr>
+    </tbody>
+</table>
 
 ## Minor stump
 At this point, I had a lot of information, but no real login.  I didn't want to give in and read the provided directions that are on the site.  Time to plink around a little more and see what I could do.  Overall, I felt that I should be getting a login and a chance to see veryone's account history from the site.  Not being able to do that was a little discouraging.  I would have to find a way to ge that somehow.
