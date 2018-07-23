@@ -1,6 +1,6 @@
 ---
 title:  "h4cking Vulnhub's \"Bad Store\""
-date:   2018-07-04 08:30:00
+date:   2018-07-23 08:30:00
 description: Notes on Hacking Vulnhub's "Bad Store" VM
 ---
 
