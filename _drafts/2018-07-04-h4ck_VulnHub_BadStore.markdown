@@ -301,6 +301,44 @@ As mentioned earlier, the entries in the `hashcat` potfile didn't seem to be in 
 
 As a noob, this might seem counterintuitive.  Why would `hashcat` not simply answer with the cracked hash in the order that it received one to crack?  Keep in mind, that this is kind of a tiny "toy" use case.  `hashcat` is meant for bigger work.  If you wanted to crack many, many hashes using some GPUs, then `hashcat` was built for you.  This simple set of block extractions was almost an edge case.
 
+### Analysis Check
+<table>
+    <caption>Command to Kill Chain Step Summary</caption>
+    <thead>
+       <tr><th>Kill Chain Step</th><th>Attacking Action</th><th>Observation</th></tr> 
+    </thead>
+    <tbody>
+    <tr><th rowspan="3">Attack</th>
+        <td>msfconsole mysql schema dump</td><td>Get database schema</td></tr>
+    <tr><td>msf mysql sql</td><td>Obtain users table with passwords</td></tr>
+    <tr><td>hashcat</td><td>Offline password cracking in bulk</td></tr>
+    </tbody>
+</table>
+
+<table>
+    <caption>Discovery and Attack Cycle 2</caption>
+    <thead>
+       <tr>
+            <th>Action</th>
+            <th>Observation</th>
+        </tr> 
+    </thead>
+    <tbody>
+        <tr>
+            <td>msfconsole mysql schema dump</td>
+            <td>Missing INFORMATION_SCHEMA was influential; nonstandard table names</td>
+        </tr>
+        <tr>
+            <td>msf mysql sql</td>
+            <td>Simple calls yielded necessary information to impersonate any account</td>
+        </tr>
+        <tr>
+            <td>hashcat</td>
+            <td>Password cracking with wordlists in a reasonable time allowed use of accounts uncovered in previous steps.</td>
+        </tr>
+    </tbody>
+</table>
+
 ## Next goals
 At this point, it was time to set some new goals.  Thoroughly scanned, with a database coughing up pretty much whatever we wanted, the site would yield whatever information simple account impersonation might provide.  That said, it was not enough.  A lot of what was done thus far was passive.  A malicious attacker would shape and control the box so that it could be used for her own ends.  
 
