@@ -311,7 +311,7 @@ As a noob, this might seem counterintuitive.  Why would `hashcat` not simply ans
     <tr><th rowspan="2">Reconnaissance</th>
         <td>msfconsole mysql schema dump</td><td>Get database schema</td></tr>
     <tr><td>msf mysql sql</td><td>Obtain users table with passwords</td></tr>
-    <tr><th rowspan="2">Attack</th><td>hashcat</td><td>Offline password cracking in bulk</td></tr>
+    <tr><th rowspan="2">Weaponization</th><td>hashcat</td><td>Offline password cracking in bulk</td></tr>
     <tr><td>SQLi ' '1'='1' OR -- </td><td>Injectable controls all over</td></tr>
     </tbody>
 </table>
@@ -402,6 +402,48 @@ sqlmap -r badStore_postEmail.txt -p email --threads=10 --dbms=mysql -D badstored
 An example of using `sqlmap` to read a POST message and apply its contents to a parameter, using `-p <PARAMETER_NAME>`.  The POST message was previously intercepted with Burp Suite and then copied to a text file.  That text file was edited to adjust some parameters.  Using these techniques, a POST message can be edited and applied with `sqlmap` to try to gain access specific to certain user accounts, cookies, etc., based on the design of the site's input validation checks in the receiving program.  In this way, if we wanted to use common anonymous access to use information we had or suspected about an admin account, we might try to forge our way into an admin login.  
 
 This kind of POST file read technique can be combine with the other `--file-dest` and `--file-write` arguments in `sqlmap` to try to upload a file as a given user.
+
+### Analysis Check
+<table>
+    <caption>Command to Kill Chain Step Summary</caption>
+    <thead>
+       <tr><th>Kill Chain Step</th><th>Attacking Action</th><th>Observation</th></tr> 
+    </thead>
+    <tbody>
+    <tr><th rowspan="3">Weaponization</th>
+        <td>sqlmap</td><td>Automated discovery of effective SQLi</td></tr>
+        <td>POST forms intercepted with Burp</td><td>Changing expected information</td></tr>
+    <tr><td>POST forms edited and staged</td><td>Efficient reloading of altered data for repetitive attack attempts</td></tr>
+    <tr><th rowspan="2">Delivery and Exploitation</th><td>sqlmap</td><td>Command line uploads of files</td></tr>
+    <tr><td>sqlmap</td><td>Command line downloads of files</td></tr>
+    <tr><th>Reconnaissance</th><td>sqlmap storage</td><td>Simple observation of file transfers began to reveal write-permission problems </td></tr>
+    </tbody>
+</table>
+
+<table>
+    <caption>Discovery and Attack Cycle 3</caption>
+    <thead>
+       <tr>
+            <th>Action</th>
+            <th>Observation</th>
+        </tr> 
+    </thead>
+    <tbody>
+        <tr>
+            <td>Burp and sqlmap</td>
+            <td>Bypass POST requirement to mimic expected form actions</td>
+        </tr>
+        <tr>
+            <td>File uploads and downloads</td>
+            <td>Understanding what was where</td>
+        </tr>
+        <tr>
+            <td>sqlmap scans to determine SQLi</td>
+            <td>Much more complex attack than if derived manually</td>
+        </tr>
+    </tbody>
+</table>
+
 
 ## Using direct connections with MySQL
 In addition to being able to use `sqlmap`, at one point I noticed that what account I was using to smash my way in just didn't matter.  That is, once we could get it with SQLi on a known injectable control, what account we were using didn't have a bearing on what we could do.  For example, `msfconsole` had some interesting tools which worked just fine to reveal the schema and send some SQL commands to the database engine.
