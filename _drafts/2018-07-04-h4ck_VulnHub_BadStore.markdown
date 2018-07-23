@@ -525,6 +525,43 @@ I began downloading selected files and programs in an attempt to gain more infor
 ![sqlmap output files]({{ site.url }}/assets/images/KaliBadStore/sqlmapOutputFiles.png)
 `sqlmap` automatically catalogs downloaded files in its own hidden directory.  We navigated there and took a look.  It automatically converted directory slashes to underscores in the filenames.  To find out if there was anything in the file, all we had to do was to see if the file size was more than 4 bytes.  The four byte files simply held a null character.  In those cases, we had attempted to download a file that was either not there or not available. 
 
+### Analysis Check
+<table>
+    <caption>Command to Kill Chain Step Summary</caption>
+    <thead>
+       <tr><th>Kill Chain Step</th><th>Attacking Action</th><th>Observation</th></tr> 
+    </thead>
+    <tbody>
+    <tr><th rowspan="1">Reconnaissance</th>
+        <td>Analyze downloaded files</td><td>Observe critical values; notice missing or empty files</td></tr>
+        <tr><th rowspan="1">Exploitation</th>
+        <td>sqlmap</td><td>Fetch system files to learn about system accounts and file structure</td></tr>
+        <tr><th rowspan="1">Installation</th>
+        <td>sqlmap, msfconsole</td><td>All attempts to upload shellcode failed</td></tr>
+    <tr><th rowspan="1">Actions on Objective</th><td>Linux File System</td><td>Multiple attempts to discern possible foothold on the target box by downloading key files.</td></tr>
+    </tbody>
+</table>
+
+<table>
+    <caption>Discovery and Attack Cycle 5</caption>
+    <thead>
+       <tr>
+            <th>Action</th>
+            <th>Observation</th>
+        </tr> 
+    </thead>
+    <tbody>
+        <tr>
+            <td>sqlmap downloads</td>
+            <td>Determined the two user accounts through /etc/passwd; generally observed system files</td>
+        </tr>
+        <tr>
+            <td>sqlmap, msfconsole uploads</td>
+            <td>Could not install a file or detect a running service besides the Perl CGI already there</td>
+        </tr>
+    </tbody>
+</table>
+
  ![badstore.cgi admin portal]({{ site.url }}/assets/images/KaliBadStore/Capture_secretAdminPortal.png)
 
  ![badstore.cgi log files]({{ site.url }}/assets/images/KaliBadStore/logs.png)
