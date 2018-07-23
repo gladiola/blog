@@ -466,6 +466,43 @@ exploit
 
 Aroung this time we realized there was nothing to lose from just calling `mysql` with common remote commands.  Given an IP address, known port, and working username and password combination, it was no different than calling a remote instance of `mysql` normally.  This got us the usual command prompt and we could proceed without the fuss of even bothering with `msfconsole auxiliary`.
 
+### Analysis Check
+<table>
+    <caption>Command to Kill Chain Step Summary</caption>
+    <thead>
+       <tr><th>Kill Chain Step</th><th>Attacking Action</th><th>Observation</th></tr> 
+    </thead>
+    <tbody>
+    <tr><th rowspan="1">Command and Control</th>
+        <td>sqlmap uploads</td><td>Attempted uploads foiled; shell installation unlikely</td></tr>
+    <tr><th rowspan="2">Actions on Objective</th><td>User Accounts</td><td>Decrypted passwords and known user accounts permit impersonation of any user on the site</td></tr>
+    <tr><td>sqlmap</td><td>Gain more knowledge of MySQL engine setup with console-style commands to the database engine</td></tr>
+    </tbody>
+</table>
+
+<table>
+    <caption>Discovery and Attack Cycle 4</caption>
+    <thead>
+       <tr>
+            <th>Action</th>
+            <th>Observation</th>
+        </tr> 
+    </thead>
+    <tbody>
+        <tr>
+            <td>Manual input</td>
+            <td>Impersonate users and observe account differences</td>
+        </tr>
+        <tr>
+            <td>MySQL console</td>
+            <td>Questions arose about skip-grant-tables and db account permissions</td>
+        </tr>
+        <tr>
+            <td>sqlmap uploads</td>
+            <td>Began seeking alternatives to file installation</td>
+        </tr>
+    </tbody>
+</table>
 
 ## Follow-on uploads and actions
 We were able to try to upload a Perl script file to the CGI-BIN directory; and, judging by the error messages, the transmissions failed.  I attempted several file upload actions through `sqlmap` that ended in failures.  No matter where or how I attempted to write, we were denied permission by the target computer.  During these attempts, I realized just how valuable it could be to have database accounts that were totally foreign to the permissions required for file writing.  Several of the error messages that `sqlmap` returned showed us this would be the case.
