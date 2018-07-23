@@ -210,7 +210,7 @@ Meanwhile, it also turned up another script, `frmvrfy.js` that compares two pass
        <tr><th>Kill Chain Step</th><th>Attacking Action</th><th>Observation</th></tr> 
     </thead>
     <tbody>
-    <tr><th rowspan="3">Reconnaissance</th>
+    <tr><th rowspan="5">Reconnaissance</th>
         <td>Nessus Basic Network</td><td>Apache 1.3 and OpenSSL < 0.9</td></tr>
     <tr><td>Nessus Web</td><td>Apache 1.3 and OpenSSL < 0.9</td></tr>
     <tr><td>nmap</td><td>Open ports, server versions</td></tr>
