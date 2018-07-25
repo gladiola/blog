@@ -737,7 +737,6 @@ I began downloading selected files and programs in an attempt to gain more infor
     <tr><td>nikto</td><td>Diretories and open ports</td></tr>
     <tr><td>Manual probing</td><td>Exposed files and injectable inputs</td>
     </tr>
-
     <tr>
         <th rowspan="2">Reconnaissance</th>
         <td>msfconsole mysql schema dump</td>
@@ -747,7 +746,6 @@ I began downloading selected files and programs in an attempt to gain more infor
         <td>msf mysql sql</td>
         <td>Obtain users table with passwords</td>
     </tr>
-
     <tr>
         <th rowspan="2">Weaponization</th>
         <td>hashcat</td>
@@ -757,7 +755,6 @@ I began downloading selected files and programs in an attempt to gain more infor
         <td>SQLi </td>
         <td>Injectable controls all over</td>
     </tr>
-
     <tr>
         <th rowspan="3">Weaponization</th>
         <td>sqlmap</td>
@@ -784,7 +781,6 @@ I began downloading selected files and programs in an attempt to gain more infor
         <td>sqlmap storage</td>
         <td>Simple observation of file transfers began to reveal write-permission problems </td>
     </tr>
-
     <tr>
         <th rowspan="1">Command and Control</th>
         <td>sqlmap uploads</td><td>Attempted uploads foiled; shell installation unlikely</td>
@@ -798,7 +794,6 @@ I began downloading selected files and programs in an attempt to gain more infor
         <td>sqlmap</td>
         <td>Gain more knowledge of MySQL engine setup with console-style commands to the database engine</td>
     </tr>
-
     <tr>
         <th rowspan="1">Reconnaissance</th>
         <td>Analyze downloaded files</td>
