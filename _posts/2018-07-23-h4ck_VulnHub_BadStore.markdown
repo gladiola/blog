@@ -4,7 +4,7 @@ date:   2018-07-23 08:30:00
 description: Notes on Hacking Vulnhub's "Bad Store" VM
 ---
 
-In this post, we'll cover adapting some of the recon techniques outlined in Georgia Weidman's book, *Pentration Testing* \[1\]\[2\]\[3\] to an unknown set of problems found in VulnHub's "Bad Store" ISO. \[[4]\]  Our goal will be to use the VulnHub VM as a target.  We'll find what's possible by doing some scanning and enumeration. From there, we'll look at some exploits.  
+In this post, we'll cover adapting some of the recon techniques outlined in Georgia Weidman's book, *Pentration Testing* \[1\]\[2\]\[3\] to an unknown set of problems found in Kurt R. Roemer's "Bad Store" ISO on VulnHub. \[[4]\]  Our goal will be to use the VulnHub VM as a target.  We'll find what's possible by doing some scanning and enumeration. From there, we'll look at some exploits.  
 
 ### Spoilers
 <blockquote>
@@ -225,7 +225,7 @@ So, what does this tell us?  We can see that those three ports are open.  This w
 ## `nikto` scanning
 ![nikto recommendations]({{ site.url }}/assets/images/KaliBadStore/2018-07-07-183641_1366x768_scrot.png)
 
-Quick and easy, `nikto` scanning did a directory traverse that seemed easy to use.  It coughed up five or size directories to check into.  For brevity, We'll show what we eventually found with some of those.  
+Quick and easy, `nikto` scanning did a directory traverse that seemed easy to use.  It coughed up five or six directories to check into.  For brevity, We'll show what we eventually found with some of those.  
 
 The supplier directory was referred to in robots.txt.  Looking up robots.txt showed that a user-agent of a certain name would not be disallowed.  This looked useful.  Also, robots.txt mentioned an `/upload` directory.  That, combined with a file upload dialog, implied an remote or local file inclusion vulnerability possibility.  We could also see how directory rules woudl cycle and recycle scanning bots of the wrong type.  To understand this, we had to compare robots.txt alongside a Javascript script.
 
@@ -334,7 +334,7 @@ Meanwhile, it also turned up another script, `frmvrfy.js` that compares two pass
 ## Minor stump
 At this point, I had a lot of information, but no real login.  I didn't want to give in and read the provided directions that are on the site.  Time to plink around a little more and see what I could do.  Overall, I felt that I should be getting a login and a chance to see veryone's account history from the site.  Not being able to do that was a little discouraging.  I would have to find a way to ge that somehow.
 
-I tried a couple of Metasploit modules; but, really, a moment of success came by running some of the MySQL-realted auxilliaries.
+I tried a couple of Metasploit modules; but, really, a moment of success came by running some of the MySQL-related auxilliaries.
 
 ## We got the gold
 ![msf auxilliary schema dump]({{ site.url }}/assets/images/KaliBadStore/2018-07-07-184427_1366x768_scrot.png)
@@ -643,7 +643,7 @@ Aroung this time we realized there was nothing to lose from just calling `mysql`
 ## Follow-on uploads and actions
 We were able to try to upload a Perl script file to the CGI-BIN directory; and, judging by the error messages, the transmissions failed.  I attempted several file upload actions through `sqlmap` that ended in failures.  No matter where or how I attempted to write, we were denied permission by the target computer.  During these attempts, I realized just how valuable it could be to have database accounts that were totally foreign to the permissions required for file writing.  Several of the error messages that `sqlmap` returned showed us this would be the case.
 
-![screenshot of denied file writes]({{ site.url }}/assets/images/KaliBadStore/B403OnUploadedFiles.png)
+![screenshot of denied file writes]({{ site.url }}/assets/images/KaliBadStore/403OnUploadedFiles.png)
 
 By viewing 403s like this, I wondered if the files were written but just not provided with the correct permissions.  Every time I found that this was not the case.  It's likely that the permissions on the directory were set to completely deny the file writes altogether.  In those instances, I had expected to see a 404, but my requests returned a 403.  It's likely that the short-circuit on the status codes simply encountered a sooner reason for denial. \[[21]\]\[[22]\]\[[23]\]\[[24]\]\[[25]\]
 
@@ -834,7 +834,9 @@ I began downloading selected files and programs in an attempt to gain more infor
 I continued looking for a mechanism to pop a shell with.  With no JSP, ASP, or PHP server-side programs enabled, there were slim pickings.  The MySQL was in a version below 5.0; so, there was no "INFORMATION_SCHEMA" to play with.  Metasploit modules for Heartbleed and Shellshock weren't working. \[[28]\] \[[29]\] \[[30]\] \[[33]\]  After some time, I had to recognize that it was fruitless to continue further exploitation attempts.  As far as I can tell, I wasn't going to get any further in on this one.  
 
 ## Lessons learned from "Bad Store"
+My dominant impression was that Kurt Roemer built a pretty strong VM.  Despite its age, and subsequent vulnerabilities that emerged long after he published it, we couldn't break into the system itself.  The vulns that were there for our exploitation were really the only major holes in the system.  A big part of these exercises is learning about what makes a strong system.  Not being able to write files where we wanted was the most impressive factor about the system we were attacking.  
 
+While we don't know for sure, let's suppose some of the qualities that the VM may have had that allowed for this strength to happen.  First, there was a clear separation of user accounts between the database engine and the file system.  Second, it's supposed that write permissions were removed from most directories.  It seems as if the site were built with a user account that was later removed.  There were few open ports and no common services.  Contemporary languages and programs that are commonly exploited just weren't there.  The Perl CGI made explicit checks for keywords; its monolithic structure hampered our attempts at finding assumed included components.  Despite certain vulnerabilities and poor coding practices like hard-coded passwords, the system didn't let us get much beyond the application's weakness.  That is, while we were able to break in the database and steal all the data; still, it showed the possibility of a strong site by rebuffing our attempts to break in to the underlying file system.  Overall, it was a good challenge.  Along the way, we learned a few things to consider the next time we see sites with CGI.
 
 
 ## Annotated Bibliography
@@ -850,7 +852,7 @@ Review of techniques to implement Nessus scans, <code>nmap</code> scans, and <co
 
 Review of techniques to implement substitution of values sent with Burp Suite, using <code>sqlmap</code> for SQLi, and understanding local and remote file inclusion attacks.
 
-\[4\]  _____.  "Bad Store 1.2.3," Vulnhub.  INTERNET:  [`https://www.vulnhub.com/entry/badstore-123,41/`](https://www.vulnhub.com/entry/badstore-123,41/) 
+\[4\]  Roemer, Kurt R.  "Bad Store 1.2.3," Vulnhub.  INTERNET:  [`https://www.vulnhub.com/entry/badstore-123,41/`](https://www.vulnhub.com/entry/badstore-123,41/) 
 
 Website listing details of the VM on Vulnhub.  Includes screenshots and links to download URLs.
 
