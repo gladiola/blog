@@ -717,7 +717,6 @@ I began downloading selected files and programs in an attempt to gain more infor
 
 ## Combined Analysis
 
-
 <table>
     <caption>Kill Chain Summary</caption>
     <thead>
@@ -755,7 +754,7 @@ I began downloading selected files and programs in an attempt to gain more infor
         <td>Offline password cracking in bulk</td>
     </tr>
     <tr>
-        <td>SQLi <CODE> ' '1'='1' OR -- </CODE></td>
+        <td>SQLi </td>
         <td>Injectable controls all over</td>
     </tr>
 
