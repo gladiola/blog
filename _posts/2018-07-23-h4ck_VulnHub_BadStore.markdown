@@ -673,7 +673,7 @@ I began downloading selected files and programs in an attempt to gain more infor
     <tbody>
         <tr>
             <td>sqlmap downloads</td>
-            <td>Determined the two user accounts through <CODE>/etc/passwd</CODE> and generally observed system files</td>
+            <td>Determined the two user accounts and generally observed system files</td>
         </tr>
         <tr>
             <td>sqlmap, msfconsole uploads</td>
@@ -681,6 +681,7 @@ I began downloading selected files and programs in an attempt to gain more infor
         </tr>
     </tbody>
 </table>
+
 
 <table>
     <caption>Command to Kill Chain Step 5</caption>
@@ -693,21 +694,21 @@ I began downloading selected files and programs in an attempt to gain more infor
     </thead>
     <tbody>
         <tr>
-            <th rowspan="1">Reconnaissance</th>
+            <th>Reconnaissance</th>
             <td>Analyze downloaded files</td>
             <td>Observe critical values; notice missing or empty files</td>
         </tr>
         <tr>
-            <th rowspan="1">Exploitation</th>
+            <th>Exploitation</th>
             <td>sqlmap</td>
             <td>Fetch system files to learn about system accounts and file structure</td>
         </tr>
         <tr>
-            <th rowspan="1">Installation</th>
+            <th>Installation</th>
             <td>sqlmap, msfconsole</td><td>All attempts to upload shellcode failed</td>
         </tr>
         <tr>
-            <th rowspan="1">Actions on Objective</th>
+            <th>Actions on Objective</th>
             <td>Linux File System</td>
             <td>Multiple attempts to discern possible foothold on the target box by downloading key files.</td>
         </tr>
