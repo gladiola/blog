@@ -715,7 +715,6 @@ I began downloading selected files and programs in an attempt to gain more infor
         </tr>
     </tbody>
 </table>
-
 <table>
     <caption>Kill Chain Summary</caption>
     <thead>
