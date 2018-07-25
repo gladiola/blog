@@ -405,7 +405,7 @@ As a noob, this might seem counterintuitive.  Why would `hashcat` not simply ans
         </tr>
         <tr>
             <td>SQLi</td>
-            <td>Injectable controls in almost all inputs and file upload dialogs; other inputs showed CGI filtering of URL-encoded values</td>
+            <td>Injectable controls in almost all inputs and file upload dialogs; other inputs showed CGI filtering of URL encoded values</td>
         </tr>
     </tbody>
 </table>
@@ -436,7 +436,7 @@ As a noob, this might seem counterintuitive.  Why would `hashcat` not simply ans
         <td>Offline password cracking in bulk</td>
     </tr>
     <tr>
-        <td>SQLi <CODE>' '1'='1' OR --<CODE> </td>
+        <td>SQLi <CODE>' '1'='1' OR --</CODE> </td>
         <td>Injectable controls all over</td>
     </tr>
     </tbody>
