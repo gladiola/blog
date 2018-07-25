@@ -717,7 +717,7 @@ I began downloading selected files and programs in an attempt to gain more infor
 </table>
 
 ## Kill chain summary assembled
-Given the past sections on the kill chain process, if we put together all of the parts into one table, we might see results like the one below.  Let's recognize that the process did not follow the prefabricated linear sequence from Reconnaissance to Actions.  Instead, we saw that the process really unfolded in multiple layers of discovry.
+Given the past sections on the kill chain process, if we put together all of the parts into one table, we might see results like the one below.  Let's recognize that the process did not follow the prefabricated linear sequence from Reconnaissance to Actions.  Instead, we saw that the process really unfolded in multiple layers of discovery.
 
 <table>
     <caption>Kill Chain Summary</caption>

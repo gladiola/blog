@@ -4,7 +4,7 @@ date:   2018-07-23 08:30:00
 description: Notes on Hacking Vulnhub's "Bad Store" VM
 ---
 
-In this post, we'll cover adapting some of the recon techniques outlined in Georgia Weidman's book, *Pentration Testing* \[1\]\[2\]\[3\] to an unknown set of problems found in VulnHub's "Bad Store" ISO. \[[4]\]  Our goal will be to use the VulnHub VM as a target.  We'll find what's possible by doing some scanning and enumeration. From there, we'll look at some exploits.  
+In this post, we'll cover adapting some of the recon techniques outlined in Georgia Weidman's book, *Pentration Testing* \[1\]\[2\]\[3\] to an unknown set of problems found in Kurt R. Roemer's "Bad Store" ISO on VulnHub. \[[4]\]  Our goal will be to use the VulnHub VM as a target.  We'll find what's possible by doing some scanning and enumeration. From there, we'll look at some exploits.  
 
 ### Spoilers
 <blockquote>
@@ -25,16 +25,40 @@ One box is holding the VulnHub VM; it's running VirtualBox; we conducted some si
 <table>
     <caption>Initial Commo Checks and Basic Configuation</caption>
     <tr>
-    <th>Property</th>
-    <th>Value</th>
-    <th>Logical Impact</th>
+        <th>Property</th>
+        <th>Value</th>
+        <th>Logical Impact</th>
     </tr>
-    <tr><th>Target Machine:  VirtualBox VM</th><td>VulnHub Bad Store iso in VM</td><td>Target of unknown composition</td></tr>
-    <tr><th>Target Machine:  Host OS</th><td>WIN 10</td><td>Target platform host OS</td></tr>
-    <tr><th>Attacker Machine:  VirtualBox VM</th><td>Kali</td><td>Attack platform inside VM</td></tr>
-    <tr><th>Attacker Machine:  Host OS</th><td>FreeBSD 10.3 RELEASE</td><td>Attack platform host OS</td></tr>
-    <tr><th>Target</th><td>192.168.1.9</td><td><code>ifconfig</code> OK</td></tr>
-    <tr><th>Attacker</th><td>192.168.1.10</td><td><code>ifconfig</code> OK</td></tr>
+    <tr>
+        <th>Target Machine:  VirtualBox VM</th>
+        <td>VulnHub Bad Store iso in VM</td>
+        <td>Target of unknown composition</td>
+    </tr>
+    <tr>
+        <th>Target Machine:  Host OS</th>
+        <td>WIN 10</td>
+        <td>Target platform host OS</td>
+    </tr>
+    <tr>
+        <th>Attacker Machine:  VirtualBox VM</th>
+        <td>Kali</td>
+        <td>Attack platform inside VM</td>
+    </tr>
+    <tr>
+        <th>Attacker Machine:  Host OS</th>
+        <td>FreeBSD 10.3 RELEASE</td>
+        <td>Attack platform host OS</td>
+    </tr>
+    <tr>
+        <th>Target</th>
+        <td>192.168.1.9</td>
+        <td><code>ifconfig</code> OK</td>
+    </tr>
+    <tr>
+        <th>Attacker</th>
+        <td>192.168.1.10</td>
+        <td>ifconfig OK</td>
+    </tr>
 </table>
 
 ![Kali VM]({{ site.url }}/assets/images/KaliBadStore/2018-07-07-182516_1366x768_scrot.png)
@@ -59,7 +83,12 @@ Throughout our discussion, we'll try to relate the use of commands in Kali to an
 <table>
     <caption>Brotherston-Berlin Use Case Format [5]</caption>
     <thead>
-       <tr><th>Kill Chain Step</th><th>Malicious Action</th><th>Defensive Mitigation</th><th>Potential Monitoring</th></tr> 
+       <tr>
+            <th>Kill Chain Step</th>
+            <th>Malicious Action</th>
+            <th>Defensive Mitigation</th>
+            <th>Potential Monitoring</th>
+        </tr> 
     </thead>
 </table>
 
@@ -68,16 +97,48 @@ Our needs here are a little different, so we'll modify our chart while following
 <table>
     <caption>Command to Kill Chain Step Summary</caption>
     <thead>
-       <tr><th>Kill Chain Step</th><th>Attacking Action</th><th>Observation</th></tr> 
+       <tr>
+            <th>Kill Chain Step</th>
+            <th>Attacking Action</th>
+            <th>Observation</th>
+        </tr> 
     </thead>
     <tbody>
-    <tr><th>Reconnaissance</th><td></td><td></td></tr>
-    <tr><th>Weaponization</th><td></td><td></td></tr>
-    <tr><th>Delivery</th><td></td><td></td></tr>
-    <tr><th>Exploitation</th><td></td><td></td></tr>
-    <tr><th>Installation</th><td></td><td></td></tr>
-    <tr><th>Command and Control</th><td></td><td></td></tr>
-    <tr><th>Actions and Objectives</th><td></td><td></td></tr>
+        <tr>
+            <th>Reconnaissance</th>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <th>Weaponization</th>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <th>Delivery</th>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <th>Exploitation</th>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <th>Installation</th>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <th>Command and Control</th>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <th>Actions and Objectives</th>
+            <td></td>
+            <td></td>
+        </tr>
     </tbody>
 </table>
 
@@ -164,7 +225,7 @@ So, what does this tell us?  We can see that those three ports are open.  This w
 ## `nikto` scanning
 ![nikto recommendations]({{ site.url }}/assets/images/KaliBadStore/2018-07-07-183641_1366x768_scrot.png)
 
-Quick and easy, `nikto` scanning did a directory traverse that seemed easy to use.  It coughed up five or size directories to check into.  For brevity, We'll show what we eventually found with some of those.  
+Quick and easy, `nikto` scanning did a directory traverse that seemed easy to use.  It coughed up five or six directories to check into.  For brevity, We'll show what we eventually found with some of those.  
 
 The supplier directory was referred to in robots.txt.  Looking up robots.txt showed that a user-agent of a certain name would not be disallowed.  This looked useful.  Also, robots.txt mentioned an `/upload` directory.  That, combined with a file upload dialog, implied an remote or local file inclusion vulnerability possibility.  We could also see how directory rules woudl cycle and recycle scanning bots of the wrong type.  To understand this, we had to compare robots.txt alongside a Javascript script.
 
@@ -227,7 +288,7 @@ Meanwhile, it also turned up another script, `frmvrfy.js` that compares two pass
         </tr>
         <tr>
             <td>nikto</td>
-            <td>Stubbed-out directories and loose files with clues</td>
+            <td>Stubbed out directories and loose files with clues</td>
         </tr>
         <tr>
             <td>Manual probing</td>
@@ -239,22 +300,41 @@ Meanwhile, it also turned up another script, `frmvrfy.js` that compares two pass
 <table>
     <caption>Command to Kill Chain Step 1</caption>
     <thead>
-       <tr><th>Kill Chain Step</th><th>Attacking Action</th><th>Observation</th></tr> 
+       <tr>
+            <th>Kill Chain Step</th>
+            <th>Attacking Action</th>
+            <th>Observation</th>
+        </tr> 
     </thead>
     <tbody>
-    <tr><th rowspan="5">Reconnaissance</th>
-        <td>Nessus Basic Network</td><td>Apache 1.3 and OpenSSL < 0.9</td></tr>
-    <tr><td>Nessus Web</td><td>Apache 1.3 and OpenSSL < 0.9</td></tr>
-    <tr><td>nmap</td><td>Open ports, server versions</td></tr>
-    <tr><td>nikto</td><td>Diretories and open ports</td></tr>
-    <tr><td>Manual probing</td><td>Exposed files and injectable inputs</td></tr>
+    <tr>
+        <th rowspan="5">Reconnaissance</th>
+        <td>Nessus Basic Network</td>
+        <td>Apache 1.3 and OpenSSL < 0.9</td>
+    </tr>
+    <tr>
+        <td>Nessus Web</td>
+        <td>Apache 1.3 and OpenSSL < 0.9</td>
+    </tr>
+    <tr>
+        <td>nmap</td>
+        <td>Open ports, server versions</td>
+    </tr>
+    <tr>
+        <td>nikto</td>
+        <td>Diretories and open ports</td>
+    </tr>
+    <tr>
+        <td>Manual probing</td>
+        <td>Exposed files and injectable inputs</td>
+    </tr>
     </tbody>
 </table>
 
 ## Minor stump
 At this point, I had a lot of information, but no real login.  I didn't want to give in and read the provided directions that are on the site.  Time to plink around a little more and see what I could do.  Overall, I felt that I should be getting a login and a chance to see veryone's account history from the site.  Not being able to do that was a little discouraging.  I would have to find a way to ge that somehow.
 
-I tried a couple of Metasploit modules; but, really, a moment of success came by running some of the MySQL-realted auxilliaries.
+I tried a couple of Metasploit modules; but, really, a moment of success came by running some of the MySQL-related auxilliaries.
 
 ## We got the gold
 ![msf auxilliary schema dump]({{ site.url }}/assets/images/KaliBadStore/2018-07-07-184427_1366x768_scrot.png)
@@ -325,7 +405,7 @@ As a noob, this might seem counterintuitive.  Why would `hashcat` not simply ans
         </tr>
         <tr>
             <td>SQLi</td>
-            <td>Injectable controls in almost all inputs and file upload dialogs; other inputs showed CGI filtering of URL-encoded values</td>
+            <td>Injectable controls in almost all inputs and file upload dialogs; other inputs showed CGI filtering of URL encoded values</td>
         </tr>
     </tbody>
 </table>
@@ -334,14 +414,31 @@ As a noob, this might seem counterintuitive.  Why would `hashcat` not simply ans
 <table>
     <caption>Command to Kill Chain Step 2</caption>
     <thead>
-       <tr><th>Kill Chain Step</th><th>Attacking Action</th><th>Observation</th></tr> 
+        <tr>
+            <th>Kill Chain Step</th>
+            <th>Attacking Action</th>
+            <th>Observation</th>
+        </tr> 
     </thead>
     <tbody>
-    <tr><th rowspan="2">Reconnaissance</th>
-        <td>msfconsole mysql schema dump</td><td>Get database schema</td></tr>
-    <tr><td>msf mysql sql</td><td>Obtain users table with passwords</td></tr>
-    <tr><th rowspan="2">Weaponization</th><td>hashcat</td><td>Offline password cracking in bulk</td></tr>
-    <tr><td>SQLi ' '1'='1' OR -- </td><td>Injectable controls all over</td></tr>
+    <tr>
+        <th rowspan="2">Reconnaissance</th>
+        <td>msfconsole mysql schema dump</td>
+        <td>Get database schema</td>
+    </tr>
+    <tr>
+        <td>msf mysql sql</td>
+        <td>Obtain users table with passwords</td>
+    </tr>
+    <tr>
+        <th rowspan="2">Weaponization</th>
+        <td>hashcat</td>
+        <td>Offline password cracking in bulk</td>
+    </tr>
+    <tr>
+        <td>SQLi <CODE>' '1'='1' OR --</CODE> </td>
+        <td>Injectable controls all over</td>
+    </tr>
     </tbody>
 </table>
 
@@ -409,7 +506,7 @@ This kind of POST file read technique can be combine with the other `--file-dest
 <table>
     <caption>Discovery and Attack Cycle 3</caption>
     <thead>
-       <tr>
+        <tr>
             <th>Action</th>
             <th>Observation</th>
         </tr> 
@@ -433,16 +530,40 @@ This kind of POST file read technique can be combine with the other `--file-dest
 <table>
     <caption>Command to Kill Chain Step 3</caption>
     <thead>
-       <tr><th>Kill Chain Step</th><th>Attacking Action</th><th>Observation</th></tr> 
+       <tr>
+        <th>Kill Chain Step</th>
+        <th>Attacking Action</th>
+        <th>Observation</th>
+    </tr> 
     </thead>
     <tbody>
-    <tr><th rowspan="3">Weaponization</th>
-        <td>sqlmap</td><td>Automated discovery of effective SQLi</td></tr>
-        <td>POST forms intercepted with Burp</td><td>Changing expected information</td></tr>
-    <tr><td>POST forms edited and staged</td><td>Efficient reloading of altered data for repetitive attack attempts</td></tr>
-    <tr><th rowspan="2">Delivery and Exploitation</th><td>sqlmap</td><td>Command line uploads of files</td></tr>
-    <tr><td>sqlmap</td><td>Command line downloads of files</td></tr>
-    <tr><th>Reconnaissance</th><td>sqlmap storage</td><td>Simple observation of file transfers began to reveal write-permission problems </td></tr>
+    <tr>
+        <th rowspan="3">Weaponization</th>
+        <td>sqlmap</td>
+        <td>Automated discovery of effective SQLi</td>
+    </tr>
+    <tr>    
+        <td>POST forms intercepted with Burp</td>
+        <td>Changing expected information</td>
+    </tr>
+    <tr>
+        <td>POST forms edited and staged</td>
+        <td>Efficient reloading of altered data for repetitive attack attempts</td>
+    </tr>
+    <tr>
+        <th rowspan="2">Delivery and Exploitation</th>
+        <td>sqlmap</td>
+        <td>Command line uploads of files</td>
+    </tr>
+    <tr>
+        <td>sqlmap</td>
+        <td>Command line downloads of files</td>
+    </tr>
+    <tr>
+        <th>Reconnaissance</th>
+        <td>sqlmap storage</td>
+        <td>Simple observation of file transfers began to reveal write-permission problems </td>
+    </tr>
     </tbody>
 </table>
 
@@ -471,7 +592,7 @@ Aroung this time we realized there was nothing to lose from just calling `mysql`
 <table>
     <caption>Discovery and Attack Cycle 4</caption>
     <thead>
-       <tr>
+        <tr>
             <th>Action</th>
             <th>Observation</th>
         </tr> 
@@ -495,20 +616,34 @@ Aroung this time we realized there was nothing to lose from just calling `mysql`
 <table>
     <caption>Command to Kill Chain Step 4</caption>
     <thead>
-       <tr><th>Kill Chain Step</th><th>Attacking Action</th><th>Observation</th></tr> 
+       <tr>
+            <th>Kill Chain Step</th>
+            <th>Attacking Action</th>
+            <th>Observation</th>
+        </tr> 
     </thead>
     <tbody>
-    <tr><th rowspan="1">Command and Control</th>
-        <td>sqlmap uploads</td><td>Attempted uploads foiled; shell installation unlikely</td></tr>
-    <tr><th rowspan="2">Actions on Objective</th><td>User Accounts</td><td>Decrypted passwords and known user accounts permit impersonation of any user on the site</td></tr>
-    <tr><td>sqlmap</td><td>Gain more knowledge of MySQL engine setup with console-style commands to the database engine</td></tr>
+    <tr>
+        <th rowspan="1">Command and Control</th>
+        <td>sqlmap uploads</td>
+        <td>Attempted uploads foiled; shell installation unlikely</td>
+    </tr>
+    <tr>
+        <th rowspan="2">Actions on Objective</th>
+        <td>User Accounts</td>
+        <td>Decrypted passwords and known user accounts permit impersonation of any user on the site</td>
+    </tr>
+    <tr>
+        <td>sqlmap</td>
+        <td>Gain more knowledge of MySQL engine setup with console-style commands to the database engine</td>
+    </tr>
     </tbody>
 </table>
 
 ## Follow-on uploads and actions
 We were able to try to upload a Perl script file to the CGI-BIN directory; and, judging by the error messages, the transmissions failed.  I attempted several file upload actions through `sqlmap` that ended in failures.  No matter where or how I attempted to write, we were denied permission by the target computer.  During these attempts, I realized just how valuable it could be to have database accounts that were totally foreign to the permissions required for file writing.  Several of the error messages that `sqlmap` returned showed us this would be the case.
 
-![screenshot of denied file writes]({{ site.url }}/assets/images/KaliBadStore/B403OnUploadedFiles.png)
+![screenshot of denied file writes]({{ site.url }}/assets/images/KaliBadStore/403OnUploadedFiles.png)
 
 By viewing 403s like this, I wondered if the files were written but just not provided with the correct permissions.  Every time I found that this was not the case.  It's likely that the permissions on the directory were set to completely deny the file writes altogether.  In those instances, I had expected to see a 404, but my requests returned a 403.  It's likely that the short-circuit on the status codes simply encountered a sooner reason for denial. \[[21]\]\[[22]\]\[[23]\]\[[24]\]\[[25]\]
 
@@ -530,7 +665,7 @@ I began downloading selected files and programs in an attempt to gain more infor
 <table>
     <caption>Discovery and Attack Cycle 5</caption>
     <thead>
-       <tr>
+        <tr>
             <th>Action</th>
             <th>Observation</th>
         </tr> 
@@ -538,7 +673,7 @@ I began downloading selected files and programs in an attempt to gain more infor
     <tbody>
         <tr>
             <td>sqlmap downloads</td>
-            <td>Determined the two user accounts through /etc/passwd; generally observed system files</td>
+            <td>Determined the two user accounts and generally observed system files</td>
         </tr>
         <tr>
             <td>sqlmap, msfconsole uploads</td>
@@ -547,62 +682,151 @@ I began downloading selected files and programs in an attempt to gain more infor
     </tbody>
 </table>
 
+
 <table>
     <caption>Command to Kill Chain Step 5</caption>
     <thead>
-       <tr><th>Kill Chain Step</th><th>Attacking Action</th><th>Observation</th></tr> 
+        <tr>
+            <th>Kill Chain Step</th>
+            <th>Attacking Action</th>
+            <th>Observation</th>
+        </tr> 
     </thead>
     <tbody>
-    <tr><th rowspan="1">Reconnaissance</th>
-        <td>Analyze downloaded files</td><td>Observe critical values; notice missing or empty files</td></tr>
-        <tr><th rowspan="1">Exploitation</th>
-        <td>sqlmap</td><td>Fetch system files to learn about system accounts and file structure</td></tr>
-        <tr><th rowspan="1">Installation</th>
-        <td>sqlmap, msfconsole</td><td>All attempts to upload shellcode failed</td></tr>
-    <tr><th rowspan="1">Actions on Objective</th><td>Linux File System</td><td>Multiple attempts to discern possible foothold on the target box by downloading key files.</td></tr>
+        <tr>
+            <th>Reconnaissance</th>
+            <td>Analyze downloaded files</td>
+            <td>Observe critical values, and notice missing or empty files</td>
+        </tr>
+        <tr>
+            <th>Exploitation</th>
+            <td>sqlmap</td>
+            <td>Fetch system files to learn about system accounts and file structure</td>
+        </tr>
+        <tr>
+            <th>Installation</th>
+            <td>sqlmap, msfconsole</td>
+            <td>All attempts to upload shellcode failed</td>
+        </tr>
+        <tr>
+            <th>Actions on Objective</th>
+            <td>Linux File System</td>
+            <td>Multiple attempts to discern possible foothold</td>
+        </tr>
     </tbody>
 </table>
 
-## Combined Analysis
+## Kill chain summary assembled
+Given the past sections on the kill chain process, if we put together all of the parts into one table, we might see results like the one below.  Let's recognize that the process did not follow the prefabricated linear sequence from Reconnaissance to Actions.  Instead, we saw that the process really unfolded in multiple layers of discovery.
+
 <table>
-    <caption>Command to Kill Chain Step 1</caption>
+    <caption>Kill Chain Summary</caption>
     <thead>
-       <tr><th>Kill Chain Step</th><th>Attacking Action</th><th>Observation</th></tr> 
+       <tr>
+            <th>Kill Chain Step</th>
+            <th>Attacking Action</th>
+            <th>Observation</th>
+        </tr> 
     </thead>
     <tbody>
-    <tr><th rowspan="5">Reconnaissance</th>
-        <td>Nessus Basic Network</td><td>Apache 1.3 and OpenSSL < 0.9</td></tr>
-    <tr><td>Nessus Web</td><td>Apache 1.3 and OpenSSL < 0.9</td></tr>
-    <tr><td>nmap</td><td>Open ports, server versions</td></tr>
-    <tr><td>nikto</td><td>Diretories and open ports</td></tr>
-    <tr><td>Manual probing</td><td>Exposed files and injectable inputs</td></tr>
-
-    <tr><th rowspan="2">Reconnaissance</th>
-        <td>msfconsole mysql schema dump</td><td>Get database schema</td></tr>
-    <tr><td>msf mysql sql</td><td>Obtain users table with passwords</td></tr>
-    <tr><th rowspan="2">Weaponization</th><td>hashcat</td><td>Offline password cracking in bulk</td></tr>
-    <tr><td>SQLi ' '1'='1' OR -- </td><td>Injectable controls all over</td></tr>
-
-    <tr><th rowspan="3">Weaponization</th>
-        <td>sqlmap</td><td>Automated discovery of effective SQLi</td></tr>
-        <td>POST forms intercepted with Burp</td><td>Changing expected information</td></tr>
-    <tr><td>POST forms edited and staged</td><td>Efficient reloading of altered data for repetitive attack attempts</td></tr>
-    <tr><th rowspan="2">Delivery and Exploitation</th><td>sqlmap</td><td>Command line uploads of files</td></tr>
-    <tr><td>sqlmap</td><td>Command line downloads of files</td></tr>
-    <tr><th>Reconnaissance</th><td>sqlmap storage</td><td>Simple observation of file transfers began to reveal write-permission problems </td></tr>
-
-    <tr><th rowspan="1">Command and Control</th>
-        <td>sqlmap uploads</td><td>Attempted uploads foiled; shell installation unlikely</td></tr>
-    <tr><th rowspan="2">Actions on Objective</th><td>User Accounts</td><td>Decrypted passwords and known user accounts permit impersonation of any user on the site</td></tr>
-    <tr><td>sqlmap</td><td>Gain more knowledge of MySQL engine setup with console-style commands to the database engine</td></tr>
-
-    <tr><th rowspan="1">Reconnaissance</th>
-        <td>Analyze downloaded files</td><td>Observe critical values; notice missing or empty files</td></tr>
-        <tr><th rowspan="1">Exploitation</th>
-        <td>sqlmap</td><td>Fetch system files to learn about system accounts and file structure</td></tr>
-        <tr><th rowspan="1">Installation</th>
-        <td>sqlmap, msfconsole</td><td>All attempts to upload shellcode failed</td></tr>
-    <tr><th rowspan="1">Actions on Objective</th><td>Linux File System</td><td>Multiple attempts to discern possible foothold on the target box by downloading key files.</td></tr>
+        <tr>
+            <th rowspan="5">Reconnaissance</th>
+            <td>Nessus Basic Network</td>
+            <td>Apache 1.3 and OpenSSL less than 0.9</td>
+        </tr>
+        <tr>
+            <td>Nessus Web</td>
+            <td>Apache 1.3 and OpenSSL less than 0.9</td>
+        </tr>
+        <tr>
+            <td>nmap</td>
+            <td>Open ports, server versions</td>
+        </tr>
+        <tr>
+            <td>nikto</td>
+            <td>Diretories and open ports</td>
+        </tr>
+        <tr>
+            <td>Manual probing</td>
+            <td>Exposed files and injectable inputs</td>
+        </tr>
+        <tr>
+            <th rowspan="2">Reconnaissance</th>
+            <td>msfconsole mysql schema dump</td>
+            <td>Get database schema</td>
+        </tr>
+        <tr>
+            <td>msf mysql sql</td>
+            <td>Obtain users table with passwords</td>
+        </tr>
+        <tr>
+            <th rowspan="2">Weaponization</th>
+            <td>hashcat</td>
+            <td>Offline password cracking in bulk</td>
+        </tr>
+        <tr>
+            <td>SQLi </td>
+            <td>Injectable controls all over</td>
+        </tr>
+        <tr>
+            <th rowspan="3">Weaponization</th>
+            <td>sqlmap</td>
+            <td>Automated discovery of effective SQLi</td>
+        </tr>
+            <td>POST forms intercepted with Burp</td>
+            <td>Changing expected information</td>
+        </tr>
+        <tr>
+            <td>POST forms edited and staged</td>
+            <td>Efficient reloading of altered data for repetitive attack attempts</td>
+        </tr>
+        <tr>
+            <th rowspan="2">Delivery and Exploitation</th>
+            <td>sqlmap</td>
+            <td>Command line uploads of files</td>
+        </tr>
+        <tr>
+            <td>sqlmap</td>
+            <td>Command line downloads of files</td>
+        </tr>
+        <tr>
+            <th>Reconnaissance</th>
+            <td>sqlmap storage</td>
+            <td>Simple observation of file transfers began to reveal write-permission problems </td>
+        </tr>
+        <tr>
+            <th rowspan="1">Command and Control</th>
+            <td>sqlmap uploads</td><td>Attempted uploads foiled; shell installation unlikely</td>
+        </tr>
+        <tr>
+            <th rowspan="2">Actions on Objective</th>
+            <td>User Accounts</td>
+            <td>Decrypted passwords and known user accounts permit impersonation of any user on the site</td>
+        </tr>
+        <tr>
+            <td>sqlmap</td>
+            <td>Gain more knowledge of MySQL engine setup with console-style commands to the database engine</td>
+        </tr>
+        <tr>
+            <th rowspan="1">Reconnaissance</th>
+            <td>Analyze downloaded files</td>
+            <td>Observe critical values notice missing or empty files</td>
+        </tr>
+        <tr>
+            <th rowspan="1">Exploitation</th>
+            <td>sqlmap</td>
+            <td>Fetch system files to learn about system accounts and file structure</td>
+        </tr>
+        <tr>
+            <th rowspan="1">Installation</th>
+            <td>sqlmap, msfconsole</td>
+            <td>All attempts to upload shellcode failed</td>
+        </tr>
+        <tr>
+            <th rowspan="1">Actions on Objective</th>
+            <td>Linux File System</td>
+            <td>Multiple attempts to discern possible foothold</td>
+        </tr>
     </tbody>
 </table>
 
@@ -621,7 +845,9 @@ I began downloading selected files and programs in an attempt to gain more infor
 I continued looking for a mechanism to pop a shell with.  With no JSP, ASP, or PHP server-side programs enabled, there were slim pickings.  The MySQL was in a version below 5.0; so, there was no "INFORMATION_SCHEMA" to play with.  Metasploit modules for Heartbleed and Shellshock weren't working. \[[28]\] \[[29]\] \[[30]\] \[[33]\]  After some time, I had to recognize that it was fruitless to continue further exploitation attempts.  As far as I can tell, I wasn't going to get any further in on this one.  
 
 ## Lessons learned from "Bad Store"
+My dominant impression was that Kurt Roemer built a pretty strong VM.  Despite its age, and subsequent vulnerabilities that emerged long after he published it, we couldn't break into the system itself.  The vulns that were there for our exploitation were really the only major holes in the system.  A big part of these exercises is learning about what makes a strong system.  Not being able to write files where we wanted was the most impressive factor about the system we were attacking.  
 
+While we don't know for sure, let's suppose some of the qualities that the VM may have had that allowed for this strength to happen.  First, there was a clear separation of user accounts between the database engine and the file system.  Second, it's supposed that write permissions were removed from most directories.  It seems as if the site were built with a user account that was later removed.  There were few open ports and no common services.  Contemporary languages and programs that are commonly exploited just weren't there.  The Perl CGI made explicit checks for keywords; its monolithic structure hampered our attempts at finding assumed included components.  Despite certain vulnerabilities and poor coding practices like hard-coded passwords, the system didn't let us get much beyond the application's weakness.  That is, while we were able to break in the database and steal all the data; still, it showed the possibility of a strong site by rebuffing our attempts to break in to the underlying file system.  Overall, it was a good challenge.  Along the way, we learned a few things to consider the next time we see sites with CGI.
 
 
 ## Annotated Bibliography
@@ -637,7 +863,7 @@ Review of techniques to implement Nessus scans, <code>nmap</code> scans, and <co
 
 Review of techniques to implement substitution of values sent with Burp Suite, using <code>sqlmap</code> for SQLi, and understanding local and remote file inclusion attacks.
 
-\[4\]  _____.  "Bad Store 1.2.3," Vulnhub.  INTERNET:  [`https://www.vulnhub.com/entry/badstore-123,41/`](https://www.vulnhub.com/entry/badstore-123,41/) 
+\[4\]  Roemer, Kurt R.  "Bad Store 1.2.3," Vulnhub.  INTERNET:  [`https://www.vulnhub.com/entry/badstore-123,41/`](https://www.vulnhub.com/entry/badstore-123,41/) 
 
 Website listing details of the VM on Vulnhub.  Includes screenshots and links to download URLs.
 
