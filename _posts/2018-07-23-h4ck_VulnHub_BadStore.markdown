@@ -681,6 +681,8 @@ I began downloading selected files and programs in an attempt to gain more infor
         </tr>
     </tbody>
 </table>
+
+
 <table>
     <caption>Command to Kill Chain Step 5</caption>
     <thead>
@@ -709,7 +711,7 @@ I began downloading selected files and programs in an attempt to gain more infor
         <tr>
             <th>Actions on Objective</th>
             <td>Linux File System</td>
-            <td>Multiple attempts to discern possible foothold on the target box by downloading key files</td>
+            <td>Multiple attempts to discern possible foothold</td>
         </tr>
     </tbody>
 </table>
