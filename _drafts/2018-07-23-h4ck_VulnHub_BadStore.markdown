@@ -144,7 +144,7 @@ Our needs here are a little different, so we'll modify our chart while following
 
 ![NIST 4 phases]({{ site.url }}/assets/images/KaliBadStore/NISTfourPhases.png)
 
-Adapting a vernacular of different phases is a common practice.  As we can see from NIST publications like 800-115, similar analysis mechansims might divide up an operation into four phases; \[[36]\] some other evaluators might use five or more. \[[26]\]  So long as we can be clear with our recipients, the breaking up of the anaylsis into phases may not matter.
+Adapting a vernacular of different phases is a common practice.  As we can see from NIST publications like 800-115, similar analysis mechanisms might divide up an operation into four phases; \[[36]\] some other evaluators might use five or more. \[[26]\]  So long as we can be clear with our recipients, the breaking up of the anaylsis into phases may not matter.
 
 As we go through some of the phases of the hack, we'll cover some of the NIST-style Discovery and Attack cycles.  In retrospect, this fit a chronology of our actual actions better than the Kill Chain style of analysis.  So, as some of the Discovery and Attack cycles build up information, we'll see them grouped together in some subsections of the Kill Chains.  
 
