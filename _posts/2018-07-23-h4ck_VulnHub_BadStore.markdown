@@ -716,6 +716,8 @@ I began downloading selected files and programs in an attempt to gain more infor
 </table>
 
 ## Combined Analysis
+
+
 <table>
     <caption>Kill Chain Summary</caption>
     <thead>
