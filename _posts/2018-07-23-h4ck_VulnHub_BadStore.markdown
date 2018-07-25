@@ -25,16 +25,40 @@ One box is holding the VulnHub VM; it's running VirtualBox; we conducted some si
 <table>
     <caption>Initial Commo Checks and Basic Configuation</caption>
     <tr>
-    <th>Property</th>
-    <th>Value</th>
-    <th>Logical Impact</th>
+        <th>Property</th>
+        <th>Value</th>
+        <th>Logical Impact</th>
     </tr>
-    <tr><th>Target Machine:  VirtualBox VM</th><td>VulnHub Bad Store iso in VM</td><td>Target of unknown composition</td></tr>
-    <tr><th>Target Machine:  Host OS</th><td>WIN 10</td><td>Target platform host OS</td></tr>
-    <tr><th>Attacker Machine:  VirtualBox VM</th><td>Kali</td><td>Attack platform inside VM</td></tr>
-    <tr><th>Attacker Machine:  Host OS</th><td>FreeBSD 10.3 RELEASE</td><td>Attack platform host OS</td></tr>
-    <tr><th>Target</th><td>192.168.1.9</td><td><code>ifconfig</code> OK</td></tr>
-    <tr><th>Attacker</th><td>192.168.1.10</td><td><code>ifconfig</code> OK</td></tr>
+    <tr>
+        <th>Target Machine:  VirtualBox VM</th>
+        <td>VulnHub Bad Store iso in VM</td>
+        <td>Target of unknown composition</td>
+    </tr>
+    <tr>
+        <th>Target Machine:  Host OS</th>
+        <td>WIN 10</td>
+        <td>Target platform host OS</td>
+    </tr>
+    <tr>
+        <th>Attacker Machine:  VirtualBox VM</th>
+        <td>Kali</td>
+        <td>Attack platform inside VM</td>
+    </tr>
+    <tr>
+        <th>Attacker Machine:  Host OS</th>
+        <td>FreeBSD 10.3 RELEASE</td>
+        <td>Attack platform host OS</td>
+    </tr>
+    <tr>
+        <th>Target</th>
+        <td>192.168.1.9</td>
+        <td><code>ifconfig</code> OK</td>
+    </tr>
+    <tr>
+        <th>Attacker</th>
+        <td>192.168.1.10</td>
+        <td><code>ifconfig</code> OK</td>
+    </tr>
 </table>
 
 ![Kali VM]({{ site.url }}/assets/images/KaliBadStore/2018-07-07-182516_1366x768_scrot.png)
@@ -59,7 +83,12 @@ Throughout our discussion, we'll try to relate the use of commands in Kali to an
 <table>
     <caption>Brotherston-Berlin Use Case Format [5]</caption>
     <thead>
-       <tr><th>Kill Chain Step</th><th>Malicious Action</th><th>Defensive Mitigation</th><th>Potential Monitoring</th></tr> 
+       <tr>
+        <th>Kill Chain Step</th>
+        <th>Malicious Action</th>
+        <th>Defensive Mitigation</th>
+        <th>Potential Monitoring</th>
+    </tr> 
     </thead>
 </table>
 
@@ -68,16 +97,48 @@ Our needs here are a little different, so we'll modify our chart while following
 <table>
     <caption>Command to Kill Chain Step Summary</caption>
     <thead>
-       <tr><th>Kill Chain Step</th><th>Attacking Action</th><th>Observation</th></tr> 
+       <tr>
+        <th>Kill Chain Step</th>
+        <th>Attacking Action</th>
+        <th>Observation</th>
+    </tr> 
     </thead>
     <tbody>
-    <tr><th>Reconnaissance</th><td></td><td></td></tr>
-    <tr><th>Weaponization</th><td></td><td></td></tr>
-    <tr><th>Delivery</th><td></td><td></td></tr>
-    <tr><th>Exploitation</th><td></td><td></td></tr>
-    <tr><th>Installation</th><td></td><td></td></tr>
-    <tr><th>Command and Control</th><td></td><td></td></tr>
-    <tr><th>Actions and Objectives</th><td></td><td></td></tr>
+    <tr>
+        <th>Reconnaissance</th>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <th>Weaponization</th>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <th>Delivery</th>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <th>Exploitation</th>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <th>Installation</th>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <th>Command and Control</th>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <th>Actions and Objectives</th>
+        <td></td>
+        <td></td>
+    </tr>
     </tbody>
 </table>
 
@@ -239,15 +300,34 @@ Meanwhile, it also turned up another script, `frmvrfy.js` that compares two pass
 <table>
     <caption>Command to Kill Chain Step 1</caption>
     <thead>
-       <tr><th>Kill Chain Step</th><th>Attacking Action</th><th>Observation</th></tr> 
+       <tr>
+            <th>Kill Chain Step</th>
+            <th>Attacking Action</th>
+            <th>Observation</th>
+        </tr> 
     </thead>
     <tbody>
-    <tr><th rowspan="5">Reconnaissance</th>
-        <td>Nessus Basic Network</td><td>Apache 1.3 and OpenSSL < 0.9</td></tr>
-    <tr><td>Nessus Web</td><td>Apache 1.3 and OpenSSL < 0.9</td></tr>
-    <tr><td>nmap</td><td>Open ports, server versions</td></tr>
-    <tr><td>nikto</td><td>Diretories and open ports</td></tr>
-    <tr><td>Manual probing</td><td>Exposed files and injectable inputs</td></tr>
+    <tr>
+        <th rowspan="5">Reconnaissance</th>
+        <td>Nessus Basic Network</td>
+        <td>Apache 1.3 and OpenSSL < 0.9</td>
+    </tr>
+    <tr>
+        <td>Nessus Web</td>
+        <td>Apache 1.3 and OpenSSL < 0.9</td>
+    </tr>
+    <tr>
+        <td>nmap</td>
+        <td>Open ports, server versions</td>
+    </tr>
+    <tr>
+        <td>nikto</td>
+        <td>Diretories and open ports</td>
+    </tr>
+    <tr>
+        <td>Manual probing</td>
+        <td>Exposed files and injectable inputs</td>
+    </tr>
     </tbody>
 </table>
 
@@ -565,9 +645,11 @@ I began downloading selected files and programs in an attempt to gain more infor
 
 ## Combined Analysis
 <table>
-    <caption>Command to Kill Chain Step 1</caption>
+    <caption>Kill Chain Summary</caption>
     <thead>
-       <tr><th>Kill Chain Step</th><th>Attacking Action</th><th>Observation</th></tr> 
+       <tr>
+        <th>Kill Chain Step</th><th>Attacking Action</th><th>Observation</th>
+    </tr> 
     </thead>
     <tbody>
     <tr><th rowspan="5">Reconnaissance</th>
@@ -575,7 +657,8 @@ I began downloading selected files and programs in an attempt to gain more infor
     <tr><td>Nessus Web</td><td>Apache 1.3 and OpenSSL < 0.9</td></tr>
     <tr><td>nmap</td><td>Open ports, server versions</td></tr>
     <tr><td>nikto</td><td>Diretories and open ports</td></tr>
-    <tr><td>Manual probing</td><td>Exposed files and injectable inputs</td></tr>
+    <tr><td>Manual probing</td><td>Exposed files and injectable inputs</td>
+    </tr>
 
     <tr><th rowspan="2">Reconnaissance</th>
         <td>msfconsole mysql schema dump</td><td>Get database schema</td></tr>
