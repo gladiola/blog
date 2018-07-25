@@ -205,21 +205,6 @@ Meanwhile, it also turned up another script, `frmvrfy.js` that compares two pass
 
 ### Analysis Check
 <table>
-    <caption>Command to Kill Chain Step Summary</caption>
-    <thead>
-       <tr><th>Kill Chain Step</th><th>Attacking Action</th><th>Observation</th></tr> 
-    </thead>
-    <tbody>
-    <tr><th rowspan="5">Reconnaissance</th>
-        <td>Nessus Basic Network</td><td>Apache 1.3 and OpenSSL < 0.9</td></tr>
-    <tr><td>Nessus Web</td><td>Apache 1.3 and OpenSSL < 0.9</td></tr>
-    <tr><td>nmap</td><td>Open ports, server versions</td></tr>
-    <tr><td>nikto</td><td>Diretories and open ports</td></tr>
-    <tr><td>Manual probing</td><td>Exposed files and injectable inputs</td></tr>
-    </tbody>
-</table>
-
-<table>
     <caption>Discovery and Attack Cycle 1</caption>
     <thead>
        <tr>
@@ -248,6 +233,21 @@ Meanwhile, it also turned up another script, `frmvrfy.js` that compares two pass
             <td>Manual probing</td>
             <td>Relationship of inputs to CGI program and initial input validation guesses</td>
         </tr>
+    </tbody>
+</table>
+
+<table>
+    <caption>Command to Kill Chain Step Summary</caption>
+    <thead>
+       <tr><th>Kill Chain Step</th><th>Attacking Action</th><th>Observation</th></tr> 
+    </thead>
+    <tbody>
+    <tr><th rowspan="5">Reconnaissance</th>
+        <td>Nessus Basic Network</td><td>Apache 1.3 and OpenSSL < 0.9</td></tr>
+    <tr><td>Nessus Web</td><td>Apache 1.3 and OpenSSL < 0.9</td></tr>
+    <tr><td>nmap</td><td>Open ports, server versions</td></tr>
+    <tr><td>nikto</td><td>Diretories and open ports</td></tr>
+    <tr><td>Manual probing</td><td>Exposed files and injectable inputs</td></tr>
     </tbody>
 </table>
 
@@ -303,20 +303,6 @@ As a noob, this might seem counterintuitive.  Why would `hashcat` not simply ans
 
 ### Analysis Check
 <table>
-    <caption>Command to Kill Chain Step Summary</caption>
-    <thead>
-       <tr><th>Kill Chain Step</th><th>Attacking Action</th><th>Observation</th></tr> 
-    </thead>
-    <tbody>
-    <tr><th rowspan="2">Reconnaissance</th>
-        <td>msfconsole mysql schema dump</td><td>Get database schema</td></tr>
-    <tr><td>msf mysql sql</td><td>Obtain users table with passwords</td></tr>
-    <tr><th rowspan="2">Weaponization</th><td>hashcat</td><td>Offline password cracking in bulk</td></tr>
-    <tr><td>SQLi ' '1'='1' OR -- </td><td>Injectable controls all over</td></tr>
-    </tbody>
-</table>
-
-<table>
     <caption>Discovery and Attack Cycle 2</caption>
     <thead>
        <tr>
@@ -343,6 +329,22 @@ As a noob, this might seem counterintuitive.  Why would `hashcat` not simply ans
         </tr>
     </tbody>
 </table>
+
+
+<table>
+    <caption>Command to Kill Chain Step Summary</caption>
+    <thead>
+       <tr><th>Kill Chain Step</th><th>Attacking Action</th><th>Observation</th></tr> 
+    </thead>
+    <tbody>
+    <tr><th rowspan="2">Reconnaissance</th>
+        <td>msfconsole mysql schema dump</td><td>Get database schema</td></tr>
+    <tr><td>msf mysql sql</td><td>Obtain users table with passwords</td></tr>
+    <tr><th rowspan="2">Weaponization</th><td>hashcat</td><td>Offline password cracking in bulk</td></tr>
+    <tr><td>SQLi ' '1'='1' OR -- </td><td>Injectable controls all over</td></tr>
+    </tbody>
+</table>
+
 
 ## Next goals
 At this point, it was time to set some new goals.  Thoroughly scanned, with a database coughing up pretty much whatever we wanted, the site would yield whatever information simple account impersonation might provide.  That said, it was not enough.  A lot of what was done thus far was passive.  A malicious attacker would shape and control the box so that it could be used for her own ends.  
@@ -405,22 +407,6 @@ This kind of POST file read technique can be combine with the other `--file-dest
 
 ### Analysis Check
 <table>
-    <caption>Command to Kill Chain Step Summary</caption>
-    <thead>
-       <tr><th>Kill Chain Step</th><th>Attacking Action</th><th>Observation</th></tr> 
-    </thead>
-    <tbody>
-    <tr><th rowspan="3">Weaponization</th>
-        <td>sqlmap</td><td>Automated discovery of effective SQLi</td></tr>
-        <td>POST forms intercepted with Burp</td><td>Changing expected information</td></tr>
-    <tr><td>POST forms edited and staged</td><td>Efficient reloading of altered data for repetitive attack attempts</td></tr>
-    <tr><th rowspan="2">Delivery and Exploitation</th><td>sqlmap</td><td>Command line uploads of files</td></tr>
-    <tr><td>sqlmap</td><td>Command line downloads of files</td></tr>
-    <tr><th>Reconnaissance</th><td>sqlmap storage</td><td>Simple observation of file transfers began to reveal write-permission problems </td></tr>
-    </tbody>
-</table>
-
-<table>
     <caption>Discovery and Attack Cycle 3</caption>
     <thead>
        <tr>
@@ -444,6 +430,21 @@ This kind of POST file read technique can be combine with the other `--file-dest
     </tbody>
 </table>
 
+<table>
+    <caption>Command to Kill Chain Step Summary</caption>
+    <thead>
+       <tr><th>Kill Chain Step</th><th>Attacking Action</th><th>Observation</th></tr> 
+    </thead>
+    <tbody>
+    <tr><th rowspan="3">Weaponization</th>
+        <td>sqlmap</td><td>Automated discovery of effective SQLi</td></tr>
+        <td>POST forms intercepted with Burp</td><td>Changing expected information</td></tr>
+    <tr><td>POST forms edited and staged</td><td>Efficient reloading of altered data for repetitive attack attempts</td></tr>
+    <tr><th rowspan="2">Delivery and Exploitation</th><td>sqlmap</td><td>Command line uploads of files</td></tr>
+    <tr><td>sqlmap</td><td>Command line downloads of files</td></tr>
+    <tr><th>Reconnaissance</th><td>sqlmap storage</td><td>Simple observation of file transfers began to reveal write-permission problems </td></tr>
+    </tbody>
+</table>
 
 ## Using direct connections with MySQL
 In addition to being able to use `sqlmap`, at one point I noticed that what account I was using to smash my way in just didn't matter.  That is, once we could get it with SQLi on a known injectable control, what account we were using didn't have a bearing on what we could do.  For example, `msfconsole` had some interesting tools which worked just fine to reveal the schema and send some SQL commands to the database engine.
@@ -468,19 +469,6 @@ Aroung this time we realized there was nothing to lose from just calling `mysql`
 
 ### Analysis Check
 <table>
-    <caption>Command to Kill Chain Step Summary</caption>
-    <thead>
-       <tr><th>Kill Chain Step</th><th>Attacking Action</th><th>Observation</th></tr> 
-    </thead>
-    <tbody>
-    <tr><th rowspan="1">Command and Control</th>
-        <td>sqlmap uploads</td><td>Attempted uploads foiled; shell installation unlikely</td></tr>
-    <tr><th rowspan="2">Actions on Objective</th><td>User Accounts</td><td>Decrypted passwords and known user accounts permit impersonation of any user on the site</td></tr>
-    <tr><td>sqlmap</td><td>Gain more knowledge of MySQL engine setup with console-style commands to the database engine</td></tr>
-    </tbody>
-</table>
-
-<table>
     <caption>Discovery and Attack Cycle 4</caption>
     <thead>
        <tr>
@@ -501,6 +489,19 @@ Aroung this time we realized there was nothing to lose from just calling `mysql`
             <td>sqlmap uploads</td>
             <td>Began seeking alternatives to file installation</td>
         </tr>
+    </tbody>
+</table>
+
+<table>
+    <caption>Command to Kill Chain Step Summary</caption>
+    <thead>
+       <tr><th>Kill Chain Step</th><th>Attacking Action</th><th>Observation</th></tr> 
+    </thead>
+    <tbody>
+    <tr><th rowspan="1">Command and Control</th>
+        <td>sqlmap uploads</td><td>Attempted uploads foiled; shell installation unlikely</td></tr>
+    <tr><th rowspan="2">Actions on Objective</th><td>User Accounts</td><td>Decrypted passwords and known user accounts permit impersonation of any user on the site</td></tr>
+    <tr><td>sqlmap</td><td>Gain more knowledge of MySQL engine setup with console-style commands to the database engine</td></tr>
     </tbody>
 </table>
 
@@ -527,22 +528,6 @@ I began downloading selected files and programs in an attempt to gain more infor
 
 ### Analysis Check
 <table>
-    <caption>Command to Kill Chain Step Summary</caption>
-    <thead>
-       <tr><th>Kill Chain Step</th><th>Attacking Action</th><th>Observation</th></tr> 
-    </thead>
-    <tbody>
-    <tr><th rowspan="1">Reconnaissance</th>
-        <td>Analyze downloaded files</td><td>Observe critical values; notice missing or empty files</td></tr>
-        <tr><th rowspan="1">Exploitation</th>
-        <td>sqlmap</td><td>Fetch system files to learn about system accounts and file structure</td></tr>
-        <tr><th rowspan="1">Installation</th>
-        <td>sqlmap, msfconsole</td><td>All attempts to upload shellcode failed</td></tr>
-    <tr><th rowspan="1">Actions on Objective</th><td>Linux File System</td><td>Multiple attempts to discern possible foothold on the target box by downloading key files.</td></tr>
-    </tbody>
-</table>
-
-<table>
     <caption>Discovery and Attack Cycle 5</caption>
     <thead>
        <tr>
@@ -559,6 +544,22 @@ I began downloading selected files and programs in an attempt to gain more infor
             <td>sqlmap, msfconsole uploads</td>
             <td>Could not install a file or detect a running service besides the Perl CGI already there</td>
         </tr>
+    </tbody>
+</table>
+
+<table>
+    <caption>Command to Kill Chain Step Summary</caption>
+    <thead>
+       <tr><th>Kill Chain Step</th><th>Attacking Action</th><th>Observation</th></tr> 
+    </thead>
+    <tbody>
+    <tr><th rowspan="1">Reconnaissance</th>
+        <td>Analyze downloaded files</td><td>Observe critical values; notice missing or empty files</td></tr>
+        <tr><th rowspan="1">Exploitation</th>
+        <td>sqlmap</td><td>Fetch system files to learn about system accounts and file structure</td></tr>
+        <tr><th rowspan="1">Installation</th>
+        <td>sqlmap, msfconsole</td><td>All attempts to upload shellcode failed</td></tr>
+    <tr><th rowspan="1">Actions on Objective</th><td>Linux File System</td><td>Multiple attempts to discern possible foothold on the target box by downloading key files.</td></tr>
     </tbody>
 </table>
 
