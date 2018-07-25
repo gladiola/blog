@@ -728,7 +728,7 @@ I began downloading selected files and programs in an attempt to gain more infor
         <tr>
             <th rowspan="5">Reconnaissance</th>
             <td>Nessus Basic Network</td>
-            <td>Apache 1.3 and OpenSSL < 0.9</td>
+            <td>Apache 1.3 and OpenSSL less than 0.9</td>
         </tr>
         <tr><td>Nessus Web</td><td>Apache 1.3 and OpenSSL less than 0.9</td></tr>
         <tr><td>nmap</td><td>Open ports, server versions</td></tr>
