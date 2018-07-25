@@ -592,7 +592,7 @@ Aroung this time we realized there was nothing to lose from just calling `mysql`
 <table>
     <caption>Discovery and Attack Cycle 4</caption>
     <thead>
-       <tr>
+        <tr>
             <th>Action</th>
             <th>Observation</th>
         </tr> 
@@ -617,10 +617,10 @@ Aroung this time we realized there was nothing to lose from just calling `mysql`
     <caption>Command to Kill Chain Step 4</caption>
     <thead>
        <tr>
-        <th>Kill Chain Step</th>
-        <th>Attacking Action</th>
-        <th>Observation</th>
-    </tr> 
+            <th>Kill Chain Step</th>
+            <th>Attacking Action</th>
+            <th>Observation</th>
+        </tr> 
     </thead>
     <tbody>
     <tr>
