@@ -673,7 +673,7 @@ I began downloading selected files and programs in an attempt to gain more infor
     <tbody>
         <tr>
             <td>sqlmap downloads</td>
-            <td>Determined the two user accounts through /etc/passwd; generally observed system files</td>
+            <td>Determined the two user accounts through `/etc/passwd` and generally observed system files</td>
         </tr>
         <tr>
             <td>sqlmap, msfconsole uploads</td>
@@ -686,10 +686,10 @@ I began downloading selected files and programs in an attempt to gain more infor
     <caption>Command to Kill Chain Step 5</caption>
     <thead>
        <tr>
-        <th>Kill Chain Step</th>
-        <th>Attacking Action</th>
-        <th>Observation</th>
-    </tr> 
+            <th>Kill Chain Step</th>
+            <th>Attacking Action</th>
+            <th>Observation</th>
+        </tr> 
     </thead>
     <tbody>
     <tr>
