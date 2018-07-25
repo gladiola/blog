@@ -696,7 +696,7 @@ I began downloading selected files and programs in an attempt to gain more infor
         <tr>
             <th>Reconnaissance</th>
             <td>Analyze downloaded files</td>
-            <td>Observe critical values; notice missing or empty files</td>
+            <td>Observe critical values, and notice missing or empty files</td>
         </tr>
         <tr>
             <th>Exploitation</th>
