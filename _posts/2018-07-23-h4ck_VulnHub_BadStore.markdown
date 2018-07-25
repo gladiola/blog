@@ -681,8 +681,6 @@ I began downloading selected files and programs in an attempt to gain more infor
         </tr>
     </tbody>
 </table>
-
-
 <table>
     <caption>Command to Kill Chain Step 5</caption>
     <thead>
@@ -730,10 +728,21 @@ I began downloading selected files and programs in an attempt to gain more infor
             <td>Nessus Basic Network</td>
             <td>Apache 1.3 and OpenSSL less than 0.9</td>
         </tr>
-        <tr><td>Nessus Web</td><td>Apache 1.3 and OpenSSL less than 0.9</td></tr>
-        <tr><td>nmap</td><td>Open ports, server versions</td></tr>
-        <tr><td>nikto</td><td>Diretories and open ports</td></tr>
-        <tr><td>Manual probing</td><td>Exposed files and injectable inputs</td>
+        <tr>
+            <td>Nessus Web</td>
+            <td>Apache 1.3 and OpenSSL less than 0.9</td>
+        </tr>
+        <tr>
+            <td>nmap</td>
+            <td>Open ports, server versions</td>
+        </tr>
+        <tr>
+            <td>nikto</td>
+            <td>Diretories and open ports</td>
+        </tr>
+        <tr>
+            <td>Manual probing</td>
+            <td>Exposed files and injectable inputs</td>
         </tr>
         <tr>
             <th rowspan="2">Reconnaissance</th>
