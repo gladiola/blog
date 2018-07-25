@@ -790,7 +790,7 @@ Given the past sections on the kill chain process, if we put together all of the
             <td>Command line downloads of files</td>
         </tr>
         <tr>
-            <th>Reconnaissance</th>
+            <th rowspan="1">Reconnaissance</th>
             <td>sqlmap storage</td>
             <td>Simple observation of file transfers began to reveal write-permission problems </td>
         </tr>
