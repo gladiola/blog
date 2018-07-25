@@ -414,14 +414,31 @@ As a noob, this might seem counterintuitive.  Why would `hashcat` not simply ans
 <table>
     <caption>Command to Kill Chain Step 2</caption>
     <thead>
-       <tr><th>Kill Chain Step</th><th>Attacking Action</th><th>Observation</th></tr> 
+        <tr>
+            <th>Kill Chain Step</th>
+            <th>Attacking Action</th>
+            <th>Observation</th>
+        </tr> 
     </thead>
     <tbody>
-    <tr><th rowspan="2">Reconnaissance</th>
-        <td>msfconsole mysql schema dump</td><td>Get database schema</td></tr>
-    <tr><td>msf mysql sql</td><td>Obtain users table with passwords</td></tr>
-    <tr><th rowspan="2">Weaponization</th><td>hashcat</td><td>Offline password cracking in bulk</td></tr>
-    <tr><td>SQLi ' '1'='1' OR -- </td><td>Injectable controls all over</td></tr>
+    <tr>
+        <th rowspan="2">Reconnaissance</th>
+        <td>msfconsole mysql schema dump</td>
+        <td>Get database schema</td>
+    </tr>
+    <tr>
+        <td>msf mysql sql</td>
+        <td>Obtain users table with passwords</td>
+    </tr>
+    <tr>
+        <th rowspan="2">Weaponization</th>
+        <td>hashcat</td>
+        <td>Offline password cracking in bulk</td>
+    </tr>
+    <tr>
+        <td>SQLi <CODE>' '1'='1' OR --<CODE> </td>
+        <td>Injectable controls all over</td>
+    </tr>
     </tbody>
 </table>
 
