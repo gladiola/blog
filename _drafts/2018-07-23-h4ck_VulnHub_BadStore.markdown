@@ -237,7 +237,7 @@ Meanwhile, it also turned up another script, `frmvrfy.js` that compares two pass
 </table>
 
 <table>
-    <caption>Command to Kill Chain Step Summary</caption>
+    <caption>Command to Kill Chain Step 1</caption>
     <thead>
        <tr><th>Kill Chain Step</th><th>Attacking Action</th><th>Observation</th></tr> 
     </thead>
@@ -332,7 +332,7 @@ As a noob, this might seem counterintuitive.  Why would `hashcat` not simply ans
 
 
 <table>
-    <caption>Command to Kill Chain Step Summary</caption>
+    <caption>Command to Kill Chain Step 2</caption>
     <thead>
        <tr><th>Kill Chain Step</th><th>Attacking Action</th><th>Observation</th></tr> 
     </thead>
@@ -431,7 +431,7 @@ This kind of POST file read technique can be combine with the other `--file-dest
 </table>
 
 <table>
-    <caption>Command to Kill Chain Step Summary</caption>
+    <caption>Command to Kill Chain Step 3</caption>
     <thead>
        <tr><th>Kill Chain Step</th><th>Attacking Action</th><th>Observation</th></tr> 
     </thead>
@@ -493,7 +493,7 @@ Aroung this time we realized there was nothing to lose from just calling `mysql`
 </table>
 
 <table>
-    <caption>Command to Kill Chain Step Summary</caption>
+    <caption>Command to Kill Chain Step 4</caption>
     <thead>
        <tr><th>Kill Chain Step</th><th>Attacking Action</th><th>Observation</th></tr> 
     </thead>
@@ -548,7 +548,7 @@ I began downloading selected files and programs in an attempt to gain more infor
 </table>
 
 <table>
-    <caption>Command to Kill Chain Step Summary</caption>
+    <caption>Command to Kill Chain Step 5</caption>
     <thead>
        <tr><th>Kill Chain Step</th><th>Attacking Action</th><th>Observation</th></tr> 
     </thead>
@@ -563,6 +563,52 @@ I began downloading selected files and programs in an attempt to gain more infor
     </tbody>
 </table>
 
+## Combined Analysis
+<table>
+    <caption>Command to Kill Chain Step 1</caption>
+    <thead>
+       <tr><th>Kill Chain Step</th><th>Attacking Action</th><th>Observation</th></tr> 
+    </thead>
+    <tbody>
+    <tr><th rowspan="5">Reconnaissance</th>
+        <td>Nessus Basic Network</td><td>Apache 1.3 and OpenSSL < 0.9</td></tr>
+    <tr><td>Nessus Web</td><td>Apache 1.3 and OpenSSL < 0.9</td></tr>
+    <tr><td>nmap</td><td>Open ports, server versions</td></tr>
+    <tr><td>nikto</td><td>Diretories and open ports</td></tr>
+    <tr><td>Manual probing</td><td>Exposed files and injectable inputs</td></tr>
+
+    <tr><th rowspan="2">Reconnaissance</th>
+        <td>msfconsole mysql schema dump</td><td>Get database schema</td></tr>
+    <tr><td>msf mysql sql</td><td>Obtain users table with passwords</td></tr>
+    <tr><th rowspan="2">Weaponization</th><td>hashcat</td><td>Offline password cracking in bulk</td></tr>
+    <tr><td>SQLi ' '1'='1' OR -- </td><td>Injectable controls all over</td></tr>
+
+    <tr><th rowspan="3">Weaponization</th>
+        <td>sqlmap</td><td>Automated discovery of effective SQLi</td></tr>
+        <td>POST forms intercepted with Burp</td><td>Changing expected information</td></tr>
+    <tr><td>POST forms edited and staged</td><td>Efficient reloading of altered data for repetitive attack attempts</td></tr>
+    <tr><th rowspan="2">Delivery and Exploitation</th><td>sqlmap</td><td>Command line uploads of files</td></tr>
+    <tr><td>sqlmap</td><td>Command line downloads of files</td></tr>
+    <tr><th>Reconnaissance</th><td>sqlmap storage</td><td>Simple observation of file transfers began to reveal write-permission problems </td></tr>
+
+    <tr><th rowspan="1">Command and Control</th>
+        <td>sqlmap uploads</td><td>Attempted uploads foiled; shell installation unlikely</td></tr>
+    <tr><th rowspan="2">Actions on Objective</th><td>User Accounts</td><td>Decrypted passwords and known user accounts permit impersonation of any user on the site</td></tr>
+    <tr><td>sqlmap</td><td>Gain more knowledge of MySQL engine setup with console-style commands to the database engine</td></tr>
+
+    <tr><th rowspan="1">Reconnaissance</th>
+        <td>Analyze downloaded files</td><td>Observe critical values; notice missing or empty files</td></tr>
+        <tr><th rowspan="1">Exploitation</th>
+        <td>sqlmap</td><td>Fetch system files to learn about system accounts and file structure</td></tr>
+        <tr><th rowspan="1">Installation</th>
+        <td>sqlmap, msfconsole</td><td>All attempts to upload shellcode failed</td></tr>
+    <tr><th rowspan="1">Actions on Objective</th><td>Linux File System</td><td>Multiple attempts to discern possible foothold on the target box by downloading key files.</td></tr>
+    </tbody>
+</table>
+
+
+## Closing session
+
  ![badstore.cgi admin portal]({{ site.url }}/assets/images/KaliBadStore/Capture_secretAdminPortal.png)
 
  ![badstore.cgi log files]({{ site.url }}/assets/images/KaliBadStore/logs.png)
@@ -574,7 +620,9 @@ I began downloading selected files and programs in an attempt to gain more infor
 
 I continued looking for a mechanism to pop a shell with.  With no JSP, ASP, or PHP server-side programs enabled, there were slim pickings.  The MySQL was in a version below 5.0; so, there was no "INFORMATION_SCHEMA" to play with.  Metasploit modules for Heartbleed and Shellshock weren't working. \[[28]\] \[[29]\] \[[30]\] \[[33]\]  After some time, I had to recognize that it was fruitless to continue further exploitation attempts.  As far as I can tell, I wasn't going to get any further in on this one.  
 
-  
+## Lessons learned from "Bad Store"
+
+
 
 ## Annotated Bibliography
 \[1\]  Weidman, Georgia.  "Chapter 4:  Using the Metasploit Framework," Penetration Testing:  A Hands-On Introduction to Hacking.  No Starch Press.  pp.87-109.  ISBN 978-1-89327-564-8.
