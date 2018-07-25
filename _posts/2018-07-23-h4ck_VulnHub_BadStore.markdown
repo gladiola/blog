@@ -686,7 +686,7 @@ I began downloading selected files and programs in an attempt to gain more infor
 <table>
     <caption>Command to Kill Chain Step 5</caption>
     <thead>
-       <tr>
+        <tr>
             <th>Kill Chain Step</th>
             <th>Attacking Action</th>
             <th>Observation</th>
@@ -705,7 +705,8 @@ I began downloading selected files and programs in an attempt to gain more infor
         </tr>
         <tr>
             <th>Installation</th>
-            <td>sqlmap, msfconsole</td><td>All attempts to upload shellcode failed</td>
+            <td>sqlmap, msfconsole</td>
+            <td>All attempts to upload shellcode failed</td>
         </tr>
         <tr>
             <th>Actions on Objective</th>
@@ -730,7 +731,7 @@ I began downloading selected files and programs in an attempt to gain more infor
             <td>Nessus Basic Network</td>
             <td>Apache 1.3 and OpenSSL < 0.9</td>
         </tr>
-        <tr><td>Nessus Web</td><td>Apache 1.3 and OpenSSL < 0.9</td></tr>
+        <tr><td>Nessus Web</td><td>Apache 1.3 and OpenSSL less than 0.9</td></tr>
         <tr><td>nmap</td><td>Open ports, server versions</td></tr>
         <tr><td>nikto</td><td>Diretories and open ports</td></tr>
         <tr><td>Manual probing</td><td>Exposed files and injectable inputs</td>
