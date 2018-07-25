@@ -804,7 +804,7 @@ I began downloading selected files and programs in an attempt to gain more infor
         <tr>
             <th rowspan="1">Reconnaissance</th>
             <td>Analyze downloaded files</td>
-            <td>Observe critical values; notice missing or empty files</td>
+            <td>Observe critical values notice missing or empty files</td>
         </tr>
         <tr>
             <th rowspan="1">Exploitation</th>
@@ -819,7 +819,7 @@ I began downloading selected files and programs in an attempt to gain more infor
         <tr>
             <th rowspan="1">Actions on Objective</th>
             <td>Linux File System</td>
-            <td>Multiple attempts to discern possible foothold on the target box by downloading key files.</td>
+            <td>Multiple attempts to discern possible foothold</td>
         </tr>
     </tbody>
 </table>
