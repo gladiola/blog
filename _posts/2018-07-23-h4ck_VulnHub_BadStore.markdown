@@ -665,7 +665,7 @@ I began downloading selected files and programs in an attempt to gain more infor
 <table>
     <caption>Discovery and Attack Cycle 5</caption>
     <thead>
-       <tr>
+        <tr>
             <th>Action</th>
             <th>Observation</th>
         </tr> 
