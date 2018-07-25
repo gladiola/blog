@@ -57,7 +57,7 @@ One box is holding the VulnHub VM; it's running VirtualBox; we conducted some si
     <tr>
         <th>Attacker</th>
         <td>192.168.1.10</td>
-        <td><code>ifconfig</code> OK</td>
+        <td>ifconfig OK</td>
     </tr>
 </table>
 
@@ -84,11 +84,11 @@ Throughout our discussion, we'll try to relate the use of commands in Kali to an
     <caption>Brotherston-Berlin Use Case Format [5]</caption>
     <thead>
        <tr>
-        <th>Kill Chain Step</th>
-        <th>Malicious Action</th>
-        <th>Defensive Mitigation</th>
-        <th>Potential Monitoring</th>
-    </tr> 
+            <th>Kill Chain Step</th>
+            <th>Malicious Action</th>
+            <th>Defensive Mitigation</th>
+            <th>Potential Monitoring</th>
+        </tr> 
     </thead>
 </table>
 
@@ -98,47 +98,47 @@ Our needs here are a little different, so we'll modify our chart while following
     <caption>Command to Kill Chain Step Summary</caption>
     <thead>
        <tr>
-        <th>Kill Chain Step</th>
-        <th>Attacking Action</th>
-        <th>Observation</th>
-    </tr> 
+            <th>Kill Chain Step</th>
+            <th>Attacking Action</th>
+            <th>Observation</th>
+        </tr> 
     </thead>
     <tbody>
-    <tr>
-        <th>Reconnaissance</th>
-        <td></td>
-        <td></td>
-    </tr>
-    <tr>
-        <th>Weaponization</th>
-        <td></td>
-        <td></td>
-    </tr>
-    <tr>
-        <th>Delivery</th>
-        <td></td>
-        <td></td>
-    </tr>
-    <tr>
-        <th>Exploitation</th>
-        <td></td>
-        <td></td>
-    </tr>
-    <tr>
-        <th>Installation</th>
-        <td></td>
-        <td></td>
-    </tr>
-    <tr>
-        <th>Command and Control</th>
-        <td></td>
-        <td></td>
-    </tr>
-    <tr>
-        <th>Actions and Objectives</th>
-        <td></td>
-        <td></td>
-    </tr>
+        <tr>
+            <th>Reconnaissance</th>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <th>Weaponization</th>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <th>Delivery</th>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <th>Exploitation</th>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <th>Installation</th>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <th>Command and Control</th>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <th>Actions and Objectives</th>
+            <td></td>
+            <td></td>
+        </tr>
     </tbody>
 </table>
 
@@ -288,7 +288,7 @@ Meanwhile, it also turned up another script, `frmvrfy.js` that compares two pass
         </tr>
         <tr>
             <td>nikto</td>
-            <td>Stubbed-out directories and loose files with clues</td>
+            <td>Stubbed out directories and loose files with clues</td>
         </tr>
         <tr>
             <td>Manual probing</td>
@@ -709,10 +709,13 @@ I began downloading selected files and programs in an attempt to gain more infor
         <tr>
             <th>Actions on Objective</th>
             <td>Linux File System</td>
-            <td>Multiple attempts to discern possible foothold on the target box by downloading key files.</td>
+            <td>Multiple attempts to discern possible foothold on the target box by downloading key files</td>
         </tr>
     </tbody>
 </table>
+
+## Kill chain summary assembled
+
 <table>
     <caption>Kill Chain Summary</caption>
     <thead>
