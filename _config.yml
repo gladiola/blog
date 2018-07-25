@@ -10,7 +10,7 @@ highlighter: rouge
 plugins: [jekyll-paginate]
 paginate: 20
 domain_name: 'https://gladiola.github.io/blog/'
-google_analytics: 'UA-XXXXXXXX-X'
+google_analytics: 'UA-122871767-1'
 disqus: false
 disqus_shortname: 'https-github-com-gladiola-blog'
 
