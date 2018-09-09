@@ -76,6 +76,43 @@ Microsoft Technet article on some scripts that can obtain the history of USB rem
 \[20\] [`http://gallery.technet.microsoft.com/scriptcenter/Get-USBHistory-707e43a3`](http://gallery.technet.microsoft.com/scriptcenter/Get-USBHistory-707e43a3)
 Microsoft script repository with a copy of Get-USBHistory for PowerShell.  The description states, "This script uses Win32.Registry class to enumerate through the USBSTOR key in the registry to get a list of USB storage devices that have been use on a machine.  This script is designed to run locally or remotely."
 
+\[21\] [`https://docs.kali.org/kali-on-arm/install-kali-linux-arm-raspberry-pi`](https://docs.kali.org/kali-on-arm/install-kali-linux-arm-raspberry-pi)
+Directions for installing Kali Linux on a Raspberry Pi.
+
+\[22\] [`https://www.offensive-security.com/kali-linux-arm-images/`](https://www.offensive-security.com/kali-linux-arm-images/)
+Offensive Security downloads page for Kali on ARM devices.
+
+\[23\] [`https://github.com/secgroundzero/warberry`](https://github.com/secgroundzero/warberry)
+Repo for the Warberry Pi.
+
+\[24\] [`https://www.kitploit.com/2016/05/warberrypi-turn-your-raspberry-pi-into.html`](https://www.kitploit.com/2016/05/warberrypi-turn-your-raspberry-pi-into.html)
+Kitploit article on preparing the Warberry for use.  Includes photos and installation tips that can activate the Warberry with a mechanical switch. This article was the source of several other hyperlinks listed below.
+
+\[25\] [`https://github.com/DanMcInerney/net-creds`](https://github.com/DanMcInerney/net-creds)
+Github repo about sniffing password credentials from pcap files.
+
+\[26\] [`https://github.com/commixproject/commix`](https://github.com/commixproject/commix)
+Github repo for Commix, a command injection tool.
+
+\[27\] [`https://github.com/sqlmapproject/sqlmap`](https://github.com/sqlmapproject/sqlmap)
+Github repo for sqlmap.
+
+\[28\] [`https://github.com/CoreSecurity/impacket`](https://github.com/CoreSecurity/impacket)
+Github repo for Impacket, a packet-crafting library for Python.
+"Impacket is focused on providing low-level programmatic access to the packets ..."
+
+\[29\] [`https://github.com/samratashok/nishang`](https://github.com/samratashok/nishang)
+Github repo for nishang, a collection of scripts for using PowerShell for offensive security.
+
+\[30\] Gaffie, Laurent.  INTERNET:[`https://github.com/SpiderLabs/Responder`](https://github.com/SpiderLabs/Responder)
+Github repo for Responder.  The repo description stated, "Responder is a LLMNR, NBT-NS and MDNS poisoner, with built-in HTTP/SMB/MSSQL/FTP/LDAP rogue authentication server supporting NTLMv1/NTLMv2/LMv2, Extended Security NTLMSSP and Basic HTTP authentication."
+
+\[31\] [`https://github.com/wifiphisher/wifiphisher`](https://github.com/wifiphisher/wifiphisher)
+Github repo for wifiphisher, a rogue access point.
+
+\[32\] [`https://github.com/Dionach/CMSmap`](https://github.com/Dionach/CMSmap)
+Github repo for CMSMap.  The repo description stated, "CMSmap is a python open source CMS scanner that automates the process of detecting security flaws of the most popular CMSs. The main purpose of CMSmap is to integrate common vulnerabilities for different types of CMSs in a single tool."
+
 
 
 
@@ -102,5 +139,17 @@ https://publicintelligence.net/ncsc-cyber-economic-espionage/
 [18]: https://www.powershellempire.com/?page_id=104
 [19]: https://blogs.technet.microsoft.com/heyscriptingguy/2012/05/18/use-powershell-to-find-the-history-of-usb-flash-drive-usage/
 [20]: http://gallery.technet.microsoft.com/scriptcenter/Get-USBHistory-707e43a3
-[21]: 
+[21]: https://docs.kali.org/kali-on-arm/install-kali-linux-arm-raspberry-pi
+[22]: https://www.offensive-security.com/kali-linux-arm-images/
+[23]: https://github.com/secgroundzero/warberry
+[24]: https://www.kitploit.com/2016/05/warberrypi-turn-your-raspberry-pi-into.html
+[25]: https://github.com/DanMcInerney/net-creds
+[26]: https://github.com/commixproject/commix
+[27]: https://github.com/sqlmapproject/sqlmap
+[28]: https://github.com/CoreSecurity/impacket
+[29]: https://github.com/samratashok/nishang
+[30]: https://github.com/SpiderLabs/Responder
+[31]: https://github.com/wifiphisher/wifiphisher
+[32]: https://github.com/Dionach/CMSmap
+[33]: 
 
