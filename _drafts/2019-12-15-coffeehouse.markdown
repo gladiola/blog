@@ -78,7 +78,7 @@ To take a snapshot some datasets at this stage of installation:
 
 \[[13]\]
 
-# Host ZFS drive partitioning
+# Host ZFS Drive Provisioning
 ## Carve Up Some ZFS Datasets and Directories
 To later accomodate our jails, we'll want to create some ZFS datasets.  Combined with ZFS snapshot procedures, we'll then be able to make snapshots of our progress (or regress) when constructing the jails.  Since there's nothing really on the disk right now, we can declare the datasets with no worry.  We won't need to specify how much space each one takes up.  We just need to describe how we'll carve up the data.
 
