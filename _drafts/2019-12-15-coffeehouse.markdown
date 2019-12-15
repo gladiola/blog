@@ -61,6 +61,9 @@ We'll do a quick update of the FreeBSD installation and ports.
 - portsnap fetch
 - portsnap extract
 
+We'll install nano, one of my favorite text editors.
+`cd /usr/ports/editors/nano`
+`make -DBATCH install clean`
 
 
  \[[]\]
