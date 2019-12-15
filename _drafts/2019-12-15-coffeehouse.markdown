@@ -56,7 +56,7 @@ All of these are mostly personal choices that won't have a bearing on the featur
 With the system installed, one of the first things we'll do is check those passphrases.  Make sure each account works.  Any problems with those could complicate or confound anything we do after this.
 
 We'll do a quick update of the FreeBSD installation and ports  \[[11]\] \[[12]\].
-- freebsd-update fetch
+- freebsd-update fzfszpooetch
 - freebsd-update install
 - portsnap fetch
 - portsnap extract
@@ -67,6 +67,18 @@ We'll install nano, one of my favorite text editors.
 `make -DBATCH install clean`
 
 The `-DBATCH` helps us avoid all of the pauses in the ncurses dialogs for configuring the downloads and compilations.  But, if there is difficulty, we'll have to delve into `make config`, see what options are presented; maybe we'll also have to hop into the ports that threw the errors, and then recompile those individually.  Sometimes we might have to do a `pkg install <PORTNAME>` to substitute the compiliation of a program with a strait binary install.  With those troubleshooting tasks under our belt, we'll continue with our project.
+
+To check our current ZFS configuration:
+`zfs list`
+`zpool list`
+
+To take a snapshot some datasets at this stage of installation:
+`zfs snapshot zroot/ROOT/default@<SOME_DATE_AND_TIME>`
+`zfs snapshot zroot/usr@<SOME_DATE_AND_TIME>`
+
+\[[13]\]
+
+
 
  \[[]\]
 ## Annotated Bibliography
@@ -108,6 +120,8 @@ Using freebsd-update and related commands to install security updates.
 
 Using portsnap fetch and related commands to install fresh scripts for ports.  This may help ensure that the latest security patches are available to programs compiled from ports.
 
+\[13\] Lucas.  [2], pp. 258, 264, 271-2.
+
 [//]: # (Hyperlinks)
 [1]: https://www.freebsd.org/doc/en_US.ISO8859-1/books/handbook/
 [2]: ``
@@ -121,5 +135,7 @@ Using portsnap fetch and related commands to install fresh scripts for ports.  T
 [10]: https://www.freebsd.org/doc/en_US.ISO8859-1/books/handbook/using-bsdinstall.html
 [11]: https://www.freebsd.org/doc/en_US.ISO8859-1/books/handbook/updating-upgrading-freebsdupdate.html
 [12]: https://www.freebsd.org/doc/en_US.ISO8859-1/books/handbook/ports-using.html
+[13]: ``
+[14]: 
 
 
