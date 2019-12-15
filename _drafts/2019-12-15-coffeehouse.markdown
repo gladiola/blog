@@ -57,17 +57,22 @@ Based on past experiments, I found it was helpful to choose the "DVD" version of
 \[4\]  Offensive Security.  Penetration Testing with Kali Linux.  Laboratory Manual, v. 1.1.6.  Controlled distribution, proprietary manual for commercial certification testing, made available to registered students with Offensive Security course for Penetration Testing with Kali Linux.
 
 \[5\]  Eisele, Robert.  "CIDR Subnet Calculator"  INTERNET: [`https://www.xarg.org/tools/subnet-calculator/?q=192.168.1.192%2F27%2F29`](https://www.xarg.org/tools/subnet-calculator/?q=192.168.1.192%2F27%2F29)
-    A free online subnet calculator that uses CIDR.
+
+A free online subnet calculator that uses CIDR.
 
 \[6\]  FreeBSD Foundation.  INTERNET: [`https://www.freebsd.org/releases/12.1R/announce.html`](https://www.freebsd.org/releases/12.1R/announce.html)
+
+Information about the release.
     
 \[7\]  FreeBSD Foundation.  INTERNET: [`https://www.freebsd.org/where.html`](https://www.freebsd.org/where.html)
 
 \[8\]  FreeBSD Foundation.  INTERNET: [`https://download.freebsd.org/ftp/releases/amd64/amd64/ISO-IMAGES/12.1`](https://download.freebsd.org/ftp/releases/amd64/amd64/ISO-IMAGES/12.1)
    
+Page that allows us to choose the type of image to download.   
+
 \[9\]  FreeBSD Foundation.  INTERNET: [`https://download.freebsd.org/ftp/releases/amd64/amd64/ISO-IMAGES/12.1/FreeBSD-12.1-RELEASE-amd64-dvd1.iso`](https://download.freebsd.org/ftp/releases/amd64/amd64/ISO-IMAGES/12.1/FreeBSD-12.1-RELEASE-amd64-dvd1.iso)
 
-
+Chosen download for our host install.
    
 [//]: # (Hyperlinks)
 [1]: https://www.freebsd.org/doc/en_US.ISO8859-1/books/handbook/
