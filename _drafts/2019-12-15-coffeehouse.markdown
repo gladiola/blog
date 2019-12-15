@@ -120,7 +120,7 @@ Using freebsd-update and related commands to install security updates.
 
 Using portsnap fetch and related commands to install fresh scripts for ports.  This may help ensure that the latest security patches are available to programs compiled from ports.
 
-\[13\] Lucas.  [2], pp. 258, 264, 271-2.
+\[13\] Lucas.  \[[2]\], pp. 258, 264, 271-2.
 
 [//]: # (Hyperlinks)
 [1]: https://www.freebsd.org/doc/en_US.ISO8859-1/books/handbook/
