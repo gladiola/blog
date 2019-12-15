@@ -36,17 +36,17 @@ A lot of the decisions we're about to make will be based on our intentions for t
 Making these decisions can be a lot easier when we're designing a system with a clear task and purpose.  Oftentimes, when we build systems on our own we may not be too sure what we'll do with that machine in the future.  If we were to stumble and flouder our way to concluding this is the type of system we wanted, then we could have a very messy and problematic install.  We're sure to run into problems, but having a clear idea is a great help to us.  We can set goals that will let us build out the box we want.
 
 # Building Our VNET Plan
-We will want to have four main jails on the VNET.  Each will carry its own subnet.  Inside those jails, we'll want 6 hosts per net.  After some experimenting with an online CIDR subnet calculator \[[4]\], we've decided on a plan based on 192.168.1.192/27/29.  Robert Eisele's subnet calculator can help us lay out every IP in that net and confirm the relationship of each IP to the network.  What subnet masks we need, which are the first and last hosts in each part of the net, and what addresses are used for the nets and their broadcasts:  those topics are all instantly described with that online tool.  
+We will want to have four main jails on the VNET.  Each will carry its own subnet.  Inside those jails, we'll want 6 hosts per net.  After some experimenting with an online CIDR subnet calculator \[[5]\], we've decided on a plan based on 192.168.1.192/27/29.  Robert Eisele's subnet calculator can help us lay out every IP in that net and confirm the relationship of each IP to the network.  What subnet masks we need, which are the first and last hosts in each part of the net, and what addresses are used for the nets and their broadcasts:  those topics are all instantly described with that online tool.  
 
 ![Subnet plan for SALVAGE13B-COFFEEHOUSE]({{ site.url }}/assets/images/SALVAGE13B-COFFEEHOUSE/subnetPlan.png)
 
 # Choosing an OS Release for the Host and the Jails
 With jails, we must run the jailhost with the youngest version of the operating system.  We can run jails with older versions of the OS, but they can never be younger than what's running on the host.  With this rule in mind, we'll run 12.1 on the jailhost.  We simply go to the website at FreeBSD.org, download 12.1, and burn it to DVD disc using another working computer connected to the Internet.  
 
-Based on past experiments, I found it was helpful to choose the "DVD" version of the FreeBSD installer.  While others may work, the DVD version holds the most data on the installer disk.  When troubleshooting and hunting around for resources, I felt it was most comfortable and familiar.  I think that it's possible that USB memstick and memstick-mini installer versions will work just as well; however, to cut down on the nagging feeling I might be missing something critical during troubleshooting, we chose our most familiar installer:  the dvd.  
+Based on past experiments, I found it was helpful to choose the "DVD" version of the FreeBSD installer.  While others may work, the DVD version holds the most data on the installer disk.  When troubleshooting and hunting around for resources, I felt it was most comfortable and familiar.  I think that it's possible that USB memstick and memstick-mini installer versions will work just as well; however, to cut down on the nagging feeling I might be missing something critical during troubleshooting, we chose our most familiar installer:  the dvd.  \[[6]\] \[[7]\] \[[8]\] \[[9]\]
 
 
-
+ \[[]\]
 ## Annotated Bibliography
 \[1\]  FreeBSD Foundation.  INTERNET: [`https://www.freebsd.org/doc/en_US.ISO8859-1/books/handbook/`](https://www.freebsd.org/doc/en_US.ISO8859-1/books/handbook/)
 
