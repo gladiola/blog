@@ -64,7 +64,7 @@ We'll do a quick update of the FreeBSD installation and ports.
 We'll install nano, one of my favorite text editors.
 `cd /usr/ports/editors/nano`
 `make -DBATCH install clean`
-
+The `-DBATCH` helps us avoid all of the pauses in the ncurses dialogs for configuring the downloads and compilations.  But, if there is difficulty, we'll have to delve into `make config`, see what options are presented; maybe we'll also have to hop into the ports that threw the errors, and then recompile those individually.  Sometimes we might have to do a `pkg install <PORTNAME>` to substitute the compiliation of a program with a strait binary install.  With those troubleshooting tasks under our belt, we'll continue with our project.
 
  \[[]\]
 ## Annotated Bibliography
