@@ -78,7 +78,37 @@ To take a snapshot some datasets at this stage of installation:
 
 \[[13]\]
 
+## Carve Up Some ZFS Datasets
+To later accomodate our jails, we'll want to create some ZFS datasets.  Combined with ZFS snapshot procedures, we'll then be able to make snapshots of our progress (or regress) when constructing the jails.  Since there's nothing really on the disk right now, we can declare the datasets with no worry.  We won't need to specify how much space each one takes up.  We just need to describe how we'll carve up the data.
 
+To lay the foundation, we'll give:
+`zfs create -o canmount=off zroot/jail`
+
+To lay out the main divisions of the jail directories, we'll give:
+`zfs create zroot/jail/coffeehouse`
+`zfs create zroot/jail/redeye`
+`zfs create zroot/jail/cappucino`
+`zfs create zroot/jail/latte`
+
+Within each of those, we'll lay out six subdirectories, for the VMs we'll install later.  Typically, we'll give:
+`zfs create zroot/jail/coffeehouse/vm1`
+`zfs create zroot/jail/coffeehouse/vm2`
+... and so on, until we have given six subdirectories for each of the four jail directories.  
+
+To see our progress, we can:
+`zfs list` and it will show us all of the ZFS datasets.
+
+We'll want to associate each of those datasets with a group, for user access control.  We can create groups for each of the four jail directories by using commands like:
+
+`pw groupadd coffeehouse`
+`pw groupmod coffeehouse -m barista`
+
+... and so on, until we have given our barista account access to all four of the groups.  We should build out those directories, and we can assign those groups as owners of the datasets with commands like:
+
+`mkdir /jail/coffeehouse`
+`chown -R barista:coffeehouse /jail/coffeehouse`
+
+We can see our system is unified with our barista account owning the four directories with each under its own group.  
 
  \[[]\]
 ## Annotated Bibliography
@@ -122,6 +152,8 @@ Using portsnap fetch and related commands to install fresh scripts for ports.  T
 
 \[13\] Lucas.  \[2\], pp. 258, 264, 271-2.
 
+\[14\] Lucas.  \[2\], pp. 262.
+
 [//]: # (Hyperlinks)
 [1]: https://www.freebsd.org/doc/en_US.ISO8859-1/books/handbook/
 [2]: ``
@@ -136,6 +168,7 @@ Using portsnap fetch and related commands to install fresh scripts for ports.  T
 [11]: https://www.freebsd.org/doc/en_US.ISO8859-1/books/handbook/updating-upgrading-freebsdupdate.html
 [12]: https://www.freebsd.org/doc/en_US.ISO8859-1/books/handbook/ports-using.html
 [13]: ``
-[14]: 
+[14]: ``
+[15]: 
 
 
