@@ -10,8 +10,31 @@ There is.  In this blog post we'll explore some options for USB attacks, includi
 
 ## Why ATK with a USB drop?
 
+### AutoRun
+### NIST 800s and USBs
 
+## Outfitting a USB drive using SET
 
+## Dressing a plain USB for better elicitation
+
+## Using Get-USBHistory to recover a known USB drive name
+
+## Outfitting a Rubber Ducky with PowerShell to collect system data
+
+## Preparing Rubber Ducky for use with PowerShell Empire 
+
+## Outfitting a USB with a harmful exe 
+### Plausible situation
+### Preparing an exe for use with msfvenom 
+
+Targeted exe:  The Etcher program for Raspberry Pi.
+REF:  Georgia's CH. on AV evasion
+
+## Preparing a Warberry for use as a waypoint for attacks
+
+## Using a server with a Dynamic DNS service as a receiver
+### Establishing ddclient on FreeBSD
+### Establishing TLS on FreeBSD with Tomcat
 
 ## Annotated Bibliography
 
@@ -113,9 +136,22 @@ Github repo for wifiphisher, a rogue access point.
 \[32\] [`https://github.com/Dionach/CMSmap`](https://github.com/Dionach/CMSmap)
 Github repo for CMSMap.  The repo description stated, "CMSmap is a python open source CMS scanner that automates the process of detecting security flaws of the most popular CMSs. The main purpose of CMSmap is to integrate common vulnerabilities for different types of CMSs in a single tool."
 
+\[33\] [`https://github.com/PowerShellMafia/PowerSploit`](https://github.com/PowerShellMafia/PowerSploit)
+Github repo for PowerSploit.  It is a collection of scripts that can be used for code injection, antivirus evasion, script modification, persistence, data exfiltration, privilege escalation, reconaissance, and system sabotage.
 
+\[34\] [`https://github.com/secgroundzero/warberry/wiki/3G-Covert-Channel-Setup`](https://github.com/secgroundzero/warberry/wiki/3G-Covert-Channel-Setup)
+Github wiki on using the Raspberry Pi as a Warberry with 3G connection through a dongle.
 
+\[35\] [`https://raspberrypi.stackexchange.com/questions/44143/verified-4g-usb-dongles`](https://raspberrypi.stackexchange.com/questions/44143/verified-4g-usb-dongles)
+StackExchange post on figuring out which USB 3G|4G dongles will work with Raspberry Pi.
 
+\[36\] [`https://www.peerlyst.com/posts/warberrypi-the-complete-guide-secgroundzero`](https://www.peerlyst.com/posts/warberrypi-the-complete-guide-secgroundzero)
+Blog post that explained using Warberry with a 3G dongle and a remoting service to bypass local networks.  Idea is to use the dongle as a telephone, and use the data plan on the SIM card to SSH into the Warberry.  From there, the Warberry can be controlled remotely to conduct the attack.
+
+\[37\] [`https://www.remot3.it/web/remot3-it-connect-for-raspberry-pi.html`](https://www.remot3.it/web/remot3-it-connect-for-raspberry-pi.html)
+Website advertisement for a company that offers third party remote administration for Raspberry Pi through 3G dongles.
+
+https://raspberrypi.stackexchange.com/questions/44143/verified-4g-usb-dongles
 https://publicintelligence.net/ncsc-cyber-economic-espionage/
 
 [//]: # (Hyperlinks)
@@ -151,5 +187,9 @@ https://publicintelligence.net/ncsc-cyber-economic-espionage/
 [30]: https://github.com/SpiderLabs/Responder
 [31]: https://github.com/wifiphisher/wifiphisher
 [32]: https://github.com/Dionach/CMSmap
-[33]: 
+[33]: https://github.com/PowerShellMafia/PowerSploit
+[34]: https://github.com/secgroundzero/warberry/wiki/3G-Covert-Channel-Setup
+[35]: https://raspberrypi.stackexchange.com/questions/44143/verified-4g-usb-dongles
+[36]: https://www.peerlyst.com/posts/warberrypi-the-complete-guide-secgroundzero
+[37]: https://www.remot3.it/web/remot3-it-connect-for-raspberry-pi.html
 
