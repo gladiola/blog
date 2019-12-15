@@ -56,7 +56,7 @@ All of these are mostly personal choices that won't have a bearing on the featur
 With the system installed, one of the first things we'll do is check those passphrases.  Make sure each account works.  Any problems with those could complicate or confound anything we do after this.
 
 We'll do a quick update of the FreeBSD installation and ports  \[[11]\] \[[12]\].
-- freebsd-update fzfszpooetch
+- freebsd-update fetch
 - freebsd-update install
 - portsnap fetch
 - portsnap extract
