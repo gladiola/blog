@@ -16,7 +16,7 @@ Let's get started.
 
 # Preliminary Planning
 ## Hardware
-Our target machine will be built on a salvaged Dell Optiplex 990.  Purchased at a government auction for about $50, this salvaged machine has been cleaned, tested, and fitted with a small SSD.  For storage, we'll be using two refurbished Kingston 120GB SSDs that sold for about $12/each.  We've outfitted the box with 8G of 10600U RAM, a dual port network card, and a graphics port that does Display and DVI formats.  The power supply has been tested; there's a DVD drive we'll use for installing the base system ISO.
+Our target machine will be built on a salvaged Dell Optiplex 990.  Purchased at a government auction for about $50, this salvaged machine has been cleaned, tested, and fitted with some small SSDs.  For storage, we'll be using two refurbished Kingston 120GB SSDs that sold for about $12/each.  We've outfitted the box with 8G of 10600U RAM, a dual port network card, and a graphics port that does Display and DVI formats.  The power supply has been tested; there's a DVD drive we'll use for installing the base system ISO.
 
 For our tutorial, we'll rig up our main internet connection to port 0 on the network card.  We'll have to hook up our monitor to the graphics card to meet the BIOS requirements.  We've set the BIOS boot order to let us boot from CD/DVD disk, USB drive, and then the SSD.  
 
@@ -164,7 +164,9 @@ Using portsnap fetch and related commands to install fresh scripts for ports.  T
 
 Online manpage for pw.
 
-\[16\]  
+\[16\] _____.  INTERNET:   [`https://www.pngtube.com/viewm/TRRmb_png-transparent-download-bonfire-clipart-smoke-fire-png/`](https://www.pngtube.com/viewm/
+
+Clipart flames download.
 
 [//]: # (Hyperlinks)
 [1]: https://www.freebsd.org/doc/en_US.ISO8859-1/books/handbook/
@@ -182,7 +184,7 @@ Online manpage for pw.
 [13]: ``
 [14]: ``
 [15]: https://www.freebsd.org/cgi/man.cgi?query=pw&sektion=8&manpath=freebsd-release-ports
-[16]: ``
+[16]: https://www.pngtube.com/viewm/TRRmb_png-transparent-download-bonfire-clipart-smoke-fire-png/
 [17]: ``
 
 
