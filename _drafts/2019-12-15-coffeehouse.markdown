@@ -78,7 +78,8 @@ To take a snapshot some datasets at this stage of installation:
 
 \[[13]\]
 
-## Carve Up Some ZFS Datasets
+# Host ZFS drive partitioning
+## Carve Up Some ZFS Datasets and Directories
 To later accomodate our jails, we'll want to create some ZFS datasets.  Combined with ZFS snapshot procedures, we'll then be able to make snapshots of our progress (or regress) when constructing the jails.  Since there's nothing really on the disk right now, we can declare the datasets with no worry.  We won't need to specify how much space each one takes up.  We just need to describe how we'll carve up the data.
 
 To lay the foundation, we'll give:
@@ -109,6 +110,11 @@ We'll want to associate each of those datasets with a group, for user access con
 `chown -R barista:coffeehouse /jail/coffeehouse`
 
 We can see our system is unified with our barista account owning the four directories with each under its own group.  \[[14]\]\[[15]\]
+
+## Prove Dataset and File Directory Association
+To prove that a given ZFS dataset is associated with a directory, we'll conduct a simple test.  We'll write a text file to one of the directories owned by barista; we'll make a snapshot; we'll delete the file; then we'll restore the directory to its previous state using the snapshot.  We should be able to see the ZFS snapshot system working for us.
+
+
 
  \[[]\]
 ## Annotated Bibliography
