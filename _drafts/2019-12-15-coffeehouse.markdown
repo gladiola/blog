@@ -108,7 +108,7 @@ We'll want to associate each of those datasets with a group, for user access con
 `mkdir /jail/coffeehouse`
 `chown -R barista:coffeehouse /jail/coffeehouse`
 
-We can see our system is unified with our barista account owning the four directories with each under its own group.  
+We can see our system is unified with our barista account owning the four directories with each under its own group.  \[[14]\]\[[15]\]
 
  \[[]\]
 ## Annotated Bibliography
@@ -154,6 +154,12 @@ Using portsnap fetch and related commands to install fresh scripts for ports.  T
 
 \[14\] Lucas.  \[2\], pp. 262.
 
+\[15\] FreeBSD Foundation.  INTERNET:  [`https://www.freebsd.org/cgi/man.cgi?query=pw&sektion=8&manpath=freebsd-release-ports`](https://www.freebsd.org/cgi/man.cgi?query=pw&sektion=8&manpath=freebsd-release-ports)
+
+Online manpage for pw.
+
+\[16\]  
+
 [//]: # (Hyperlinks)
 [1]: https://www.freebsd.org/doc/en_US.ISO8859-1/books/handbook/
 [2]: ``
@@ -169,6 +175,8 @@ Using portsnap fetch and related commands to install fresh scripts for ports.  T
 [12]: https://www.freebsd.org/doc/en_US.ISO8859-1/books/handbook/ports-using.html
 [13]: ``
 [14]: ``
-[15]: 
+[15]: https://www.freebsd.org/cgi/man.cgi?query=pw&sektion=8&manpath=freebsd-release-ports
+[16]: ``
+[17]: ``
 
 
