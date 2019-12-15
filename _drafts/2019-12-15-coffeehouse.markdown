@@ -48,14 +48,14 @@ Based on past experiments, I found it was helpful to choose the "DVD" version of
 
 # Host Base Install
 ## Installing FreeBSD Onto the Hardware
-With our disk of a FreeBSD ISO on hand, we'll drop it into the target machine and let the installer take the lead.  We'll make choices that allow for the download of base, src, and ports files.  We'll allow the installer to make the usual choices for our machine.  We'll choose a ZFS encrypted install, to accept every secure option in the installer dialog for hardening, and to download a copy of the FreeBSD handbook.  We'll name our machine SALVAGE13B-COFFEEHOUSE.  
+With our disk of a FreeBSD ISO on hand, we'll drop it into the target machine and let the installer take the lead.  We'll make choices that allow for the download of base, src, and ports files.  We'll allow the installer to make the usual choices for our machine  \[[10]\].  We'll choose a ZFS encrypted install, to accept every secure option in the installer dialog for hardening, and to download a copy of the FreeBSD handbook.  We'll name our machine SALVAGE13B-COFFEEHOUSE.  
 
 All of these are mostly personal choices that won't have a bearing on the features we'll add on later.  However, we're going to make careful note of account names and passphrases that are decided during our install.  We'll make a root account and a user account called "barista".  We'll add barista to our wheel and operator groups.  This will give us an alternate to root that we can use with ssh later.  With the ZFS GELI encryption for the disk, we'll emerge from this phase with three critical passwords recorded.  
 
 ## Initial checks
 With the system installed, one of the first things we'll do is check those passphrases.  Make sure each account works.  Any problems with those could complicate or confound anything we do after this.
 
-We'll do a quick update of the FreeBSD installation and ports.
+We'll do a quick update of the FreeBSD installation and ports  \[[11]\] \[[]\].
 - freebsd-update fetch
 - freebsd-update install
 - portsnap fetch
@@ -95,7 +95,19 @@ Page that allows us to choose the type of image to download.
 \[9\]  FreeBSD Foundation.  INTERNET: [`https://download.freebsd.org/ftp/releases/amd64/amd64/ISO-IMAGES/12.1/FreeBSD-12.1-RELEASE-amd64-dvd1.iso`](https://download.freebsd.org/ftp/releases/amd64/amd64/ISO-IMAGES/12.1/FreeBSD-12.1-RELEASE-amd64-dvd1.iso)
 
 Chosen download for our host install.
-   
+
+\[10\]  FreeBSD Foundation.  INTERNET: [`https://www.freebsd.org/doc/en_US.ISO8859-1/books/handbook/using-bsdinstall.html`](https://www.freebsd.org/doc/en_US.ISO8859-1/books/handbook/using-bsdinstall.html)
+
+Directions for using bsdinstall.
+
+\[11\]  FreeBSD Foundation.  INTERNET: [`https://www.freebsd.org/doc/en_US.ISO8859-1/books/handbook/updating-upgrading-freebsdupdate.html`](https://www.freebsd.org/doc/en_US.ISO8859-1/books/handbook/updating-upgrading-freebsdupdate.htmll)
+
+Using freebsd-update and related commands to install security updates.
+
+\[12\]  FreeBSD Foundation.  INTERNET: [`https://www.freebsd.org/doc/en_US.ISO8859-1/books/handbook/ports-using.html`](https://www.freebsd.org/doc/en_US.ISO8859-1/books/handbook/ports-using.html)
+
+Using portsnap fetch and related commands to install fresh scripts for ports.  This may help ensure that the latest security patches are available to programs compiled from ports.
+
 [//]: # (Hyperlinks)
 [1]: https://www.freebsd.org/doc/en_US.ISO8859-1/books/handbook/
 [2]: ``
@@ -106,5 +118,8 @@ Chosen download for our host install.
 [7]: https://www.freebsd.org/where.html
 [8]: https://download.freebsd.org/ftp/releases/amd64/amd64/ISO-IMAGES/12.1/
 [9]: https://download.freebsd.org/ftp/releases/amd64/amd64/ISO-IMAGES/12.1/FreeBSD-12.1-RELEASE-amd64-dvd1.iso
+[10]: https://www.freebsd.org/doc/en_US.ISO8859-1/books/handbook/using-bsdinstall.html
+[11]: https://www.freebsd.org/doc/en_US.ISO8859-1/books/handbook/updating-upgrading-freebsdupdate.html
+[12]: https://www.freebsd.org/doc/en_US.ISO8859-1/books/handbook/ports-using.html
 
 
