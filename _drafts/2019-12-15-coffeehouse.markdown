@@ -151,6 +151,20 @@ Until we've made all the snapshots we'd like.
 
  \[[17]\]\[[18]\]
 
+## Record Basic Facts About Config Files
+Since we're about to build some jails and adjust the configuration of the jailhost, we're likely to make some mistakes soon.  We can use some of these same techniques to gather files we're likely to edit and copy them to a directory for archiving.
+
+We'll be interested in editing:
+- /boot/boot.conf
+- /etc/devfs.conf
+- /etc/rc.conf
+- /etc/jail.conf
+
+We'll also make some copies of outputs of common jail and zfs commands.
+
+
+# Basic Jail Install
+
 
  \[[]\]
 ## Annotated Bibliography
@@ -208,6 +222,10 @@ Clipart flames download.
 
 \[18\] _____.  INTERNET:   [`https://www.thegeekdiary.com/zfs-tutorials-creating-zfs-snapshot-and-clones/`](https://www.thegeekdiary.com/zfs-tutorials-creating-zfs-snapshot-and-clones/)
 
+\[19\] _____.  INTERNET:   [`https://www.unix.com/shell-programming-and-scripting/174496-how-check-if-file-exists-directory.html`](https://www.unix.com/shell-programming-and-scripting/174496-how-check-if-file-exists-directory.html)
+
+sh syntax for checking if a file exists.
+
 \[\] _____.  INTERNET:   [``]()
 
 [//]: # (Hyperlinks)
@@ -229,5 +247,6 @@ Clipart flames download.
 [16]: https://www.pngtube.com/viewm/TRRmb_png-transparent-download-bonfire-clipart-smoke-fire-png/
 [17]: ``
 [18]: https://www.thegeekdiary.com/zfs-tutorials-creating-zfs-snapshot-and-clones/
+[19]: https://www.unix.com/shell-programming-and-scripting/174496-how-check-if-file-exists-directory.html
 
 
