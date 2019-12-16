@@ -137,7 +137,7 @@ Or we could try the rollback command:
 `zfs rollback zroot/jail/coffeehouse@2019-12-05A`
 Notice that when we are using the `zfs` commands, we have to leave off the `/` when referring to zroot.
 
-
+ \[[17]\]\[[18]\]
 
 
  \[[]\]
@@ -180,7 +180,7 @@ Using freebsd-update and related commands to install security updates.
 
 Using portsnap fetch and related commands to install fresh scripts for ports.  This may help ensure that the latest security patches are available to programs compiled from ports.
 
-\[13\] Lucas.  \[2\], pp. 258, 264, 271-2.
+\[13\] Lucas.  \[2\], pp. 258, 264, 271-272.
 
 \[14\] Lucas.  \[2\], pp. 262.
 
@@ -188,9 +188,15 @@ Using portsnap fetch and related commands to install fresh scripts for ports.  T
 
 Online manpage for pw.
 
-\[16\] _____.  INTERNET:   [`https://www.pngtube.com/viewm/TRRmb_png-transparent-download-bonfire-clipart-smoke-fire-png/`](https://www.pngtube.com/viewm/
+\[16\] _____.  INTERNET:   [`https://www.pngtube.com/viewm/TRRmb_png-transparent-download-bonfire-clipart-smoke-fire-png/`](https://www.pngtube.com/viewm/TRRmb_png-transparent-download-bonfire-clipart-smoke-fire-png/)
 
 Clipart flames download.
+
+\[17\] Lucas.  \[2\], pp. 271-273.
+
+\[18\] _____.  INTERNET:   [`https://www.thegeekdiary.com/zfs-tutorials-creating-zfs-snapshot-and-clones/`](https://www.thegeekdiary.com/zfs-tutorials-creating-zfs-snapshot-and-clones/)
+
+\[\] _____.  INTERNET:   [``]()
 
 [//]: # (Hyperlinks)
 [1]: https://www.freebsd.org/doc/en_US.ISO8859-1/books/handbook/
@@ -210,5 +216,6 @@ Clipart flames download.
 [15]: https://www.freebsd.org/cgi/man.cgi?query=pw&sektion=8&manpath=freebsd-release-ports
 [16]: https://www.pngtube.com/viewm/TRRmb_png-transparent-download-bonfire-clipart-smoke-fire-png/
 [17]: ``
+[18]: https://www.thegeekdiary.com/zfs-tutorials-creating-zfs-snapshot-and-clones/
 
 
