@@ -110,6 +110,9 @@ We'll want to associate each of those datasets with a group, for user access con
 
 We can see our system is unified with our barista account owning the four directories with each under its own group.  \[[14]\]\[[15]\]
 
+### Limit Jail Size
+We can limit the growth of ZFS directories by setting a quota property.  A simple script can help us limit our directories to a specified maxmimum size.
+
 ## ZFS Snapshots, File Copies, and ZFS Rollbacks
 The ZFS snapshot command is a little different from some other "snapshots."  The word snapshot implies that we are seeing the directory as it was at that moment.  That's true; but the ZFS snapshot command will begin tracking differences to the directory specified from the moment we command the snapshot to begin.  The ZFS snapshot is like the target moment for a future restoration.
 
