@@ -66,7 +66,7 @@ We'll install nano, one of my favorite text editors.
 {% highlight shell %}
 `cd /usr/ports/editors/nano`
 `make -DBATCH install clean`
-{% end highlight shell %}
+{% endhighlight %}
 
 The `-DBATCH` helps us avoid all of the pauses in the ncurses dialogs for configuring the downloads and compilations.  But, if there is difficulty, we'll have to delve into `make config`, see what options are presented; maybe we'll also have to hop into the ports that threw the errors, and then recompile those individually.  Sometimes we might have to do a `pkg install <PORTNAME>` to substitute the compiliation of a program with a strait binary install.  With those troubleshooting tasks under our belt, we'll continue with our project.
 
@@ -74,13 +74,13 @@ To check our current ZFS configuration:
 {% highlight shell %}
 `zfs list`
 `zpool list`
-{% end highlight shell %}
+{% endhighlight %}
 
 To take a snapshot some datasets at this stage of installation:
 {% highlight shell %}
 `zfs snapshot zroot/ROOT/default@<SOME_DATE_AND_TIME>`
 `zfs snapshot zroot/usr@<SOME_DATE_AND_TIME>`
-{% end highlight shell %}
+{% endhighlight %}
 \[[13]\]
 
 # Host ZFS Drive Provisioning
@@ -90,7 +90,7 @@ To later accomodate our jails, we'll want to create some ZFS datasets.  Combined
 To lay the foundation, we'll give:
 {% highlight shell %}
 `zfs create -o canmount=off zroot/jail`
-{% end highlight shell %}
+{% endhighlight %}
 
 To lay out the main divisions of the jail directories, we'll give:
 {% highlight shell %}
@@ -98,13 +98,13 @@ To lay out the main divisions of the jail directories, we'll give:
 `zfs create zroot/jail/redeye`
 `zfs create zroot/jail/cappucino`
 `zfs create zroot/jail/latte`
-{% end highlight shell %}
+{% endhighlight %}
 
 Within each of those, we'll lay out six subdirectories, for the VMs we'll install later.  Typically, we'll give:
 {% highlight shell %}
 `zfs create zroot/jail/coffeehouse/vm1`
 `zfs create zroot/jail/coffeehouse/vm2`
-{% end highlight shell %}
+{% endhighlight %}
 ... and so on, until we have given six subdirectories for each of the four jail directories.  
 
 To see our progress, we can:
@@ -114,11 +114,11 @@ We'll want to associate each of those datasets with a group, for user access con
 {% highlight shell %}
 `pw groupadd coffeehouse`
 `pw groupmod coffeehouse -m barista`
-{% end highlight shell %}
+{% endhighlight %}
 ... and so on, until we have given our barista account access to all four of the groups.  We can assign those groups as owners of the datasets with commands like:
 {% highlight shell %}
 `chown -R barista:coffeehouse /zroot/jail/coffeehouse`
-{% end highlight shell %}
+{% endhighlight %}
 We can see our system is unified with our barista account owning the four directories with each under its own group.  \[[14]\]\[[15]\]
 
 ### Limit Jail Size
@@ -136,17 +136,17 @@ To test out the snapshot, we write a file to a known directory.
 {% highlight shell %}
 `cd /zroot/jail/coffeehouse`
 `nano test.txt`
-{% end highlight shell %}
+{% endhighlight %}
 In that file file, we write some simple words so that it will have some content.  We take a snapshot of the directory.
 {% highlight shell %}
 `zfs snapshot zroot/jail/coffeehouse@2019-12-05A`
 `zfs list -t snapshot`
-{% end highlight shell %}
+{% endhighlight %}
 Then we make a change to the directory.  We can delete that test.txt file.  The snapshot will show the change by showing an increase in Kb used.  
 {% highlight shell %}
 `rm /zroot/jail/coffeehouse/test.txt`
 `zfs list -t snapshot`
-{% end highlight shell %}
+{% endhighlight %}
 ### Restorations with File Copies
 To practice restoring just that one file of the snapshot, we can send the snapshot to a temporary directory, list the contents, and copy it out to the desired destination.
 {% highlight shell %}
@@ -154,24 +154,24 @@ To practice restoring just that one file of the snapshot, we can send the snapsh
 `cp -r /zroot/jail/coffeehouse/.zfs/snapshot/2019-12-05A /tmp/snapShot`
 `ls /tmp/snapShot`
 `cp /tmp/snapShot/test.txt /zroot/jail/coffeehouse/test.txt`
-{% end highlight shell %}
+{% endhighlight %}
 
 ### ZFS Rollbacks
 Or we could try the rollback command:
 {% highlight shell %}
 `zfs rollback zroot/jail/coffeehouse@2019-12-05A`
-{% end highlight shell %}
+{% endhighlight %}
 Notice that when we are using the `zfs` commands, we have to leave off the `/` when referring to zroot.  
 
 Once we're satisfied with the rehearsals of the rollbacks, we can remove the test file and delete the snapshot we made.
 {% highlight shell %}
 `zfs destroy zroot/jail/coffeehouse@2019-12-05A`
-{% end highlight shell %}
+{% endhighlight %}
 ### Setup Snapshots Before Jail Installations
 Our directories for the jails basically don't have anything in them besides the anticipated directory structure.  We'll make snapshots of each jail directory and each vm subdirectory to show our starting point.  We'll use commands like:
 {% highlight shell %}
 `zfs snapshot zroot/jail/coffeehouse@2019-05-05-EMPTY`
-{% end highlight shell %}
+{% endhighlight %}
 Until we've made all the snapshots we'd like.
 
  \[[17]\]\[[18]\]
