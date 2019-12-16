@@ -257,9 +257,9 @@ sh syntax for checking if a file exists.
 
 [//]: # (Hyperlinks)
 [1]: https://www.freebsd.org/doc/en_US.ISO8859-1/books/handbook/
-[2]: ``
-[3]: ``
-[4]: ``
+[2]: 
+[3]: 
+[4]: 
 [5]: https://www.xarg.org/tools/subnet-calculator/?q=192.168.1.192%2F27%2F29
 [6]: https://www.freebsd.org/releases/12.1R/announce.html
 [7]: https://www.freebsd.org/where.html
