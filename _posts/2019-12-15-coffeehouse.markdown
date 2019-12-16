@@ -268,13 +268,14 @@ sh syntax for checking if a file exists.
 [10]: https://www.freebsd.org/doc/en_US.ISO8859-1/books/handbook/using-bsdinstall.html
 [11]: https://www.freebsd.org/doc/en_US.ISO8859-1/books/handbook/updating-upgrading-freebsdupdate.html
 [12]: https://www.freebsd.org/doc/en_US.ISO8859-1/books/handbook/ports-using.html
-[13]: ``
-[14]: ``
+[13]: 
+[14]: 
 [15]: https://www.freebsd.org/cgi/man.cgi?query=pw&sektion=8&manpath=freebsd-release-ports
 [16]: https://www.pngtube.com/viewm/TRRmb_png-transparent-download-bonfire-clipart-smoke-fire-png/
-[17]: ``
+[17]: 
 [18]: https://www.thegeekdiary.com/zfs-tutorials-creating-zfs-snapshot-and-clones/
 [19]: https://www.unix.com/shell-programming-and-scripting/174496-how-check-if-file-exists-directory.html
 [20]: ``
+[21]: 
 
 
