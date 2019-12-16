@@ -113,6 +113,7 @@ We can see our system is unified with our barista account owning the four direct
 ## Prove Dataset and File Directory Association
 To prove that a given ZFS dataset is associated with a directory, we'll conduct a simple test.  We'll write a text file to one of the directories owned by barista; we'll make a snapshot; we'll delete the file; then we'll restore the directory to its previous state using the snapshot.  We should be able to see the ZFS snapshot system working for us.
 
+## ZFS Snapshots, File Copies, and ZFS Rollbacks
 The ZFS snapshot command is a little different from some other "snapshots."  The word snapshot implies that we are seeing the directory as it was at that moment.  That's true; but the ZFS snapshot command will begin tracking differences to the directory specified from the moment we command the snapshot to begin.  We can apply the results in a couple ways.  We can send the snapshot to another directory, and then copy out what we need; or, we can use the `zfs rollback` command to undo all the changes to a directory since a given snapshot.  So, when we say we are taking a snapshot of a directory, we are really beginning the recording of differences to that directory from that moment on.  
 
 To test out the snapshot, we write a file to a known directory.
@@ -125,11 +126,13 @@ Then we make a change to the directory.  We can delete that test.txt file.  The 
 `rm /zroot/jail/coffeehouse/test.txt`
 `zfs list -t snapshot`
 
+### Restorations with File Copies
 To practice restoring just that one file of the snapshot, we can send the snapshot to a temporary directory, list the contents, and copy it out to the desired destination.
 `cp -r /zroot/jail/coffeehouse/.zfs/snapshot/2019-12-05A /tmp/snapShot`
 `ls /tmp/snapShot`
 `cp /tmp/snapShot/test.txt /zroot/jail/coffeehouse/test.txt`
 
+### ZFS Rollbacks
 Or we could try the rollback command:
 `zfs rollback zroot/jail/coffeehouse@2019-12-05A`
 Notice that when we are using the `zfs` commands, we have to leave off the `/` when referring to zroot.
