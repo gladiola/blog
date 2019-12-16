@@ -130,6 +130,8 @@ Then we make a change to the directory.  We can delete that test.txt file.  The 
 
 ### Restorations with File Copies
 To practice restoring just that one file of the snapshot, we can send the snapshot to a temporary directory, list the contents, and copy it out to the desired destination.
+
+`mkdir /tmp/snapShot`
 `cp -r /zroot/jail/coffeehouse/.zfs/snapshot/2019-12-05A /tmp/snapShot`
 `ls /tmp/snapShot`
 `cp /tmp/snapShot/test.txt /zroot/jail/coffeehouse/test.txt`
@@ -137,7 +139,15 @@ To practice restoring just that one file of the snapshot, we can send the snapsh
 ### ZFS Rollbacks
 Or we could try the rollback command:
 `zfs rollback zroot/jail/coffeehouse@2019-12-05A`
-Notice that when we are using the `zfs` commands, we have to leave off the `/` when referring to zroot.
+Notice that when we are using the `zfs` commands, we have to leave off the `/` when referring to zroot.  
+
+Once we're satisfied with the rehearsals of the rollbacks, we can remove the test file and delete the snapshot we made.
+`zfs destroy zroot/jail/coffeehouse@2019-12-05A`
+
+### Setup Snapshots Before Jail Installations
+Our directories for the jails basically don't have anything in them besides the anticipated directory structure.  We'll make snapshots of each jail directory and each vm subdirectory to show our starting point.  We'll use commands like:
+`zfs snapshot zroot/jail/coffeehouse@2019-05-05-EMPTY`
+Until we've made all the snapshots we'd like.
 
  \[[17]\]\[[18]\]
 
