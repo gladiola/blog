@@ -174,7 +174,7 @@ zfs snapshot zroot/jail/coffeehouse@2019-05-05-EMPTY
 {% endhighlight %}
 Until we've made all the snapshots we'd like.
 
- \[[17]\]\[[18]\]
+ \[17\]\[18\]
 
 ## Record Basic Facts About Config Files
 Since we're about to build some jails and adjust the configuration of the jailhost, we're likely to make some mistakes soon.  We can use some of these same techniques to gather files we're likely to edit and copy them to a directory for archiving.
@@ -276,5 +276,6 @@ sh syntax for checking if a file exists.
 [18]: https://www.thegeekdiary.com/zfs-tutorials-creating-zfs-snapshot-and-clones/
 [19]: https://www.unix.com/shell-programming-and-scripting/174496-how-check-if-file-exists-directory.html
 [20]: ``
+
 
 
