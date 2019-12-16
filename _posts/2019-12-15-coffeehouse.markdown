@@ -174,7 +174,7 @@ zfs snapshot zroot/jail/coffeehouse@2019-05-05-EMPTY
 {% endhighlight %}
 Until we've made all the snapshots we'd like.
 
- \[[17]\]\[[18]\]
+ \[17\]\[18\]
 
 ## Record Basic Facts About Config Files
 Since we're about to build some jails and adjust the configuration of the jailhost, we're likely to make some mistakes soon.  We can use some of these same techniques to gather files we're likely to edit and copy them to a directory for archiving.
@@ -257,9 +257,9 @@ sh syntax for checking if a file exists.
 
 [//]: # (Hyperlinks)
 [1]: https://www.freebsd.org/doc/en_US.ISO8859-1/books/handbook/
-[2]: 
-[3]: 
-[4]: 
+[2]: ``
+[3]: ``
+[4]: ``
 [5]: https://www.xarg.org/tools/subnet-calculator/?q=192.168.1.192%2F27%2F29
 [6]: https://www.freebsd.org/releases/12.1R/announce.html
 [7]: https://www.freebsd.org/where.html
@@ -268,14 +268,14 @@ sh syntax for checking if a file exists.
 [10]: https://www.freebsd.org/doc/en_US.ISO8859-1/books/handbook/using-bsdinstall.html
 [11]: https://www.freebsd.org/doc/en_US.ISO8859-1/books/handbook/updating-upgrading-freebsdupdate.html
 [12]: https://www.freebsd.org/doc/en_US.ISO8859-1/books/handbook/ports-using.html
-[13]: 
-[14]: 
+[13]: ``
+[14]: ``
 [15]: https://www.freebsd.org/cgi/man.cgi?query=pw&sektion=8&manpath=freebsd-release-ports
 [16]: https://www.pngtube.com/viewm/TRRmb_png-transparent-download-bonfire-clipart-smoke-fire-png/
-[17]: 
+[17]: ``
 [18]: https://www.thegeekdiary.com/zfs-tutorials-creating-zfs-snapshot-and-clones/
 [19]: https://www.unix.com/shell-programming-and-scripting/174496-how-check-if-file-exists-directory.html
 [20]: ``
-[21]: 
+
 
 
