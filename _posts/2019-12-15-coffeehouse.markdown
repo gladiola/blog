@@ -63,19 +63,24 @@ We'll do a quick update of the FreeBSD installation and ports  \[[11]\] \[[12]\]
 
 We'll install nano, one of my favorite text editors.
 
+{% highlight shell %}
 `cd /usr/ports/editors/nano`
 `make -DBATCH install clean`
+{% end highlight shell %}
 
 The `-DBATCH` helps us avoid all of the pauses in the ncurses dialogs for configuring the downloads and compilations.  But, if there is difficulty, we'll have to delve into `make config`, see what options are presented; maybe we'll also have to hop into the ports that threw the errors, and then recompile those individually.  Sometimes we might have to do a `pkg install <PORTNAME>` to substitute the compiliation of a program with a strait binary install.  With those troubleshooting tasks under our belt, we'll continue with our project.
 
 To check our current ZFS configuration:
+{% highlight shell %}
 `zfs list`
 `zpool list`
+{% end highlight shell %}
 
 To take a snapshot some datasets at this stage of installation:
+{% highlight shell %}
 `zfs snapshot zroot/ROOT/default@<SOME_DATE_AND_TIME>`
 `zfs snapshot zroot/usr@<SOME_DATE_AND_TIME>`
-
+{% end highlight shell %}
 \[[13]\]
 
 # Host ZFS Drive Provisioning
@@ -83,31 +88,37 @@ To take a snapshot some datasets at this stage of installation:
 To later accomodate our jails, we'll want to create some ZFS datasets.  Combined with ZFS snapshot procedures, we'll then be able to make snapshots of our progress (or regress) when constructing the jails.  Since there's nothing really on the disk right now, we can declare the datasets with no worry.  We won't need to specify how much space each one takes up.  We just need to describe how we'll carve up the data.
 
 To lay the foundation, we'll give:
+{% highlight shell %}
 `zfs create -o canmount=off zroot/jail`
+{% end highlight shell %}
 
 To lay out the main divisions of the jail directories, we'll give:
+{% highlight shell %}
 `zfs create zroot/jail/coffeehouse`
 `zfs create zroot/jail/redeye`
 `zfs create zroot/jail/cappucino`
 `zfs create zroot/jail/latte`
+{% end highlight shell %}
 
 Within each of those, we'll lay out six subdirectories, for the VMs we'll install later.  Typically, we'll give:
+{% highlight shell %}
 `zfs create zroot/jail/coffeehouse/vm1`
 `zfs create zroot/jail/coffeehouse/vm2`
+{% end highlight shell %}
 ... and so on, until we have given six subdirectories for each of the four jail directories.  
 
 To see our progress, we can:
 `zfs list` and it will show us all of the ZFS datasets.
 
 We'll want to associate each of those datasets with a group, for user access control.  We can create groups for each of the four jail directories by using commands like:
-
+{% highlight shell %}
 `pw groupadd coffeehouse`
 `pw groupmod coffeehouse -m barista`
-
+{% end highlight shell %}
 ... and so on, until we have given our barista account access to all four of the groups.  We can assign those groups as owners of the datasets with commands like:
-
+{% highlight shell %}
 `chown -R barista:coffeehouse /zroot/jail/coffeehouse`
-
+{% end highlight shell %}
 We can see our system is unified with our barista account owning the four directories with each under its own group.  \[[14]\]\[[15]\]
 
 ### Limit Jail Size
@@ -122,34 +133,45 @@ We can apply the results in a couple ways.  We can send the snapshot to another 
 To prove that a given ZFS dataset is associated with a directory, we'll conduct a simple test.  We'll write a text file to one of the directories owned by barista; we'll make a snapshot; we'll delete the file; then we'll restore the directory to its previous state using the snapshot.  We should be able to see the ZFS snapshot system working for us.
 
 To test out the snapshot, we write a file to a known directory.
+{% highlight shell %}
 `cd /zroot/jail/coffeehouse`
 `nano test.txt`
+{% end highlight shell %}
 In that file file, we write some simple words so that it will have some content.  We take a snapshot of the directory.
+{% highlight shell %}
 `zfs snapshot zroot/jail/coffeehouse@2019-12-05A`
 `zfs list -t snapshot`
+{% end highlight shell %}
 Then we make a change to the directory.  We can delete that test.txt file.  The snapshot will show the change by showing an increase in Kb used.  
+{% highlight shell %}
 `rm /zroot/jail/coffeehouse/test.txt`
 `zfs list -t snapshot`
-
+{% end highlight shell %}
 ### Restorations with File Copies
 To practice restoring just that one file of the snapshot, we can send the snapshot to a temporary directory, list the contents, and copy it out to the desired destination.
-
+{% highlight shell %}
 `mkdir /tmp/snapShot`
 `cp -r /zroot/jail/coffeehouse/.zfs/snapshot/2019-12-05A /tmp/snapShot`
 `ls /tmp/snapShot`
 `cp /tmp/snapShot/test.txt /zroot/jail/coffeehouse/test.txt`
+{% end highlight shell %}
 
 ### ZFS Rollbacks
 Or we could try the rollback command:
+{% highlight shell %}
 `zfs rollback zroot/jail/coffeehouse@2019-12-05A`
+{% end highlight shell %}
 Notice that when we are using the `zfs` commands, we have to leave off the `/` when referring to zroot.  
 
 Once we're satisfied with the rehearsals of the rollbacks, we can remove the test file and delete the snapshot we made.
+{% highlight shell %}
 `zfs destroy zroot/jail/coffeehouse@2019-12-05A`
-
+{% end highlight shell %}
 ### Setup Snapshots Before Jail Installations
 Our directories for the jails basically don't have anything in them besides the anticipated directory structure.  We'll make snapshots of each jail directory and each vm subdirectory to show our starting point.  We'll use commands like:
+{% highlight shell %}
 `zfs snapshot zroot/jail/coffeehouse@2019-05-05-EMPTY`
+{% end highlight shell %}
 Until we've made all the snapshots we'd like.
 
  \[[17]\]\[[18]\]
