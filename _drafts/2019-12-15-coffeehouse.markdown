@@ -188,7 +188,22 @@ We'll be interested in editing:
 We'll also make some copies of outputs of common jail and zfs commands.
 
 # Basic Jail Install
+When we read over several sets of directions about setting up jails, it was very common to run across a mention like, "just grab a copy of base.txz."  Well, where is that supposed to come from?  We're going to pull ours down with a `fetch` like so:
+{% highlight shell %}
+fetch ftp://ftp.freebsd.org/pub/FreeBSD/releases/amd64/12.1-RELEASE/base.txz
+{% endhighlight %}
 
+To see what we'll have available to choose from for our hardware, we can visit with a browser:
+{% highlight shell %}
+ftp://ftp.freebsd.org/pub/FreeBSD/releases/amd64
+{% endhighlight %}
+
+For our template jail we'll call:
+{% highlight shell %}
+fetch ftp://ftp.freebsd.org/pub/FreeBSD/releases/amd64/12.1-RELEASE/base.txz
+fetch ftp://ftp.freebsd.org/pub/FreeBSD/releases/amd64/12.1-RELEASE/lib32.txz
+fetch ftp://ftp.freebsd.org/pub/FreeBSD/releases/amd64/12.1-RELEASE/src.txz
+{% endhighlight %}
 
  \[[]\]
 ## Annotated Bibliography
@@ -254,6 +269,28 @@ sh syntax for checking if a file exists.
 
 \[21\] _____.  INTERNET:   [`https://www.freebsd.org/doc/en_US.ISO8859-1/books/handbook/jails-build.html`](https://www.freebsd.org/doc/en_US.ISO8859-1/books/handbook/jails-build.html)
 
+Handbook page on the basics of building jails.
+
+\[22\] _____.  INTERNET:   [`https://www.freebsd.org/doc/handbook/ports-using.html`](https://www.freebsd.org/doc/handbook/ports-using.html)
+
+Handbook page on using ports.  Notice the variables for WKDIRPREFIX and PREFIX.
+
+\[23\] _____.  INTERNET:   [`https://www.cyberciti.biz/faq/how-to-configure-a-freebsd-jail-with-vnet-and-zfs/`](https://www.cyberciti.biz/faq/how-to-configure-a-freebsd-jail-with-vnet-and-zfs/)
+
+Blog post on setting up jails with VNET and ZFS.
+
+\[24\] _____.  INTERNET:   [`https://savagedlight.me/2014/03/14/freebsd-jail-server-with-zfs-clone-and-jail-conf/`](https://savagedlight.me/2014/03/14/freebsd-jail-server-with-zfs-clone-and-jail-conf/)
+
+Blog post on setting up jails with ZFS.
+
+\[\] _____.  INTERNET:   [``]()
+
+\[\] _____.  INTERNET:   [``]()
+
+\[\] _____.  INTERNET:   [``]()
+
+\[\] _____.  INTERNET:   [``]()
+
 \[\] _____.  INTERNET:   [``]()
 
 [//]: # (Hyperlinks)
@@ -278,6 +315,10 @@ sh syntax for checking if a file exists.
 [19]: https://www.unix.com/shell-programming-and-scripting/174496-how-check-if-file-exists-directory.html
 [20]: ``
 [21]: https://www.freebsd.org/doc/en_US.ISO8859-1/books/handbook/jails-build.html
+[22]: https://www.freebsd.org/doc/handbook/ports-using.html
+[23]: https://www.cyberciti.biz/faq/how-to-configure-a-freebsd-jail-with-vnet-and-zfs/
+[24]: https://savagedlight.me/2014/03/14/freebsd-jail-server-with-zfs-clone-and-jail-conf/
+[25]: 
 
 
 
