@@ -238,7 +238,12 @@ However, this presents a problem:  FreeBSD uses a different flavor of `nc`.  The
 {% endhighlight %}
 \[[25]\]\[[26]\]
 
-`fifo`s are temporary channels in FreeBSD.  In the code above, we read:
+`fifo`s are temporary channels in FreeBSD.  Then man pages tell us:
+
+>One possible application of memory channels created by memchan or fifo is as temporary storage device to collect data coming in over a pipe or a socket.
+\[[27]\]
+
+In the code above, we read:
 - remove any temp file named f
 - make a fifo channel at temp f
 Then:
@@ -246,7 +251,7 @@ Then:
 - pipe that shell to netcat listening on localhost to port 1234
 - and send its output to temp f.
 - 
-Notice how the last line sets up a circular reference.  The data will flow out of the fifo, into shell, into the netcat channel, and into the fifo.  
+Notice how the last line sets up a circular reference.  The data will flow out of the fifo, into shell, into the netcat channel, and into the fifo.  \[[27]\]\[[28]\]
 
 
 
