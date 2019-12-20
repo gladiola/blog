@@ -218,6 +218,31 @@ When we're preparing to compile from ports and set up the jails, we'll use /etc/
 
 On the host's /etc/rc.conf, we'll put values that enable jails and VMs.  
 
+### A Major Pitfall
+When we were running an earlier experiment, we ran into a real hazard with some of the kernel modules for VirtualBox.  We will need to be very careful to test out kernel modules produced during the vbox compilation process with `kldload`.  If we load up a kernel module that won't work well onto a GELI-encrypted ZFS drive, then we'll have a very difficult recovery.  So, we'll need to pick carefully before installing the kernel modules into the host's boot.conf.  This hazard won't present itself until later, but it'll be related to editing the jails and the host when we begin installing applications.
+
+### We Get netcat For Free
+On the plus side, `nc` is a default command for FreeBSD base installs.  We'll experiment with this some later.  As we have already mentioned, `fetch` is also automatically included; it's FreeBSD's sister to `wget`.  
+
+### netcat Doesn't Work The Same
+For those of us who've been pentesting with Kali Linux, it's common to see the following uses of netcat:
+{% highlight shell %}
+nc -nvlp 192.168.1.100 4444 -e /bin/bash
+{% endhighlight %}
+
+However, this presents a problem:  FreeBSD uses a different flavor of `nc`.  The `-e` argument will not trigger the execution of a program.  Instead, we will have to use `fifo` and pipes to set up something similar:
+
+{% highlight shell %}
+        rm -f /tmp/f; mkfifo /tmp/f
+        cat /tmp/f | /bin/sh -i 2>&1 | nc -l 127.0.0.1 1234 > /tmp/f
+{% endhighlight %}
+\[[25]\]\[[26]\]
+
+
+
+
+{% highlight shell %}
+{% endhighlight %}
  \[[]\]
 ## Annotated Bibliography
 \[1\]  FreeBSD Foundation.  INTERNET: [`https://www.freebsd.org/doc/en_US.ISO8859-1/books/handbook/`](https://www.freebsd.org/doc/en_US.ISO8859-1/books/handbook/)
@@ -296,9 +321,9 @@ Blog post on setting up jails with VNET and ZFS.
 
 Blog post on setting up jails with ZFS.
 
-\[\] _____.  INTERNET:   [``]()
+\[25\] _____.  INTERNET:   [`https://superuser.com/questions/691008/why-is-the-e-option-missing-from-netcat-openbsd#691043`](https://superuser.com/questions/691008/why-is-the-e-option-missing-from-netcat-openbsd#691043)
 
-\[\] _____.  INTERNET:   [``]()
+\[26\] _____.  INTERNET:   [`https://www.freebsd.org/cgi/man.cgi?query=nc&apropos=0&sektion=0&manpath=FreeBSD+12.1-RELEASE+and+Ports&arch=default&format=html`](https://www.freebsd.org/cgi/man.cgi?query=nc&apropos=0&sektion=0&manpath=FreeBSD+12.1-RELEASE+and+Ports&arch=default&format=html)
 
 \[\] _____.  INTERNET:   [``]()
 
@@ -331,7 +356,9 @@ Blog post on setting up jails with ZFS.
 [22]: https://www.freebsd.org/doc/handbook/ports-using.html
 [23]: https://www.cyberciti.biz/faq/how-to-configure-a-freebsd-jail-with-vnet-and-zfs/
 [24]: https://savagedlight.me/2014/03/14/freebsd-jail-server-with-zfs-clone-and-jail-conf/
-[25]: 
+[25]: https://superuser.com/questions/691008/why-is-the-e-option-missing-from-netcat-openbsd#691043
+[26]: https://www.freebsd.org/cgi/man.cgi?query=nc&apropos=0&sektion=0&manpath=FreeBSD+12.1-RELEASE+and+Ports&arch=default&format=html
+[27]: 
 
 
 
