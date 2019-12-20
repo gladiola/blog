@@ -257,6 +257,7 @@ Notice how the last line sets up a circular reference.  The data will flow out o
 Why is this a continuous, circular reference?  Because `cat` keeps reading until it hits EOF, or "end of file."  
 >If file is a UNIX domain socket, cat connects to it and then reads it until EOF.  \[[29]\]
 
+So, it'll be continuously reading out into the shell and the connection will be continuously redirecting into the `fifo` through a pipe. Given these ideas, we can build our usual bind and reverse shells in FreeBSD.  Later, we'll use them as a communications mechanism among our jails. 
 
 
 
