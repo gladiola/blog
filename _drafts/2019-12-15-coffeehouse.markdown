@@ -250,7 +250,7 @@ Then:
 - concatenate temp f and send it to shell, interactive
 - pipe that shell to netcat listening on localhost to port 1234
 - and send its output to temp f.
-- 
+
 Notice how the last line sets up a circular reference.  The data will flow out of the fifo, into shell, into the netcat channel, and into the fifo.  \[[27]\]\[[28]\]
 
 
