@@ -252,7 +252,11 @@ Then:
 - pipe that shell to netcat listening on localhost to port 1234
 - and send its output to temp f.
 
-Notice how the last line sets up a circular reference.  The data will flow out of the fifo, into shell, into the netcat channel, and into the fifo.  \[[27]\]\[[28]\]
+Notice how the last line sets up a circular reference.  The data will flow out of the fifo, into shell, into the netcat channel, and into the fifo.  \[[27]\]\[[28]\]  We will be using the memory channel, the `fifo`, to weld together the interactive shell and the netcat socket connection using pipes and redirection.  
+
+Why is this a continuous, circular reference?  Because `cat` keeps reading until it hits EOF, or "end of file."  
+>If file is a UNIX domain socket, cat connects to it and then reads it until EOF.  \[[29]\]
+
 
 
 
@@ -348,7 +352,7 @@ What's a `fifo`?
 
 What does `mkfifo` do?
 
-\[\] _____.  INTERNET:   [``]()
+\[29\] _____.  INTERNET:   [`https://www.freebsd.org/cgi/man.cgi?query=cat&apropos=0&sektion=0&manpath=FreeBSD+12.1-RELEASE+and+Ports&arch=default&format=html`](https://www.freebsd.org/cgi/man.cgi?query=cat&apropos=0&sektion=0&manpath=FreeBSD+12.1-RELEASE+and+Ports&arch=default&format=html)
 
 \[\] _____.  INTERNET:   [``]()
 
@@ -395,7 +399,7 @@ What does `mkfifo` do?
 [26]: https://www.freebsd.org/cgi/man.cgi?query=nc&apropos=0&sektion=0&manpath=FreeBSD+12.1-RELEASE+and+Ports&arch=default&format=html
 [27]: https://www.freebsd.org/cgi/man.cgi?query=fifo&apropos=0&sektion=0&manpath=FreeBSD+12.1-RELEASE+and+Ports&arch=default&format=html
 [28]: https://www.freebsd.org/cgi/man.cgi?query=mkfifo&apropos=0&sektion=0&manpath=FreeBSD+12.1-RELEASE+and+Ports&arch=default&format=html
-[29]: 
+[29]: https://www.freebsd.org/cgi/man.cgi?query=cat&apropos=0&sektion=0&manpath=FreeBSD+12.1-RELEASE+and+Ports&arch=default&format=html
 
 
 
