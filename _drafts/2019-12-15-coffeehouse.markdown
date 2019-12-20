@@ -246,6 +246,7 @@ However, this presents a problem:  FreeBSD uses a different flavor of `nc`.  The
 In the code above, we read:
 - remove any temp file named f
 - make a fifo channel at temp f
+
 Then:
 - concatenate temp f and send it to shell, interactive
 - pipe that shell to netcat listening on localhost to port 1234
