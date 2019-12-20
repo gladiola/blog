@@ -188,7 +188,11 @@ We'll be interested in editing:
 We'll also make some copies of outputs of common jail and zfs commands.
 
 # Basic Jail Install
-When we read over several sets of directions about setting up jails, it was very common to run across a mention like, "just grab a copy of base.txz."  Well, where is that supposed to come from?  We're going to pull ours down with a `fetch` like so:
+## Understanding How We Can Get to Our Goals
+In order to set up the jails, we had to experiment a little.  The FreeBSD Handbook, Lucas' books, and several blogs were an essential part of understanding how we might get to where we'll go.  \[[21]\]\[[22]\]\[2\]\[3\]\[[24]\]\[[25]\]
+
+### Where Will The Base System Come From?
+When we read over several sets of directions about setting up jails, it was very common to run across a mention like, "just grab a copy of base.txz."  Well, where is that supposed to come from?  \[[24]\]  We're going to pull ours down with a `fetch` like so:
 {% highlight shell %}
 fetch ftp://ftp.freebsd.org/pub/FreeBSD/releases/amd64/12.1-RELEASE/base.txz
 {% endhighlight %}
@@ -204,6 +208,15 @@ fetch ftp://ftp.freebsd.org/pub/FreeBSD/releases/amd64/12.1-RELEASE/base.txz
 fetch ftp://ftp.freebsd.org/pub/FreeBSD/releases/amd64/12.1-RELEASE/lib32.txz
 fetch ftp://ftp.freebsd.org/pub/FreeBSD/releases/amd64/12.1-RELEASE/src.txz
 {% endhighlight %}
+
+### Options, Options, Everywhere
+In every set of directions, we'll notice variance over where to put different kinds of configuration information.  We'll follow Lucas' example for setting up a jail.conf file.  That will cover ideas like jail state changes, interfaces, and virtual networking for the jail.  How does a jail operate and how does it relate to resources?  We'll put those in jail.conf. \[2\]\[3\]
+
+We'll add /etc/rc.conf items into individual jails for doing things like controlling services that run inside the jail.  \[[24]\]  
+
+When we're preparing to compile from ports and set up the jails, we'll use /etc/make.conf variables for directing the compilation process towards jail-related ports.  \[[24]\]
+
+On the host's /etc/rc.conf, we'll put values that enable jails and VMs.  
 
  \[[]\]
 ## Annotated Bibliography
