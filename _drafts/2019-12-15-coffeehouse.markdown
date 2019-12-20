@@ -238,6 +238,15 @@ However, this presents a problem:  FreeBSD uses a different flavor of `nc`.  The
 {% endhighlight %}
 \[[25]\]\[[26]\]
 
+`fifo`s are temporary channels in FreeBSD.  In the code above, we read:
+- remove any temp file named f
+- make a fifo channel at temp f
+Then:
+- concatenate temp f and send it to shell, interactive
+- pipe that shell to netcat listening on localhost to port 1234
+- and send its output to temp f.
+- 
+Notice how the last line sets up a circular reference.  The data will flow out of the fifo, into shell, into the netcat channel, and into the fifo.  
 
 
 
@@ -325,6 +334,26 @@ Blog post on setting up jails with ZFS.
 
 \[26\] _____.  INTERNET:   [`https://www.freebsd.org/cgi/man.cgi?query=nc&apropos=0&sektion=0&manpath=FreeBSD+12.1-RELEASE+and+Ports&arch=default&format=html`](https://www.freebsd.org/cgi/man.cgi?query=nc&apropos=0&sektion=0&manpath=FreeBSD+12.1-RELEASE+and+Ports&arch=default&format=html)
 
+\[27\] _____.  INTERNET:   [`https://www.freebsd.org/cgi/man.cgi?query=fifo&apropos=0&sektion=0&manpath=FreeBSD+12.1-RELEASE+and+Ports&arch=default&format=html`](https://www.freebsd.org/cgi/man.cgi?query=fifo&apropos=0&sektion=0&manpath=FreeBSD+12.1-RELEASE+and+Ports&arch=default&format=html)
+
+What's a `fifo`?
+
+\[28\] _____.  INTERNET:   [`https://www.freebsd.org/cgi/man.cgi?query=mkfifo&apropos=0&sektion=0&manpath=FreeBSD+12.1-RELEASE+and+Ports&arch=default&format=html`](https://www.freebsd.org/cgi/man.cgi?query=mkfifo&apropos=0&sektion=0&manpath=FreeBSD+12.1-RELEASE+and+Ports&arch=default&format=html)
+
+What does `mkfifo` do?
+
+\[\] _____.  INTERNET:   [``]()
+
+\[\] _____.  INTERNET:   [``]()
+
+\[\] _____.  INTERNET:   [``]()
+
+\[\] _____.  INTERNET:   [``]()
+
+\[\] _____.  INTERNET:   [``]()
+
+\[\] _____.  INTERNET:   [``]()
+
 \[\] _____.  INTERNET:   [``]()
 
 \[\] _____.  INTERNET:   [``]()
@@ -358,7 +387,9 @@ Blog post on setting up jails with ZFS.
 [24]: https://savagedlight.me/2014/03/14/freebsd-jail-server-with-zfs-clone-and-jail-conf/
 [25]: https://superuser.com/questions/691008/why-is-the-e-option-missing-from-netcat-openbsd#691043
 [26]: https://www.freebsd.org/cgi/man.cgi?query=nc&apropos=0&sektion=0&manpath=FreeBSD+12.1-RELEASE+and+Ports&arch=default&format=html
-[27]: 
+[27]: https://www.freebsd.org/cgi/man.cgi?query=fifo&apropos=0&sektion=0&manpath=FreeBSD+12.1-RELEASE+and+Ports&arch=default&format=html
+[28]: https://www.freebsd.org/cgi/man.cgi?query=mkfifo&apropos=0&sektion=0&manpath=FreeBSD+12.1-RELEASE+and+Ports&arch=default&format=html
+[29]: 
 
 
 
