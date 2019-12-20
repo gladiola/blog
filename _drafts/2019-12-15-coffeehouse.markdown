@@ -189,7 +189,7 @@ We'll also make some copies of outputs of common jail and zfs commands.
 
 # Basic Jail Install
 ## Understanding How We Can Get to Our Goals
-In order to set up the jails, we had to experiment a little.  The FreeBSD Handbook, Lucas' books, and several blogs were an essential part of understanding how we might get to where we'll go.  \[[21]\]\[[22]\]\[2\]\[3\]\[[24]\]\[[25]\]  These experiments and references led to a few small discoveries for us.  I'd like to share these now.  We will see their influence later.  Some of these ideas came up as we were stitching together parts from various references to make our prototype work.  
+In order to set up the jails, we had to experiment a little.  Understanding from the FreeBSD Handbook, Lucas' books, and several blogs was an essential part of forecasting how we might get to where we'll go.  \[[21]\]\[[22]\]\[2\]\[3\]\[[24]\]\[[25]\]  These experiments and references led to a few small discoveries for us.  I'd like to share these now.  We will see their influence later.  Some of these ideas came up as we were stitching together parts from various references to make our prototype work.  
 
 ### Where Will The Base System Come From?
 When we read over several sets of directions about setting up jails, it was very common to run across a mention like, "just grab a copy of base.txz."  Well, where is that supposed to come from?  \[[24]\]  We're going to pull ours down with a `fetch` like so:
