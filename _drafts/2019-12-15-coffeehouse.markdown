@@ -314,7 +314,7 @@ In the above commands, we see that we're telling the computer:
     + preserve permissions
     + of files at the following directory:  /zroot/jail/media/...
 - -C:  create an archive at the specified directory /zroot/jail/coffeehouse
-
+\[31\]
 
 {% highlight shell %}
 {% endhighlight %}
