@@ -187,7 +187,7 @@ We'll be interested in editing:
 
 We'll also make some copies of outputs of common jail and zfs commands.
 
-# Basic Jail Install
+# Prototyping Lessons Learned for What's Ahead
 ## Understanding How We Can Get to Our Goals
 In order to set up the jails, we had to experiment a little.  Understanding from the FreeBSD Handbook, Lucas' books, and several blogs was an essential part of forecasting how we might get to where we'll go.  \[[21]\]\[[22]\]\[2\]\[3\]\[[24]\]\[[25]\]  These experiments and references led to a few small discoveries for us.  I'd like to share these now.  We will see their influence later.  Some of these ideas came up as we were stitching together parts from various references to make our prototype work.  
 
@@ -259,7 +259,10 @@ Why is this a continuous, circular reference?  Because `cat` keeps reading until
 
 So, it'll be continuously reading out into the shell and the connection will be continuously redirecting into the `fifo` through a pipe. Given these ideas, we can build our usual bind and reverse shells in FreeBSD.  Later, we'll use them as a communications mechanism among our jails. 
 
+#Basic Jail Install
+Let's set up some jails.
 
+We'll start by mostly following Lucas' <u>FreeBSD Mastery:  Jails</u>.
 
 {% highlight shell %}
 {% endhighlight %}
