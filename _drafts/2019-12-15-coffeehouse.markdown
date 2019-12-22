@@ -262,7 +262,7 @@ So, it'll be continuously reading out into the shell and the connection will be 
 #Basic Jail Install
 Let's set up some jails.
 
-We'll start by mostly following Lucas' FreeBSD Mastery:  Jails.  \[30\]However, instead of wrapping up our worlds into a temp file, as he does in Chapter 2, we'll fetch our base zipfiles from the FreeBSD Foundation over the Internet.
+We'll start by mostly following Lucas' FreeBSD Mastery:  Jails.  \[30\]However, instead of just wrapping up our worlds into a temp file as he does in Chapter 2, we'll also fetch our base zipfiles from the FreeBSD Foundation over the Internet.
 
 Logged on as root, we'll setup coffeehouse as our first, template, jail.  We'll put our txz files, extracted, in there.  As Lucas suggested, we'll keep a copy in a /jail/media subdirectory.  Many of the examples which follow are derived from Lucas' examples. \[30\]
 
@@ -425,7 +425,9 @@ This is the main effort of his chapter on "Jail Essentials."  It outlines a meth
 
 Man pages for tar, tape archive.
 
-\[\] _____.  INTERNET:   [``]()
+\[32\] _____.  INTERNET:   [`https://www.freebsd.org/doc/handbook/makeworld.html`](https://www.freebsd.org/doc/handbook/makeworld.html)
+
+FreeBSD Handbook page showing some examples of `make buildworld` and similar commands.
 
 \[\] _____.  INTERNET:   [``]()
 
@@ -471,7 +473,8 @@ Man pages for tar, tape archive.
 [29]: https://www.freebsd.org/cgi/man.cgi?query=cat&apropos=0&sektion=0&manpath=FreeBSD+12.1-RELEASE+and+Ports&arch=default&format=html
 [30]: ``
 [31]: https://www.freebsd.org/cgi/man.cgi?query=tar&apropos=0&sektion=0&manpath=FreeBSD+12.1-RELEASE+and+Ports&arch=default&format=html
-[32]: 
+[32]: https://www.freebsd.org/doc/handbook/makeworld.html
+[33]: 
 
 
 
