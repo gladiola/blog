@@ -273,11 +273,12 @@ To make the base, using our current installation:
 {% highlight shell %}
 mkdir /tmp/jail
 cd /usr/src
-make buildworld DESTDIR=/tmp/jail
+make cleanworld
+make -j4 buildworld 
 make installworld DESTDIR=/tmp/jail
 make distribution DESTDIR=/tmp/jail
 {% endhighlight %}
- \[[30]\]
+ \[[30]\]\[32\]
 
  I'd like to note that some of those `make` commands can take awhile.  I usually do the `make buildworld` overnight.  `installworld` also takes awhile, but not as long.  `distribution` took over an hour.  These were some of the most time consuming commands of the process.  
 
