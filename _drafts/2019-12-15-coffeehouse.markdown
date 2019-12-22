@@ -266,6 +266,28 @@ We'll start by mostly following Lucas' FreeBSD Mastery:  Jails.  \[30\]However, 
 
 Logged on as root, we'll setup coffeehouse as our first, template, jail.  We'll put our txz files, extracted, in there.  As Lucas suggested, we'll keep a copy in a /jail/media subdirectory.  Many of the examples which follow are derived from Lucas' examples. \[30\]
 
+## Building From the Host's System
+In our first approach, we'll use the host's own system to make the tarfiles we need.  Later, we'll `fetch` some files in.  
+
+To make the base, using our current installation:
+{% highlight shell %}
+mkdir /tmp/jail
+cd /usr/src
+make buildworld DESTDIR=/tmp/jail
+make installworld DESTDIR=/tmp/jail
+make distribution DESTDIR=/tmp/jail
+{% endhighlight %}
+ \[[30]\]
+
+ From there, we'll zip it up in a tarfile.
+{% highlight shell %}
+tar -cd /jail/media/\[FILENAME\].txz --xz -C /tmp/jail/
+{% endhighlight %}
+ \[[30]\]
+ 
+## Building From an Imported System
+We could also fetch the distribution files in for later use.
+
 To make that directory, we'll use commands like:
 {% highlight shell %}
 mkdir /zroot/jail/media/amd64/12.1-RELEASE/
@@ -284,6 +306,14 @@ tar -xpf /zroot/jail/media/amd64/12.1-RELEASE/base.txz -C /zroot/jail/coffeehous
 tar -xpf /zroot/jail/media/amd64/12.1-RELEASE/lib32.txz -C /zroot/jail/coffeehouse
 tar -xpf /zroot/jail/media/amd64/12.1-RELEASE/src.txz -C /zroot/jail/coffeehouse
 {% endhighlight %}\[30\]
+
+In the above commands, we see that we're telling the computer:
+- use tape archive
+- -xpf:
+    + extract
+    + preserve permissions
+    + of files at the following directory:  /zroot/jail/media/...
+- -C:  create an archive at the specified directory /zroot/jail/coffeehouse
 
 
 {% highlight shell %}
@@ -384,7 +414,9 @@ What does `mkfifo` do?
 
 This is the main effort of his chapter on "Jail Essentials."  It outlines a method for setting up a standard jail.conf to hold a default pattern for all the jails on machine.  It also describes the setup of a basic jail.  It covers the importation of the operating system base files and other similar basic aspects of getting a jail functioning.
 
-\[\] _____.  INTERNET:   [``]()
+\[31\] _____.  INTERNET:   [`https://www.freebsd.org/cgi/man.cgi?query=tar&apropos=0&sektion=0&manpath=FreeBSD+12.1-RELEASE+and+Ports&arch=default&format=html`](https://www.freebsd.org/cgi/man.cgi?query=tar&apropos=0&sektion=0&manpath=FreeBSD+12.1-RELEASE+and+Ports&arch=default&format=html)
+
+Man pages for tar, tape archive.
 
 \[\] _____.  INTERNET:   [``]()
 
@@ -431,6 +463,8 @@ This is the main effort of his chapter on "Jail Essentials."  It outlines a meth
 [28]: https://www.freebsd.org/cgi/man.cgi?query=mkfifo&apropos=0&sektion=0&manpath=FreeBSD+12.1-RELEASE+and+Ports&arch=default&format=html
 [29]: https://www.freebsd.org/cgi/man.cgi?query=cat&apropos=0&sektion=0&manpath=FreeBSD+12.1-RELEASE+and+Ports&arch=default&format=html
 [30]: ``
+[31]: https://www.freebsd.org/cgi/man.cgi?query=tar&apropos=0&sektion=0&manpath=FreeBSD+12.1-RELEASE+and+Ports&arch=default&format=html
+[32]: 
 
 
 
