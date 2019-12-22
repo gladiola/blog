@@ -279,6 +279,8 @@ make distribution DESTDIR=/tmp/jail
 {% endhighlight %}
  \[[30]\]
 
+ I'd like to note that some of those `make` commands can take awhile.  I usually do the `make buildworld` overnight.  `installworld` also takes awhile, but not as long.  `distribution` took over an hour.  These were some of the most time consuming commands of the process.  
+
  From there, we'll zip it up in a tarfile.
 {% highlight shell %}
 tar -cd /jail/media/\[FILENAME\].txz --xz -C /tmp/jail/
@@ -286,7 +288,12 @@ tar -cd /jail/media/\[FILENAME\].txz --xz -C /tmp/jail/
  \[[30]\]
  
 ## Building From an Imported System
-We could also fetch the distribution files in for later use.
+We could also fetch the distribution files in for later use.  This technique will allow us to build jails of a different release of FreeBSD.  We can't use a release that's younger than the jailhost's OS, but we can use a version that's older.  Jails are operating system virtualization; they're containers; so, if we want to preserve a system running an older configuration of the OS, importing a system of an earlier release could be the basis of such a jail.  Or, we could establish the jail, import the user and application files, and then stand it up inside the more recent version of the OS on the jailhost.  
+
+We can anticipate that there will be problems with mixing versions.  For example, what about running a much older and vulnerable application in an older jail version that's on top of a newer jailhost OS version?  We could be in a situation where we can get the older applications to run; but, that could be part of our problem, too.  We can't stereotype an answer that will always be safe, stable, and perfect; but, we can see that it will be possible to set up another release of FreeBSD inside our jailhost.  
+
+### Fetching a Base System With the Same Version as The Jailhost
+For our first trials, let's start with using the same kind as we have on hand.  For this example, that's 12.1-RELEASE.  
 
 To make that directory, we'll use commands like:
 {% highlight shell %}
