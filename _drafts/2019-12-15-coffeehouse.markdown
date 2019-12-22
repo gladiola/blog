@@ -262,7 +262,7 @@ So, it'll be continuously reading out into the shell and the connection will be 
 #Basic Jail Install
 Let's set up some jails.
 
-We'll start by mostly following Lucas' <u>FreeBSD Mastery:  Jails</u>.
+We'll start by mostly following Lucas' <style="text-decoration: underline;">FreeBSD Mastery:  Jails</style>.
 
 {% highlight shell %}
 {% endhighlight %}
