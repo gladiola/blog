@@ -262,7 +262,29 @@ So, it'll be continuously reading out into the shell and the connection will be 
 #Basic Jail Install
 Let's set up some jails.
 
-We'll start by mostly following Lucas' <style="text-decoration: underline;">FreeBSD Mastery:  Jails</style>.
+We'll start by mostly following Lucas' FreeBSD Mastery:  Jails.  \[30\]However, instead of wrapping up our worlds into a temp file, as he does in Chapter 2, we'll fetch our base zipfiles from the FreeBSD Foundation over the Internet.
+
+Logged on as root, we'll setup coffeehouse as our first, template, jail.  We'll put our txz files, extracted, in there.  As Lucas suggested, we'll keep a copy in a /jail/media subdirectory.  Many of the examples which follow are derived from Lucas' examples. \[30\]
+
+To make that directory, we'll use commands like:
+{% highlight shell %}
+mkdir /zroot/jail/media/amd64/12.1-RELEASE/
+{% endhighlight %}\[30\]
+
+To get the files, from inside the media subdirectory that will hold the files, we'll tell the computer:
+{% highlight shell %}
+fetch ftp://ftp.freebsd.org/pub/FreeBSD/releases/amd64/12.1-RELEASE/base.txz
+fetch ftp://ftp.freebsd.org/pub/FreeBSD/releases/amd64/12.1-RELEASE/lib32.txz
+fetch ftp://ftp.freebsd.org/pub/FreeBSD/releases/amd64/12.1-RELEASE/src.txz
+{% endhighlight %}\[30\]
+
+Then, we'll tell the computer to extract those files with tape archive and copy them to the part of memory where we'll put the jail.
+{% highlight shell %}
+tar -xpf /zroot/jail/media/amd64/12.1-RELEASE/base.txz -C /zroot/jail/coffeehouse
+tar -xpf /zroot/jail/media/amd64/12.1-RELEASE/lib32.txz -C /zroot/jail/coffeehouse
+tar -xpf /zroot/jail/media/amd64/12.1-RELEASE/src.txz -C /zroot/jail/coffeehouse
+{% endhighlight %}\[30\]
+
 
 {% highlight shell %}
 {% endhighlight %}
@@ -358,6 +380,10 @@ What does `mkfifo` do?
 
 \[29\] _____.  INTERNET:   [`https://www.freebsd.org/cgi/man.cgi?query=cat&apropos=0&sektion=0&manpath=FreeBSD+12.1-RELEASE+and+Ports&arch=default&format=html`](https://www.freebsd.org/cgi/man.cgi?query=cat&apropos=0&sektion=0&manpath=FreeBSD+12.1-RELEASE+and+Ports&arch=default&format=html)
 
+\[30\]  Lucas.  \[3\] pp.27-48.
+
+This is the main effort of his chapter on "Jail Essentials."  It outlines a method for setting up a standard jail.conf to hold a default pattern for all the jails on machine.  It also describes the setup of a basic jail.  It covers the importation of the operating system base files and other similar basic aspects of getting a jail functioning.
+
 \[\] _____.  INTERNET:   [``]()
 
 \[\] _____.  INTERNET:   [``]()
@@ -404,6 +430,7 @@ What does `mkfifo` do?
 [27]: https://www.freebsd.org/cgi/man.cgi?query=fifo&apropos=0&sektion=0&manpath=FreeBSD+12.1-RELEASE+and+Ports&arch=default&format=html
 [28]: https://www.freebsd.org/cgi/man.cgi?query=mkfifo&apropos=0&sektion=0&manpath=FreeBSD+12.1-RELEASE+and+Ports&arch=default&format=html
 [29]: https://www.freebsd.org/cgi/man.cgi?query=cat&apropos=0&sektion=0&manpath=FreeBSD+12.1-RELEASE+and+Ports&arch=default&format=html
+[30]: ``
 
 
 
