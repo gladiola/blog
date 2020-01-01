@@ -68,6 +68,14 @@ cd /usr/ports/editors/nano
 make -DBATCH install clean
 {% endhighlight %}
 
+For the sake of merciful administration, we'll also install bash.
+
+{% highlight shell %}
+cd /usr/ports/shells/bashcd
+make -DBATCH install clean
+{% endhighlight %}
+
+
 The `-DBATCH` helps us avoid all of the pauses in the ncurses dialogs for configuring the downloads and compilations.  But, if there is difficulty, we'll have to delve into `make config`, see what options are presented; maybe we'll also have to hop into the ports that threw the errors, and then recompile those individually.  Sometimes we might have to do a `pkg install <PORTNAME>` to substitute the compiliation of a program with a strait binary install.  With those troubleshooting tasks under our belt, we'll continue with our project.
 
 To check our current ZFS configuration:
@@ -260,7 +268,7 @@ Why is this a continuous, circular reference?  Because `cat` keeps reading until
 So, it'll be continuously reading out into the shell and the connection will be continuously redirecting into the `fifo` through a pipe. Given these ideas, we can build our usual bind and reverse shells in FreeBSD.  Later, we'll use them as a communications mechanism among our jails. 
 
 #Basic Jail Install
-Let's set up some jails.
+Let's set up some jails.  When we're establishing jails, there are many potential paths we can follow.  We can see that there are a few ways we can get the OS into the jail, set up critical configuration facts, and populate the jails with programs like user applications.  If you're hunting around through tutorials, the variety of these paths can seem a little confusing.  We recommend reading and experimenting until you understand each hacker's choices.  
 
 We'll start by mostly following Lucas' FreeBSD Mastery:  Jails.  \[30\]However, instead of just wrapping up our worlds into a temp file as he does in Chapter 2, we'll also fetch our base zipfiles from the FreeBSD Foundation over the Internet.
 
@@ -288,6 +296,8 @@ tar -cd /jail/media/\[FILENAME\].txz --xz -C /tmp/jail/
 {% endhighlight %}
  \[[30]\]
  
+The above command would provide me with an error; I had no luck with this method.  It seemed as though there were a circular reference somewhere in the process.  To pick something a little more stable, we chose to imitate `bsdinstall` and pull down a copy of the system, as below.
+
 ## Building From an Imported System
 We could also fetch the distribution files in for later use.  This technique will allow us to build jails of a different release of FreeBSD.  We can't use a release that's younger than the jailhost's OS, but we can use a version that's older.  Jails are operating system virtualization; they're containers; so, if we want to preserve a system running an older configuration of the OS, importing a system of an earlier release could be the basis of such a jail.  Or, we could establish the jail, import the user and application files, and then stand it up inside the more recent version of the OS on the jailhost.  
 
@@ -323,6 +333,13 @@ In the above commands, we see that we're telling the computer:
     + of files at the following directory:  /zroot/jail/media/...
 - -C:  create an archive at the specified directory /zroot/jail/coffeehouse
 \[31\]
+
+### Using `nanobsd.sh` to Build a Read-Only Embedded System
+Quietly, for about the past ten years, FreeBSD has been providing a tool from Paol Henning-Kemp that build a small read-only version of FreeBSD called nanoBSD.  There are few references about this system, but we're interested because, by default, it puts everything into a read-only state.  That, and it's small size; nanobsd is small enough to fit on a compact flash.  
+
+We'll use this one to lay down the base for Redeye.  
+
+Doing some test runs of nanobsd.sh.  Had trouble finding \_.disk in the files after the run was done.  Build took about 2 hours.
 
 {% highlight shell %}
 {% endhighlight %}
