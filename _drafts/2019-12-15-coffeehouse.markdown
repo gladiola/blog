@@ -335,7 +335,7 @@ tar -cd /jail/media/\[FILENAME\].txz --xz -C /tmp/jail/
 The above command would provide me with an error; I had no luck with this method.  It seemed as though there were a circular reference somewhere in the process.  Given my own inability to really understand the output of these processes, we chose not to follow this path.
 
 ### Possible Alternative:  Using `nanobsd.sh` to Build a Read-Only Embedded System
-Quietly, for about the past ten years, FreeBSD has been providing a tool from Paol Henning-Kamp that build a small read-only version of FreeBSD called nanoBSD.  There are few references about this system, but we're interested because, by default, it puts everything into a read-only state.  That, and it's small size; nanobsd is small enough to fit on a compact flash.  
+Quietly, for about the past ten years, FreeBSD has been providing a tool from Paol Henning-Kamp that build a small read-only version of FreeBSD called nanoBSD.  There are few references about this system, but we're interested because, by default, it puts everything into a read-only state.  That, and it's small size; nanobsd is small enough to fit on a compact flash.  \[[33]\]\[[34]\]\[[35]\]\[[36]\]
 
 Unfortunately, there is a critical function in the scripts that does not work with the ZFS file system.  When the script approaches create_diskimage in legacy.sh, it will have already failed.  As we exit the script, we should find a \_.disk* directories that are not there.  Without them, we won't be able to transfer the products to the target directories using a `cp`.  
 
@@ -345,6 +345,7 @@ As we trace our way through the nanobsd scripts, we come to some critical points
     echo "/dev/${NANO_DRIVE}${NANO_ROOT} / ufs ro 1 1" > etc/fstab
     echo "/dev/${NANO_DRIVE}${NANO_SLICE_CFG} /cfg ufs rw,noauto 2 2" >>  
 {% endhighlight %}
+\[[37]\]
 
 We can plainly see that the UFS file system is what's used with nanobsd.  This wasn't mentioned in the man pages, but there it is.  Given that troubleshooting this script is kind of outside of the scope of this project, we'll stick to the "Fetching a Base System" procedure, mentioned above.  Perhaps we'll come back to edit this later for use with ZFS.  It doesn't look like that has been contributed to FreeBSD yet.
 
@@ -461,20 +462,22 @@ FreeBSD Handbook page showing some examples of `make buildworld` and similar com
 
 FreeBSD article and walkthrough of setting up a nanoBSD system on a flash drive.
 
-\[\] _____.  INTERNET:   [`https://www.freebsd.org/cgi/man.cgi?query=nanobsd&apropos=0&sektion=8&manpath=FreeBSD+8.1-RELEASE&arch=default&format=html`](https://www.freebsd.org/cgi/man.cgi?query=nanobsd&apropos=0&sektion=8&manpath=FreeBSD+8.1-RELEASE&arch=default&format=html)
+\[34\] _____.  INTERNET:   [`https://www.freebsd.org/cgi/man.cgi?query=nanobsd&apropos=0&sektion=8&manpath=FreeBSD+8.1-RELEASE&arch=default&format=html`](https://www.freebsd.org/cgi/man.cgi?query=nanobsd&apropos=0&sektion=8&manpath=FreeBSD+8.1-RELEASE&arch=default&format=html)
 
 nanoBSD man page.
 
-\[\] _____.  INTERNET:   [`https://www.youtube.com/watch?v=5qCaOMQ3ZnQ&t=13s`](https://www.youtube.com/watch?v=5qCaOMQ3ZnQ&t=13s)
+\[35\] _____.  INTERNET:   [`https://www.youtube.com/watch?v=5qCaOMQ3ZnQ&t=13s`](https://www.youtube.com/watch?v=5qCaOMQ3ZnQ&t=13s)
 
 YouTube video showing Warner Losh, a FreeBSD maintainer for nanobsd, speaking about nanobsd at BSDCan 2011.
 
-\[\] _____.  INTERNET:   [`https://www.youtube.com/watch?v=RHLRW88AJLE`](https://www.youtube.com/watch?v=RHLRW88AJLE)
+\[36\] _____.  INTERNET:   [`https://www.youtube.com/watch?v=RHLRW88AJLE`](https://www.youtube.com/watch?v=RHLRW88AJLE)
 
 YouTube video showing a talk from EuroBSDcon, "FreeBSD as a Hosting Platform, Revisited - Patrick M. Hausen."  Hausen's company uses nanobsd to establish images for hosting accounts with his hosting company.
 
 
-\[\] _____.  INTERNET:   [``]()
+\[37\] _____.  FreeBSD 12.1-RELEASE:   [`/usr/src/tools/tools/nanobsd`]
+
+Source code directory for nanobsd in FreeBSD 12.1.  NanoBSD has been included with FreeBSD efforts since near 2006.  
 
 \[\] _____.  INTERNET:   [``]()
 
@@ -539,7 +542,8 @@ YouTube video showing a talk from EuroBSDcon, "FreeBSD as a Hosting Platform, Re
 [34]: https://www.freebsd.org/cgi/man.cgi?query=nanobsd&apropos=0&sektion=8&manpath=FreeBSD+8.1-RELEASE&arch=default&format=html
 [35]: https://www.youtube.com/watch?v=5qCaOMQ3ZnQ&t=13s
 [36]: https://www.youtube.com/watch?v=RHLRW88AJLE
-[37]: 
+[37]: ''
+[38]: 
 
 
 
