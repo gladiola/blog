@@ -428,7 +428,15 @@ Our jail needs users.  Let's add a user.  From outside the jail, we give:
 jexec coffeehouse adduser
 {% endhighlight %}
 
-We add the user "coffee" to `wheel` and `operator`.
+We add the user "coffee" to `wheel` and `operator`.  We can take a snapshot.
+
+## VNET Setup
+We'll give our jail a spot on a VNET.  WE'll follow Lucas' "FreeBSD Mastery: Jails" chapter 9 for most of this work.  From there, we'll expand.  Our goal will be to get the jails on the network in a way we can verify with another local computer.  As we build our other jails, we'll give each one a subnet that accommodate 6 hosts.  Using our plan for subnetting established earlier, we'll begin by calling this first jail 192.168.1.192/27.  
+
+
+{% highlight shell %}
+{% endhighlight %}
+
 
 {% highlight shell %}
 {% endhighlight %}
