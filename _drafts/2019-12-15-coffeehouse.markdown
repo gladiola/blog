@@ -460,7 +460,7 @@ echo $someDate > /zroot/var/common/$someDate/_snap_$someDate.txt
 hash=$(sha512 -q -s `echo $someDate` )
 echo $hash >> /zroot/var/common/$someDate/_snap_$someDate.txt
 
-# Copy some common config files
+\# Copy some common config files
 if \[ -f /boot/boot.conf \]
 then
     cp /boot/boot.conf /zoot/var/common/$someDate/
