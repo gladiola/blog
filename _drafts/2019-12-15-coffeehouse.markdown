@@ -401,8 +401,34 @@ jail /zroot/jail/coffeehouse/ coffeehouse 192.168.1.192/27 /bin/sh
 {% endhighlight %}
 \[[39]\]
 
+Exiting out of that, we copy in a resolve:
+{% highlight shell %}
+cp /etc/resolv.conf /zroot/jail/coffeehouse/etc/resolv.conf
+{% endhighlight %}
 
+Back in, to follow Lucas' book better, we continue:
+{% highlight shell %}
+touch /etc/fstab
+vi /etc/rc.conf
+sshd_enable="YES"
+exit
+service jail start coffeehouse
+jls
+{% endhighlight %}
+We should be able to see our coffeehouse jail up and running.
+\[[39]\]
 
+Let's preserve these small but valuable changes:
+{% highlight shell %}
+zfs snapshot zroot/jail/coffeehouse@<DATE_TIME_IDENTIFIER>
+{% endhighlight %}
+
+Our jail needs users.  Let's add a user.  From outside the jail, we give:
+{% highlight shell %}
+jexec coffeehouse adduser
+{% endhighlight %}
+
+We add the user "coffee" to `wheel` and `operator`.
 
 {% highlight shell %}
 {% endhighlight %}
