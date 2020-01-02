@@ -435,23 +435,23 @@ Since most of our system configuration changes are in the base system of the hos
 
 {% highlight shell %}
 
-# If the base directory to hold the common configs is not present,
-# then build one.
-if [ ! -d /zroot/var ]
+\# If the base directory to hold the common configs is not present,
+\# then build one.
+if \[ ! -d /zroot/var \]
 then
     mkdir /zroot/var
 fi
 
-if [ ! -d /zroot/var/common ]
+if \[ ! -d /zroot/var/common \]
 then
     mkdir /zroot/var/common
 fi
 
-# Create a fresh directory to hold common config files
-# Remove the old one from earlier today, if necessary.
-# Record when we are taking the copy of the config files
+\# Create a fresh directory to hold common config files
+\# Remove the old one from earlier today, if necessary.
+\# Record when we are taking the copy of the config files
 someDate=$(date +%Y-%m-%d:%H:%M);
-if [ -d /zroot/var/common/$someDate ]
+if \[ -d /zroot/var/common/$someDate \]
 then
     rm -r /zroot/var/common/$someDate
 fi
@@ -461,38 +461,37 @@ hash=$(sha512 -q -s `echo $someDate` )
 echo $hash >> /zroot/var/common/$someDate/_snap_$someDate.txt
 
 # Copy some common config files
-if [ -f /boot/boot.conf ]
+if \[ -f /boot/boot.conf \]
 then
     cp /boot/boot.conf /zoot/var/common/$someDate/
 fi
 
-if [ -f /etc/rc.conf ]
+if \[ -f /etc/rc.conf \]
 then
     cp /etc/rc.conf /zroot/var/common/$someDate/
 fi
 
-if [ -f /etc/devfs.conf ]
+if \[ -f /etc/devfs.conf \]
 then
     cp /etc/devfs.conf /zroot/var/common/$someDate/
 fi
 
-if [ -f /etc/jail.conf ]
+if \[ -f /etc/jail.conf \]
 then
     cp /etc/jail.conf /zroot/var/common/$someDate/
 fi
 
-# Record available jails and zfs facts
+\# Record available jails and zfs facts
 jls > /zroot/var/common/$someDate/jlsOutput.txt
 vmstat > /zroot/var/common/$someDate/vmstatOutput.txt
 zfs list -t snapshot > /zroot/var/common/$someDate/snapshotsOutput.txt
 zpool list > /zroot/var/common/$someDate/zpoolOutput.txt
 zfs list > /zroot/var/common/$someDate/zfsListOutput.txt
 
-# Take a snapshot of common
+\# Take a snapshot of common
 zfs snapshot zroot/var/common@$someDate
 
 exit
-
 
 {% endhighlight %}
 
