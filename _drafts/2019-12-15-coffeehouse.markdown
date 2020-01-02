@@ -274,35 +274,6 @@ We'll start by mostly following Lucas' FreeBSD Mastery:  Jails.  \[30\]However, 
 
 Logged on as root, we'll setup coffeehouse as our first, template, jail.  We'll put our txz files, extracted, in there.  As Lucas suggested, we'll keep a copy in a /jail/media subdirectory.  Many of the examples which follow are derived from Lucas' examples. \[30\]
 
-## Building From the Host's System
-In our first approach, we'll use the host's own system to make the tarfiles we need.  Later, we'll `fetch` some files in.  
-
-To make the base, using our current installation:
-{% highlight shell %}
-mkdir /tmp/jail
-cd /usr/src
-make cleanworld
-make -j4 buildworld 
-make installworld DESTDIR=/tmp/jail
-make distribution DESTDIR=/tmp/jail
-{% endhighlight %}
- \[[30]\]\[32\]
-
- I'd like to note that some of those `make` commands can take awhile.  I usually do the `make buildworld` overnight.  `installworld` also takes awhile, but not as long.  `distribution` took over an hour.  These were some of the most time consuming commands of the process.  
-
- From there, we'll zip it up in a tarfile.
-{% highlight shell %}
-tar -cd /jail/media/\[FILENAME\].txz --xz -C /tmp/jail/
-{% endhighlight %}
- \[[30]\]
- 
-The above command would provide me with an error; I had no luck with this method.  It seemed as though there were a circular reference somewhere in the process.  To pick something a little more stable, we chose to imitate `bsdinstall` and pull down a copy of the system, as below.
-
-## Building From an Imported System
-We could also fetch the distribution files in for later use.  This technique will allow us to build jails of a different release of FreeBSD.  We can't use a release that's younger than the jailhost's OS, but we can use a version that's older.  Jails are operating system virtualization; they're containers; so, if we want to preserve a system running an older configuration of the OS, importing a system of an earlier release could be the basis of such a jail.  Or, we could establish the jail, import the user and application files, and then stand it up inside the more recent version of the OS on the jailhost.  
-
-We can anticipate that there will be problems with mixing versions.  For example, what about running a much older and vulnerable application in an older jail version that's on top of a newer jailhost OS version?  We could be in a situation where we can get the older applications to run; but, that could be part of our problem, too.  We can't stereotype an answer that will always be safe, stable, and perfect; but, we can see that it will be possible to set up another release of FreeBSD inside our jailhost.  
-
 ### Fetching a Base System With the Same Version as The Jailhost
 For our first trials, let's start with using the same kind as we have on hand.  For this example, that's 12.1-RELEASE.  
 
@@ -334,12 +305,51 @@ In the above commands, we see that we're telling the computer:
 - -C:  create an archive at the specified directory /zroot/jail/coffeehouse
 \[31\]
 
-### Using `nanobsd.sh` to Build a Read-Only Embedded System
-Quietly, for about the past ten years, FreeBSD has been providing a tool from Paol Henning-Kemp that build a small read-only version of FreeBSD called nanoBSD.  There are few references about this system, but we're interested because, by default, it puts everything into a read-only state.  That, and it's small size; nanobsd is small enough to fit on a compact flash.  
+## Building From an Imported System of Another Version
 
-We'll use this one to lay down the base for Redeye.  
+We could also fetch the distribution files in for later use.  This technique will allow us to build jails of a different release of FreeBSD.  We can't use a release that's younger than the jailhost's OS, but we can use a version that's older.  Jails are operating system virtualization; they're containers; so, if we want to preserve a system running an older configuration of the OS, importing a system of an earlier release could be the basis of such a jail.  Or, we could establish the jail, import the user and application files, and then stand it up inside the more recent version of the OS on the jailhost.  
 
-Doing some test runs of nanobsd.sh.  Had trouble finding \_.disk in the files after the run was done.  Build took about 2 hours.
+We can anticipate that there will be problems with mixing versions.  For example, what about running a much older and vulnerable application in an older jail version that's on top of a newer jailhost OS version?  We could be in a situation where we can get the older applications to run; but, that could be part of our problem, too.  We can't stereotype an answer that will always be safe, stable, and perfect; but, we can see that it will be possible to set up another release of FreeBSD inside our jailhost.  
+
+## Alternative Method:  Building From the Host's System
+We came across an alternative method that looks promising, but we chose not to use:  building from the host's own system.  In our this approach, we'll use the host's own system to make the tarfiles we need.  Later, we'll `fetch` some files in.  
+
+To make the base, using our current installation:
+{% highlight shell %}
+mkdir /tmp/jail
+cd /usr/src
+make cleanworld
+make -j4 buildworld 
+make installworld DESTDIR=/tmp/jail
+make distribution DESTDIR=/tmp/jail
+{% endhighlight %}
+ \[[30]\]\[32\]
+
+ I'd like to note that some of those `make` commands can take awhile.  I usually do the `make buildworld` overnight.  `installworld` also takes awhile, but not as long.  `distribution` took over an hour.  These were some of the most time consuming commands of the process.  
+
+ From there, we'll zip it up in a tarfile.
+{% highlight shell %}
+tar -cd /jail/media/\[FILENAME\].txz --xz -C /tmp/jail/
+{% endhighlight %}
+ \[[30]\]
+ 
+The above command would provide me with an error; I had no luck with this method.  It seemed as though there were a circular reference somewhere in the process.  Given my own inability to really understand the output of these processes, we chose not to follow this path.
+
+### Possible Alternative:  Using `nanobsd.sh` to Build a Read-Only Embedded System
+Quietly, for about the past ten years, FreeBSD has been providing a tool from Paol Henning-Kamp that build a small read-only version of FreeBSD called nanoBSD.  There are few references about this system, but we're interested because, by default, it puts everything into a read-only state.  That, and it's small size; nanobsd is small enough to fit on a compact flash.  
+
+Unfortunately, there is a critical function in the scripts that does not work with the ZFS file system.  When the script approaches create_diskimage in legacy.sh, it will have already failed.  As we exit the script, we should find a \_.disk* directories that are not there.  Without them, we won't be able to transfer the products to the target directories using a `cp`.  
+
+As we trace our way through the nanobsd scripts, we come to some critical points:
+
+{% highlight shell %}
+    echo "/dev/${NANO_DRIVE}${NANO_ROOT} / ufs ro 1 1" > etc/fstab
+    echo "/dev/${NANO_DRIVE}${NANO_SLICE_CFG} /cfg ufs rw,noauto 2 2" >>  
+{% endhighlight %}
+
+We can plainly see that the UFS file system is what's used with nanobsd.  This wasn't mentioned in the man pages, but there it is.  Given that troubleshooting this script is kind of outside of the scope of this project, we'll stick to the "Fetching a Base System" procedure, mentioned above.  Perhaps we'll come back to edit this later for use with ZFS.  It doesn't look like that has been contributed to FreeBSD yet.
+
+
 
 {% highlight shell %}
 {% endhighlight %}
