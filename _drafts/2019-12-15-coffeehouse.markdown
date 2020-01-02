@@ -430,6 +430,73 @@ jexec coffeehouse adduser
 
 We add the user "coffee" to `wheel` and `operator`.  We can take a snapshot.
 
+### Copy Config Information to a Snapshot
+Since most of our system configuration changes are in the base system of the host, we'll want to be able to make a separate copy of some files in an area that we can conserve with a `zfs snapshot`.  A simple script can help us grab copies of files that we're likely to change over the next little while.
+
+{% highlight shell %}
+
+# If the base directory to hold the common configs is not present,
+# then build one.
+if [ ! -d /zroot/var ]
+then
+    mkdir /zroot/var
+fi
+
+if [ ! -d /zroot/var/common ]
+then
+    mkdir /zroot/var/common
+fi
+
+# Create a fresh directory to hold common config files
+# Remove the old one from earlier today, if necessary.
+# Record when we are taking the copy of the config files
+someDate=$(date +%Y-%m-%d:%H:%M);
+if [ -d /zroot/var/common/$someDate ]
+then
+    rm -r /zroot/var/common/$someDate
+fi
+mkdir /zroot/var/common/$someDate
+echo $someDate > /zroot/var/common/$someDate/_snap_$someDate.txt
+hash=$(sha512 -q -s `echo $someDate` )
+echo $hash >> /zroot/var/common/$someDate/_snap_$someDate.txt
+
+# Copy some common config files
+if [ -f /boot/boot.conf ]
+then
+    cp /boot/boot.conf /zoot/var/common/$someDate/
+fi
+
+if [ -f /etc/rc.conf ]
+then
+    cp /etc/rc.conf /zroot/var/common/$someDate/
+fi
+
+if [ -f /etc/devfs.conf ]
+then
+    cp /etc/devfs.conf /zroot/var/common/$someDate/
+fi
+
+if [ -f /etc/jail.conf ]
+then
+    cp /etc/jail.conf /zroot/var/common/$someDate/
+fi
+
+# Record available jails and zfs facts
+jls > /zroot/var/common/$someDate/jlsOutput.txt
+vmstat > /zroot/var/common/$someDate/vmstatOutput.txt
+zfs list -t snapshot > /zroot/var/common/$someDate/snapshotsOutput.txt
+zpool list > /zroot/var/common/$someDate/zpoolOutput.txt
+zfs list > /zroot/var/common/$someDate/zfsListOutput.txt
+
+# Take a snapshot of common
+zfs snapshot zroot/var/common@$someDate
+
+exit
+
+
+{% endhighlight %}
+
+
 ## VNET Setup
 We'll give our jail a spot on a VNET.  WE'll follow Lucas' "FreeBSD Mastery: Jails" chapter 9 for most of this work.  From there, we'll expand.  Our goal will be to get the jails on the network in a way we can verify with another local computer.  As we build our other jails, we'll give each one a subnet that accommodate 6 hosts.  Using our plan for subnetting established earlier, we'll begin by calling this first jail 192.168.1.192/27.  
 
