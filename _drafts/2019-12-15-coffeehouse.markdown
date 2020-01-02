@@ -269,7 +269,6 @@ So, it'll be continuously reading out into the shell and the connection will be 
 
 #Basic Jail Install
 Let's set up some jails.  When we're establishing jails, there are many potential paths we can follow.  We can see that there are a few ways we can get the OS into the jail, set up critical configuration facts, and populate the jails with programs like user applications.  If you're hunting around through tutorials, the variety of these paths can seem a little confusing.  We recommend reading and experimenting until you understand each hacker's choices.  
-
 We'll start by mostly following Lucas' FreeBSD Mastery:  Jails.  \[30\]However, instead of just wrapping up our worlds into a temp file as he does in Chapter 2, we'll also fetch our base zipfiles from the FreeBSD Foundation over the Internet.
 
 Logged on as root, we'll setup coffeehouse as our first, template, jail.  We'll put our txz files, extracted, in there.  As Lucas suggested, we'll keep a copy in a /jail/media subdirectory.  Many of the examples which follow are derived from Lucas' examples. \[30\]
@@ -349,6 +348,7 @@ As we trace our way through the nanobsd scripts, we come to some critical points
 
 We can plainly see that the UFS file system is what's used with nanobsd.  This wasn't mentioned in the man pages, but there it is.  Given that troubleshooting this script is kind of outside of the scope of this project, we'll stick to the "Fetching a Base System" procedure, mentioned above.  Perhaps we'll come back to edit this later for use with ZFS.  It doesn't look like that has been contributed to FreeBSD yet.
 
+### Provisioning the Jail with the Operating System
 
 
 {% highlight shell %}
@@ -457,6 +457,39 @@ Man pages for tar, tape archive.
 
 FreeBSD Handbook page showing some examples of `make buildworld` and similar commands.
 
+\[33\] _____.  INTERNET:   [`https://www.freebsd.org/doc/en_US.ISO8859-1/articles/nanobsd/howto.html`](https://www.freebsd.org/doc/en_US.ISO8859-1/articles/nanobsd/howto.html)
+
+FreeBSD article and walkthrough of setting up a nanoBSD system on a flash drive.
+
+\[\] _____.  INTERNET:   [`https://www.freebsd.org/cgi/man.cgi?query=nanobsd&apropos=0&sektion=8&manpath=FreeBSD+8.1-RELEASE&arch=default&format=html`](https://www.freebsd.org/cgi/man.cgi?query=nanobsd&apropos=0&sektion=8&manpath=FreeBSD+8.1-RELEASE&arch=default&format=html)
+
+nanoBSD man page.
+
+\[\] _____.  INTERNET:   [`https://www.youtube.com/watch?v=5qCaOMQ3ZnQ&t=13s`](https://www.youtube.com/watch?v=5qCaOMQ3ZnQ&t=13s)
+
+YouTube video showing Warner Losh, a FreeBSD maintainer for nanobsd, speaking about nanobsd at BSDCan 2011.
+
+\[\] _____.  INTERNET:   [`https://www.youtube.com/watch?v=RHLRW88AJLE`](https://www.youtube.com/watch?v=RHLRW88AJLE)
+
+YouTube video showing a talk from EuroBSDcon, "FreeBSD as a Hosting Platform, Revisited - Patrick M. Hausen."  Hausen's company uses nanobsd to establish images for hosting accounts with his hosting company.
+
+
+\[\] _____.  INTERNET:   [``]()
+
+\[\] _____.  INTERNET:   [``]()
+
+\[\] _____.  INTERNET:   [``]()
+
+\[\] _____.  INTERNET:   [``]()
+
+\[\] _____.  INTERNET:   [``]()
+
+\[\] _____.  INTERNET:   [``]()
+
+\[\] _____.  INTERNET:   [``]()
+
+\[\] _____.  INTERNET:   [``]()
+
 \[\] _____.  INTERNET:   [``]()
 
 \[\] _____.  INTERNET:   [``]()
@@ -502,7 +535,11 @@ FreeBSD Handbook page showing some examples of `make buildworld` and similar com
 [30]: ``
 [31]: https://www.freebsd.org/cgi/man.cgi?query=tar&apropos=0&sektion=0&manpath=FreeBSD+12.1-RELEASE+and+Ports&arch=default&format=html
 [32]: https://www.freebsd.org/doc/handbook/makeworld.html
-[33]: 
+[33]: https://www.freebsd.org/doc/en_US.ISO8859-1/articles/nanobsd/howto.html
+[34]: https://www.freebsd.org/cgi/man.cgi?query=nanobsd&apropos=0&sektion=8&manpath=FreeBSD+8.1-RELEASE&arch=default&format=html
+[35]: https://www.youtube.com/watch?v=5qCaOMQ3ZnQ&t=13s
+[36]: https://www.youtube.com/watch?v=RHLRW88AJLE
+[37]: 
 
 
 
