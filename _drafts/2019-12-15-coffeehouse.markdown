@@ -350,6 +350,58 @@ As we trace our way through the nanobsd scripts, we come to some critical points
 We can plainly see that the UFS file system is what's used with nanobsd.  This wasn't mentioned in the man pages, but there it is.  Given that troubleshooting this script is kind of outside of the scope of this project, we'll stick to the "Fetching a Base System" procedure, mentioned above.  Perhaps we'll come back to edit this later for use with ZFS.  It doesn't look like that has been contributed to FreeBSD yet.
 
 ### Provisioning the Jail with the Operating System
+With a copy of the OS staged, it's time for us to set it up in a part of the file system that we'll use for jails.  We'll load up a jail with just a base system.  We'll set a copy of that aside.
+
+From our home directory for root:
+{% highlight shell %}
+tar -zpf /jail/media/12.1-RELEASE/base.txz -C /zroot/jail/coffeehouse
+tar -zpf /jail/media/12.1-RELEASE/lib32.txz -C /zroot/jail/coffeehouse
+tar -zpf /jail/media/12.1-RELEASE/src.txz -C /zroot/jail/coffeehouse
+{% endhighlight %}
+
+We can verify and protect what we did with:
+{% highlight shell %}
+ls /zroot/jail/coffeehouse
+zfs snapshot zroot/jail/coffeehouse@<DATE_TIME_IDENTIFIER>
+{% endhighlight %}
+
+### Defining the Jail Directory as a Jail
+So far, we've just loaded what's needed into a designated spot in the file system.  We are about to give the commands which will help that directory stand up and perform as its own jail on command.  
+
+First, we have to edit the host's `/etc/rc.conf` to permit jails to be used:
+{% highlight shell %}
+nano /etc/rc.conf
+
+jail_enable="YES"
+jail_parallel_start="YES"
+{% endhighlight %}
+
+Next, we'll have to tell the system about each jail as we build it.  We provide this in `/etc/jail.conf`.  Later, we'll have a more complicated file.  For now we'll just try to establish a jail and start it.
+
+{% highlight shell %}
+nano /etc/jail.conf
+
+exec.start="/bin/sh /etc/rc";
+exec.stop="/bin/sh /etc/rc.shutdown";
+exec.clean;
+mount.devfs;
+
+coffeehouse{
+    host.hostname="coffeehouse.salvage13.local";
+    ip4.addr="192.168.1.192/27";
+    path="/zroot/jail/coffeehouse";
+}
+
+{% endhighlight %}
+\[[38]\]
+
+We see if we can start up the jail:
+{% highlight shell %}
+jail /zroot/jail/coffeehouse/ coffeehouse 192.168.1.192/27 /bin/sh
+{% endhighlight %}
+\[[39]\]
+
+
 
 
 {% highlight shell %}
@@ -479,7 +531,13 @@ YouTube video showing a talk from EuroBSDcon, "FreeBSD as a Hosting Platform, Re
 
 Source code directory for nanobsd in FreeBSD 12.1.  NanoBSD has been included with FreeBSD efforts since near 2006.  
 
-\[\] _____.  INTERNET:   [``]()
+\[38\] Lucas.  \[2\], pp. 568-572.
+
+We're following Lucas' configuration verbatim, with slight adjustments.
+
+\[39\] Lucas.  \[2\], pp. 573-574.
+
+We provide some basic config and commands, following Lucas.
 
 \[\] _____.  INTERNET:   [``]()
 
@@ -542,8 +600,11 @@ Source code directory for nanobsd in FreeBSD 12.1.  NanoBSD has been included wi
 [34]: https://www.freebsd.org/cgi/man.cgi?query=nanobsd&apropos=0&sektion=8&manpath=FreeBSD+8.1-RELEASE&arch=default&format=html
 [35]: https://www.youtube.com/watch?v=5qCaOMQ3ZnQ&t=13s
 [36]: https://www.youtube.com/watch?v=RHLRW88AJLE
-[37]: ''
-[38]: 
+[37]: ``
+[38]: ``
+[39]: ``
+[40]: 
+
 
 
 
