@@ -241,6 +241,71 @@ We'll be interested in editing:
 
 We'll also make some copies of outputs of common jail and zfs commands.
 
+### Copy Config Information to a Snapshot
+Since most of our system configuration changes are in the base system of the host, we'll want to be able to make a separate copy of some files in an area that we can conserve with a `zfs snapshot`.  A simple script can help us grab copies of files that we're likely to change over the next little while.
+
+{% highlight shell %}
+
+\# If the base directory to hold the common configs is not present,
+\# then build one.
+if \[ ! -d /zroot/var \]
+then
+    mkdir /zroot/var
+fi
+
+if \[ ! -d /zroot/var/common \]
+then
+    mkdir /zroot/var/common
+fi
+
+\# Create a fresh directory to hold common config files
+\# Remove the old one from earlier today, if necessary.
+\# Record when we are taking the copy of the config files
+someDate=$(date +%Y-%m-%d:%H:%M);
+if \[ -d /zroot/var/common/$someDate \]
+then
+    rm -r /zroot/var/common/$someDate
+fi
+mkdir /zroot/var/common/$someDate
+echo $someDate > /zroot/var/common/$someDate/_snap_$someDate.txt
+hash=$(sha512 -q -s `echo $someDate` )
+echo $hash >> /zroot/var/common/$someDate/_snap_$someDate.txt
+
+\# Copy some common config files
+if \[ -f /boot/boot.conf \]
+then
+    cp /boot/boot.conf /zoot/var/common/$someDate/
+fi
+
+if \[ -f /etc/rc.conf \]
+then
+    cp /etc/rc.conf /zroot/var/common/$someDate/
+fi
+
+if \[ -f /etc/devfs.conf \]
+then
+    cp /etc/devfs.conf /zroot/var/common/$someDate/
+fi
+
+if \[ -f /etc/jail.conf \]
+then
+    cp /etc/jail.conf /zroot/var/common/$someDate/
+fi
+
+\# Record available jails and zfs facts
+jls > /zroot/var/common/$someDate/jlsOutput.txt
+vmstat > /zroot/var/common/$someDate/vmstatOutput.txt
+zfs list -t snapshot > /zroot/var/common/$someDate/snapshotsOutput.txt
+zpool list > /zroot/var/common/$someDate/zpoolOutput.txt
+zfs list > /zroot/var/common/$someDate/zfsListOutput.txt
+
+\# Take a snapshot of common
+zfs snapshot zroot/var/common@$someDate
+
+exit
+
+{% endhighlight %}
+
 # Prototyping Lessons Learned for What's Ahead
 ## Understanding How We Can Get to Our Goals
 In order to set up the jails, we had to experiment a little.  Understanding from the FreeBSD Handbook, Lucas' books, and several blogs was an essential part of forecasting how we might get to where we'll go.  \[[21]\]\[[22]\]\[2\]\[3\]\[[24]\]\[[25]\]  These experiments and references led to a few small discoveries for us.  I'd like to share these now.  We will see their influence later.  Some of these ideas came up as we were stitching together parts from various references to make our prototype work.  
@@ -476,70 +541,7 @@ jexec coffeehouse adduser
 
 We add the user "coffee" to `wheel` and `operator`.  We can take a snapshot.
 
-### Copy Config Information to a Snapshot
-Since most of our system configuration changes are in the base system of the host, we'll want to be able to make a separate copy of some files in an area that we can conserve with a `zfs snapshot`.  A simple script can help us grab copies of files that we're likely to change over the next little while.
 
-{% highlight shell %}
-
-\# If the base directory to hold the common configs is not present,
-\# then build one.
-if \[ ! -d /zroot/var \]
-then
-    mkdir /zroot/var
-fi
-
-if \[ ! -d /zroot/var/common \]
-then
-    mkdir /zroot/var/common
-fi
-
-\# Create a fresh directory to hold common config files
-\# Remove the old one from earlier today, if necessary.
-\# Record when we are taking the copy of the config files
-someDate=$(date +%Y-%m-%d:%H:%M);
-if \[ -d /zroot/var/common/$someDate \]
-then
-    rm -r /zroot/var/common/$someDate
-fi
-mkdir /zroot/var/common/$someDate
-echo $someDate > /zroot/var/common/$someDate/_snap_$someDate.txt
-hash=$(sha512 -q -s `echo $someDate` )
-echo $hash >> /zroot/var/common/$someDate/_snap_$someDate.txt
-
-\# Copy some common config files
-if \[ -f /boot/boot.conf \]
-then
-    cp /boot/boot.conf /zoot/var/common/$someDate/
-fi
-
-if \[ -f /etc/rc.conf \]
-then
-    cp /etc/rc.conf /zroot/var/common/$someDate/
-fi
-
-if \[ -f /etc/devfs.conf \]
-then
-    cp /etc/devfs.conf /zroot/var/common/$someDate/
-fi
-
-if \[ -f /etc/jail.conf \]
-then
-    cp /etc/jail.conf /zroot/var/common/$someDate/
-fi
-
-\# Record available jails and zfs facts
-jls > /zroot/var/common/$someDate/jlsOutput.txt
-vmstat > /zroot/var/common/$someDate/vmstatOutput.txt
-zfs list -t snapshot > /zroot/var/common/$someDate/snapshotsOutput.txt
-zpool list > /zroot/var/common/$someDate/zpoolOutput.txt
-zfs list > /zroot/var/common/$someDate/zfsListOutput.txt
-
-\# Take a snapshot of common
-zfs snapshot zroot/var/common@$someDate
-
-exit
-
-{% endhighlight %}
 
 
 ## VNET Setup
