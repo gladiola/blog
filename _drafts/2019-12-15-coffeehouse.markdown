@@ -561,7 +561,14 @@ jexec -U root coffeehouse sh
 
 From there, we can do some simple pings to google.com to see that the jail has connectivity with the internet.  A scan of my home network shows the .193 on the router.  If we try to ssh into .193 from another machine, not a part of that subnet, we'll find that we have a destination host unreachable.
 
+Now's a good time to take a snapshot and record some notes on the settings.  Our next phase will be to stand up virtual machines using `bhyve`.
 
+## Bhyve Hypervisor Installation
+We chose bhyve because it is built in.  In an earlier prototype, I began with virtualbox-ose because that's what I was familiar with.  I made an error with kernel mods and locked up that prototype pretty bad.  Virtualbox gets cussed frequently, but it's one of the most widely used hypervisors at home.  We had found a great tutorial script to set up vbox VMs from a script.  
+
+https://www.andreafortuna.org/2019/10/24/how-to-create-a-virtualbox-vm-from-command-line/[https://www.andreafortuna.org/2019/10/24/how-to-create-a-virtualbox-vm-from-command-line/]
+
+That one, in particular, was a tutorial good enough to help us realize that this might be possible.  Notice that it's about running vbox after it's installed; my prototype troubles had been with the kernel modules needed to get it all running in FreeBSD.  The script provided worked.   Also, Chapter 8 of the Virtualbox manual was worth reading because it covers many of the commands referred to in these scripts. \[[43]\] \[[44]\] \[[45]\] \[[46]\]
 
 {% highlight shell %}
 {% endhighlight %}
@@ -706,17 +713,19 @@ Helped us with the hex subnet masks when we were tired.
 
 Lucas' chapter on jails and networking, which built on some of his earlier demonstrations in FreeBSD Mastery:  Jails, is our guide for most of this process.
 
-\[\] _____.  INTERNET:   [`https://forums.freebsd.org/threads/jails-vnet-freebsd-mastery-multiple-interfaces.70356/`](https://forums.freebsd.org/threads/jails-vnet-freebsd-mastery-multiple-interfaces.70356/)
+\[42\] _____.  INTERNET:   [`https://forums.freebsd.org/threads/jails-vnet-freebsd-mastery-multiple-interfaces.70356/`](https://forums.freebsd.org/threads/jails-vnet-freebsd-mastery-multiple-interfaces.70356/)
 
 A FreeBSD forum post that builds off of Lucas' Chapter 9 and shows some hackers drafting some scripts to do some of the same tasks that jib does.  This path might be a viable course of action for more complex hierarchical jails.  Notice in some of their examples that the epair interfaces are explicitly defined.  We can't make all of those adjustments with jib.  So, with jib, we get something that works; but, with the scripts we would get more control over how the interface was implemented.  For now, we'll stick with jib.
 
-\[\] _____.  INTERNET:   [``]()
+\[43\] _____.  INTERNET:   [`https://www.andreafortuna.org/2019/10/24/how-to-create-a-virtualbox-vm-from-command-line/`](https://www.andreafortuna.org/2019/10/24/how-to-create-a-virtualbox-vm-from-command-line/)
 
-\[\] _____.  INTERNET:   [``]()
+\[44\] _____.  INTERNET:   [`https://www.techrepublic.com/article/how-to-run-virtualbox-virtual-machines-from-the-command-line/`](https://www.techrepublic.com/article/how-to-run-virtualbox-virtual-machines-from-the-command-line/)
 
-\[\] _____.  INTERNET:   [``]()
+\[45\] _____.  INTERNET:   [`https://www.linuxtechi.com/manage-virtualbox-virtual-machines-command-line/`](https://www.linuxtechi.com/manage-virtualbox-virtual-machines-command-line/)
 
-\[\] _____.  INTERNET:   [``]()
+\[46\] _____.  INTERNET:   [`https://www.virtualbox.org/manual/ch08.html`](https://www.virtualbox.org/manual/ch08.html)
+
+Manual pages for virtualbox worth reading if you are going to script out a headless run of vbox.
 
 \[\] _____.  INTERNET:   [``]()
 
@@ -771,7 +780,11 @@ A FreeBSD forum post that builds off of Lucas' Chapter 9 and shows some hackers 
 [40]: https://www.subnetonline.com/pages/subnet-calculators/dec-to-hex-calculator.php
 [41]: ``
 [42]: https://forums.freebsd.org/threads/jails-vnet-freebsd-mastery-multiple-interfaces.70356/
-[43]: 
+[43]: https://www.andreafortuna.org/2019/10/24/how-to-create-a-virtualbox-vm-from-command-line/
+[44]: https://www.techrepublic.com/article/how-to-run-virtualbox-virtual-machines-from-the-command-line/
+[45]: https://www.linuxtechi.com/manage-virtualbox-virtual-machines-command-line/
+[46]: https://www.virtualbox.org/manual/ch08.html
+[47]: 
 
 
 
