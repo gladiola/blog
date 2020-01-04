@@ -572,7 +572,7 @@ https://www.andreafortuna.org/2019/10/24/how-to-create-a-virtualbox-vm-from-comm
 That one, in particular, was a tutorial good enough to help us realize that this might be possible.  Notice that it's about running vbox after it's installed; my prototype troubles had been with the kernel modules needed to get it all running in FreeBSD.  The script provided worked.   Also, Chapter 8 of the Virtualbox manual was worth reading because it covers many of the commands referred to in these scripts. There were many other scripts and tutorials covering this topic, but I found those to be particularly strong for our needs here.  \[[43]\] \[[44]\] \[[45]\] \[[46]\]
 
 ### Bhyve Examples and Decisions
-There were some other influences on choosing `bhyve` as a hypervisor.  It's built-in, it's well documented in the Handbook, and it can run pretty much the same VMs as we're likely to need.  With some mods, it can even run Windows.  This implies that if our target jailhost setup works, we might be able to use it as a template for other kinds of hosting or virtualization.  
+There were some other influences on choosing `bhyve` as a hypervisor.  It's built-in, it's well documented in the Handbook  \[[49]\], and it can run pretty much the same VMs as we're likely to need.  With some mods, it can even run Windows.  This implies that if our target jailhost setup works, we might be able to use it as a template for other kinds of hosting or virtualization.  
 
 There were some YouTube videos that influenced us as well.  In the first collection of three or so videos, a British guy shows us his bhyve installations and setup techniques.  Only gripe there was his mispronunciation of "bee hive." \[[47]\]  Another was a silent channel for "Oleg Ginzburg," with videos that have no audio or explanations of intent, showing numerous bhyve installs with a variety of operating systems and configurations.  Probably slow watching for a lot of other people, but those of us who have spent many hours installing FreeBSD systems can watch along and see what happens.  \[[48]\]
 
@@ -742,6 +742,28 @@ YouTube channel for viBSD.  Featured examples of installing and running bhyve.
 
 YouTube channel for Oleg Ginzburg.  Featured many videos on FreeBSD and bhyve.
 
+\[49\] _____.  INTERNET:   [`https://www.freebsd.org/doc/en_US.ISO8859-1/books/handbook/virtualization-host-bhyve.html`](https://www.freebsd.org/doc/en_US.ISO8859-1/books/handbook/virtualization-host-bhyve.html)
+
+FreeBSD Handbook page for running bhyve on FreeBSD.  Shows examples for configuring `bhyve` to work with Linux and Windows.
+
+\[\] _____.  INTERNET:   [``]()
+
+\[\] _____.  INTERNET:   [``]()
+
+\[\] _____.  INTERNET:   [``]()
+
+\[\] _____.  INTERNET:   [``]()
+
+\[\] _____.  INTERNET:   [``]()
+
+\[\] _____.  INTERNET:   [``]()
+
+\[\] _____.  INTERNET:   [``]()
+
+\[\] _____.  INTERNET:   [``]()
+
+\[\] _____.  INTERNET:   [``]()
+
 \[\] _____.  INTERNET:   [``]()
 
 \[\] _____.  INTERNET:   [``]()
@@ -797,6 +819,8 @@ YouTube channel for Oleg Ginzburg.  Featured many videos on FreeBSD and bhyve.
 [46]: https://www.virtualbox.org/manual/ch08.html
 [47]: ``
 [48]: https://www.youtube.com/channel/UCn8Inta-HpikUIxLBRCG7Mw
+[49]: https://www.freebsd.org/doc/en_US.ISO8859-1/books/handbook/virtualization-host-bhyve.html
+[50]: 
 
 
 
