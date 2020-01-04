@@ -702,9 +702,13 @@ We provide some basic config and commands, following Lucas.
 
 Helped us with the hex subnet masks when we were tired.
 
-\[\] _____.  INTERNET:   [``]()
+\[41\] Lucas.  \[3\], all of Chapter 9.
 
-\[\] _____.  INTERNET:   [``]()
+Lucas' chapter on jails and networking, which built on some of his earlier demonstrations in FreeBSD Mastery:  Jails, is our guide for most of this process.
+
+\[\] _____.  INTERNET:   [`https://forums.freebsd.org/threads/jails-vnet-freebsd-mastery-multiple-interfaces.70356/`](https://forums.freebsd.org/threads/jails-vnet-freebsd-mastery-multiple-interfaces.70356/)
+
+A FreeBSD forum post that builds off of Lucas' Chapter 9 and shows some hackers drafting some scripts to do some of the same tasks that jib does.  This path might be a viable course of action for more complex hierarchical jails.  Notice in some of their examples that the epair interfaces are explicitly defined.  We can't make all of those adjustments with jib.  So, with jib, we get something that works; but, with the scripts we would get more control over how the interface was implemented.  For now, we'll stick with jib.
 
 \[\] _____.  INTERNET:   [``]()
 
@@ -765,7 +769,9 @@ Helped us with the hex subnet masks when we were tired.
 [38]: ``
 [39]: ``
 [40]: https://www.subnetonline.com/pages/subnet-calculators/dec-to-hex-calculator.php
-[41]: 
+[41]: ``
+[42]: https://forums.freebsd.org/threads/jails-vnet-freebsd-mastery-multiple-interfaces.70356/
+[43]: 
 
 
 
