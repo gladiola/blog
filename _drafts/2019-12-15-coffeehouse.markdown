@@ -564,11 +564,18 @@ From there, we can do some simple pings to google.com to see that the jail has c
 Now's a good time to take a snapshot and record some notes on the settings.  Our next phase will be to stand up virtual machines using `bhyve`.
 
 ## Bhyve Hypervisor Installation
+### Some Notes on Virtualbox
 We chose bhyve because it is built in.  In an earlier prototype, I began with virtualbox-ose because that's what I was familiar with.  I made an error with kernel mods and locked up that prototype pretty bad.  Virtualbox gets cussed frequently, but it's one of the most widely used hypervisors at home.  We had found a great tutorial script to set up vbox VMs from a script.  
 
 https://www.andreafortuna.org/2019/10/24/how-to-create-a-virtualbox-vm-from-command-line/
 
 That one, in particular, was a tutorial good enough to help us realize that this might be possible.  Notice that it's about running vbox after it's installed; my prototype troubles had been with the kernel modules needed to get it all running in FreeBSD.  The script provided worked.   Also, Chapter 8 of the Virtualbox manual was worth reading because it covers many of the commands referred to in these scripts. There were many other scripts and tutorials covering this topic, but I found those to be particularly strong for our needs here.  \[[43]\] \[[44]\] \[[45]\] \[[46]\]
+
+### Bhyve Examples and Decisions
+There were some other influences on choosing `bhyve` as a hypervisor.  It's built-in, it's well documented in the Handbook, and it can run pretty much the same VMs as we're likely to need.  With some mods, it can even run Windows.  This implies that if our target jailhost setup works, we might be able to use it as a template for other kinds of hosting or virtualization.  
+
+There were some YouTube videos that influenced us as well.  In the first collection of three or so videos, a British guy shows us his bhyve installations and setup techniques.  Only gripe there was his mispronunciation of "bee hive." \[[47]\]  Another was a silent channel for "Oleg Ginzburg," with videos that have no audio or explanations of intent, showing numerous bhyve installs with a variety of operating systems and configurations.  Probably slow watching for a lot of other people, but those of us who have spent many hours installing FreeBSD systems can watch along and see what happens.  \[[48]\]
+
 
 {% highlight shell %}
 {% endhighlight %}
@@ -727,9 +734,13 @@ A FreeBSD forum post that builds off of Lucas' Chapter 9 and shows some hackers 
 
 Manual pages for virtualbox worth reading if you are going to script out a headless run of vbox.
 
-\[\] _____.  INTERNET:   [``]()
+\[47\] _____.  INTERNET:   [`https://www.youtube.com/channel/UCFhw1oJktUnwY6slMSSxpgQ`](https://www.youtube.com/channel/UCFhw1oJktUnwY6slMSSxpgQ)
 
-\[\] _____.  INTERNET:   [``]()
+YouTube channel for viBSD.  Featured examples of installing and running bhyve.
+
+\[48\] _____.  INTERNET:   [`https://www.youtube.com/channel/UCn8Inta-HpikUIxLBRCG7Mw`](https://www.youtube.com/channel/UCn8Inta-HpikUIxLBRCG7Mw)
+
+YouTube channel for Oleg Ginzburg.  Featured many videos on FreeBSD and bhyve.
 
 \[\] _____.  INTERNET:   [``]()
 
@@ -784,7 +795,8 @@ Manual pages for virtualbox worth reading if you are going to script out a headl
 [44]: https://www.techrepublic.com/article/how-to-run-virtualbox-virtual-machines-from-the-command-line/
 [45]: https://www.linuxtechi.com/manage-virtualbox-virtual-machines-command-line/
 [46]: https://www.virtualbox.org/manual/ch08.html
-[47]: 
+[47]: ``
+[48]: https://www.youtube.com/channel/UCn8Inta-HpikUIxLBRCG7Mw
 
 
 
