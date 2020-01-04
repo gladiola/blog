@@ -1,0 +1,1507 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="date" content="2019-12-15 08:30:00">
+<meta name="description" content="FreeBSD Jails with VNET Subnets for Virtual Machines"><style>body {
+  max-width: 980px;
+  border: 1px solid #ddd;
+  outline: 1300px solid #fff;
+  margin: 16px auto;
+}
+
+body .markdown-body
+{
+  padding: 45px;
+}
+
+@font-face {
+  font-family: fontawesome-mini;
+  src: url(data:font/woff;charset=utf-8;base64,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) format('woff');
+}
+
+.markdown-body {
+  font-family: sans-serif;
+  -ms-text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
+  color: #333333;
+  overflow: hidden;
+  font-family: "Helvetica Neue", Helvetica, "Segoe UI", Arial, freesans, sans-serif;
+  font-size: 16px;
+  line-height: 1.6;
+  word-wrap: break-word;
+}
+
+.markdown-body a {
+  background: transparent;
+}
+
+.markdown-body a:active,
+.markdown-body a:hover {
+  outline: 0;
+}
+
+.markdown-body b,
+.markdown-body strong {
+  font-weight: bold;
+}
+
+.markdown-body mark {
+  background: #ff0;
+  color: #000;
+  font-style: italic;
+  font-weight: bold;
+}
+
+.markdown-body sub,
+.markdown-body sup {
+  font-size: 75%;
+  line-height: 0;
+  position: relative;
+  vertical-align: baseline;
+}
+.markdown-body sup {
+  top: -0.5em;
+}
+.markdown-body sub {
+  bottom: -0.25em;
+}
+
+.markdown-body h1 {
+  font-size: 2em;
+  margin: 0.67em 0;
+}
+
+.markdown-body img {
+  border: 0;
+}
+
+.markdown-body hr {
+  -moz-box-sizing: content-box;
+  box-sizing: content-box;
+  height: 0;
+}
+
+.markdown-body pre {
+  overflow: auto;
+}
+
+.markdown-body code,
+.markdown-body kbd,
+.markdown-body pre,
+.markdown-body samp {
+  font-family: monospace, monospace;
+  font-size: 1em;
+}
+
+.markdown-body input {
+  color: inherit;
+  font: inherit;
+  margin: 0;
+}
+
+.markdown-body html input[disabled] {
+  cursor: default;
+}
+
+.markdown-body input {
+  line-height: normal;
+}
+
+.markdown-body input[type="checkbox"] {
+  box-sizing: border-box;
+  padding: 0;
+}
+
+.markdown-body table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+.markdown-body td,
+.markdown-body th {
+  padding: 0;
+}
+
+.markdown-body .codehilitetable {
+  border: 0;
+  border-spacing: 0;
+}
+
+.markdown-body .codehilitetable tr {
+  border: 0;
+}
+
+.markdown-body .codehilitetable pre,
+.markdown-body .codehilitetable div.codehilite {
+  margin: 0;
+}
+
+.markdown-body .linenos,
+.markdown-body .code,
+.markdown-body .codehilitetable td {
+  border: 0;
+  padding: 0;
+}
+
+.markdown-body td:not(.linenos) .linenodiv {
+  padding: 0 !important;
+}
+
+.markdown-body .code {
+  width: 100%;
+}
+
+.markdown-body .linenos div pre,
+.markdown-body .linenodiv pre,
+.markdown-body .linenodiv {
+  border: 0;
+  -webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  border-radius: 0;
+  -webkit-border-top-left-radius: 3px;
+  -webkit-border-bottom-left-radius: 3px;
+  -moz-border-radius-topleft: 3px;
+  -moz-border-radius-bottomleft: 3px;
+  border-top-left-radius: 3px;
+  border-bottom-left-radius: 3px;
+}
+
+.markdown-body .code div pre,
+.markdown-body .code div {
+  border: 0;
+  -webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  border-radius: 0;
+  -webkit-border-top-right-radius: 3px;
+  -webkit-border-bottom-right-radius: 3px;
+  -moz-border-radius-topright: 3px;
+  -moz-border-radius-bottomright: 3px;
+  border-top-right-radius: 3px;
+  border-bottom-right-radius: 3px;
+}
+
+.markdown-body * {
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+.markdown-body input {
+  font: 13px Helvetica, arial, freesans, clean, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol";
+  line-height: 1.4;
+}
+
+.markdown-body a {
+  color: #4183c4;
+  text-decoration: none;
+}
+
+.markdown-body a:hover,
+.markdown-body a:focus,
+.markdown-body a:active {
+  text-decoration: underline;
+}
+
+.markdown-body hr {
+  height: 0;
+  margin: 15px 0;
+  overflow: hidden;
+  background: transparent;
+  border: 0;
+  border-bottom: 1px solid #ddd;
+}
+
+.markdown-body hr:before,
+.markdown-body hr:after {
+  display: table;
+  content: " ";
+}
+
+.markdown-body hr:after {
+  clear: both;
+}
+
+.markdown-body h1,
+.markdown-body h2,
+.markdown-body h3,
+.markdown-body h4,
+.markdown-body h5,
+.markdown-body h6 {
+  margin-top: 15px;
+  margin-bottom: 15px;
+  line-height: 1.1;
+}
+
+.markdown-body h1 {
+  font-size: 30px;
+}
+
+.markdown-body h2 {
+  font-size: 21px;
+}
+
+.markdown-body h3 {
+  font-size: 16px;
+}
+
+.markdown-body h4 {
+  font-size: 14px;
+}
+
+.markdown-body h5 {
+  font-size: 12px;
+}
+
+.markdown-body h6 {
+  font-size: 11px;
+}
+
+.markdown-body blockquote {
+  margin: 0;
+}
+
+.markdown-body ul,
+.markdown-body ol {
+  padding: 0;
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.markdown-body ol ol,
+.markdown-body ul ol {
+  list-style-type: lower-roman;
+}
+
+.markdown-body ul ul ol,
+.markdown-body ul ol ol,
+.markdown-body ol ul ol,
+.markdown-body ol ol ol {
+  list-style-type: lower-alpha;
+}
+
+.markdown-body dd {
+  margin-left: 0;
+}
+
+.markdown-body code,
+.markdown-body pre,
+.markdown-body samp {
+  font-family: Consolas, "Liberation Mono", Menlo, Courier, monospace;
+  font-size: 12px;
+}
+
+.markdown-body pre {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.markdown-body kbd {
+  background-color: #e7e7e7;
+  background-image: -moz-linear-gradient(#fefefe, #e7e7e7);
+  background-image: -webkit-linear-gradient(#fefefe, #e7e7e7);
+  background-image: linear-gradient(#fefefe, #e7e7e7);
+  background-repeat: repeat-x;
+  border-radius: 2px;
+  border: 1px solid #cfcfcf;
+  color: #000;
+  padding: 3px 5px;
+  line-height: 10px;
+  font: 11px Consolas, "Liberation Mono", Menlo, Courier, monospace;
+  display: inline-block;
+}
+
+.markdown-body>*:first-child {
+  margin-top: 0 !important;
+}
+
+.markdown-body>*:last-child {
+  margin-bottom: 0 !important;
+}
+
+.markdown-body .headerlink {
+  font: normal 400 16px fontawesome-mini;
+  vertical-align: middle;
+  margin-left: -16px;
+  float: left;
+  display: inline-block;
+  text-decoration: none;
+  opacity: 0;
+  color: #333;
+}
+
+.markdown-body .headerlink:focus {
+  outline: none;
+}
+
+.markdown-body h1 .headerlink {
+  margin-top: 0.8rem;
+}
+
+.markdown-body h2 .headerlink,
+.markdown-body h3 .headerlink {
+  margin-top: 0.6rem;
+}
+
+.markdown-body h4 .headerlink {
+  margin-top: 0.2rem;
+}
+
+.markdown-body h5 .headerlink,
+.markdown-body h6 .headerlink {
+  margin-top: 0;
+}
+
+.markdown-body .headerlink:hover,
+.markdown-body h1:hover .headerlink,
+.markdown-body h2:hover .headerlink,
+.markdown-body h3:hover .headerlink,
+.markdown-body h4:hover .headerlink,
+.markdown-body h5:hover .headerlink,
+.markdown-body h6:hover .headerlink {
+  opacity: 1;
+  text-decoration: none;
+}
+
+.markdown-body h1 {
+  padding-bottom: 0.3em;
+  font-size: 2.25em;
+  line-height: 1.2;
+  border-bottom: 1px solid #eee;
+}
+
+.markdown-body h2 {
+  padding-bottom: 0.3em;
+  font-size: 1.75em;
+  line-height: 1.225;
+  border-bottom: 1px solid #eee;
+}
+
+.markdown-body h3 {
+  font-size: 1.5em;
+  line-height: 1.43;
+}
+
+.markdown-body h4 {
+  font-size: 1.25em;
+}
+
+.markdown-body h5 {
+  font-size: 1em;
+}
+
+.markdown-body h6 {
+  font-size: 1em;
+  color: #777;
+}
+
+.markdown-body p,
+.markdown-body blockquote,
+.markdown-body ul,
+.markdown-body ol,
+.markdown-body dl,
+.markdown-body table,
+.markdown-body pre,
+.markdown-body .admonition {
+  margin-top: 0;
+  margin-bottom: 16px;
+}
+
+.markdown-body hr {
+  height: 4px;
+  padding: 0;
+  margin: 16px 0;
+  background-color: #e7e7e7;
+  border: 0 none;
+}
+
+.markdown-body ul,
+.markdown-body ol {
+  padding-left: 2em;
+}
+
+.markdown-body ul ul,
+.markdown-body ul ol,
+.markdown-body ol ol,
+.markdown-body ol ul {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.markdown-body li>p {
+  margin-top: 16px;
+}
+
+.markdown-body dl {
+  padding: 0;
+}
+
+.markdown-body dl dt {
+  padding: 0;
+  margin-top: 16px;
+  font-size: 1em;
+  font-style: italic;
+  font-weight: bold;
+}
+
+.markdown-body dl dd {
+  padding: 0 16px;
+  margin-bottom: 16px;
+}
+
+.markdown-body blockquote {
+  padding: 0 15px;
+  color: #777;
+  border-left: 4px solid #ddd;
+}
+
+.markdown-body blockquote>:first-child {
+  margin-top: 0;
+}
+
+.markdown-body blockquote>:last-child {
+  margin-bottom: 0;
+}
+
+.markdown-body table {
+  display: block;
+  width: 100%;
+  overflow: auto;
+  word-break: normal;
+  word-break: keep-all;
+}
+
+.markdown-body table th {
+  font-weight: bold;
+}
+
+.markdown-body table th,
+.markdown-body table td {
+  padding: 6px 13px;
+  border: 1px solid #ddd;
+}
+
+.markdown-body table tr {
+  background-color: #fff;
+  border-top: 1px solid #ccc;
+}
+
+.markdown-body table tr:nth-child(2n) {
+  background-color: #f8f8f8;
+}
+
+.markdown-body img {
+  max-width: 100%;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+.markdown-body code,
+.markdown-body samp {
+  padding: 0;
+  padding-top: 0.2em;
+  padding-bottom: 0.2em;
+  margin: 0;
+  font-size: 85%;
+  background-color: rgba(0,0,0,0.04);
+  border-radius: 3px;
+}
+
+.markdown-body code:before,
+.markdown-body code:after {
+  letter-spacing: -0.2em;
+  content: "\00a0";
+}
+
+.markdown-body pre>code {
+  padding: 0;
+  margin: 0;
+  font-size: 100%;
+  word-break: normal;
+  white-space: pre;
+  background: transparent;
+  border: 0;
+}
+
+.markdown-body .codehilite {
+  margin-bottom: 16px;
+}
+
+.markdown-body .codehilite pre,
+.markdown-body pre {
+  padding: 16px;
+  overflow: auto;
+  font-size: 85%;
+  line-height: 1.45;
+  background-color: #f7f7f7;
+  border-radius: 3px;
+}
+
+.markdown-body .codehilite pre {
+  margin-bottom: 0;
+  word-break: normal;
+}
+
+.markdown-body pre {
+  word-wrap: normal;
+}
+
+.markdown-body pre code {
+  display: inline;
+  max-width: initial;
+  padding: 0;
+  margin: 0;
+  overflow: initial;
+  line-height: inherit;
+  word-wrap: normal;
+  background-color: transparent;
+  border: 0;
+}
+
+.markdown-body pre code:before,
+.markdown-body pre code:after {
+  content: normal;
+}
+
+/* Admonition */
+.markdown-body .admonition {
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  position: relative;
+  border-radius: 3px;
+  border: 1px solid #e0e0e0;
+  border-left: 6px solid #333;
+  padding: 10px 10px 10px 30px;
+}
+
+.markdown-body .admonition table {
+  color: #333;
+}
+
+.markdown-body .admonition p {
+  padding: 0;
+}
+
+.markdown-body .admonition-title {
+  font-weight: bold;
+  margin: 0;
+}
+
+.markdown-body .admonition>.admonition-title {
+  color: #333;
+}
+
+.markdown-body .attention>.admonition-title {
+  color: #a6d796;
+}
+
+.markdown-body .caution>.admonition-title {
+  color: #d7a796;
+}
+
+.markdown-body .hint>.admonition-title {
+  color: #96c6d7;
+}
+
+.markdown-body .danger>.admonition-title {
+  color: #c25f77;
+}
+
+.markdown-body .question>.admonition-title {
+  color: #96a6d7;
+}
+
+.markdown-body .note>.admonition-title {
+  color: #d7c896;
+}
+
+.markdown-body .admonition:before,
+.markdown-body .attention:before,
+.markdown-body .caution:before,
+.markdown-body .hint:before,
+.markdown-body .danger:before,
+.markdown-body .question:before,
+.markdown-body .note:before {
+  font: normal normal 16px fontawesome-mini;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  line-height: 1.5;
+  color: #333;
+  position: absolute;
+  left: 0;
+  top: 0;
+  padding-top: 10px;
+  padding-left: 10px;
+}
+
+.markdown-body .admonition:before {
+  content: "\f056\00a0";
+  color: 333;
+}
+
+.markdown-body .attention:before {
+  content: "\f058\00a0";
+  color: #a6d796;
+}
+
+.markdown-body .caution:before {
+  content: "\f06a\00a0";
+  color: #d7a796;
+}
+
+.markdown-body .hint:before {
+  content: "\f05a\00a0";
+  color: #96c6d7;
+}
+
+.markdown-body .danger:before {
+  content: "\f057\00a0";
+  color: #c25f77;
+}
+
+.markdown-body .question:before {
+  content: "\f059\00a0";
+  color: #96a6d7;
+}
+
+.markdown-body .note:before {
+  content: "\f040\00a0";
+  color: #d7c896;
+}
+
+.markdown-body .admonition::after {
+  content: normal;
+}
+
+.markdown-body .attention {
+  border-left: 6px solid #a6d796;
+}
+
+.markdown-body .caution {
+  border-left: 6px solid #d7a796;
+}
+
+.markdown-body .hint {
+  border-left: 6px solid #96c6d7;
+}
+
+.markdown-body .danger {
+  border-left: 6px solid #c25f77;
+}
+
+.markdown-body .question {
+  border-left: 6px solid #96a6d7;
+}
+
+.markdown-body .note {
+  border-left: 6px solid #d7c896;
+}
+
+.markdown-body .admonition>*:first-child {
+  margin-top: 0 !important;
+}
+
+.markdown-body .admonition>*:last-child {
+  margin-bottom: 0 !important;
+}
+
+/* progress bar*/
+.markdown-body .progress {
+  display: block;
+  width: 300px;
+  margin: 10px 0;
+  height: 24px;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  background-color: #ededed;
+  position: relative;
+  box-shadow: inset -1px 1px 3px rgba(0, 0, 0, .1);
+}
+
+.markdown-body .progress-label {
+  position: absolute;
+  text-align: center;
+  font-weight: bold;
+  width: 100%; margin: 0;
+  line-height: 24px;
+  color: #333;
+  text-shadow: 1px 1px 0 #fefefe, -1px -1px 0 #fefefe, -1px 1px 0 #fefefe, 1px -1px 0 #fefefe, 0 1px 0 #fefefe, 0 -1px 0 #fefefe, 1px 0 0 #fefefe, -1px 0 0 #fefefe, 1px 1px 2px #000;
+  -webkit-font-smoothing: antialiased !important;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.markdown-body .progress-bar {
+  height: 24px;
+  float: left;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  background-color: #96c6d7;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .5), inset 0 -1px 0 rgba(0, 0, 0, .1);
+  background-size: 30px 30px;
+  background-image: -webkit-linear-gradient(
+    135deg, rgba(255, 255, 255, .4) 27%,
+    transparent 27%,
+    transparent 52%, rgba(255, 255, 255, .4) 52%,
+    rgba(255, 255, 255, .4) 77%,
+    transparent 77%, transparent
+  );
+  background-image: -moz-linear-gradient(
+    135deg,
+    rgba(255, 255, 255, .4) 27%, transparent 27%,
+    transparent 52%, rgba(255, 255, 255, .4) 52%,
+    rgba(255, 255, 255, .4) 77%, transparent 77%,
+    transparent
+  );
+  background-image: -ms-linear-gradient(
+    135deg,
+    rgba(255, 255, 255, .4) 27%, transparent 27%,
+    transparent 52%, rgba(255, 255, 255, .4) 52%,
+    rgba(255, 255, 255, .4) 77%, transparent 77%,
+    transparent
+  );
+  background-image: -o-linear-gradient(
+    135deg,
+    rgba(255, 255, 255, .4) 27%, transparent 27%,
+    transparent 52%, rgba(255, 255, 255, .4) 52%,
+    rgba(255, 255, 255, .4) 77%, transparent 77%,
+    transparent
+  );
+  background-image: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, .4) 27%, transparent 27%,
+    transparent 52%, rgba(255, 255, 255, .4) 52%,
+    rgba(255, 255, 255, .4) 77%, transparent 77%,
+    transparent
+  );
+}
+
+.markdown-body .progress-100plus .progress-bar {
+  background-color: #a6d796;
+}
+
+.markdown-body .progress-80plus .progress-bar {
+  background-color: #c6d796;
+}
+
+.markdown-body .progress-60plus .progress-bar {
+  background-color: #d7c896;
+}
+
+.markdown-body .progress-40plus .progress-bar {
+  background-color: #d7a796;
+}
+
+.markdown-body .progress-20plus .progress-bar {
+  background-color: #d796a6;
+}
+
+.markdown-body .progress-0plus .progress-bar {
+  background-color: #c25f77;
+}
+
+.markdown-body .candystripe-animate .progress-bar{
+  -webkit-animation: animate-stripes 3s linear infinite;
+  -moz-animation: animate-stripes 3s linear infinite;
+  animation: animate-stripes 3s linear infinite;
+}
+
+@-webkit-keyframes animate-stripes {
+  0% {
+    background-position: 0 0;
+  }
+
+  100% {
+    background-position: 60px 0;
+  }
+}
+
+@-moz-keyframes animate-stripes {
+  0% {
+    background-position: 0 0;
+  }
+
+  100% {
+    background-position: 60px 0;
+  }
+}
+
+@keyframes animate-stripes {
+  0% {
+    background-position: 0 0;
+  }
+
+  100% {
+    background-position: 60px 0;
+  }
+}
+
+.markdown-body .gloss .progress-bar {
+  box-shadow:
+    inset 0 4px 12px rgba(255, 255, 255, .7),
+    inset 0 -12px 0 rgba(0, 0, 0, .05);
+}
+
+/* MultiMarkdown Critic Blocks */
+.markdown-body .critic_mark {
+  background: #ff0;
+}
+
+.markdown-body .critic_delete {
+  color: #c82829;
+  text-decoration: line-through;
+}
+
+.markdown-body .critic_insert {
+  color: #718c00 ;
+  text-decoration: underline;
+}
+
+.markdown-body .critic_comment {
+  color: #8e908c;
+  font-style: italic;
+}
+
+.markdown-body .headeranchor {
+  font: normal normal 16px fontawesome-mini;
+  line-height: 1;
+  display: inline-block;
+  text-decoration: none;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.headeranchor:before {
+  content: '\e157';
+}
+
+.markdown-body .task-list-item {
+  list-style-type: none;
+}
+
+.markdown-body .task-list-item+.task-list-item {
+  margin-top: 3px;
+}
+
+.markdown-body .task-list-item input {
+  margin: 0 4px 0.25em -20px;
+  vertical-align: middle;
+}
+
+/* Media */
+@media only screen and (min-width: 480px) {
+  .markdown-body {
+    font-size:14px;
+  }
+}
+
+@media only screen and (min-width: 768px) {
+  .markdown-body {
+    font-size:16px;
+  }
+}
+
+@media print {
+  .markdown-body * {
+    background: transparent !important;
+    color: black !important;
+    filter:none !important;
+    -ms-filter: none !important;
+  }
+
+  .markdown-body {
+    font-size:12pt;
+    max-width:100%;
+    outline:none;
+    border: 0;
+  }
+
+  .markdown-body a,
+  .markdown-body a:visited {
+    text-decoration: underline;
+  }
+
+  .markdown-body .headeranchor-link {
+    display: none;
+  }
+
+  .markdown-body a[href]:after {
+    content: " (" attr(href) ")";
+  }
+
+  .markdown-body abbr[title]:after {
+    content: " (" attr(title) ")";
+  }
+
+  .markdown-body .ir a:after,
+  .markdown-body a[href^="javascript:"]:after,
+  .markdown-body a[href^="#"]:after {
+    content: "";
+  }
+
+  .markdown-body pre {
+    white-space: pre;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+  }
+
+  .markdown-body pre,
+  .markdown-body blockquote {
+    border: 1px solid #999;
+    padding-right: 1em;
+    page-break-inside: avoid;
+  }
+
+  .markdown-body .progress,
+  .markdown-body .progress-bar {
+    -moz-box-shadow: none;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+  }
+
+  .markdown-body .progress {
+    border: 1px solid #ddd;
+  }
+
+  .markdown-body .progress-bar {
+    height: 22px;
+    border-right: 1px solid #ddd;
+  }
+
+  .markdown-body tr,
+  .markdown-body img {
+    page-break-inside: avoid;
+  }
+
+  .markdown-body img {
+    max-width: 100% !important;
+  }
+
+  .markdown-body p,
+  .markdown-body h2,
+  .markdown-body h3 {
+    orphans: 3;
+    widows: 3;
+  }
+
+  .markdown-body h2,
+  .markdown-body h3 {
+    page-break-after: avoid;
+  }
+}
+</style><style>/*GitHub*/
+.codehilite {background-color:#fff;color:#333333;}
+.codehilite .hll {background-color:#ffffcc;}
+.codehilite .c{color:#999988;font-style:italic}
+.codehilite .err{color:#a61717;background-color:#e3d2d2}
+.codehilite .k{font-weight:bold}
+.codehilite .o{font-weight:bold}
+.codehilite .cm{color:#999988;font-style:italic}
+.codehilite .cp{color:#999999;font-weight:bold}
+.codehilite .c1{color:#999988;font-style:italic}
+.codehilite .cs{color:#999999;font-weight:bold;font-style:italic}
+.codehilite .gd{color:#000000;background-color:#ffdddd}
+.codehilite .ge{font-style:italic}
+.codehilite .gr{color:#aa0000}
+.codehilite .gh{color:#999999}
+.codehilite .gi{color:#000000;background-color:#ddffdd}
+.codehilite .go{color:#888888}
+.codehilite .gp{color:#555555}
+.codehilite .gs{font-weight:bold}
+.codehilite .gu{color:#800080;font-weight:bold}
+.codehilite .gt{color:#aa0000}
+.codehilite .kc{font-weight:bold}
+.codehilite .kd{font-weight:bold}
+.codehilite .kn{font-weight:bold}
+.codehilite .kp{font-weight:bold}
+.codehilite .kr{font-weight:bold}
+.codehilite .kt{color:#445588;font-weight:bold}
+.codehilite .m{color:#009999}
+.codehilite .s{color:#dd1144}
+.codehilite .n{color:#333333}
+.codehilite .na{color:teal}
+.codehilite .nb{color:#0086b3}
+.codehilite .nc{color:#445588;font-weight:bold}
+.codehilite .no{color:teal}
+.codehilite .ni{color:purple}
+.codehilite .ne{color:#990000;font-weight:bold}
+.codehilite .nf{color:#990000;font-weight:bold}
+.codehilite .nn{color:#555555}
+.codehilite .nt{color:navy}
+.codehilite .nv{color:teal}
+.codehilite .ow{font-weight:bold}
+.codehilite .w{color:#bbbbbb}
+.codehilite .mf{color:#009999}
+.codehilite .mh{color:#009999}
+.codehilite .mi{color:#009999}
+.codehilite .mo{color:#009999}
+.codehilite .sb{color:#dd1144}
+.codehilite .sc{color:#dd1144}
+.codehilite .sd{color:#dd1144}
+.codehilite .s2{color:#dd1144}
+.codehilite .se{color:#dd1144}
+.codehilite .sh{color:#dd1144}
+.codehilite .si{color:#dd1144}
+.codehilite .sx{color:#dd1144}
+.codehilite .sr{color:#009926}
+.codehilite .s1{color:#dd1144}
+.codehilite .ss{color:#990073}
+.codehilite .bp{color:#999999}
+.codehilite .vc{color:teal}
+.codehilite .vg{color:teal}
+.codehilite .vi{color:teal}
+.codehilite .il{color:#009999}
+.codehilite .gc{color:#999;background-color:#EAF2F5}
+</style><title>"FreeBSD Jailhost for VMs"</title></head><body><article class="markdown-body"><p>In this tutorial, we&rsquo;ll walkthrough the process of setting up a host for hacking targets.  Our host will be based on FreeBSD; we&rsquo;ll use jails to control the individual target accounts; we&rsquo;ll use virtual machines as the targets inside those accounts.  Our goal will be to turn a modest Dell i5 salvaged desktop into a machine that we can hack and reset at will.  </p>
+<p>As part of building our target host, we&rsquo;ll want to include some isolating and stabilizing features.  We&rsquo;ll want each target account to be contained in a resettable jail; this way, if there are severe problems with the VM because of the hacking attacks, then we can reset the target by restarting the jail.  Each target will need its own VNET so that we can focus over-the-network attacks on the desired targets without accidentally spilling over into other areas.  We&rsquo;ll want each VM hypervisor to be able to start up about half a dozen virtual machines.  This way we could host them all, or change out targets for variety.  </p>
+<p>We&rsquo;ll build up our jails, one by one, step by step.  We&rsquo;ll controll them manually.  We&rsquo;ll operate each virtual machine in a headless fashion using a simple script.  Along the way, we&rsquo;ll cover some of the major topics in virtualization for hosts and networks.  </p>
+<p>We couldn&rsquo;t build this project without the advice we found through some important publications.  No hacker&rsquo;s work is their own, and this tutorial is no exception.  For learning about FreeBSD jails, we turned to Michael Lucas&rsquo; books.  For learning about the headless operation of the VMs, we used Andrea Fortuna&rsquo;s blog posts about Virtualbox.  As general background material on the GreeBSD operating system, we have turned many, many times to the FreeBSD Handbook.  Our desire for hacking targets like these has been fueled by some great labs experienced to be found with Offensive Security&rsquo;s PWK:  Penetration Testing with Kali Linux course.  Citations for these resources and more can be found in the annotated bibliography section.    </p>
+<p>Let&rsquo;s get started.</p>
+<h1 id="preliminary-planning">Preliminary Planning<a class="headerlink" href="#preliminary-planning" title="Permanent link"></a></h1>
+<h2 id="hardware">Hardware<a class="headerlink" href="#hardware" title="Permanent link"></a></h2>
+<p>Our target machine will be built on a salvaged Dell Optiplex 990.  Purchased at a government auction for about $50, this salvaged machine has been cleaned, tested, and fitted with some small SSDs.  For storage, we&rsquo;ll be using two refurbished Kingston 120GB SSDs that sold for about $12/each.  We&rsquo;ve outfitted the box with 8G of 10600U RAM, a dual port network card, and a graphics port that does Display and DVI formats.  The power supply has been tested; there&rsquo;s a DVD drive we&rsquo;ll use for installing the base system ISO.</p>
+<p>For our tutorial, we&rsquo;ll rig up our main internet connection to port 0 on the network card.  We&rsquo;ll have to hook up our monitor to the graphics card to meet the BIOS requirements.  We&rsquo;ve set the BIOS boot order to let us boot from CD/DVD disk, USB drive, and then the SSD.  </p>
+<h2 id="phases-of-install">Phases of Install<a class="headerlink" href="#phases-of-install" title="Permanent link"></a></h2>
+<p>Based on a previous prototyping run, we&rsquo;re going to break up our project into some phases so that we can gradually build up our jailhost into a target machine.</p>
+<ul>
+<li>Host base install</li>
+<li>Host ZFS drive partitioning </li>
+<li>Basic jail install</li>
+<li>VNET setup</li>
+<li>Jail template for VMs</li>
+<li>Jail replication and provisioning</li>
+</ul>
+<p>A lot of the decisions we&rsquo;re about to make will be based on our intentions for the system.  For example, when we get to VNET, we&rsquo;ll see that we&rsquo;ve already laid out a plan for subnetting and explicitly assigning many IP addresses.  Likewise, we have a corresponding plan for setting up multiple ZFS features.  Combined, the VNET and ZFS will give each VM its own contained communications and storage.  </p>
+<p><img alt="Asset plan for SALVAGE13B-COFFEEHOUSE" src="C:/Users/jpo31/source/repos/gladiolaBlog/blog/_drafts/%7B%7B%20site.url%20%7D%7D/assets/images/SALVAGE13B-COFFEEHOUSE/assetPlan.png" /></p>
+<p>Making these decisions can be a lot easier when we&rsquo;re designing a system with a clear task and purpose.  Oftentimes, when we build systems on our own we may not be too sure what we&rsquo;ll do with that machine in the future.  If we were to stumble and flouder our way to concluding this is the type of system we wanted, then we could have a very messy and problematic install.  We&rsquo;re sure to run into problems, but having a clear idea is a great help to us.  We can set goals that will let us build out the box we want.</p>
+<h2 id="building-our-vnet-plan">Building Our VNET Plan<a class="headerlink" href="#building-our-vnet-plan" title="Permanent link"></a></h2>
+<p>We will want to have four main jails on the VNET.  Each will carry its own subnet.  Inside those jails, we&rsquo;ll want 6 hosts per net.  After some experimenting with an online CIDR subnet calculator [<a href="https://www.xarg.org/tools/subnet-calculator/?q=192.168.1.192%2F27%2F29">5</a>], we&rsquo;ve decided on a plan based on 192.168.1.192/27/29.  Robert Eisele&rsquo;s subnet calculator can help us lay out every IP in that net and confirm the relationship of each IP to the network.  What subnet masks we need, which are the first and last hosts in each part of the net, and what addresses are used for the nets and their broadcasts:  those topics are all instantly described with that online tool.  </p>
+<p><img alt="Subnet plan for SALVAGE13B-COFFEEHOUSE" src="C:/Users/jpo31/source/repos/gladiolaBlog/blog/_drafts/%7B%7B%20site.url%20%7D%7D/assets/images/SALVAGE13B-COFFEEHOUSE/subnetPlan.png" /></p>
+<h2 id="choosing-an-os-release-for-the-host-and-the-jails">Choosing an OS Release for the Host and the Jails<a class="headerlink" href="#choosing-an-os-release-for-the-host-and-the-jails" title="Permanent link"></a></h2>
+<p>With jails, we must run the jailhost with the youngest version of the operating system.  We can run jails with older versions of the OS, but they can never be younger than what&rsquo;s running on the host.  With this rule in mind, we&rsquo;ll run 12.1 on the jailhost.  We simply go to the website at FreeBSD.org, download 12.1, and burn it to DVD disc using another working computer connected to the Internet.  </p>
+<p>Based on past experiments, I found it was helpful to choose the &ldquo;DVD&rdquo; version of the FreeBSD installer.  While others may work, the DVD version holds the most data on the installer disk.  When troubleshooting and hunting around for resources, I felt it was most comfortable and familiar.  I think that it&rsquo;s possible that USB memstick and memstick-mini installer versions will work just as well; however, to cut down on the nagging feeling I might be missing something critical during troubleshooting, we chose our most familiar installer:  the dvd.  [<a href="https://www.freebsd.org/releases/12.1R/announce.html">6</a>] [<a href="https://www.freebsd.org/where.html">7</a>] [<a href="https://download.freebsd.org/ftp/releases/amd64/amd64/ISO-IMAGES/12.1/">8</a>] [<a href="https://download.freebsd.org/ftp/releases/amd64/amd64/ISO-IMAGES/12.1/FreeBSD-12.1-RELEASE-amd64-dvd1.iso">9</a>]</p>
+<h1 id="host-base-install">Host Base Install<a class="headerlink" href="#host-base-install" title="Permanent link"></a></h1>
+<h2 id="installing-freebsd-onto-the-hardware">Installing FreeBSD Onto the Hardware<a class="headerlink" href="#installing-freebsd-onto-the-hardware" title="Permanent link"></a></h2>
+<p>With our disk of a FreeBSD ISO on hand, we&rsquo;ll drop it into the target machine and let the installer take the lead.  We&rsquo;ll make choices that allow for the download of base, src, and ports files.  We&rsquo;ll allow the installer to make the usual choices for our machine  [<a href="https://www.freebsd.org/doc/en_US.ISO8859-1/books/handbook/using-bsdinstall.html">10</a>].  We&rsquo;ll choose a ZFS encrypted install, to accept every secure option in the installer dialog for hardening, and to download a copy of the FreeBSD handbook.  We&rsquo;ll name our machine SALVAGE13B-COFFEEHOUSE.  </p>
+<p>All of these are mostly personal choices that won&rsquo;t have a bearing on the features we&rsquo;ll add on later.  However, we&rsquo;re going to make careful note of account names and passphrases that are decided during our install.  We&rsquo;ll make a root account and a user account called &ldquo;barista&rdquo;.  We&rsquo;ll add barista to our wheel and operator groups.  This will give us an alternate to root that we can use with ssh later.  With the ZFS GELI encryption for the disk, we&rsquo;ll emerge from this phase with three critical passwords recorded.  </p>
+<h2 id="initial-checks">Initial checks<a class="headerlink" href="#initial-checks" title="Permanent link"></a></h2>
+<p>With the system installed, one of the first things we&rsquo;ll do is check those passphrases.  Make sure each account works.  Any problems with those could complicate or confound anything we do after this.</p>
+<p>We&rsquo;ll do a quick update of the FreeBSD installation and ports  [<a href="https://www.freebsd.org/doc/en_US.ISO8859-1/books/handbook/updating-upgrading-freebsdupdate.html">11</a>] [<a href="https://www.freebsd.org/doc/en_US.ISO8859-1/books/handbook/ports-using.html">12</a>].
+- freebsd-update fetch
+- freebsd-update install
+- portsnap fetch
+- portsnap extract</p>
+<p>We&rsquo;ll install nano, one of my favorite text editors.</p>
+<p _="%" endhighlight="endhighlight">{% highlight shell %}
+cd /usr/ports/editors/nano
+make -DBATCH install clean</p>
+<p>For the sake of merciful administration, we&rsquo;ll also install bash.</p>
+<p _="%" endhighlight="endhighlight">{% highlight shell %}
+cd /usr/ports/shells/bashcd
+make -DBATCH install clean</p>
+<p>The <code>-DBATCH</code> helps us avoid all of the pauses in the ncurses dialogs for configuring the downloads and compilations.  But, if there is difficulty, we&rsquo;ll have to delve into <code>make config</code>, see what options are presented; maybe we&rsquo;ll also have to hop into the ports that threw the errors, and then recompile those individually.  Sometimes we might have to do a <code>pkg install &lt;PORTNAME&gt;</code> to substitute the compiliation of a program with a strait binary install.  With those troubleshooting tasks under our belt, we&rsquo;ll continue with our project.</p>
+<p _="%" endhighlight="endhighlight">To check our current ZFS configuration:
+{% highlight shell %}
+zfs list
+zpool list</p>
+<p>To take a snapshot some datasets at this stage of installation:
+{% highlight shell %}
+zfs snapshot zroot/ROOT/default@<SOME_DATE_AND_TIME>
+zfs snapshot zroot/usr@<SOME_DATE_AND_TIME>
+{% endhighlight %}
+[<a href="C:/Users/jpo31/source/repos/gladiolaBlog/blog/_drafts/%60%60">13</a>]</p>
+<h1 id="host-zfs-drive-provisioning">Host ZFS Drive Provisioning<a class="headerlink" href="#host-zfs-drive-provisioning" title="Permanent link"></a></h1>
+<h2 id="carve-up-some-zfs-datasets-and-directories">Carve Up Some ZFS Datasets and Directories<a class="headerlink" href="#carve-up-some-zfs-datasets-and-directories" title="Permanent link"></a></h2>
+<p>To later accomodate our jails, we&rsquo;ll want to create some ZFS datasets.  Combined with ZFS snapshot procedures, we&rsquo;ll then be able to make snapshots of our progress (or regress) when constructing the jails.  Since there&rsquo;s nothing really on the disk right now, we can declare the datasets with no worry.  We won&rsquo;t need to specify how much space each one takes up.  We just need to describe how we&rsquo;ll carve up the data.</p>
+<p _="%" endhighlight="endhighlight">To lay the foundation, we&rsquo;ll give:
+{% highlight shell %}
+zfs create -o canmount=off zroot/jail</p>
+<p _="%" endhighlight="endhighlight">To lay out the main divisions of the jail directories, we&rsquo;ll give:
+{% highlight shell %}
+zfs create zroot/jail/coffeehouse
+zfs create zroot/jail/redeye
+zfs create zroot/jail/cappucino
+zfs create zroot/jail/latte</p>
+<p>Within each of those, we&rsquo;ll lay out six subdirectories, for the VMs we&rsquo;ll install later.  Typically, we&rsquo;ll give:
+{% highlight shell %}
+zfs create zroot/jail/coffeehouse/vm1
+zfs create zroot/jail/coffeehouse/vm2
+{% endhighlight %}
+&hellip; and so on, until we have given six subdirectories for each of the four jail directories.  </p>
+<p>To see our progress, we can:
+<code>zfs list</code> and it will show us all of the ZFS datasets.</p>
+<p>We&rsquo;ll want to associate each of those datasets with a group, for user access control.  We can create groups for each of the four jail directories by using commands like:
+{% highlight shell %}
+pw groupadd coffeehouse
+pw groupmod coffeehouse -m barista
+{% endhighlight %}
+&hellip; and so on, until we have given our barista account access to all four of the groups.  We can assign those groups as owners of the datasets with commands like:
+{% highlight shell %}
+chown -R barista:coffeehouse /zroot/jail/coffeehouse
+{% endhighlight %}
+We can see our system is unified with our barista account owning the four directories with each under its own group.  [<a href="C:/Users/jpo31/source/repos/gladiolaBlog/blog/_drafts/%60%60">14</a>][<a href="https://www.freebsd.org/cgi/man.cgi?query=pw&amp;sektion=8&amp;manpath=freebsd-release-ports">15</a>]</p>
+<h3 id="limit-jail-size">Limit Jail Size<a class="headerlink" href="#limit-jail-size" title="Permanent link"></a></h3>
+<p>We can limit the growth of ZFS directories by setting a quota property.  A simple script can help us limit our directories to a specified maxmimum size. [<a href="C:/Users/jpo31/source/repos/gladiolaBlog/blog/_drafts/%60%60">20</a>]</p>
+<h2 id="zfs-snapshots-file-copies-and-zfs-rollbacks">ZFS Snapshots, File Copies, and ZFS Rollbacks<a class="headerlink" href="#zfs-snapshots-file-copies-and-zfs-rollbacks" title="Permanent link"></a></h2>
+<p>The ZFS snapshot command is a little different from some other &ldquo;snapshots.&rdquo;  The word snapshot implies that we are seeing the directory as it was at that moment.  That&rsquo;s true; but the ZFS snapshot command will begin tracking differences to the directory specified from the moment we command the snapshot to begin.  The ZFS snapshot is like the target moment for a future restoration.</p>
+<p>We can apply the results in a couple ways.  We can send the snapshot to another directory, and then copy out what we need; or, we can use the <code>zfs rollback</code> command to undo all the changes to a directory since a given snapshot.  So, when we say we are taking a snapshot of a directory, we are really beginning the recording of differences to that directory from that moment on.  </p>
+<h2 id="prove-dataset-and-file-directory-association">Prove Dataset and File Directory Association<a class="headerlink" href="#prove-dataset-and-file-directory-association" title="Permanent link"></a></h2>
+<p>To prove that a given ZFS dataset is associated with a directory, we&rsquo;ll conduct a simple test.  We&rsquo;ll write a text file to one of the directories owned by barista; we&rsquo;ll make a snapshot; we&rsquo;ll delete the file; then we&rsquo;ll restore the directory to its previous state using the snapshot.  We should be able to see the ZFS snapshot system working for us.</p>
+<p _="%" endhighlight="endhighlight">To test out the snapshot, we write a file to a known directory.
+{% highlight shell %}
+cd /zroot/jail/coffeehouse
+nano test.txt
+{% endhighlight %}
+In that file file, we write some simple words so that it will have some content.  We take a snapshot of the directory.
+{% highlight shell %}
+zfs snapshot zroot/jail/coffeehouse@2019-12-05A
+zfs list -t snapshot
+{% endhighlight %}
+Then we make a change to the directory.  We can delete that test.txt file.  The snapshot will show the change by showing an increase in Kb used.<br />
+{% highlight shell %}
+rm /zroot/jail/coffeehouse/test.txt
+zfs list -t snapshot</p>
+<h3 id="restorations-with-file-copies">Restorations with File Copies<a class="headerlink" href="#restorations-with-file-copies" title="Permanent link"></a></h3>
+<p _="%" endhighlight="endhighlight">To practice restoring just that one file of the snapshot, we can send the snapshot to a temporary directory, list the contents, and copy it out to the desired destination.
+{% highlight shell %}
+mkdir /tmp/snapShot
+cp -r /zroot/jail/coffeehouse/.zfs/snapshot/2019-12-05A /tmp/snapShot
+ls /tmp/snapShot
+cp /tmp/snapShot/test.txt /zroot/jail/coffeehouse/test.txt</p>
+<h3 id="zfs-rollbacks">ZFS Rollbacks<a class="headerlink" href="#zfs-rollbacks" title="Permanent link"></a></h3>
+<p>Or we could try the rollback command:
+{% highlight shell %}
+zfs rollback zroot/jail/coffeehouse@2019-12-05A
+{% endhighlight %}
+Notice that when we are using the <code>zfs</code> commands, we have to leave off the <code>/</code> when referring to zroot.  </p>
+<p _="%" endhighlight="endhighlight">Once we&rsquo;re satisfied with the rehearsals of the rollbacks, we can remove the test file and delete the snapshot we made.
+{% highlight shell %}
+zfs destroy zroot/jail/coffeehouse@2019-12-05A</p>
+<h3 id="setup-snapshots-before-jail-installations">Setup Snapshots Before Jail Installations<a class="headerlink" href="#setup-snapshots-before-jail-installations" title="Permanent link"></a></h3>
+<p>Our directories for the jails basically don&rsquo;t have anything in them besides the anticipated directory structure.  We&rsquo;ll make snapshots of each jail directory and each vm subdirectory to show our starting point.  We&rsquo;ll use commands like:
+{% highlight shell %}
+zfs snapshot zroot/jail/coffeehouse@2019-05-05-EMPTY
+{% endhighlight %}
+Until we&rsquo;ve made all the snapshots we&rsquo;d like.</p>
+<p>[17][18]</p>
+<h2 id="record-basic-facts-about-config-files">Record Basic Facts About Config Files<a class="headerlink" href="#record-basic-facts-about-config-files" title="Permanent link"></a></h2>
+<p>Since we&rsquo;re about to build some jails and adjust the configuration of the jailhost, we&rsquo;re likely to make some mistakes soon.  We can use some of these same techniques to gather files we&rsquo;re likely to edit and copy them to a directory for archiving.</p>
+<p>We&rsquo;ll be interested in editing:
+- /boot/boot.conf
+- /etc/devfs.conf
+- /etc/rc.conf
+- /etc/jail.conf</p>
+<p>We&rsquo;ll also make some copies of outputs of common jail and zfs commands.</p>
+<h1 id="prototyping-lessons-learned-for-whats-ahead">Prototyping Lessons Learned for What&rsquo;s Ahead<a class="headerlink" href="#prototyping-lessons-learned-for-whats-ahead" title="Permanent link"></a></h1>
+<h2 id="understanding-how-we-can-get-to-our-goals">Understanding How We Can Get to Our Goals<a class="headerlink" href="#understanding-how-we-can-get-to-our-goals" title="Permanent link"></a></h2>
+<p>In order to set up the jails, we had to experiment a little.  Understanding from the FreeBSD Handbook, Lucas&rsquo; books, and several blogs was an essential part of forecasting how we might get to where we&rsquo;ll go.  [<a href="https://www.freebsd.org/doc/en_US.ISO8859-1/books/handbook/jails-build.html">21</a>][<a href="https://www.freebsd.org/doc/handbook/ports-using.html">22</a>][2][3][<a href="https://savagedlight.me/2014/03/14/freebsd-jail-server-with-zfs-clone-and-jail-conf/">24</a>][<a href="https://superuser.com/questions/691008/why-is-the-e-option-missing-from-netcat-openbsd#691043">25</a>]  These experiments and references led to a few small discoveries for us.  I&rsquo;d like to share these now.  We will see their influence later.  Some of these ideas came up as we were stitching together parts from various references to make our prototype work.  </p>
+<h3 id="where-will-the-base-system-come-from">Where Will The Base System Come From?<a class="headerlink" href="#where-will-the-base-system-come-from" title="Permanent link"></a></h3>
+<p _="%" endhighlight="endhighlight">When we read over several sets of directions about setting up jails, it was very common to run across a mention like, &ldquo;just grab a copy of base.txz.&rdquo;  Well, where is that supposed to come from?  [<a href="https://savagedlight.me/2014/03/14/freebsd-jail-server-with-zfs-clone-and-jail-conf/">24</a>]  We&rsquo;re going to pull ours down with a <code>fetch</code> like so:
+{% highlight shell %}
+fetch <a href="ftp://ftp.freebsd.org/pub/FreeBSD/releases/amd64/12.1-RELEASE/base.txz">ftp://ftp.freebsd.org/pub/FreeBSD/releases/amd64/12.1-RELEASE/base.txz</a></p>
+<p _="%" endhighlight="endhighlight">To see what we&rsquo;ll have available to choose from for our hardware, we can visit with a browser:
+{% highlight shell %}
+<a href="ftp://ftp.freebsd.org/pub/FreeBSD/releases/amd64">ftp://ftp.freebsd.org/pub/FreeBSD/releases/amd64</a></p>
+<p _="%" endhighlight="endhighlight">For our template jail we&rsquo;ll call:
+{% highlight shell %}
+fetch <a href="ftp://ftp.freebsd.org/pub/FreeBSD/releases/amd64/12.1-RELEASE/base.txz">ftp://ftp.freebsd.org/pub/FreeBSD/releases/amd64/12.1-RELEASE/base.txz</a>
+fetch <a href="ftp://ftp.freebsd.org/pub/FreeBSD/releases/amd64/12.1-RELEASE/lib32.txz">ftp://ftp.freebsd.org/pub/FreeBSD/releases/amd64/12.1-RELEASE/lib32.txz</a>
+fetch <a href="ftp://ftp.freebsd.org/pub/FreeBSD/releases/amd64/12.1-RELEASE/src.txz">ftp://ftp.freebsd.org/pub/FreeBSD/releases/amd64/12.1-RELEASE/src.txz</a></p>
+<h3 id="options-options-everywhere">Options, Options, Everywhere<a class="headerlink" href="#options-options-everywhere" title="Permanent link"></a></h3>
+<p>In every set of directions, we&rsquo;ll notice variance over where to put different kinds of configuration information.  We&rsquo;ll follow Lucas&rsquo; example for setting up a jail.conf file.  That will cover ideas like jail state changes, interfaces, and virtual networking for the jail.  How does a jail operate and how does it relate to resources?  We&rsquo;ll put those in jail.conf. [2][3]</p>
+<p>We&rsquo;ll add /etc/rc.conf items into individual jails for doing things like controlling services that run inside the jail.  [<a href="https://savagedlight.me/2014/03/14/freebsd-jail-server-with-zfs-clone-and-jail-conf/">24</a>]  </p>
+<p>When we&rsquo;re preparing to compile from ports and set up the jails, we&rsquo;ll use /etc/make.conf variables for directing the compilation process towards jail-related ports.  [<a href="https://savagedlight.me/2014/03/14/freebsd-jail-server-with-zfs-clone-and-jail-conf/">24</a>]</p>
+<p>On the host&rsquo;s /etc/rc.conf, we&rsquo;ll put values that enable jails and VMs.  </p>
+<h3 id="a-major-pitfall">A Major Pitfall<a class="headerlink" href="#a-major-pitfall" title="Permanent link"></a></h3>
+<p>When we were running an earlier experiment, we ran into a real hazard with some of the kernel modules for VirtualBox.  We will need to be very careful to test out kernel modules produced during the vbox compilation process with <code>kldload</code>.  If we load up a kernel module that won&rsquo;t work well onto a GELI-encrypted ZFS drive, then we&rsquo;ll have a very difficult recovery.  So, we&rsquo;ll need to pick carefully before installing the kernel modules into the host&rsquo;s boot.conf.  This hazard won&rsquo;t present itself until later, but it&rsquo;ll be related to editing the jails and the host when we begin installing applications.</p>
+<h3 id="we-get-netcat-for-free">We Get netcat For Free<a class="headerlink" href="#we-get-netcat-for-free" title="Permanent link"></a></h3>
+<p>On the plus side, <code>nc</code> is a default command for FreeBSD base installs.  We&rsquo;ll experiment with this some later.  As we have already mentioned, <code>fetch</code> is also automatically included; it&rsquo;s FreeBSD&rsquo;s sister to <code>wget</code>.  </p>
+<h3 id="netcat-doesnt-work-the-same">netcat Doesn&rsquo;t Work The Same<a class="headerlink" href="#netcat-doesnt-work-the-same" title="Permanent link"></a></h3>
+<p _="%" endhighlight="endhighlight">For those of us who&rsquo;ve been training for pentests with Kali Linux [4], it&rsquo;s common to see the following uses of netcat:
+{% highlight shell %}
+nc -nvlp 192.168.1.100 4444 -e /bin/bash</p>
+<p>However, this presents a problem:  FreeBSD uses a different flavor of <code>nc</code>.  The <code>-e</code> argument will not trigger the execution of a program.  Instead, we will have to use <code>fifo</code> and pipes to set up something similar:</p>
+<p>{% highlight shell %}
+        rm -f /tmp/f; mkfifo /tmp/f
+        cat /tmp/f | /bin/sh -i 2&gt;&amp;1 | nc -l 127.0.0.1 1234 &gt; /tmp/f
+{% endhighlight %}
+[<a href="https://superuser.com/questions/691008/why-is-the-e-option-missing-from-netcat-openbsd#691043">25</a>][<a href="https://www.freebsd.org/cgi/man.cgi?query=nc&amp;apropos=0&amp;sektion=0&amp;manpath=FreeBSD+12.1-RELEASE+and+Ports&amp;arch=default&amp;format=html">26</a>]</p>
+<p><code>fifo</code>s are temporary channels in FreeBSD.  Then man pages tell us:</p>
+<blockquote>
+<p>One possible application of memory channels created by memchan or fifo is as temporary storage device to collect data coming in over a pipe or a socket.
+[<a href="https://www.freebsd.org/cgi/man.cgi?query=fifo&amp;apropos=0&amp;sektion=0&amp;manpath=FreeBSD+12.1-RELEASE+and+Ports&amp;arch=default&amp;format=html">27</a>]</p>
+</blockquote>
+<p>In the code above, we read:
+- remove any temp file named f
+- make a fifo channel at temp f</p>
+<p>Then:
+- concatenate temp f and send it to shell, interactive
+- pipe that shell to netcat listening on localhost to port 1234
+- and send its output to temp f.</p>
+<p>Notice how the last line sets up a circular reference.  The data will flow out of the fifo, into shell, into the netcat channel, and into the fifo.  [<a href="https://www.freebsd.org/cgi/man.cgi?query=fifo&amp;apropos=0&amp;sektion=0&amp;manpath=FreeBSD+12.1-RELEASE+and+Ports&amp;arch=default&amp;format=html">27</a>][<a href="https://www.freebsd.org/cgi/man.cgi?query=mkfifo&amp;apropos=0&amp;sektion=0&amp;manpath=FreeBSD+12.1-RELEASE+and+Ports&amp;arch=default&amp;format=html">28</a>]  We will be using the memory channel, the <code>fifo</code>, to weld together the interactive shell and the netcat socket connection using pipes and redirection.  </p>
+<p>Why is this a continuous, circular reference?  Because <code>cat</code> keeps reading until it hits EOF, or &ldquo;end of file.&rdquo;  </p>
+<blockquote>
+<p>If file is a UNIX domain socket, cat connects to it and then reads it until EOF.  [<a href="https://www.freebsd.org/cgi/man.cgi?query=cat&amp;apropos=0&amp;sektion=0&amp;manpath=FreeBSD+12.1-RELEASE+and+Ports&amp;arch=default&amp;format=html">29</a>]</p>
+</blockquote>
+<p>So, it&rsquo;ll be continuously reading out into the shell and the connection will be continuously redirecting into the <code>fifo</code> through a pipe. Given these ideas, we can build our usual bind and reverse shells in FreeBSD.  Later, we&rsquo;ll use them as a communications mechanism among our jails. </p>
+<h1 id="basic-jail-install">Basic Jail Install<a class="headerlink" href="#basic-jail-install" title="Permanent link"></a></h1>
+<p>Let&rsquo;s set up some jails.  When we&rsquo;re establishing jails, there are many potential paths we can follow.  We can see that there are a few ways we can get the OS into the jail, set up critical configuration facts, and populate the jails with programs like user applications.  If you&rsquo;re hunting around through tutorials, the variety of these paths can seem a little confusing.  We recommend reading and experimenting until you understand each hacker&rsquo;s choices.<br />
+We&rsquo;ll start by mostly following Lucas&rsquo; FreeBSD Mastery:  Jails.  [30]However, instead of just wrapping up our worlds into a temp file as he does in Chapter 2, we&rsquo;ll also fetch our base zipfiles from the FreeBSD Foundation over the Internet.</p>
+<p>Logged on as root, we&rsquo;ll setup coffeehouse as our first, template, jail.  We&rsquo;ll put our txz files, extracted, in there.  As Lucas suggested, we&rsquo;ll keep a copy in a /jail/media subdirectory.  Many of the examples which follow are derived from Lucas&rsquo; examples. [30]</p>
+<h3 id="fetching-a-base-system-with-the-same-version-as-the-jailhost">Fetching a Base System With the Same Version as The Jailhost<a class="headerlink" href="#fetching-a-base-system-with-the-same-version-as-the-jailhost" title="Permanent link"></a></h3>
+<p>For our first trials, let&rsquo;s start with using the same kind as we have on hand.  For this example, that&rsquo;s 12.1-RELEASE.  </p>
+<p>To make that directory, we&rsquo;ll use commands like:
+{% highlight shell %}
+mkdir /zroot/jail/media/amd64/12.1-RELEASE/
+{% endhighlight %}[30]</p>
+<p>To get the files, from inside the media subdirectory that will hold the files, we&rsquo;ll tell the computer:
+{% highlight shell %}
+fetch <a href="ftp://ftp.freebsd.org/pub/FreeBSD/releases/amd64/12.1-RELEASE/base.txz">ftp://ftp.freebsd.org/pub/FreeBSD/releases/amd64/12.1-RELEASE/base.txz</a>
+fetch <a href="ftp://ftp.freebsd.org/pub/FreeBSD/releases/amd64/12.1-RELEASE/lib32.txz">ftp://ftp.freebsd.org/pub/FreeBSD/releases/amd64/12.1-RELEASE/lib32.txz</a>
+fetch <a href="ftp://ftp.freebsd.org/pub/FreeBSD/releases/amd64/12.1-RELEASE/src.txz">ftp://ftp.freebsd.org/pub/FreeBSD/releases/amd64/12.1-RELEASE/src.txz</a>
+{% endhighlight %}[30]</p>
+<p>Then, we&rsquo;ll tell the computer to extract those files with tape archive and copy them to the part of memory where we&rsquo;ll put the jail.
+{% highlight shell %}
+tar -xpf /zroot/jail/media/amd64/12.1-RELEASE/base.txz -C /zroot/jail/coffeehouse
+tar -xpf /zroot/jail/media/amd64/12.1-RELEASE/lib32.txz -C /zroot/jail/coffeehouse
+tar -xpf /zroot/jail/media/amd64/12.1-RELEASE/src.txz -C /zroot/jail/coffeehouse
+{% endhighlight %}[30]</p>
+<p>In the above commands, we see that we&rsquo;re telling the computer:
+- use tape archive
+- -xpf:
+    + extract
+    + preserve permissions
+    + of files at the following directory:  /zroot/jail/media/&hellip;
+- -C:  create an archive at the specified directory /zroot/jail/coffeehouse
+[31]</p>
+<h2 id="building-from-an-imported-system-of-another-version">Building From an Imported System of Another Version<a class="headerlink" href="#building-from-an-imported-system-of-another-version" title="Permanent link"></a></h2>
+<p>We could also fetch the distribution files in for later use.  This technique will allow us to build jails of a different release of FreeBSD.  We can&rsquo;t use a release that&rsquo;s younger than the jailhost&rsquo;s OS, but we can use a version that&rsquo;s older.  Jails are operating system virtualization; they&rsquo;re containers; so, if we want to preserve a system running an older configuration of the OS, importing a system of an earlier release could be the basis of such a jail.  Or, we could establish the jail, import the user and application files, and then stand it up inside the more recent version of the OS on the jailhost.  </p>
+<p>We can anticipate that there will be problems with mixing versions.  For example, what about running a much older and vulnerable application in an older jail version that&rsquo;s on top of a newer jailhost OS version?  We could be in a situation where we can get the older applications to run; but, that could be part of our problem, too.  We can&rsquo;t stereotype an answer that will always be safe, stable, and perfect; but, we can see that it will be possible to set up another release of FreeBSD inside our jailhost.  </p>
+<h2 id="alternative-method-building-from-the-hosts-system">Alternative Method:  Building From the Host&rsquo;s System<a class="headerlink" href="#alternative-method-building-from-the-hosts-system" title="Permanent link"></a></h2>
+<p>We came across an alternative method that looks promising, but we chose not to use:  building from the host&rsquo;s own system.  In our this approach, we&rsquo;ll use the host&rsquo;s own system to make the tarfiles we need.  Later, we&rsquo;ll <code>fetch</code> some files in.  </p>
+<p>To make the base, using our current installation:
+{% highlight shell %}
+mkdir /tmp/jail
+cd /usr/src
+make cleanworld
+make -j4 buildworld 
+make installworld DESTDIR=/tmp/jail
+make distribution DESTDIR=/tmp/jail
+{% endhighlight %}
+ [<a href="C:/Users/jpo31/source/repos/gladiolaBlog/blog/_drafts/%60%60">30</a>][32]</p>
+<p>I&rsquo;d like to note that some of those <code>make</code> commands can take awhile.  I usually do the <code>make buildworld</code> overnight.  <code>installworld</code> also takes awhile, but not as long.  <code>distribution</code> took over an hour.  These were some of the most time consuming commands of the process.  </p>
+<p>From there, we&rsquo;ll zip it up in a tarfile.
+{% highlight shell %}
+tar -cd /jail/media/[FILENAME].txz &ndash;xz -C /tmp/jail/
+{% endhighlight %}
+ [<a href="C:/Users/jpo31/source/repos/gladiolaBlog/blog/_drafts/%60%60">30</a>]</p>
+<p>The above command would provide me with an error; I had no luck with this method.  It seemed as though there were a circular reference somewhere in the process.  Given my own inability to really understand the output of these processes, we chose not to follow this path.</p>
+<h3 id="possible-alternative-using-nanobsdsh-to-build-a-read-only-embedded-system">Possible Alternative:  Using <code>nanobsd.sh</code> to Build a Read-Only Embedded System<a class="headerlink" href="#possible-alternative-using-nanobsdsh-to-build-a-read-only-embedded-system" title="Permanent link"></a></h3>
+<p>Quietly, for about the past ten years, FreeBSD has been providing a tool from Paol Henning-Kamp that build a small read-only version of FreeBSD called nanoBSD.  There are few references about this system, but we&rsquo;re interested because, by default, it puts everything into a read-only state.  That, and it&rsquo;s small size; nanobsd is small enough to fit on a compact flash.  [<a href="https://www.freebsd.org/doc/en_US.ISO8859-1/articles/nanobsd/howto.html">33</a>][<a href="https://www.freebsd.org/cgi/man.cgi?query=nanobsd&amp;apropos=0&amp;sektion=8&amp;manpath=FreeBSD+8.1-RELEASE&amp;arch=default&amp;format=html">34</a>][<a href="https://www.youtube.com/watch?v=5qCaOMQ3ZnQ&amp;t=13s">35</a>][<a href="https://www.youtube.com/watch?v=RHLRW88AJLE">36</a>]</p>
+<p>Unfortunately, there is a critical function in the scripts that does not work with the ZFS file system.  When the script approaches create_diskimage in legacy.sh, it will have already failed.  As we exit the script, we should find a _.disk* directories that are not there.  Without them, we won&rsquo;t be able to transfer the products to the target directories using a <code>cp</code>.  </p>
+<p>As we trace our way through the nanobsd scripts, we come to some critical points:</p>
+<p>{% highlight shell %}
+    echo &ldquo;/dev/${NANO_DRIVE}${NANO_ROOT} / ufs ro 1 1&rdquo; &gt; etc/fstab
+    echo &ldquo;/dev/${NANO_DRIVE}${NANO_SLICE_CFG} /cfg ufs rw,noauto 2 2&rdquo; &gt;&gt;<br />
+{% endhighlight %}
+[<a href="C:/Users/jpo31/source/repos/gladiolaBlog/blog/_drafts/%60%60">37</a>]</p>
+<p>We can plainly see that the UFS file system is what&rsquo;s used with nanobsd.  This wasn&rsquo;t mentioned in the man pages, but there it is.  Given that troubleshooting this script is kind of outside of the scope of this project, we&rsquo;ll stick to the &ldquo;Fetching a Base System&rdquo; procedure, mentioned above.  Perhaps we&rsquo;ll come back to edit this later for use with ZFS.  It doesn&rsquo;t look like that has been contributed to FreeBSD yet.</p>
+<h3 id="provisioning-the-jail-with-the-operating-system">Provisioning the Jail with the Operating System<a class="headerlink" href="#provisioning-the-jail-with-the-operating-system" title="Permanent link"></a></h3>
+<p>With a copy of the OS staged, it&rsquo;s time for us to set it up in a part of the file system that we&rsquo;ll use for jails.  We&rsquo;ll load up a jail with just a base system.  We&rsquo;ll set a copy of that aside.</p>
+<p _="%" endhighlight="endhighlight">From our home directory for root:
+{% highlight shell %}
+tar -zpf /jail/media/12.1-RELEASE/base.txz -C /zroot/jail/coffeehouse
+tar -zpf /jail/media/12.1-RELEASE/lib32.txz -C /zroot/jail/coffeehouse
+tar -zpf /jail/media/12.1-RELEASE/src.txz -C /zroot/jail/coffeehouse</p>
+<p _="%" endhighlight="endhighlight">We can verify and protect what we did with:
+{% highlight shell %}
+ls /zroot/jail/coffeehouse
+zfs snapshot zroot/jail/coffeehouse@<DATE_TIME_IDENTIFIER></p>
+<h3 id="defining-the-jail-directory-as-a-jail">Defining the Jail Directory as a Jail<a class="headerlink" href="#defining-the-jail-directory-as-a-jail" title="Permanent link"></a></h3>
+<p>So far, we&rsquo;ve just loaded what&rsquo;s needed into a designated spot in the file system.  We are about to give the commands which will help that directory stand up and perform as its own jail on command.  </p>
+<p>First, we have to edit the host&rsquo;s <code>/etc/rc.conf</code> to permit jails to be used:
+{% highlight shell %}
+nano /etc/rc.conf</p>
+<p _="%" endhighlight="endhighlight">jail_enable=&rdquo;YES&rdquo;
+jail_parallel_start=&rdquo;YES&rdquo;</p>
+<p>Next, we&rsquo;ll have to tell the system about each jail as we build it.  We provide this in <code>/etc/jail.conf</code>.  Later, we&rsquo;ll have a more complicated file.  For now we&rsquo;ll just try to establish a jail and start it.</p>
+<p>{% highlight shell %}
+nano /etc/jail.conf</p>
+<p>exec.start=&rdquo;/bin/sh /etc/rc&rdquo;;
+exec.stop=&rdquo;/bin/sh /etc/rc.shutdown&rdquo;;
+exec.clean;
+mount.devfs;</p>
+<p>coffeehouse{
+    host.hostname=&rdquo;coffeehouse.salvage13.local&rdquo;;
+    ip4.addr=&rdquo;192.168.1.192/27&rdquo;;
+    path=&rdquo;/zroot/jail/coffeehouse&rdquo;;
+}</p>
+<p>{% endhighlight %}
+[<a href="C:/Users/jpo31/source/repos/gladiolaBlog/blog/_drafts/%60%60">38</a>]</p>
+<p>We see if we can start up the jail:
+{% highlight shell %}
+jail /zroot/jail/coffeehouse/ coffeehouse 192.168.1.192/27 /bin/sh
+{% endhighlight %}
+[<a href="C:/Users/jpo31/source/repos/gladiolaBlog/blog/_drafts/%60%60">39</a>]</p>
+<p _="%" endhighlight="endhighlight">Exiting out of that, we copy in a resolve:
+{% highlight shell %}
+cp /etc/resolv.conf /zroot/jail/coffeehouse/etc/resolv.conf</p>
+<p>Back in, to follow Lucas&rsquo; book better, we continue:
+{% highlight shell %}
+touch /etc/fstab
+vi /etc/rc.conf
+sshd_enable=&rdquo;YES&rdquo;
+exit
+service jail start coffeehouse
+jls
+{% endhighlight %}
+We should be able to see our coffeehouse jail up and running.
+[<a href="C:/Users/jpo31/source/repos/gladiolaBlog/blog/_drafts/%60%60">39</a>]</p>
+<p _="%" endhighlight="endhighlight">Let&rsquo;s preserve these small but valuable changes:
+{% highlight shell %}
+zfs snapshot zroot/jail/coffeehouse@<DATE_TIME_IDENTIFIER></p>
+<p _="%" endhighlight="endhighlight">Our jail needs users.  Let&rsquo;s add a user.  From outside the jail, we give:
+{% highlight shell %}
+jexec coffeehouse adduser</p>
+<p>We add the user &ldquo;coffee&rdquo; to <code>wheel</code> and <code>operator</code>.  We can take a snapshot.</p>
+<h3 id="copy-config-information-to-a-snapshot">Copy Config Information to a Snapshot<a class="headerlink" href="#copy-config-information-to-a-snapshot" title="Permanent link"></a></h3>
+<p>Since most of our system configuration changes are in the base system of the host, we&rsquo;ll want to be able to make a separate copy of some files in an area that we can conserve with a <code>zfs snapshot</code>.  A simple script can help us grab copies of files that we&rsquo;re likely to change over the next little while.</p>
+<p>{% highlight shell %}</p>
+<p># If the base directory to hold the common configs is not present,
+# then build one.
+if [ ! -d /zroot/var ]
+then
+    mkdir /zroot/var
+fi</p>
+<p>if [ ! -d /zroot/var/common ]
+then
+    mkdir /zroot/var/common
+fi</p>
+<p># Create a fresh directory to hold common config files
+# Remove the old one from earlier today, if necessary.
+# Record when we are taking the copy of the config files
+someDate=$(date +%Y-%m-%d:%H:%M);
+if [ -d /zroot/var/common/$someDate ]
+then
+    rm -r /zroot/var/common/$someDate
+fi
+mkdir /zroot/var/common/$someDate
+echo $someDate &gt; /zroot/var/common/$someDate/<em>snap</em>$someDate.txt
+hash=$(sha512 -q -s <code>echo $someDate</code> )
+echo $hash &gt;&gt; /zroot/var/common/$someDate/<em>snap</em>$someDate.txt</p>
+<p># Copy some common config files
+if [ -f /boot/boot.conf ]
+then
+    cp /boot/boot.conf /zoot/var/common/$someDate/
+fi</p>
+<p>if [ -f /etc/rc.conf ]
+then
+    cp /etc/rc.conf /zroot/var/common/$someDate/
+fi</p>
+<p>if [ -f /etc/devfs.conf ]
+then
+    cp /etc/devfs.conf /zroot/var/common/$someDate/
+fi</p>
+<p>if [ -f /etc/jail.conf ]
+then
+    cp /etc/jail.conf /zroot/var/common/$someDate/
+fi</p>
+<p># Record available jails and zfs facts
+jls &gt; /zroot/var/common/$someDate/jlsOutput.txt
+vmstat &gt; /zroot/var/common/$someDate/vmstatOutput.txt
+zfs list -t snapshot &gt; /zroot/var/common/$someDate/snapshotsOutput.txt
+zpool list &gt; /zroot/var/common/$someDate/zpoolOutput.txt
+zfs list &gt; /zroot/var/common/$someDate/zfsListOutput.txt</p>
+<p># Take a snapshot of common
+zfs snapshot zroot/var/common@$someDate</p>
+<p>exit</p>
+<p>{% endhighlight %}</p>
+<h2 id="vnet-setup">VNET Setup<a class="headerlink" href="#vnet-setup" title="Permanent link"></a></h2>
+<p>We&rsquo;ll give our jail a spot on a VNET.  WE&rsquo;ll follow Lucas&rsquo; &ldquo;FreeBSD Mastery: Jails&rdquo; chapter 9 for most of this work.  From there, we&rsquo;ll expand.  Our goal will be to get the jails on the network in a way we can verify with another local computer.  As we build our other jails, we&rsquo;ll give each one a subnet that accommodates 6 hosts.  Using our plan for subnetting established earlier, we&rsquo;ll begin by calling this first jail 192.168.1.192/27.  </p>
+<p>Ran into trouble.  Got the jail on the IP, but can&rsquo;t interact with it.</p>
+<p _="%" endhighlight="endhighlight">{% highlight shell %}</p>
+<p>{% highlight shell %}
+{% endhighlight %}
+ [[]]</p>
+<h2 id="annotated-bibliography">Annotated Bibliography<a class="headerlink" href="#annotated-bibliography" title="Permanent link"></a></h2>
+<p>[1]  FreeBSD Foundation.  INTERNET: <a href="https://www.freebsd.org/doc/en_US.ISO8859-1/books/handbook/"><code>https://www.freebsd.org/doc/en_US.ISO8859-1/books/handbook/</code></a></p>
+<p>[2]  Lucas, Michael W.  Absolute FreeBSD:  The Complete Guide to FreeBSD.  No Starch Press.  ISBN 978-1-59327-892-2.</p>
+<p>[3]  Lucas, Michael W.  FreeBSD Mastery:  Jails.  Tilted Windmill Press.  ISBN 978-1-64235-024-1.</p>
+<p>[4]  Offensive Security.  Penetration Testing with Kali Linux.  Laboratory Manual, v. 1.1.6.  Controlled distribution, proprietary manual for commercial certification testing, made available to registered students with Offensive Security course for Penetration Testing with Kali Linux.</p>
+<p>[5]  Eisele, Robert.  &ldquo;CIDR Subnet Calculator&rdquo;  INTERNET: <a href="https://www.xarg.org/tools/subnet-calculator/?q=192.168.1.192%2F27%2F29"><code>https://www.xarg.org/tools/subnet-calculator/?q=192.168.1.192%2F27%2F29</code></a></p>
+<p>A free online subnet calculator that uses CIDR.</p>
+<p>[6]  FreeBSD Foundation.  INTERNET: <a href="https://www.freebsd.org/releases/12.1R/announce.html"><code>https://www.freebsd.org/releases/12.1R/announce.html</code></a></p>
+<p>Information about the release.</p>
+<p>[7]  FreeBSD Foundation.  INTERNET: <a href="https://www.freebsd.org/where.html"><code>https://www.freebsd.org/where.html</code></a></p>
+<p>[8]  FreeBSD Foundation.  INTERNET: <a href="https://download.freebsd.org/ftp/releases/amd64/amd64/ISO-IMAGES/12.1"><code>https://download.freebsd.org/ftp/releases/amd64/amd64/ISO-IMAGES/12.1</code></a></p>
+<p>Page that allows us to choose the type of image to download.   </p>
+<p>[9]  FreeBSD Foundation.  INTERNET: <a href="https://download.freebsd.org/ftp/releases/amd64/amd64/ISO-IMAGES/12.1/FreeBSD-12.1-RELEASE-amd64-dvd1.iso"><code>https://download.freebsd.org/ftp/releases/amd64/amd64/ISO-IMAGES/12.1/FreeBSD-12.1-RELEASE-amd64-dvd1.iso</code></a></p>
+<p>Chosen download for our host install.</p>
+<p>[10]  FreeBSD Foundation.  INTERNET: <a href="https://www.freebsd.org/doc/en_US.ISO8859-1/books/handbook/using-bsdinstall.html"><code>https://www.freebsd.org/doc/en_US.ISO8859-1/books/handbook/using-bsdinstall.html</code></a></p>
+<p>Directions for using bsdinstall.</p>
+<p>[11]  FreeBSD Foundation.  INTERNET: <a href="https://www.freebsd.org/doc/en_US.ISO8859-1/books/handbook/updating-upgrading-freebsdupdate.htmll"><code>https://www.freebsd.org/doc/en_US.ISO8859-1/books/handbook/updating-upgrading-freebsdupdate.html</code></a></p>
+<p>Using freebsd-update and related commands to install security updates.</p>
+<p>[12]  FreeBSD Foundation.  INTERNET: <a href="https://www.freebsd.org/doc/en_US.ISO8859-1/books/handbook/ports-using.html"><code>https://www.freebsd.org/doc/en_US.ISO8859-1/books/handbook/ports-using.html</code></a></p>
+<p>Using portsnap fetch and related commands to install fresh scripts for ports.  This may help ensure that the latest security patches are available to programs compiled from ports.</p>
+<p>[13] Lucas.  [2], pp. 258, 264, 271-272.</p>
+<p>[14] Lucas.  [2], pp. 262.</p>
+<p>[15] FreeBSD Foundation.  INTERNET:  <a href="https://www.freebsd.org/cgi/man.cgi?query=pw&amp;sektion=8&amp;manpath=freebsd-release-ports"><code>https://www.freebsd.org/cgi/man.cgi?query=pw&amp;sektion=8&amp;manpath=freebsd-release-ports</code></a></p>
+<p>Online manpage for pw.</p>
+<p>[16] _____.  INTERNET:   <a href="https://www.pngtube.com/viewm/TRRmb_png-transparent-download-bonfire-clipart-smoke-fire-png/"><code>https://www.pngtube.com/viewm/TRRmb_png-transparent-download-bonfire-clipart-smoke-fire-png/</code></a></p>
+<p>Clipart flames download.</p>
+<p>[17] Lucas.  [2], pp. 271-273.</p>
+<p>[18] _____.  INTERNET:   <a href="https://www.thegeekdiary.com/zfs-tutorials-creating-zfs-snapshot-and-clones/"><code>https://www.thegeekdiary.com/zfs-tutorials-creating-zfs-snapshot-and-clones/</code></a></p>
+<p>[19] _____.  INTERNET:   <a href="https://www.unix.com/shell-programming-and-scripting/174496-how-check-if-file-exists-directory.html"><code>https://www.unix.com/shell-programming-and-scripting/174496-how-check-if-file-exists-directory.html</code></a></p>
+<p>sh syntax for checking if a file exists.</p>
+<p>[20] Lucas.  [2], pp. 260.</p>
+<p>[21] _____.  INTERNET:   <a href="https://www.freebsd.org/doc/en_US.ISO8859-1/books/handbook/jails-build.html"><code>https://www.freebsd.org/doc/en_US.ISO8859-1/books/handbook/jails-build.html</code></a></p>
+<p>Handbook page on the basics of building jails.</p>
+<p>[22] _____.  INTERNET:   <a href="https://www.freebsd.org/doc/handbook/ports-using.html"><code>https://www.freebsd.org/doc/handbook/ports-using.html</code></a></p>
+<p>Handbook page on using ports.  Notice the variables for WKDIRPREFIX and PREFIX.</p>
+<p>[23] _____.  INTERNET:   <a href="https://www.cyberciti.biz/faq/how-to-configure-a-freebsd-jail-with-vnet-and-zfs/"><code>https://www.cyberciti.biz/faq/how-to-configure-a-freebsd-jail-with-vnet-and-zfs/</code></a></p>
+<p>Blog post on setting up jails with VNET and ZFS.</p>
+<p>[24] _____.  INTERNET:   <a href="https://savagedlight.me/2014/03/14/freebsd-jail-server-with-zfs-clone-and-jail-conf/"><code>https://savagedlight.me/2014/03/14/freebsd-jail-server-with-zfs-clone-and-jail-conf/</code></a></p>
+<p>Blog post on setting up jails with ZFS.</p>
+<p>[25] _____.  INTERNET:   <a href="https://superuser.com/questions/691008/why-is-the-e-option-missing-from-netcat-openbsd#691043"><code>https://superuser.com/questions/691008/why-is-the-e-option-missing-from-netcat-openbsd#691043</code></a></p>
+<p>[26] _____.  INTERNET:   <a href="https://www.freebsd.org/cgi/man.cgi?query=nc&amp;apropos=0&amp;sektion=0&amp;manpath=FreeBSD+12.1-RELEASE+and+Ports&amp;arch=default&amp;format=html"><code>https://www.freebsd.org/cgi/man.cgi?query=nc&amp;apropos=0&amp;sektion=0&amp;manpath=FreeBSD+12.1-RELEASE+and+Ports&amp;arch=default&amp;format=html</code></a></p>
+<p>[27] _____.  INTERNET:   <a href="https://www.freebsd.org/cgi/man.cgi?query=fifo&amp;apropos=0&amp;sektion=0&amp;manpath=FreeBSD+12.1-RELEASE+and+Ports&amp;arch=default&amp;format=html"><code>https://www.freebsd.org/cgi/man.cgi?query=fifo&amp;apropos=0&amp;sektion=0&amp;manpath=FreeBSD+12.1-RELEASE+and+Ports&amp;arch=default&amp;format=html</code></a></p>
+<p>What&rsquo;s a <code>fifo</code>?</p>
+<p>[28] _____.  INTERNET:   <a href="https://www.freebsd.org/cgi/man.cgi?query=mkfifo&amp;apropos=0&amp;sektion=0&amp;manpath=FreeBSD+12.1-RELEASE+and+Ports&amp;arch=default&amp;format=html"><code>https://www.freebsd.org/cgi/man.cgi?query=mkfifo&amp;apropos=0&amp;sektion=0&amp;manpath=FreeBSD+12.1-RELEASE+and+Ports&amp;arch=default&amp;format=html</code></a></p>
+<p>What does <code>mkfifo</code> do?</p>
+<p>[29] _____.  INTERNET:   <a href="https://www.freebsd.org/cgi/man.cgi?query=cat&amp;apropos=0&amp;sektion=0&amp;manpath=FreeBSD+12.1-RELEASE+and+Ports&amp;arch=default&amp;format=html"><code>https://www.freebsd.org/cgi/man.cgi?query=cat&amp;apropos=0&amp;sektion=0&amp;manpath=FreeBSD+12.1-RELEASE+and+Ports&amp;arch=default&amp;format=html</code></a></p>
+<p>[30]  Lucas.  [3] pp.27-48.</p>
+<p>This is the main effort of his chapter on &ldquo;Jail Essentials.&rdquo;  It outlines a method for setting up a standard jail.conf to hold a default pattern for all the jails on machine.  It also describes the setup of a basic jail.  It covers the importation of the operating system base files and other similar basic aspects of getting a jail functioning.</p>
+<p>[31] _____.  INTERNET:   <a href="https://www.freebsd.org/cgi/man.cgi?query=tar&amp;apropos=0&amp;sektion=0&amp;manpath=FreeBSD+12.1-RELEASE+and+Ports&amp;arch=default&amp;format=html"><code>https://www.freebsd.org/cgi/man.cgi?query=tar&amp;apropos=0&amp;sektion=0&amp;manpath=FreeBSD+12.1-RELEASE+and+Ports&amp;arch=default&amp;format=html</code></a></p>
+<p>Man pages for tar, tape archive.</p>
+<p>[32] _____.  INTERNET:   <a href="https://www.freebsd.org/doc/handbook/makeworld.html"><code>https://www.freebsd.org/doc/handbook/makeworld.html</code></a></p>
+<p>FreeBSD Handbook page showing some examples of <code>make buildworld</code> and similar commands.</p>
+<p>[33] _____.  INTERNET:   <a href="https://www.freebsd.org/doc/en_US.ISO8859-1/articles/nanobsd/howto.html"><code>https://www.freebsd.org/doc/en_US.ISO8859-1/articles/nanobsd/howto.html</code></a></p>
+<p>FreeBSD article and walkthrough of setting up a nanoBSD system on a flash drive.</p>
+<p>[34] _____.  INTERNET:   <a href="https://www.freebsd.org/cgi/man.cgi?query=nanobsd&amp;apropos=0&amp;sektion=8&amp;manpath=FreeBSD+8.1-RELEASE&amp;arch=default&amp;format=html"><code>https://www.freebsd.org/cgi/man.cgi?query=nanobsd&amp;apropos=0&amp;sektion=8&amp;manpath=FreeBSD+8.1-RELEASE&amp;arch=default&amp;format=html</code></a></p>
+<p>nanoBSD man page.</p>
+<p>[35] _____.  INTERNET:   <a href="https://www.youtube.com/watch?v=5qCaOMQ3ZnQ&amp;t=13s"><code>https://www.youtube.com/watch?v=5qCaOMQ3ZnQ&amp;t=13s</code></a></p>
+<p>YouTube video showing Warner Losh, a FreeBSD maintainer for nanobsd, speaking about nanobsd at BSDCan 2011.</p>
+<p>[36] _____.  INTERNET:   <a href="https://www.youtube.com/watch?v=RHLRW88AJLE"><code>https://www.youtube.com/watch?v=RHLRW88AJLE</code></a></p>
+<p>YouTube video showing a talk from EuroBSDcon, &ldquo;FreeBSD as a Hosting Platform, Revisited - Patrick M. Hausen.&rdquo;  Hausen&rsquo;s company uses nanobsd to establish images for hosting accounts with his hosting company.</p>
+<p>[37] _____.  FreeBSD 12.1-RELEASE:   [<code>/usr/src/tools/tools/nanobsd</code>]</p>
+<p>Source code directory for nanobsd in FreeBSD 12.1.  NanoBSD has been included with FreeBSD efforts since near 2006.  </p>
+<p>[38] Lucas.  [2], pp. 568-572.</p>
+<p>We&rsquo;re following Lucas&rsquo; configuration verbatim, with slight adjustments.</p>
+<p>[39] Lucas.  [2], pp. 573-574.</p>
+<p>We provide some basic config and commands, following Lucas.</p>
+<p>[40] _____.  INTERNET:   <a href="https://www.subnetonline.com/pages/subnet-calculators/dec-to-hex-calculator.php"><code>https://www.subnetonline.com/pages/subnet-calculators/dec-to-hex-calculator.php</code></a></p>
+<p>[] _____.  INTERNET:   <a href="">``</a></p>
+<p>[] _____.  INTERNET:   <a href="">``</a></p>
+<p>[] _____.  INTERNET:   <a href="">``</a></p>
+<p>[] _____.  INTERNET:   <a href="">``</a></p>
+<p>[] _____.  INTERNET:   <a href="">``</a></p>
+<p>[] _____.  INTERNET:   <a href="">``</a></p>
+<p>[] _____.  INTERNET:   <a href="">``</a></p>
+<p>[] _____.  INTERNET:   <a href="">``</a></p>
+<p>[] _____.  INTERNET:   <a href="">``</a></p>
+<p>[] _____.  INTERNET:   <a href="">``</a></p>
+<p>[] _____.  INTERNET:   <a href="">``</a></p></article></body></html>

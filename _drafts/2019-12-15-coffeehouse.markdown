@@ -497,11 +497,64 @@ exit
 
 
 ## VNET Setup
-We'll give our jail a spot on a VNET.  WE'll follow Lucas' "FreeBSD Mastery: Jails" chapter 9 for most of this work.  From there, we'll expand.  Our goal will be to get the jails on the network in a way we can verify with another local computer.  As we build our other jails, we'll give each one a subnet that accommodate 6 hosts.  Using our plan for subnetting established earlier, we'll begin by calling this first jail 192.168.1.192/27.  
+We'll give our jail a spot on a VNET.  WE'll follow Lucas' "FreeBSD Mastery: Jails" chapter 9 for most of this work.  From there, we'll expand.  Our goal will be to get the jails on the network in a way we can verify with another local computer.  As we build our other jails, we'll give each one a subnet that accommodates 6 hosts.  Using our plan for subnetting established earlier, we'll begin by calling this first jail 192.168.1.192/27.  
 
+Our goal for subnetting was to be able to group VMs together in a subnet, organized by jails.  At this stage, we don't have all of that installed.  So, in order to have something testable and observable, we'll have to start by putting the jail coffeehouse as a host.  Later, we'll assign those host addresses to the VMs.  
+
+To lay in VNET on the jailhost, we'll need to modify rc.conf and jail.conf.  In this example, we'll use a separate physical interface as the physical NIC for the jails.  
+
+First, we had to comment out previously applied networking in jailhost's rc.conf.  Then we added an interface and gave it an explicit address and netmask:
+{% highlight shell %}
+\#ifconfig_bce0="192.168.1.190"
+\#ifconfig_bce0_ipv6="inet6 accept_rtadv"
+\# Jail-Related Settings
+jail_enable="YES"
+jail_list="coffeehouse"
+\#jail_parallel_start="YES"
+\# VNET-Related Settings
+ifconfig_bce1_name="jailether"
+ifconfig_jailether="inet 192.168.1.192 netmask 0xffffffe0"
+{% endhighlight %}
+
+To help us with the VNET, and to follow along with Lucas, we've used jib.  It comes pre-installed with FreeBSD.  It can be found in `/usr/share/examples/jails/`.  That script does a lot of `ifconfig` functions for us, and it trims up the MAC address.  There is a similar one called `jng` right beside it in the examples folder.  
+
+The jailhost's /etc/jail.conf gets set up for VNET.  We can see that we've attached the "B" end of the epair from jib to the jail.
 
 {% highlight shell %}
+\# JPO gladiola 02JAN2020
+\# CONF to establish jail
+\# REF:  Lucas, Michael.  FreeBSD Mastery:  Jails.  ISBN 978-1-64235-024-1
+$j="/zroot/jail";
+path="$j/$name";
+host.hostname="$name.salvage13.local";
+exec.clean;
+exec.start="/bin/sh /etc/rc";
+exec.stop="/bin/sh /etc/rc.shutdown";
+mount.devfs;
+exec.consolelog="/var/tmp/$name";
+
+coffeehouse{
+    vnet;
+    vnet.interface="e0b_coffeehouse";
+    exec.prestart="/usr/local/scripts/jib addm coffeehouse jailether";
+    exec.poststop="/usr/local/scripts/jib destroy coffeehouse";
+    devfs_ruleset=4;
+}
 {% endhighlight %}
+
+In the jail's directories, we'll need to anchor the other end of the connection.  We'll give the e0b an address.  Above those lines, we can see how we'd setup ifconfig for the netmask needed to split into 6 hosts.  For now, it has the one address assigned because those others are not installed.
+
+{% highlight shell %}
+sshd_enable="YES"
+inetd_enable="YES"
+\#ifconfig_e0b_coffeehouse="inet 192.168.1.192 netmask 255.255.255.2";
+\#ifconfig_e0b_coffeehouse="inet 192.168.1.192 netmask 0xfffffff8";
+ifconfig_e0b_coffeehouse="192.168.1.193";
+defaultrouter="192.168.1.1";
+{% endhighlight %}
+
+
+
 
 
 {% highlight shell %}
@@ -639,7 +692,9 @@ We're following Lucas' configuration verbatim, with slight adjustments.
 
 We provide some basic config and commands, following Lucas.
 
-\[\] _____.  INTERNET:   [``]()
+\[40\] _____.  INTERNET:   [`https://www.subnetonline.com/pages/subnet-calculators/dec-to-hex-calculator.php`](https://www.subnetonline.com/pages/subnet-calculators/dec-to-hex-calculator.php)
+
+Helped us with the hex subnet masks when we were tired.
 
 \[\] _____.  INTERNET:   [``]()
 
@@ -703,7 +758,8 @@ We provide some basic config and commands, following Lucas.
 [37]: ``
 [38]: ``
 [39]: ``
-[40]: 
+[40]: https://www.subnetonline.com/pages/subnet-calculators/dec-to-hex-calculator.php
+[41]: 
 
 
 
