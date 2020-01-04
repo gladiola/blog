@@ -568,7 +568,7 @@ We chose bhyve because it is built in.  In an earlier prototype, I began with vi
 
 https://www.andreafortuna.org/2019/10/24/how-to-create-a-virtualbox-vm-from-command-line/
 
-That one, in particular, was a tutorial good enough to help us realize that this might be possible.  Notice that it's about running vbox after it's installed; my prototype troubles had been with the kernel modules needed to get it all running in FreeBSD.  The script provided worked.   Also, Chapter 8 of the Virtualbox manual was worth reading because it covers many of the commands referred to in these scripts. \[[43]\] \[[44]\] \[[45]\] \[[46]\]
+That one, in particular, was a tutorial good enough to help us realize that this might be possible.  Notice that it's about running vbox after it's installed; my prototype troubles had been with the kernel modules needed to get it all running in FreeBSD.  The script provided worked.   Also, Chapter 8 of the Virtualbox manual was worth reading because it covers many of the commands referred to in these scripts. There were many other scripts and tutorials covering this topic, but I found those to be particularly strong for our needs here.  \[[43]\] \[[44]\] \[[45]\] \[[46]\]
 
 {% highlight shell %}
 {% endhighlight %}
