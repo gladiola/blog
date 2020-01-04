@@ -503,7 +503,8 @@ Our goal for subnetting was to be able to group VMs together in a subnet, organi
 
 To lay in VNET on the jailhost, we'll need to modify rc.conf and jail.conf.  In this example, we'll use a separate physical interface as the physical NIC for the jails.  
 
-First, we had to comment out previously applied networking in jailhost's rc.conf.  Then we added an interface and gave it an explicit address and netmask:
+First, we had to comment out previously applied networking in jailhost's rc.conf.  Then we added an interface and gave it an explicit address and netmask.  Our netmask on this one ends in a e0, because we're giving a 255.255.2255.224 for a CIDR /27 at this level.
+
 {% highlight shell %}
 \#ifconfig_bce0="192.168.1.190"
 \#ifconfig_bce0_ipv6="inet6 accept_rtadv"
@@ -542,7 +543,7 @@ coffeehouse{
 }
 {% endhighlight %}
 
-In the jail's directories, we'll need to anchor the other end of the connection.  We'll give the e0b an address.  Above those lines, we can see how we'd setup ifconfig for the netmask needed to split into 6 hosts.  For now, it has the one address assigned because those others are not installed.
+In the jail's directories, we'll need to anchor the other end of the connection.  We'll give the e0b an address.  Above those lines, we can see how we'd setup ifconfig for the netmask needed to split into 6 hosts.  That will use a netmask ending in "f8" for a decimal netmask of 255.255.255.248 for a CIDR /29.  For now, it has the one address assigned because those others are not installed.
 
 {% highlight shell %}
 sshd_enable="YES"
@@ -553,7 +554,12 @@ ifconfig_e0b_coffeehouse="192.168.1.193";
 defaultrouter="192.168.1.1";
 {% endhighlight %}
 
+Reboot the machine.  We can get into the jail with
+{% highlight shell %}
+jexec -U root coffeehouse sh
+{% endhighlight %}
 
+From there, we can do some simple pings to google.com to see that the jail has connectivity with the internet.  A scan of my home network shows the .193 on the router.  If we try to ssh into .193 from another machine, not a part of that subnet, we'll find that we have a destination host unreachable.
 
 
 
