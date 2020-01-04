@@ -14,8 +14,8 @@ We'll build up our jails, one by one, step by step.  We'll controll them manuall
 We couldn't build this project without the advice we found through some important publications.  No hacker's work is their own, and this tutorial is no exception.  We turned to some references many, many times.  
 
 For learning about FreeBSD jails and ZFS, we turned to Michael Lucas' books.  For learning about the headless operation of the VMs, we used Andrea Fortuna's blog posts about Virtualbox.  As general background material on the FreeBSD operating system, we have turned many, many times to the FreeBSD Handbook and forum posts on FreeBSD.org.  Our desire for hacking targets like these has been fueled by some great labs experienced to be found with Offensive Security's PWK:  Penetration Testing with Kali Linux course.  Citations for these resources and more can be found in the annotated bibliography section.   
- 
-Without thoroughly covering those references beforehand, we wouldn't have been able to build this system and its blog post.  We'd recommend reviewing those materials as background.  We can't quote them enough or thank those who came before us enough.  We can only continue.  
+
+Without thoroughly covering those references beforehand, we wouldn't have been able to build this system and its blog post.  We'd recommend reviewing those materials as background.  We can't quote them enough or thank enough those who came before us.  We can only continue.  
 
 Let's get started.
 
