@@ -137,6 +137,47 @@ We can see our system is unified with our barista account owning the four direct
 ### Limit Jail Size
 We can limit the growth of ZFS directories by setting a quota property.  A simple script can help us limit our directories to a specified maxmimum size. \[[20]\]
 
+{% highlight shell %}
+#!/bin/env bash
+
+
+# Set quotas on jails to prevent them from becoming too big.
+
+zfs set quota=25G zroot/jail/coffeehouse
+zfs set quota=4G zroot/jail/coffeehouse/vm1
+zfs set quota=4G zroot/jail/coffeehouse/vm2
+zfs set quota=4G zroot/jail/coffeehouse/vm3
+zfs set quota=4G zroot/jail/coffeehouse/vm4
+zfs set quota=4G zroot/jail/coffeehouse/vm5
+zfs set quota=4G zroot/jail/coffeehouse/vm6
+
+zfs set quota=25G zroot/jail/redeye
+zfs set quota=4G zroot/jail/redeye/vm1
+zfs set quota=4G zroot/jail/redeye/vm2
+zfs set quota=4G zroot/jail/redeye/vm3
+zfs set quota=4G zroot/jail/redeye/vm4
+zfs set quota=4G zroot/jail/redeye/vm5
+zfs set quota=4G zroot/jail/redeye/vm6
+
+zfs set quota=25G zroot/jail/cappucino
+zfs set quota=4G zroot/jail/cappucino/vm1
+zfs set quota=4G zroot/jail/cappucino/vm2
+zfs set quota=4G zroot/jail/cappucino/vm3
+zfs set quota=4G zroot/jail/cappucino/vm4
+zfs set quota=4G zroot/jail/cappucino/vm5
+zfs set quota=4G zroot/jail/cappucino/vm6
+
+zfs set quota=25G zroot/jail/latte
+zfs set quota=4G zroot/jail/latte/vm1
+zfs set quota=4G zroot/jail/latte/vm2
+zfs set quota=4G zroot/jail/latte/vm3
+zfs set quota=4G zroot/jail/latte/vm4
+zfs set quota=4G zroot/jail/latte/vm5
+zfs set quota=4G zroot/jail/latte/vm6
+
+
+{% endhighlight %}
+
 ## ZFS Snapshots, File Copies, and ZFS Rollbacks
 The ZFS snapshot command is a little different from some other "snapshots."  The word snapshot implies that we are seeing the directory as it was at that moment.  That's true; but the ZFS snapshot command will begin tracking differences to the directory specified from the moment we command the snapshot to begin.  The ZFS snapshot is like the target moment for a future restoration.
 
