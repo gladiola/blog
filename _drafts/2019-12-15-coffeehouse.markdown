@@ -378,7 +378,7 @@ Why is this a continuous, circular reference?  Because `cat` keeps reading until
 
 So, it'll be continuously reading out into the shell and the connection will be continuously redirecting into the `fifo` through a pipe. Given these ideas, we can build our usual bind and reverse shells in FreeBSD.  Later, we'll use them as a communications mechanism among our jails. 
 
-#Basic Jail Install
+# Basic Jail Install
 Let's set up some jails.  When we're establishing jails, there are many potential paths we can follow.  We can see that there are a few ways we can get the OS into the jail, set up critical configuration facts, and populate the jails with programs like user applications.  If you're hunting around through tutorials, the variety of these paths can seem a little confusing.  We recommend reading and experimenting until you understand each hacker's choices.  
 We'll start by mostly following Lucas' FreeBSD Mastery:  Jails.  \[30\]However, instead of just wrapping up our worlds into a temp file as he does in Chapter 2, we'll also fetch our base zipfiles from the FreeBSD Foundation over the Internet.
 
