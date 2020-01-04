@@ -141,7 +141,7 @@ We can limit the growth of ZFS directories by setting a quota property.  A simpl
 #!/bin/env bash
 
 
-# Set quotas on jails to prevent them from becoming too big.
+\# Set quotas on jails to prevent them from becoming too big.
 
 zfs set quota=25G zroot/jail/coffeehouse
 zfs set quota=4G zroot/jail/coffeehouse/vm1
