@@ -624,6 +624,22 @@ There were some other influences on choosing `bhyve` as a hypervisor.  It's buil
 
 There were some YouTube videos that influenced us as well.  In the first collection of three or so videos, a British guy on viBSD shows us his bhyve installations and setup techniques.  Only gripe there was his mispronunciation of `bhyve` as "by-ve" instead of "bee hive." \[[47]\]  Another was a silent channel for "Oleg Ginzburg," with videos that have no audio or explanations of intent, the channel shows numerous bhyve installs with a variety of operating systems and configurations.  Probably slow watching for a lot of other people, but those of us who have spent many hours installing FreeBSD systems can watch along and see what happens.  \[[48]\]
 
+### Kernel Mods
+To get `bhyve` to run, we need to load a kernel module.  Since the kernel will be used by the jailhost, that's where we'll send the `kldload` or loader directives that we'll need to run bhyve in the jails.  If we put these modifications in the files held by the base system for the jails themselves, then we might not see them participate in the process of preparing the OS for using `bhyve`.
+
+In the jailhost, `/boot/load.conf`:
+{% highlight shell %}
+vmm_load="YES"
+{% endhighlight %}
+\[[49]\]
+
+Reboot.
+
+### Create an Interface For the VM To Use
+The handbook advises us to create an interface and bridge to it.  Since we'll be operating in a jail, we'll install that interface in the jail and wire the bridge in to the subnet that sends LAN connection down to the jail. \[[49]\]
+
+
+Failed.  I was able to start bhyve and run another FreeBSD.  I was not able to configure a better VNET to allow bhyve to boot up inside the jail.  I tried for about 12 hours and was not able to make it work.  Back to the drawing board.  Did gain practice with the jails.
 
 {% highlight shell %}
 {% endhighlight %}
@@ -794,7 +810,6 @@ YouTube channel for Oleg Ginzburg.  Featured many videos on FreeBSD and bhyve.
 
 FreeBSD Handbook page for running bhyve on FreeBSD.  Shows examples for configuring `bhyve` to work with Linux and Windows.
 
-\[\] _____.  INTERNET:   [``]()
 
 \[\] _____.  INTERNET:   [``]()
 
