@@ -23,9 +23,9 @@ Firmware is fussy.  The small computers accepting these programs don't have the 
 What can we do about this situation?  Get some experience with DD-WRT.  Read the documentation.  Be sure about the model number you're working on.  Don't overlook questions that arise.  Take care with the technical details.  They count here.  Really, the technical details are more than half the ball game.  
 
 Documents that we need to have read and be familar with include:
-- The "Peacock" Thread
-- Model-specific How To Flash pages from the DD-WRT wiki
-- Wiki Installation page on "Choosing the Correct Firmware"
+- The "Peacock" Thread \[[1]\]
+- Model-specific How To Flash pages from the DD-WRT wiki \[[3]\]
+- Wiki Installation page on "Choosing the Correct Firmware" \[[2]\]
 - And any forum threads about DD-WRT that come up in model research.
 
 Watch a few videos of people putting DD-WRT on their routers.  Give a scrap router a try.  Don't use your only SOHO router and computer for this experiment.  Build up and gain.  We knew when we were ready to step up to trying to debrick a router that had problems with undergoing these flashing procedures.  
@@ -53,14 +53,17 @@ We could be afraid.  We could live in fear of zapping this little device.  But, 
 {% endhighlight %}
  \[[]\]
 ## Annotated Bibliography
-\[1\]  
 
 
-\[\] _____.  INTERNET:   [``]()
+\[1\] _____.  INTERNET:   [`https://forum.dd-wrt.com/phpBB2/viewtopic.php?t=51486`](https://forum.dd-wrt.com/phpBB2/viewtopic.php?t=51486)
 
-\[\] _____.  INTERNET:   [``]()
+The DD-WRT "Peacock" thread.
 
-\[\] _____.  INTERNET:   [``]()
+\[2\] _____.  INTERNET:   [`https://wiki.dd-wrt.com/wiki/index.php/Installation`](https://wiki.dd-wrt.com/wiki/index.php/Installation)
+
+\[3\] _____.  INTERNET:   [`https://wiki.dd-wrt.com/wiki/index.php/Hardware-specific`](https://wiki.dd-wrt.com/wiki/index.php/Hardware-specific)
+
+A page of links to instructions for specific models of common SOHO routers.
 
 \[\] _____.  INTERNET:   [``]()
 
@@ -79,4 +82,7 @@ We could be afraid.  We could live in fear of zapping this little device.  But, 
 \[\] _____.  INTERNET:   [``]()
 
 [//]: # (Hyperlinks)
-[1]: https://www.freebsd.org/doc/en_US.ISO8859-1/books/handbook/
+[1]: https://forum.dd-wrt.com/phpBB2/viewtopic.php?t=51486
+[2]: https://wiki.dd-wrt.com/wiki/index.php/Installation
+[3]: https://wiki.dd-wrt.com/wiki/index.php/Hardware-specific
+[4]: 
