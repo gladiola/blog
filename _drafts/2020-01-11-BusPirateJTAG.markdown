@@ -7,16 +7,16 @@ description: Debricking WRT54GS Routers with Bus Pirate v.3.6 and JTAG
 Some time ago, I was able to purchase an $8 router on eBay that was bricked during a DD-WRT install.  I knew it was bricked, and I believed I could revive it.  This blog post is about that journey.  
 
 # Trouble with This Warthog
-The router was probably bricked due to a problem with the model.  Most of the WRT54G routers, hereafter known affectionately as "Warthog", are able to undergo a "hard reset" process DD-WRT hackers know as 30-30-30.  This process involves holding down the reset button for 30 seconds with power, 30 seconds without power, and 30 seconds with power again.  It's a procedure that will reset most of the SOHO routers of this type. 
+The router was probably bricked due to a problem with the model.  Most of the WRT54G routers, hereafter known affectionately as "Warthog", are able to undergo a "hard reset" process DD-WRT hackers known as 30-30-30. \[[5]\] This process involves holding down the reset button for 30 seconds with power, 30 seconds without power, and 30 seconds with power again.  It's a procedure that will reset most of the SOHO routers of this type. 
 
 Unfortunately, a small number of the models can't survive this process.  This warthog is one of them.  My guess is that the hacker I bought it off of probably tried to put DD-WRT on it and ran into a problem because of this idiosyncrasy.  
 
-We checked it out, and as expected, it's bricked.  To attempt to revive this router, we'll attempt to reflash the firmware through JTAG.  To carry this out, we'll use a Windows 10 home computer, a Bus Pirate serial interface device, and the victimized router.  If everything works, we'll be able to load DD-WRT on there, and the router will live again.
+We checked it out, and as expected, it's bricked. \[[4]\] To attempt to revive this router, we'll attempt to reflash the firmware through JTAG.  To carry this out, we'll use a Windows 10 home computer, a Bus Pirate serial interface device, and the victimized router.  If everything works, we'll be able to load DD-WRT on there, and the router will live again.
 
 # Background with DD-WRT
 Before working on this project, we'd already had some experience with using DD-WRT.  It's a great piece of firmware.  It's as good, in some cases much better, than firmware I've seen on other SOHO routers.  I know I have purchased routers for hundreds of dollars whose firmware UI and performance were not this good.  However, there are some quirks.
 
-The number one quirk with using DD-WRT is a rushing, inexperienced operator who did not read the documentation.  And, that documentation is largely horrible.  To get through it, you have to follow conversations in old forum threads many times.  You can expect to see ancient, deprecated references along the way.  You'll have to sort through what's applicable to your router.  Most of all, it pays to read ahead.  
+The number one quirk and source of faults with using DD-WRT is a rushing, inexperienced operator who did not read the documentation.  And, that documentation is largely horrible.  To get through it, you have to follow conversations in old forum threads many times.  You can expect to see ancient, deprecated references along the way.  You'll have to sort through what's applicable to your router.  The wiki is a rat's nest of interconnected postings.  There will be times when the reader can't be sure if the information is even applicable; sometimes the directions can't be readily imagined.  It's tough for a newbie to get through.  There will be mistakes, but, it pays to read ahead.  
 
 Firmware is fussy.  The small computers accepting these programs don't have the huge built-in layers of programming so many of us are used to these days.  When flashing firmware, we're putting it on the chip.  When we're writing normal programs for applications, we're layers above where we're going now.  By getting close to the bits, we're also going beyond the protections that would be normally provided.  Notice how we're flashing a bricked router.  It probably got bricked for these very reasons:  one false move for this equipment that would have worked just fine on many others.  
 
@@ -65,9 +65,9 @@ The DD-WRT "Peacock" thread.
 
 A page of links to instructions for specific models of common SOHO routers.
 
-\[\] _____.  INTERNET:   [``]()
+\[4\] Using the Peacock Thread, point 6, "Is your router bricked," we were able to test the device and confirm that it was bricked.  Unresponsive to normal operation, failing these tests, and described by the previous owner as bricked:  this router was bricked.   
 
-\[\] _____.  INTERNET:   [``]()
+\[5\] _____.  INTERNET:   [`https://wiki.dd-wrt.com/wiki/index.php/Hard_reset_or_30/30/30`](https://wiki.dd-wrt.com/wiki/index.php/Hard_reset_or_30/30/30)
 
 \[\] _____.  INTERNET:   [``]()
 
@@ -85,4 +85,5 @@ A page of links to instructions for specific models of common SOHO routers.
 [1]: https://forum.dd-wrt.com/phpBB2/viewtopic.php?t=51486
 [2]: https://wiki.dd-wrt.com/wiki/index.php/Installation
 [3]: https://wiki.dd-wrt.com/wiki/index.php/Hardware-specific
-[4]: 
+[4]: ``
+[5]: https://wiki.dd-wrt.com/wiki/index.php/Hard_reset_or_30/30/30
