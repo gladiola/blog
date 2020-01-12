@@ -465,9 +465,9 @@ With a copy of the OS staged, it's time for us to set it up in a part of the fil
 
 From our home directory for root:
 {% highlight shell %}
-tar -zpf /jail/media/12.1-RELEASE/base.txz -C /zroot/jail/coffeehouse
-tar -zpf /jail/media/12.1-RELEASE/lib32.txz -C /zroot/jail/coffeehouse
-tar -zpf /jail/media/12.1-RELEASE/src.txz -C /zroot/jail/coffeehouse
+tar -xpf /jail/media/12.1-RELEASE/base.txz -C /zroot/jail/coffeehouse
+tar -xpf /jail/media/12.1-RELEASE/lib32.txz -C /zroot/jail/coffeehouse
+tar -xpf /jail/media/12.1-RELEASE/src.txz -C /zroot/jail/coffeehouse
 {% endhighlight %}
 
 We can verify and protect what we did with:
