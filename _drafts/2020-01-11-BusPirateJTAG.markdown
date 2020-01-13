@@ -44,9 +44,9 @@ Before we can get started, we need to adjust the firmware on our Bus Pirate.  Th
 
 We could be afraid.  We could live in fear of zapping this little device.  But, when we think back to the great nothing we're accomplishing already, we can rest assured that whatever nomimal risk we face in this endeavor will not impede our already negligible productivity.  Let's get on with flashing some firmware on Bus Pirate.
 
-We had to download two programs.  One, MPLABX IDE, is a NetBeans derivative (NetBeans can be used as a framework for building other programs like it) that compiles and runs the code.  The second was a compiler that prepares code for the Bus Pirate.  We downloaded the code from the GitHub repository.  
+We had to download two programs.  One, MPLABX IDE \[[17]\], is a NetBeans derivative (NetBeans can be used as a framework for building other programs like it) that compiles and runs the code.  The second was a compiler that prepares code for the Bus Pirate. \[[16]\]  We downloaded the code from the GitHub repository.  \[[14]\] 
 
-There were two small hiccups.  Both were covered by the documentation on GitHub.  We had to use a jumper wire on the BusPirate (for PGC and PGD) in order to put it in the right mode to accept the firmware flash.  Second, the hex file produced by the IDE needed to have its letters replaced with capitals so that the checksum would work out.  With some careful command crafting, the program ran.  It ended in an error message; but, as with the others, the documentation pointed out that this was actually a case of successful completion.  
+There were two small hiccups.  Both were covered by the documentation on GitHub.  We had to use a jumper wire on the BusPirate (for PGC and PGD) in order to put it in the right mode to accept the firmware flash.  Second, the hex file produced by the IDE needed to have its letters replaced with capitals so that the checksum would work out. \[19]\] With some careful command crafting, the program ran.  It ended in an error message; but, as with the others, the documentation pointed out that this was actually a case of successful completion.  
 
 {% highlight shell %}
 pirate-loader.exe  --dev=COM7 --hex=../../Firmware/busPirate.X/dist/BusPirate_v3/production/busPirate.X.production.hex
@@ -99,7 +99,39 @@ BASIC on Bus Pirate.
 
 \[14\] _____.  INTERNET:   [`https://github.com/BusPirate/Bus_Pirate/blob/master/Documentation/building-and-flashing-firmware.md`](https://github.com/BusPirate/Bus_Pirate/blob/master/Documentation/building-and-flashing-firmware.md)
 
+Bus Pirate general directions on how to flash the circuit board.
+
 \[15\] _____.  INTERNET:   [`https://github.com/notch/bpjtag`](https://github.com/notch/bpjtag)
+
+Hairy Dairy Maid's Debricker ported to use Bus Pirate and JTAG.
+
+\[16\] _____.  INTERNET:   [`https://www.microchip.com/mplab/compilers`](https://www.microchip.com/mplab/compilers)
+
+Required compiler for the PIC24.
+
+\[17\] _____.  INTERNET:   [`https://www.microchip.com/mplab/mplab-x-ide`](https://www.microchip.com/mplab/mplab-x-ide)
+
+MPLAB IDE used to run the build of the firmware projects.
+
+\[18\] _____.  INTERNET:   [`https://github.com/BusPirate/Bus_Pirate/issues`](https://github.com/BusPirate/Bus_Pirate/issues)
+
+Bus Pirate issues page from GitHub.
+
+\[19\] _____.  INTERNET:   [`https://github.com/BusPirate/Bus_Pirate/issues/135`](https://github.com/BusPirate/Bus_Pirate/issues/135)
+
+Small issue with a need to capitalize some letters in a hex file.
+
+\[\] _____.  INTERNET:   [``]()
+
+\[\] _____.  INTERNET:   [``]()
+
+\[\] _____.  INTERNET:   [``]()
+
+\[\] _____.  INTERNET:   [``]()
+
+\[\] _____.  INTERNET:   [``]()
+
+\[\] _____.  INTERNET:   [``]()
 
 \[\] _____.  INTERNET:   [``]()
 
@@ -127,4 +159,8 @@ BASIC on Bus Pirate.
 [13]: http://dangerousprototypes.com/docs/Bus_Pirate_102_tutorial
 [14]: https://github.com/BusPirate/Bus_Pirate/blob/master/Documentation/building-and-flashing-firmware.md
 [15]: https://github.com/notch/bpjtag
-[16]: 
+[16]: https://www.microchip.com/mplab/compilers
+[17]: https://www.microchip.com/mplab/mplab-x-ide
+[18]: https://github.com/BusPirate/Bus_Pirate/issues
+[19]: https://github.com/BusPirate/Bus_Pirate/issues/135
+[20]: 
