@@ -52,7 +52,7 @@ There were two small hiccups.  Both were covered by the documentation on GitHub.
 pirate-loader.exe  --dev=COM7 --hex=../../Firmware/busPirate.X/dist/BusPirate_v3/production/busPirate.X.production.hex
 {% endhighlight %}
 
-With Bus Pirate v.3.6 hardware flashed with the latest firmware, we still did not see a JTAG option in the menu.  So, we will still need to experiment to see if it can be used well.  Turning back to the resources from DD-WRT, we'll probably try to use a Bus Pirate program that's in the collection for "HairyDairyMaid's" code. \[[15]\]
+With Bus Pirate v.3.6 hardware flashed with the latest firmware, we still did not see a JTAG option in the menu.  So, we will still need to experiment to see if it can be used well.  Turning back to the resources from DD-WRT, we'll probably try to use a Bus Pirate program that's in the collection for "HairyDairyMaid's" code. \[[15]\]\[[20]\]
 
 
 {% highlight shell %}
@@ -121,7 +121,7 @@ Bus Pirate issues page from GitHub.
 
 Small issue with a need to capitalize some letters in a hex file.
 
-\[\] _____.  INTERNET:   [``]()
+\[20\] _____.  INTERNET:   [`https://github.com/notch/bpjtag/blob/master/HairyDairyMaid_WRT54G_v2_DeBrick_Guide.pdf`](https://github.com/notch/bpjtag/blob/master/HairyDairyMaid_WRT54G_v2_DeBrick_Guide.pdf)
 
 \[\] _____.  INTERNET:   [``]()
 
@@ -163,4 +163,5 @@ Small issue with a need to capitalize some letters in a hex file.
 [17]: https://www.microchip.com/mplab/mplab-x-ide
 [18]: https://github.com/BusPirate/Bus_Pirate/issues
 [19]: https://github.com/BusPirate/Bus_Pirate/issues/135
-[20]: 
+[20]: https://github.com/notch/bpjtag/blob/master/HairyDairyMaid_WRT54G_v2_DeBrick_Guide.pdf
+[21]: 
