@@ -14,16 +14,14 @@ For a projected cost of $10 a month, we could get two VMs.  These nodes would ea
 # Domain Name Purchasing
 We bought a pair of names that we like.  We didn't buy any extras.  We didn't get hosting, certificates, email:  none of that.  Just get a name.
 
-# Before We Build Anything
+# Before We Built Anything We Decided on Keys
 With an account created at the hosting provider, we could quickly see that they offered us just enough power to get ourselves in trouble.  First off, they wanted us to set either a root password or upload an SSH key.  Choose the key.  Building an SSH key is a little more involved; but, we don't want to arrive at the node, in the root account via SSH, with a simplistic password.
 
 That's right:  the hosting provider, by default, chose to provide SSH into root, first thing.  Now, after a while, we'd all do what we could to plus up the node and improve things.  However, the Internet is the Wild West.  Already out there will be scanning nodes looking for new accounts like ours.  It'd be best to arrive tough enough to repel common attacks.  For this reason, we recommend setting up an SSH key if you have the choice.
 
 Since we chose the SSH key, we were not able to use the provided web console to look into our host.  You guessed it:  if you pick a public key, then you have to use it.  So, we did.  
 
-REF:
-
-# Establishing a BIND DNS Server with MX to Encrypted EMail Provider
+# Establishing a BIND DNS Server with MX to an Encrypted Email Provider
 We quickly established a BIND9 DNS server, using this tutorial:
 
 Our domain name provider had a set of dialogs that allowed us, through our account, to direct our domain name to our own nameserver.  Armed with the IPs from the VMs and some progress through the DNS server tutorial, we were able to adapt and fill out the records wtih the registrar.
@@ -51,7 +49,9 @@ We soon found out we were locking out critical services.  By using searches of /
 # External Monitoring with Shodan
 Shodan.io offers a monitoring service.  It's free with the developer's account, up to about a dozen hosts.  Around 14 or 15, they start to require a paid Enterprise account.  Since we have few computers to look after, we snapped up Shodan Monitor.  
 
-With Shodan, we learned the painful history of the past users of our IP address.  
+With Shodan, we learned the painful history of the past users of our IP address.  We also learned about the locations and open ports of whomever it was who was calling us on port 18888 over 2,500 times in 20 minutes.  One IP had once been misused as an Internet scanner.  The other seemed to be getting scanned constantly.  It's a good thing we activated pf.  Until we did, we didn't have easy visibility of who was calling the node unsuccessfully.  
+
+From the inside, most hosts look quiet.  Once we set up a firewall, we can see who tries to SSH in.  We can see who sends hacky attempts to rattle our server.  And, with Shodan, we can get an idea about what computer their using to do it.  "IP is not ID," but it's always interesting to see what machine is calling us.
 
 # Proxy:  Providing Standoff Distance and a Planned Access Approach
 With the DNS server up and running, we had a lot of space left over. The minimal, bare-bones host provided by the cloud service had used barely 10% of its capacity.  We wondered what else we could do with the machine.  We could screen.
@@ -64,7 +64,40 @@ Now, as traffic arrives at our data center demarc, it'll hit a firewall right aw
 
 # Installing HAProxy
 Installing the program was a snap.  We had to read some documentation, and follow some suggestions; but, it all worked without a hitch.  There are several techniques we can choose from with HAProxy.  Ultimately, we chose 
+TCP Forwarding.  This is a "layer 4" proxy.  HAProxy has OSI Layer 7 capabilities that can let us filter traffic based on contents.  With tcp mode, haproxy will just pass the traffic on down to our data center demarc, invisibly.
 
+SSL stayed on the web host.  Before we began with these DNS servers, we had already installed Let's Encrypt TLS certificates on our target webserver.  By using tcp mode, we could still serve up our pages without interfering with the TLS integrity.  Some other proxy techniques might have required TLS termination.  This would have meant re-installing certs on the proxy hosts in order to present a clean connection to the user.  Tcp mode was simple, effective, and easy to use.
+
+To check out our proxy install, we started with calling the nameserver host address.  It would then use haproxy to walk us down the line, reques our page from the webserver, and then the page we called would come back up the line.  Satisfied that the proxies were working, it was time to change the DNS records.
+
+# DNS Load Balancing
+Most DNS records get served round-robin, by default.  That is, when multiple aliases (A records) are listed, they'll be shown in a rotating order by the nameserver who answers.  Since our proxies were now on the nameserver hosts, we could direct our traffic to each.  We changed our A Records for the domain to point to each DNS server, instead of our demarc IP.  This is the outside half of getting our traffic to walk down the funnel into our screen.  
+
+As mentioned earlier, there are firewall rules near the demarc to do the initial onsite screen to require incoming traffic to only be considered if it used the proxy.  
+
+Notice how the DNS load balancing could have some unenforceable conditions.  For example, what if a received DNS record was cached?  Just because a URL is called many times by a user doesn't mean that it will get its values from our authoritative nameserver.  Any DNS server along the way might hold the answer.  After all, that 48 hour propagation, coupled with sometimes deceptive "instantaneous" DNS response from some servers, can be deceptive.  The propagation of DNS records does take time.  Just as wrong answers can be out there for a while, beyond our control; so also we can have a printing of DNS aliases in an order that was previously served and incompletely rotated because of caching.  DNS load balancing is more of a suggestion than a rule because our overall control of the records is gone once they leave our computer.
+
+HAProxy offers load balancing.  In our case, we were only going to one destination, so most of those features didn't yet need to be activated.  They might be more useful on a haproxy install inside the demarc.  It's true load balancing.  We can set rules that will filter traffic by subdomain to specific servers.  We can ensure high availability with health checks on servers that precede traffic routing.  
+
+# TOTP with Google Authenticator
+Remember our login situation?  We chose to use SSH public keys on the server, which was a good idea; but, we wanted to do a little more.  We added on Google Authenticator's time-based one time passwords (TOTP) to the ssh login accounts.  
+FreeBSD ports have a package for this.  It's pam_google_authenticator.  Thanks to scant and incomplete documentation, setting up Google Authenticator on FreeBSD was a real bear.  When editing the sshd_config, we have to choose carefully which password options we want to keep and which we want to comment out.  On one hand, we're using ssh public key.  On the other, if we turn off all of the password functions, TOTP won't work.  
+
+When misconfigured, we can end up in a few different situations:
+ - We never get a prompt for a verification code
+ - We get repeatedly prompted for a code, but it never works
+ - We get prompted for a public key, a verification code, and a password.
+
+This last one is a little bit of a problem because, as you might guess:  we didn't always set one.  Also, if you want to use Google Authenticator with a root account, there is one more setting in the config that needs to be hunted up and adjusted.  Most folks, unlike our hosting provider, don't want to ever let someone ssh into a root account.  Guess why.
+
+Setting up the Google Authenticator on the host wasn't too hard, dialog-wise.  There is a short program that's run to ask some simple questions.  There is a 3D Q barcode that's shown.  It'll be printed in terminal with ASCII graphics.  The results of the dialog will be stored in a hidden file.  That includes the "scratch codes" to get in if the app fails.  This means that anyone with access to the hidden file might be able to view those codes.  Keep that in mind if you do a multi-user install.
+
+# Backup and Restore
+The hosting provider does weekly, automated backups.  They also offer snapshots of the host.  However, that doesn't quite meet our needs.  The hosting company retains control of and access to the backups.  Snapshots are diff files.  We can restore the VM to them; but, again they're not backups that we can really control.  Unlike dd a hard drive in our lab, we don't have physical access to these disks.  That means that we also can't swap them out, use them with another motherboard, or generally control the automated backups and snapshots.  They're offsite, and that's good; but, they're also not offline.
+
+This means that if we had to reconsitute or rebuild the host from scratch, we would be at a loss without the help of the hosting company.  Since this is not an acceptable situation, it's up to us to get a backup done.  And, if we can remember, a backup is not a backup until it's been restored.  
+
+To give ourselves offsite, offline backups, we're going to use tar to take a sample of critical files used in the installation of the programs above.  One by one, we went through directories that held configs.  We built a script that would automatically copy them to a directory.  Then we tarred the achive, g-zipped it, and exfiltrated it with scp.  Once on a computer we could physically access, we saved the archive to removable storage.  Cataloged and moved to a safe place, our tar and restore sample was ready for a restoration rehearsal.
 
 
 
