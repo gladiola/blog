@@ -48,6 +48,23 @@ To set up the rules, we consulted some tutorials.  Early on, we wrote pass in ru
 
 We soon found out we were locking out critical services.  By using searches of /etc/service for keywords, we often found ports that needed to be kept open to keep our machine running smoothely.  Since we were drafting some of these rules for the first time, this took some expriementation.  
 
+# External Monitoring with Shodan
+Shodan.io offers a monitoring service.  It's free with the developer's account, up to about a dozen hosts.  Around 14 or 15, they start to require a paid Enterprise account.  Since we have few computers to look after, we snapped up Shodan Monitor.  
+
+With Shodan, we learned the painful history of the past users of our IP address.  
+
+# Proxy:  Providing Standoff Distance and a Planned Access Approach
+With the DNS server up and running, we had a lot of space left over. The minimal, bare-bones host provided by the cloud service had used barely 10% of its capacity.  We wondered what else we could do with the machine.  We could screen.
+
+With a firewall already running (and repelling unwanted calls) on the master and slave DNS servers, wouldn't it be nice to use them as standoff entrances for our site?  With a demarc to safeguard, it would be best if we could require traffic to enter at the distant hosts and then walk down to our site along a path we could specify.  This seemed to be the best way to build in "standoff distance" into the acces plan.  
+
+With standoff distance, we have a link between our data center demarc and the general public that we can monitor, secure, and modify.  What if we have a DoS attack?  If our front door is our only door to the Internet, we won't have any room to move or leverage to create a response.  Again, having a VM on the Internet in a distant place is to our advantage.  
+
+Now, as traffic arrives at our data center demarc, it'll hit a firewall right away.  Later, as it moves down the line to our desired server, it'll hit some auth.  So, inside our data center we could react to traffic; but, the proxies on the distant hosts will help us control traffic that arrives to the server that's our goal.  At the data center demarc, we can have a firewall rule that will refuse traffic for our desired server unless it walks down the path from our proxy.
+
+# Installing HAProxy
+Installing the program was a snap.  We had to read some documentation, and follow some suggestions; but, it all worked without a hitch.  There are several techniques we can choose from with HAProxy.  Ultimately, we chose 
+
 
 
 
