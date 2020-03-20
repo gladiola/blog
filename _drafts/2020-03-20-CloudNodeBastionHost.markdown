@@ -1,13 +1,13 @@
 ---
-title:  "$5 Cloud Node to Bastion Host"
+title:  "From $5 Cloud Node to Bastion Host"
 date:   2020-03-20 08:30:00
-description: Hardening a cloud node to withstand normal Internet traffic.
+description: Hardening a cloud VM to withstand normal Internet traffic.
 ---
 
 Cloud providers hook us in with cheap teaser rates; and then they slowly offer us feature after feature, at $10 each.  Before you know it, the $5 a month budget has grown to $50, $60, or $70.  We'll tell the story of how we can took a bare bones FreeBSD VM from a major cloud hosting company and built it up to be a standalone bastion host that works as a nameserver and more.  
 
 # Our Goals
-For this project, we wanted to buy a domain name, and then do everything ourselves.  Aside from needing the registrar to get the name, we didn't want to have to use any of the provided services.  Registrars can do a great job of offering web hosting, site building, and other services; but, we shouldn't have to depend upon them.  If we took the lowest cost deal they offered for hosting, what could we do?
+For this project, we wanted to buy a domain name, and then do everything else ourselves.  Aside from needing the registrar to get the name, we didn't want to have to use any of the provided services.  Registrars can do a great job of offering web hosting, site building, and other services; but, we shouldn't have to depend upon them.  If we took the lowest cost deal they offered for hosting, what could we do?
 
 For a projected cost of $10 a month, we could get two VMs.  These nodes would each have their own public IP address.  They'd be bare bones FreeBSD systems.  Being "out there on the Internet" would be to our advantage; sites acting as nameservers would serve us better away from our main node.  Since our main demarc only gets one IP, these two VMs might be a good fit.
 
@@ -92,8 +92,16 @@ This last one is a little bit of a problem because, as you might guess:  we didn
 
 Setting up the Google Authenticator on the host wasn't too hard, dialog-wise.  There is a short program that's run to ask some simple questions.  There is a 3D Q barcode that's shown.  It'll be printed in terminal with ASCII graphics.  The results of the dialog will be stored in a hidden file.  That includes the "scratch codes" to get in if the app fails.  This means that anyone with access to the hidden file might be able to view those codes.  Keep that in mind if you do a multi-user install.
 
+Similar procedures can be used with other TOTP products and FreeBSD.  With our VM far away, we'll never be able to plug in a USB dongle.  Also, with programs like Google Authenticator, there are other programs that may not require the possession of a specific phone.  Keep these ideas in mind when assessing risk related to TOTP products.  Their fascinating to watch, but they have their limitations just like everything else.
+
 # Backup and Restore
-The hosting provider does weekly, automated backups.  They also offer snapshots of the host.  However, that doesn't quite meet our needs.  The hosting company retains control of and access to the backups.  Snapshots are diff files.  We can restore the VM to them; but, again they're not backups that we can really control.  Unlike dd a hard drive in our lab, we don't have physical access to these disks.  That means that we also can't swap them out, use them with another motherboard, or generally control the automated backups and snapshots.  They're offsite, and that's good; but, they're also not offline.
+We've done enough work to not want to do it all again.  Time for a backup and retore policy.  We'll need to make our own.
+
+The hosting provider does weekly, automated backups.  They also offer snapshots of the host.  However, that doesn't quite meet our needs.  The hosting company retains control of and access to the backups.  We can apply them to the host through a web interface, but we can never download and store them on physical media we control.
+
+They also offer snapshots.  Snapshots are diff files.  We can restore the VM to them; but, again they're not full backups that we can really control.  If things really go haywire, a diff file to another problem can be its own problem.  Snapshots are a convenient way to reset a VM, but they don't offer the comprehensive protection that's implied by the title, "Backup."  
+
+Unlike dd a hard drive in our lab, we don't have physical access to these disks that hold the VM at the hosting company.  That means that we also can't swap them out, use them with another motherboard, or generally control the automated backups and snapshots.  We can rehearse a restoration on an offline machine in our lab with our backups; but we can't do that with just what the hosting company offers.  They're offsite compared to our place, and that's good; but, they're also not offline.  We can only access them through the online controls offered by the hosting provider.  Let's recognize this point:  the backups and snapshots offered through the web interface at the hosting provider don't meet the criteria of DFIR survivability we'd expect from a machine on the bench in our lab.  
 
 This means that if we had to reconsitute or rebuild the host from scratch, we would be at a loss without the help of the hosting company.  Since this is not an acceptable situation, it's up to us to get a backup done.  And, if we can remember, a backup is not a backup until it's been restored.  
 
@@ -110,4 +118,4 @@ To give ourselves offsite, offline backups, we're going to use tar to take a sam
 ## Annotated Bibliography
 
 
-\[1\] _____.  INTERNET:   [`https://forum.dd-wrt.com/phpBB2/viewtopic.php?t=51486`](https://forum.dd-wrt.com/phpBB2/viewtopic.php?t=51486)
+\[1\] _____.  INTERNET:   [`https://`](https://)
