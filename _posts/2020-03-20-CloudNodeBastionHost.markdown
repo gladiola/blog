@@ -30,12 +30,18 @@ That's right:  the hosting provider, by default, chose to provide SSH into root,
 
 Since we chose the SSH key, we were not able to use the provided web console to look into our host.  You guessed it:  if you pick a public key, then you have to use it.  So, we did.  
 
+![Zone File SOA records]({{ site.url }}/assets/images/bastion/Capture_SOA.PNG)
+*Daydreaming about the names is part of the fun.  Coding begins right after.*
+
 # Establishing a BIND DNS Server with MX to an Encrypted Email Provider
 We quickly established a BIND9 DNS server, using this tutorial:
 
 Our domain name provider had a set of dialogs that allowed us, through our account, to direct our domain name to our own nameserver.  Armed with the IPs from the VMs and some progress through the DNS server tutorial, we were able to adapt and fill out the records wtih the registrar.
 
 We stopped right before the "DNSSEC" portion of the tutorial and added our MX records.  For our email server, we chose a free online email provider that offers storage in Switzerland.  As part of our subscription with them, we were able to use custom domains.  To get that to work, we had to follow a set of dialogs the email provider had for setting up critical DNS records for SPF, DKIM, and DMARC.  It took a little bit for our changes to propagate, but it worked with little fuss.
+
+![SPF to DMARC dialog]({{ site.url }}/assets/images/bastion/Capture_SPF.PNG)
+*Wiring in the encrypted email service will require adding SPF, DKIM and DMARC records on the zone file.  They provided a wizard with automated verification.*
 
 Once our nameserver was found and our emails were arriving at the desired account, we walked through DNSSEC.  This was one advantage we had over what the registrar offered:  they don't do DNSSEC setups.  With the tutorial, we got it working in less than an hour.  By carefully following the directions, we were able to get DNSSEC working right away.  It was actually one of the easiest aspects of the system deployment.
 
@@ -44,9 +50,15 @@ With two nodes out on the Internet, and one nearby, there was always the chance 
 
 To use a dynamic DNS with FreeBSD, we install ddclient.  Our service provider gave us example configuration files that worked on the first try.  After a while, we began to realize that, if our nameserver was working well, then there was no reason why we couldn't run a dynamic DNS service of our own.  ddclient will work with RFC compliant procedures.  We found tutorials to support that innovation on FreeBSD, too.
 
+![ddclient config sample]({{ site.url }}/assets/images/bastion/Capture_ddclient_config_sample.PNG)
+*FreeBSD offers a ddclient port which is compatible with most RFC compliant dynamic dns services.  Sample configurations for major providers are included.*
+
 It was just easier to have some addresses with simple names, through dynamic DNS.  Time and again, during configurations like these, we would need to call up the computer.  From one to the other and back again, we'd type in calls.  It can be helpful and convenient during the confusing moments of configuration to be able to call in to your desired host easily.  
 
 In the case of whitelisting hosts in firewall rules, it can be helpful to also list some hosts using their dynamic dns domain name.  If the IPs change, and firewall rules hold hardcoded IP addresses, then how will you get back in to the host you've just secured?  Dynamic DNS addresses in the firewall rules offer a saftey during the confusing moments of configuration.
+
+![pf firewall repelling callers]({{ site.url }}/assets/images/bastion/Capture_pf_cloud.PNG)
+*Our pf firewall immediately set to work repelling callers on port 18888.  Whomever had our IP before must have had a DHT service running on that port.*
 
 # Firewall Rules with pf
 Pf comes installed as part of the base operating system in FreeBSD.  There are also two others we could choose from.  It's mostly a matter of preference.  We picked pf.  
@@ -54,6 +66,8 @@ Pf comes installed as part of the base operating system in FreeBSD.  There are a
 To set up the rules, we consulted some tutorials.  Early on, we wrote pass in rules for our favorite IPs and those dynamic DNS host and domain names, as mentioned above.  
 
 We soon found out we were locking out critical services.  By using searches of /etc/service for keywords, we often found ports that needed to be kept open to keep our machine running smoothely.  Since we were drafting some of these rules for the first time, this took some expriementation.  
+
+When setting up firewall rules and login limitations, it's helpful to use more than one ssh session.  Use one session to maintain a connection and adjust the config.  Use another to test access to the host.  If you don't, and you mess up, then you might find yourself locked out.  
 
 # External Monitoring with Shodan
 Shodan.io offers a monitoring service.  It's free with the developer's account, up to about a dozen hosts.  Around 14 or 15, they start to require a paid Enterprise account.  Since we have few computers to look after, we snapped up Shodan Monitor.  

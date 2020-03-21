@@ -7,18 +7,21 @@ description: Hardening a cloud VM to withstand normal Internet traffic.
 Cloud providers hook us in with cheap teaser rates; and then they slowly offer us feature after feature, at $10 each.  Before you know it, the $5 a month budget has grown to $50, $60, or $70.  We'll tell the story of how we can took a bare bones FreeBSD VM from a major cloud hosting company and built it up to be a standalone bastion host that works as a nameserver and more.  
 
 ![Poudriere package server]({{ site.url }}/assets/images/bastion/Capture_poudriere_ports.PNG)
-*With FreeBSD's poudriere, we can serve custom packages to subscribing jails.  Our DNS server will direct users to our site.*
+*Figure 1.  With FreeBSD's poudriere, we can serve custom packages to subscribing jails.  Our DNS server will direct users to our site.*
 
 # Our Goals
 For this project, we wanted to buy a domain name, and then do everything else ourselves.  Aside from needing the registrar to get the name, we didn't want to have to use any of the provided services.  Registrars can do a great job of offering web hosting, site building, and other services; but, we shouldn't have to depend upon them.  If we took the lowest cost deal they offered for hosting, what could we do?
 
-![Poudriere package server]({{ site.url }}/assets/images/bastion/Capture_poudriere_ports.PNG)
-*With FreeBSD's poudriere, we can serve custom packages to subscribing jails.  Our DNS server will direct users to our site.*
+![Provider teaser rate]({{ site.url }}/assets/images/bastion/Capture_DO_teaserRate.PNG)
+*Low, low rates start the offers from most major providers.*
 
 For a projected cost of $10 a month, we could get two VMs.  These nodes would each have their own public IP address.  They'd be bare bones FreeBSD systems.  Being "out there on the Internet" would be to our advantage; sites acting as nameservers would serve us better away from our main node.  Since our main demarc only gets one IP, these two VMs might be a good fit.
 
 # Domain Name Purchasing
 We bought a pair of names that we like.  We didn't buy any extras.  We didn't get hosting, certificates, email:  none of that.  Just get a name.
+
+![Domain name offer]({{ site.url }}/assets/images/bastion/Capture_domainOffers.PNG)
+*Daydreaming about the names is part of the fun.  Coding begins right after.*
 
 # Before We Built Anything We Decided on Keys
 With an account created at the hosting provider, we could quickly see that they offered us just enough power to get ourselves in trouble.  First off, they wanted us to set either a root password or upload an SSH key.  Choose the key.  Building an SSH key is a little more involved; but, we don't want to arrive at the node, in the root account via SSH, with a simplistic password.
@@ -27,6 +30,9 @@ That's right:  the hosting provider, by default, chose to provide SSH into root,
 
 Since we chose the SSH key, we were not able to use the provided web console to look into our host.  You guessed it:  if you pick a public key, then you have to use it.  So, we did.  
 
+![Zone File SOA records]({{ site.url }}/assets/images/bastion/Capture_SOA.PNG)
+*Daydreaming about the names is part of the fun.  Coding begins right after.*
+
 # Establishing a BIND DNS Server with MX to an Encrypted Email Provider
 We quickly established a BIND9 DNS server, using this tutorial:
 
@@ -34,12 +40,18 @@ Our domain name provider had a set of dialogs that allowed us, through our accou
 
 We stopped right before the "DNSSEC" portion of the tutorial and added our MX records.  For our email server, we chose a free online email provider that offers storage in Switzerland.  As part of our subscription with them, we were able to use custom domains.  To get that to work, we had to follow a set of dialogs the email provider had for setting up critical DNS records for SPF, DKIM, and DMARC.  It took a little bit for our changes to propagate, but it worked with little fuss.
 
+![SPF to DMARC dialog]({{ site.url }}/assets/images/bastion/Capture_SPF.PNG)
+*Wiring in the encrypted email service will require adding SPF, DKIM and DMARC records on the zone file.  They provided a wizard with automated verification.*
+
 Once our nameserver was found and our emails were arriving at the desired account, we walked through DNSSEC.  This was one advantage we had over what the registrar offered:  they don't do DNSSEC setups.  With the tutorial, we got it working in less than an hour.  By carefully following the directions, we were able to get DNSSEC working right away.  It was actually one of the easiest aspects of the system deployment.
 
 # Dynamic DNS and Our Node
 With two nodes out on the Internet, and one nearby, there was always the chance that a service provider might change our address.  In practice, we were able to get stable addresses just by asking our local muni fiber company to provide one.  Still, they could change at any time.  So, we used an existing subscription to a dynamic DNS provider to address the hosts.  
 
 To use a dynamic DNS with FreeBSD, we install ddclient.  Our service provider gave us example configuration files that worked on the first try.  After a while, we began to realize that, if our nameserver was working well, then there was no reason why we couldn't run a dynamic DNS service of our own.  ddclient will work with RFC compliant procedures.  We found tutorials to support that innovation on FreeBSD, too.
+
+![ddclient config sample]({{ site.url }}/assets/images/bastion/Capture_ddclient_config_sample.PNG)
+*FreeBSD offers a ddclient port which is compatible with most RFC compliant dynamic dns services.  Sample configurations for major providers are included.*
 
 It was just easier to have some addresses with simple names, through dynamic DNS.  Time and again, during configurations like these, we would need to call up the computer.  From one to the other and back again, we'd type in calls.  It can be helpful and convenient during the confusing moments of configuration to be able to call in to your desired host easily.  
 
