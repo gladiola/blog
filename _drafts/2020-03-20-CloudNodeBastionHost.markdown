@@ -94,7 +94,7 @@ Setting up the Google Authenticator on the host wasn't too hard, dialog-wise.  T
 
 Similar procedures can be used with other TOTP products and FreeBSD.  With our VM far away, we'll never be able to plug in a USB dongle.  Also, with programs like Google Authenticator, there are other programs that may not require the possession of a specific phone.  Keep these ideas in mind when assessing risk related to TOTP products.  Their fascinating to watch, but they have their limitations just like everything else.
 
-# Backup and Restore
+# Backup and Restore with tar
 We've done enough work to not want to do it all again.  Time for a backup and retore policy.  We'll need to make our own.
 
 The hosting provider does weekly, automated backups.  They also offer snapshots of the host.  However, that doesn't quite meet our needs.  The hosting company retains control of and access to the backups.  We can apply them to the host through a web interface, but we can never download and store them on physical media we control.
@@ -106,6 +106,12 @@ Unlike dd a hard drive in our lab, we don't have physical access to these disks 
 This means that if we had to reconsitute or rebuild the host from scratch, we would be at a loss without the help of the hosting company.  Since this is not an acceptable situation, it's up to us to get a backup done.  And, if we can remember, a backup is not a backup until it's been restored.  
 
 To give ourselves offsite, offline backups, we're going to use tar to take a sample of critical files used in the installation of the programs above.  One by one, we went through directories that held configs.  We built a script that would automatically copy them to a directory.  Then we tarred the achive, g-zipped it, and exfiltrated it with scp.  Once on a computer we could physically access, we saved the archive to removable storage.  Cataloged and moved to a safe place, our tar and restore sample was ready for a restoration rehearsal.
+
+# Upcoming Drafts
+In upcoming drafts, we may discuss:
+- OSSEC HIDS
+- snort
+- tcpdump for continuous packet capture for archiving traffic history.
 
 
 
