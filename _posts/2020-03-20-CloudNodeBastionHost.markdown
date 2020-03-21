@@ -168,4 +168,7 @@ In upcoming drafts, we may discuss:
 ## Annotated Bibliography
 
 
-\[1\] _____.  INTERNET:   [`https://`](https://)
+\[[1]\] _____.  INTERNET:   [`https://blog.andreev.it/?p=4096`](https://blog.andreev.it/?p=4096)
+
+[//]: # (Hyperlinks)
+[1]:  ``

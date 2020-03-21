@@ -7,7 +7,7 @@ description: Hardening a cloud VM to withstand normal Internet traffic.
 Cloud providers hook us in with cheap teaser rates; and then they slowly offer us feature after feature, at $10 each.  Before you know it, the $5 a month budget has grown to $50, $60, or $70.  We'll tell the story of how we can took a bare bones FreeBSD VM from a major cloud hosting company and built it up to be a standalone bastion host that works as a nameserver and more.  
 
 ![Poudriere package server]({{ site.url }}/assets/images/bastion/Capture_poudriere_ports.PNG)
-*Figure 1.  With FreeBSD's poudriere, we can serve custom packages to subscribing jails.  Our DNS server will direct users to our site.*
+*With FreeBSD's poudriere, we can serve custom packages to subscribing jails.  Our DNS server will direct users to our site.*
 
 # Our Goals
 For this project, we wanted to buy a domain name, and then do everything else ourselves.  Aside from needing the registrar to get the name, we didn't want to have to use any of the provided services.  Registrars can do a great job of offering web hosting, site building, and other services; but, we shouldn't have to depend upon them.  If we took the lowest cost deal they offered for hosting, what could we do?
@@ -31,7 +31,7 @@ That's right:  the hosting provider, by default, chose to provide SSH into root,
 Since we chose the SSH key, we were not able to use the provided web console to look into our host.  You guessed it:  if you pick a public key, then you have to use it.  So, we did.  
 
 ![Zone File SOA records]({{ site.url }}/assets/images/bastion/Capture_SOA.PNG)
-*Daydreaming about the names is part of the fun.  Coding begins right after.*
+*Instead of the registrar's web interface, we build DNS records directly in text files that are used by the server.*
 
 # Establishing a BIND DNS Server with MX to an Encrypted Email Provider
 We quickly established a BIND9 DNS server, using this tutorial:
@@ -50,12 +50,15 @@ With two nodes out on the Internet, and one nearby, there was always the chance 
 
 To use a dynamic DNS with FreeBSD, we install ddclient.  Our service provider gave us example configuration files that worked on the first try.  After a while, we began to realize that, if our nameserver was working well, then there was no reason why we couldn't run a dynamic DNS service of our own.  ddclient will work with RFC compliant procedures.  We found tutorials to support that innovation on FreeBSD, too.
 
-![ddclient config sample]({{ site.url }}/assets/images/bastion/Capture_ddclient_config_sample.PNG)
+![ddclient config sample]({{ site.url }}/assets/images/bastion/Capture_ddclient_conf_sample.PNG)
 *FreeBSD offers a ddclient port which is compatible with most RFC compliant dynamic dns services.  Sample configurations for major providers are included.*
 
 It was just easier to have some addresses with simple names, through dynamic DNS.  Time and again, during configurations like these, we would need to call up the computer.  From one to the other and back again, we'd type in calls.  It can be helpful and convenient during the confusing moments of configuration to be able to call in to your desired host easily.  
 
 In the case of whitelisting hosts in firewall rules, it can be helpful to also list some hosts using their dynamic dns domain name.  If the IPs change, and firewall rules hold hardcoded IP addresses, then how will you get back in to the host you've just secured?  Dynamic DNS addresses in the firewall rules offer a saftey during the confusing moments of configuration.
+
+![pf firewall repelling callers]({{ site.url }}/assets/images/bastion/Capture_pf_cloud.PNG)
+*Our pf firewall immediately set to work repelling callers on port 18888.  Whomever had our IP before must have had a DHT service running on that port.*
 
 # Firewall Rules with pf
 Pf comes installed as part of the base operating system in FreeBSD.  There are also two others we could choose from.  It's mostly a matter of preference.  We picked pf.  
@@ -64,12 +67,20 @@ To set up the rules, we consulted some tutorials.  Early on, we wrote pass in ru
 
 We soon found out we were locking out critical services.  By using searches of /etc/service for keywords, we often found ports that needed to be kept open to keep our machine running smoothely.  Since we were drafting some of these rules for the first time, this took some expriementation.  
 
+When setting up firewall rules and login limitations, it's helpful to use more than one ssh session.  Use one session to maintain a connection and adjust the config.  Use another to test access to the host.  If you don't, and you mess up, then you might find yourself locked out.  
+
+![Shodan.io login]({{ site.url }}/assets/images/bastion/Capture_shodanLogin.PNG)
+*Shodan, a search engine which provides technical details about computers on the Internet, also provides developer APIs and monitoring services.*
+
 # External Monitoring with Shodan
 Shodan.io offers a monitoring service.  It's free with the developer's account, up to about a dozen hosts.  Around 14 or 15, they start to require a paid Enterprise account.  Since we have few computers to look after, we snapped up Shodan Monitor.  
 
 With Shodan, we learned the painful history of the past users of our IP address.  We also learned about the locations and open ports of whomever it was who was calling us on port 18888 over 2,500 times in 20 minutes.  One IP had once been misused as an Internet scanner.  The other seemed to be getting scanned constantly.  It's a good thing we activated pf.  Until we did, we didn't have easy visibility of who was calling the node unsuccessfully.  
 
 From the inside, most hosts look quiet.  Once we set up a firewall, we can see who tries to SSH in.  We can see who sends hacky attempts to rattle our server.  And, with Shodan, we can get an idea about what computer their using to do it.  "IP is not ID," but it's always interesting to see what machine is calling us.
+
+![Shodan.io login]({{ site.url }}/assets/images/bastion/Capture_pf_ssh_from_nanjing.PNG)
+*By cross referencing IPs that hit our pf firewall block rules with Shodan data, we can begin to learn a little about computers calling us.  One machine repeatedly attempted to ssh into our host from Nanjing, China.  An unusual number of ports were open on that host.*
 
 # Proxy:  Providing Standoff Distance and a Planned Access Approach
 With the DNS server up and running, we had a lot of space left over. The minimal, bare-bones host provided by the cloud service had used barely 10% of its capacity.  We wondered what else we could do with the machine.  We could screen.
@@ -80,6 +91,9 @@ With standoff distance, we have a link between our data center demarc and the ge
 
 Now, as traffic arrives at our data center demarc, it'll hit a firewall right away.  Later, as it moves down the line to our desired server, it'll hit some auth.  So, inside our data center we could react to traffic; but, the proxies on the distant hosts will help us control traffic that arrives to the server that's our goal.  At the data center demarc, we can have a firewall rule that will refuse traffic for our desired server unless it walks down the path from our proxy.
 
+![Shodan 443 on Tattletale]({{ site.url }}/assets/images/bastion/Capture_shodan_nginx.PNG)
+*haproxy in tcp mode passes our traffic from the bastion node to our webserver, which is on another host.  To other machines, it appears as if it is on the same machine.*
+
 # Installing HAProxy
 Installing the program was a snap.  We had to read some documentation, and follow some suggestions; but, it all worked without a hitch.  There are several techniques we can choose from with HAProxy.  Ultimately, we chose 
 TCP Forwarding.  This is a "layer 4" proxy.  HAProxy has OSI Layer 7 capabilities that can let us filter traffic based on contents.  With tcp mode, haproxy will just pass the traffic on down to our data center demarc, invisibly.
@@ -87,6 +101,9 @@ TCP Forwarding.  This is a "layer 4" proxy.  HAProxy has OSI Layer 7 capabilitie
 SSL stayed on the web host.  Before we began with these DNS servers, we had already installed Let's Encrypt TLS certificates on our target webserver.  By using tcp mode, we could still serve up our pages without interfering with the TLS integrity.  Some other proxy techniques might have required TLS termination.  This would have meant re-installing certs on the proxy hosts in order to present a clean connection to the user.  Tcp mode was simple, effective, and easy to use.
 
 To check out our proxy install, we started with calling the nameserver host address.  It would then use haproxy to walk us down the line, reques our page from the webserver, and then the page we called would come back up the line.  Satisfied that the proxies were working, it was time to change the DNS records.
+
+![Zone records Alias records]({{ site.url }}/assets/images/bastion/Capture_dnsLoadBalancing.PNG)
+*By alternating Alias records when zone files are requested, DNS servers can offer some load balancing.  Both hosts on our A records are proxies for our site.*
 
 # DNS Load Balancing
 Most DNS records get served round-robin, by default.  That is, when multiple aliases (A records) are listed, they'll be shown in a rotating order by the nameserver who answers.  Since our proxies were now on the nameserver hosts, we could direct our traffic to each.  We changed our A Records for the domain to point to each DNS server, instead of our demarc IP.  This is the outside half of getting our traffic to walk down the funnel into our screen.  
@@ -96,6 +113,9 @@ As mentioned earlier, there are firewall rules near the demarc to do the initial
 Notice how the DNS load balancing could have some unenforceable conditions.  For example, what if a received DNS record was cached?  Just because a URL is called many times by a user doesn't mean that it will get its values from our authoritative nameserver.  Any DNS server along the way might hold the answer.  After all, that 48 hour propagation, coupled with sometimes deceptive "instantaneous" DNS response from some servers, can be deceptive.  The propagation of DNS records does take time.  Just as wrong answers can be out there for a while, beyond our control; so also we can have a printing of DNS aliases in an order that was previously served and incompletely rotated because of caching.  DNS load balancing is more of a suggestion than a rule because our overall control of the records is gone once they leave our computer.
 
 HAProxy offers load balancing.  In our case, we were only going to one destination, so most of those features didn't yet need to be activated.  They might be more useful on a haproxy install inside the demarc.  It's true load balancing.  We can set rules that will filter traffic by subdomain to specific servers.  We can ensure high availability with health checks on servers that precede traffic routing.  
+
+![Google Auth prompt]({{ site.url }}/assets/images/bastion/Capture_googleauth.PNG)
+*When using Google Authenticator with SSH, we will get a "Verification Code" prompt after entering our passphrase for the SSH public key.*
 
 # TOTP with Google Authenticator
 Remember our login situation?  We chose to use SSH public keys on the server, which was a good idea; but, we wanted to do a little more.  We added on Google Authenticator's time-based one time passwords (TOTP) to the ssh login accounts.  
@@ -112,6 +132,9 @@ Setting up the Google Authenticator on the host wasn't too hard, dialog-wise.  T
 
 Similar procedures can be used with other TOTP products and FreeBSD.  With our VM far away, we'll never be able to plug in a USB dongle.  Also, with programs like Google Authenticator, there are other programs that may not require the possession of a specific phone.  Keep these ideas in mind when assessing risk related to TOTP products.  Their fascinating to watch, but they have their limitations just like everything else.
 
+![Script section that uses tar to archive.]({{ site.url }}/assets/images/bastion/Capture_tarAndRestore.PNG)
+*Using a shell script, we can copy critical files to a directory that will be zipped up with tar and exfiltrated from the computer with scp.*
+
 # Backup and Restore with tar
 We've done enough work to not want to do it all again.  Time for a backup and retore policy.  We'll need to make our own.
 
@@ -122,6 +145,9 @@ They also offer snapshots.  Snapshots are diff files.  We can restore the VM to 
 Unlike dd a hard drive in our lab, we don't have physical access to these disks that hold the VM at the hosting company.  That means that we also can't swap them out, use them with another motherboard, or generally control the automated backups and snapshots.  We can rehearse a restoration on an offline machine in our lab with our backups; but we can't do that with just what the hosting company offers.  They're offsite compared to our place, and that's good; but, they're also not offline.  We can only access them through the online controls offered by the hosting provider.  Let's recognize this point:  the backups and snapshots offered through the web interface at the hosting provider don't meet the criteria of DFIR survivability we'd expect from a machine on the bench in our lab.  
 
 This means that if we had to reconsitute or rebuild the host from scratch, we would be at a loss without the help of the hosting company.  Since this is not an acceptable situation, it's up to us to get a backup done.  And, if we can remember, a backup is not a backup until it's been restored.  
+
+![tar and restore script]({{ site.url }}/assets/images/bastion/Capture_tarAndRestore2.PNG)
+*When building samples like these, as part of a plan to rebuild a computer later, it's up to us to test the script, to choose the files, and to ensure that our backup plan works.  This effort is part of the system installation process.*
 
 To give ourselves offsite, offline backups, we're going to use tar to take a sample of critical files used in the installation of the programs above.  One by one, we went through directories that held configs.  We built a script that would automatically copy them to a directory.  Then we tarred the achive, g-zipped it, and exfiltrated it with scp.  Once on a computer we could physically access, we saved the archive to removable storage.  Cataloged and moved to a safe place, our tar and restore sample was ready for a restoration rehearsal.
 
