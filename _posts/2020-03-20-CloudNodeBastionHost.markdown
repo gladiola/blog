@@ -1,6 +1,3 @@
-![pf firewall repelling callers]({{ site.url }}/assets/images/bastion/Capture_pf_cloud.PNG)
-*Our pf firewall immediately set to work repelling callers on port 18888.  Whomever had our IP before must have had a DHT service running on that port.*
-
 ---
 title:  "From $5 Cloud Node to Bastion Host"
 date:   2020-03-20 08:30:00
@@ -60,7 +57,8 @@ It was just easier to have some addresses with simple names, through dynamic DNS
 
 In the case of whitelisting hosts in firewall rules, it can be helpful to also list some hosts using their dynamic dns domain name.  If the IPs change, and firewall rules hold hardcoded IP addresses, then how will you get back in to the host you've just secured?  Dynamic DNS addresses in the firewall rules offer a saftey during the confusing moments of configuration.
 
-
+![pf firewall repelling callers]({{ site.url }}/assets/images/bastion/Capture_pf_cloud.PNG)
+*Our pf firewall immediately set to work repelling callers on port 18888.  Whomever had our IP before must have had a DHT service running on that port.*
 
 # Firewall Rules with pf
 Pf comes installed as part of the base operating system in FreeBSD.  There are also two others we could choose from.  It's mostly a matter of preference.  We picked pf.  
