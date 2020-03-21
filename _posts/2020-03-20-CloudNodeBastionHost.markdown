@@ -12,10 +12,16 @@ Cloud providers hook us in with cheap teaser rates; and then they slowly offer u
 # Our Goals
 For this project, we wanted to buy a domain name, and then do everything else ourselves.  Aside from needing the registrar to get the name, we didn't want to have to use any of the provided services.  Registrars can do a great job of offering web hosting, site building, and other services; but, we shouldn't have to depend upon them.  If we took the lowest cost deal they offered for hosting, what could we do?
 
+![Provider teaser rate]({{ site.url }}/assets/images/bastion/Capture_DO_teaserRate.PNG)
+*Low, low rates start the offers from most major providers.*
+
 For a projected cost of $10 a month, we could get two VMs.  These nodes would each have their own public IP address.  They'd be bare bones FreeBSD systems.  Being "out there on the Internet" would be to our advantage; sites acting as nameservers would serve us better away from our main node.  Since our main demarc only gets one IP, these two VMs might be a good fit.
 
 # Domain Name Purchasing
 We bought a pair of names that we like.  We didn't buy any extras.  We didn't get hosting, certificates, email:  none of that.  Just get a name.
+
+![Domain name offer]({{ site.url }}/assets/images/bastion/Capture_domainOffers.PNG)
+*Daydreaming about the names is part of the fun.  Coding begins right after.*
 
 # Before We Built Anything We Decided on Keys
 With an account created at the hosting provider, we could quickly see that they offered us just enough power to get ourselves in trouble.  First off, they wanted us to set either a root password or upload an SSH key.  Choose the key.  Building an SSH key is a little more involved; but, we don't want to arrive at the node, in the root account via SSH, with a simplistic password.
