@@ -91,6 +91,9 @@ With standoff distance, we have a link between our data center demarc and the ge
 
 Now, as traffic arrives at our data center demarc, it'll hit a firewall right away.  Later, as it moves down the line to our desired server, it'll hit some auth.  So, inside our data center we could react to traffic; but, the proxies on the distant hosts will help us control traffic that arrives to the server that's our goal.  At the data center demarc, we can have a firewall rule that will refuse traffic for our desired server unless it walks down the path from our proxy.
 
+![Shodan 443 on Tattletale]({{ site.url }}/assets/images/bastion/Capture_shodan_nginx.PNG)
+*haproxy in tcp mode passes our traffic from the bastion node to our webserver, which is on another host.  To other machines, it appears as if it is on the same machine.*
+
 # Installing HAProxy
 Installing the program was a snap.  We had to read some documentation, and follow some suggestions; but, it all worked without a hitch.  There are several techniques we can choose from with HAProxy.  Ultimately, we chose 
 TCP Forwarding.  This is a "layer 4" proxy.  HAProxy has OSI Layer 7 capabilities that can let us filter traffic based on contents.  With tcp mode, haproxy will just pass the traffic on down to our data center demarc, invisibly.
