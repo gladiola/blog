@@ -31,7 +31,7 @@ That's right:  the hosting provider, by default, chose to provide SSH into root,
 Since we chose the SSH key, we were not able to use the provided web console to look into our host.  You guessed it:  if you pick a public key, then you have to use it.  So, we did.  
 
 ![Zone File SOA records]({{ site.url }}/assets/images/bastion/Capture_SOA.PNG)
-*Daydreaming about the names is part of the fun.  Coding begins right after.*
+*Instead of the registrar's web interface, we build DNS records directly in text files that are used by the server.*
 
 # Establishing a BIND DNS Server with MX to an Encrypted Email Provider
 We quickly established a BIND9 DNS server, using this tutorial:
@@ -50,7 +50,7 @@ With two nodes out on the Internet, and one nearby, there was always the chance 
 
 To use a dynamic DNS with FreeBSD, we install ddclient.  Our service provider gave us example configuration files that worked on the first try.  After a while, we began to realize that, if our nameserver was working well, then there was no reason why we couldn't run a dynamic DNS service of our own.  ddclient will work with RFC compliant procedures.  We found tutorials to support that innovation on FreeBSD, too.
 
-![ddclient config sample]({{ site.url }}/assets/images/bastion/Capture_ddclient_config_sample.PNG)
+![ddclient config sample]({{ site.url }}/assets/images/bastion/Capture_ddclient_conf_sample.PNG)
 *FreeBSD offers a ddclient port which is compatible with most RFC compliant dynamic dns services.  Sample configurations for major providers are included.*
 
 It was just easier to have some addresses with simple names, through dynamic DNS.  Time and again, during configurations like these, we would need to call up the computer.  From one to the other and back again, we'd type in calls.  It can be helpful and convenient during the confusing moments of configuration to be able to call in to your desired host easily.  
