@@ -69,12 +69,18 @@ We soon found out we were locking out critical services.  By using searches of /
 
 When setting up firewall rules and login limitations, it's helpful to use more than one ssh session.  Use one session to maintain a connection and adjust the config.  Use another to test access to the host.  If you don't, and you mess up, then you might find yourself locked out.  
 
+![Shodan.io login]({{ site.url }}/assets/images/bastion/Capture_shodanLogin.PNG)
+*Shodan, a search engine which provides technical details about computers on the Internet, also provides developer APIs and monitoring services.*
+
 # External Monitoring with Shodan
 Shodan.io offers a monitoring service.  It's free with the developer's account, up to about a dozen hosts.  Around 14 or 15, they start to require a paid Enterprise account.  Since we have few computers to look after, we snapped up Shodan Monitor.  
 
 With Shodan, we learned the painful history of the past users of our IP address.  We also learned about the locations and open ports of whomever it was who was calling us on port 18888 over 2,500 times in 20 minutes.  One IP had once been misused as an Internet scanner.  The other seemed to be getting scanned constantly.  It's a good thing we activated pf.  Until we did, we didn't have easy visibility of who was calling the node unsuccessfully.  
 
 From the inside, most hosts look quiet.  Once we set up a firewall, we can see who tries to SSH in.  We can see who sends hacky attempts to rattle our server.  And, with Shodan, we can get an idea about what computer their using to do it.  "IP is not ID," but it's always interesting to see what machine is calling us.
+
+![Shodan.io login]({{ site.url }}/assets/images/bastion/Capture_pf_ssh_from_nanjing.PNG)
+*By cross referencing IPs that hit our pf firewall block rules with Shodan data, we can begin to learn a little about computers calling us.  One machine repeatedly attempted to ssh into our host from Nanjing, China.  An unusual number of ports were open on that host.*
 
 # Proxy:  Providing Standoff Distance and a Planned Access Approach
 With the DNS server up and running, we had a lot of space left over. The minimal, bare-bones host provided by the cloud service had used barely 10% of its capacity.  We wondered what else we could do with the machine.  We could screen.
