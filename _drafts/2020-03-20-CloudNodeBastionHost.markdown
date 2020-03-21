@@ -6,6 +6,9 @@ description: Hardening a cloud VM to withstand normal Internet traffic.
 
 Cloud providers hook us in with cheap teaser rates; and then they slowly offer us feature after feature, at $10 each.  Before you know it, the $5 a month budget has grown to $50, $60, or $70.  We'll tell the story of how we can took a bare bones FreeBSD VM from a major cloud hosting company and built it up to be a standalone bastion host that works as a nameserver and more.  
 
+![Poudriere package server]({{ site.url }}/assets/images/bastion/Capture_poudriere_ports.png)
+*Figure 1.  With FreeBSD's poudriere, we can serve custom packages to subscribing jails.*
+
 # Our Goals
 For this project, we wanted to buy a domain name, and then do everything else ourselves.  Aside from needing the registrar to get the name, we didn't want to have to use any of the provided services.  Registrars can do a great job of offering web hosting, site building, and other services; but, we shouldn't have to depend upon them.  If we took the lowest cost deal they offered for hosting, what could we do?
 
