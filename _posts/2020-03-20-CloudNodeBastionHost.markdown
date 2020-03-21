@@ -34,7 +34,7 @@ Since we chose the SSH key, we were not able to use the provided web console to 
 *Instead of the registrar's web interface, we build DNS records directly in text files that are used by the server.*
 
 # Establishing a BIND DNS Server with MX to an Encrypted Email Provider
-We quickly established a BIND9 DNS server, using this tutorial:
+We quickly established a BIND9 DNS server, using this tutorial: \[[1]\]
 
 Our domain name provider had a set of dialogs that allowed us, through our account, to direct our domain name to our own nameserver.  Armed with the IPs from the VMs and some progress through the DNS server tutorial, we were able to adapt and fill out the records wtih the registrar.
 
@@ -171,4 +171,4 @@ In upcoming drafts, we may discuss:
 \[[1]\] _____.  INTERNET:   [`https://blog.andreev.it/?p=4096`](https://blog.andreev.it/?p=4096)
 
 [//]: # (Hyperlinks)
-[1]:  ``
+[1]:  `https://blog.andreev.it/?p=4096`
