@@ -102,6 +102,9 @@ SSL stayed on the web host.  Before we began with these DNS servers, we had alre
 
 To check out our proxy install, we started with calling the nameserver host address.  It would then use haproxy to walk us down the line, reques our page from the webserver, and then the page we called would come back up the line.  Satisfied that the proxies were working, it was time to change the DNS records.
 
+![Zone records Alias records]({{ site.url }}/assets/images/bastion/Capture_dnsLoadBalancing.PNG)
+*By alternating Alias records when zone files are requested, DNS servers can offer some load balancing.  Both hosts on our A records are proxies for our site.*
+
 # DNS Load Balancing
 Most DNS records get served round-robin, by default.  That is, when multiple aliases (A records) are listed, they'll be shown in a rotating order by the nameserver who answers.  Since our proxies were now on the nameserver hosts, we could direct our traffic to each.  We changed our A Records for the domain to point to each DNS server, instead of our demarc IP.  This is the outside half of getting our traffic to walk down the funnel into our screen.  
 
@@ -110,6 +113,9 @@ As mentioned earlier, there are firewall rules near the demarc to do the initial
 Notice how the DNS load balancing could have some unenforceable conditions.  For example, what if a received DNS record was cached?  Just because a URL is called many times by a user doesn't mean that it will get its values from our authoritative nameserver.  Any DNS server along the way might hold the answer.  After all, that 48 hour propagation, coupled with sometimes deceptive "instantaneous" DNS response from some servers, can be deceptive.  The propagation of DNS records does take time.  Just as wrong answers can be out there for a while, beyond our control; so also we can have a printing of DNS aliases in an order that was previously served and incompletely rotated because of caching.  DNS load balancing is more of a suggestion than a rule because our overall control of the records is gone once they leave our computer.
 
 HAProxy offers load balancing.  In our case, we were only going to one destination, so most of those features didn't yet need to be activated.  They might be more useful on a haproxy install inside the demarc.  It's true load balancing.  We can set rules that will filter traffic by subdomain to specific servers.  We can ensure high availability with health checks on servers that precede traffic routing.  
+
+![Google Auth prompt]({{ site.url }}/assets/images/bastion/Capture_googleauth.PNG)
+*When using Google Authenticator with SSH, we will get a "Verification Code" prompt after entering our passphrase for the SSH public key.*
 
 # TOTP with Google Authenticator
 Remember our login situation?  We chose to use SSH public keys on the server, which was a good idea; but, we wanted to do a little more.  We added on Google Authenticator's time-based one time passwords (TOTP) to the ssh login accounts.  
@@ -126,6 +132,9 @@ Setting up the Google Authenticator on the host wasn't too hard, dialog-wise.  T
 
 Similar procedures can be used with other TOTP products and FreeBSD.  With our VM far away, we'll never be able to plug in a USB dongle.  Also, with programs like Google Authenticator, there are other programs that may not require the possession of a specific phone.  Keep these ideas in mind when assessing risk related to TOTP products.  Their fascinating to watch, but they have their limitations just like everything else.
 
+![Script section that uses tar to archive.]({{ site.url }}/assets/images/bastion/Capture_tarAndRestore.PNG)
+*Using a shell script, we can copy critical files to a directory that will be zipped up with tar and exfiltrated from the computer with scp.*
+
 # Backup and Restore with tar
 We've done enough work to not want to do it all again.  Time for a backup and retore policy.  We'll need to make our own.
 
@@ -136,6 +145,9 @@ They also offer snapshots.  Snapshots are diff files.  We can restore the VM to 
 Unlike dd a hard drive in our lab, we don't have physical access to these disks that hold the VM at the hosting company.  That means that we also can't swap them out, use them with another motherboard, or generally control the automated backups and snapshots.  We can rehearse a restoration on an offline machine in our lab with our backups; but we can't do that with just what the hosting company offers.  They're offsite compared to our place, and that's good; but, they're also not offline.  We can only access them through the online controls offered by the hosting provider.  Let's recognize this point:  the backups and snapshots offered through the web interface at the hosting provider don't meet the criteria of DFIR survivability we'd expect from a machine on the bench in our lab.  
 
 This means that if we had to reconsitute or rebuild the host from scratch, we would be at a loss without the help of the hosting company.  Since this is not an acceptable situation, it's up to us to get a backup done.  And, if we can remember, a backup is not a backup until it's been restored.  
+
+![tar and restore script]({{ site.url }}/assets/images/bastion/Capture_tarAndRestore2.PNG)
+*When building samples like these, as part of a plan to rebuild a computer later, it's up to us to test the script, to choose the files, and to ensure that our backup plan works.  This effort is part of the system installation process.*
 
 To give ourselves offsite, offline backups, we're going to use tar to take a sample of critical files used in the installation of the programs above.  One by one, we went through directories that held configs.  We built a script that would automatically copy them to a directory.  Then we tarred the achive, g-zipped it, and exfiltrated it with scp.  Once on a computer we could physically access, we saved the archive to removable storage.  Cataloged and moved to a safe place, our tar and restore sample was ready for a restoration rehearsal.
 
