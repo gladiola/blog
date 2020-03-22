@@ -30,6 +30,9 @@ That's right:  the hosting provider, by default, chose to provide SSH into root,
 
 Since we chose the SSH key, we were not able to use the provided web console to look into our host.  You guessed it:  if you pick a public key, then you have to use it.  So, we did.  
 
+![Root mail about invalid logins.]({{ site.url }}/assets/images/bastion/Capture_mail_invalid_ssh.PNG)
+*Don't forget to check that root account mail.  Most configurations will warn of failed ssh login attempts.  Brute forcers may try for many minutes.*
+
 # Establishing a BIND DNS Server with MX to an Encrypted Email Provider
 
 ![Zone File SOA records]({{ site.url }}/assets/images/bastion/Capture_SOA.PNG)
