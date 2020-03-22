@@ -24,14 +24,14 @@ We bought a pair of names that we like.  We didn't buy any extras.  We didn't ge
 *Daydreaming about the names is part of the fun.  Coding begins right after.*
 
 # Before We Built Anything We Decided on Keys
+![Root mail about invalid logins.]({{ site.url }}/assets/images/bastion/Capture_mail_invalid_ssh.PNG)
+*Don't forget to check that root account mail.  Most configurations will warn of failed ssh login attempts.  Brute forcers may try for many minutes.*
+
 With an account created at the hosting provider, we could quickly see that they offered us just enough power to get ourselves in trouble.  First off, they wanted us to set either a root password or upload an SSH key.  Choose the key.  Building an SSH key is a little more involved; but, we don't want to arrive at the node, in the root account via SSH, with a simplistic password.
 
 That's right:  the hosting provider, by default, chose to provide SSH into root, first thing.  Now, after a while, we'd all do what we could to plus up the node and improve things.  However, the Internet is the Wild West.  Already out there will be scanning nodes looking for new accounts like ours.  It'd be best to arrive tough enough to repel common attacks.  For this reason, we recommend setting up an SSH key if you have the choice.
 
 Since we chose the SSH key, we were not able to use the provided web console to look into our host.  You guessed it:  if you pick a public key, then you have to use it.  So, we did.  
-
-![Root mail about invalid logins.]({{ site.url }}/assets/images/bastion/Capture_mail_invalid_ssh.PNG)
-*Don't forget to check that root account mail.  Most configurations will warn of failed ssh login attempts.  Brute forcers may try for many minutes.*
 
 # Establishing a BIND DNS Server with MX to an Encrypted Email Provider
 
