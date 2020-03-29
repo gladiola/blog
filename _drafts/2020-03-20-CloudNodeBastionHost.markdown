@@ -24,17 +24,21 @@ We bought a pair of names that we like.  We didn't buy any extras.  We didn't ge
 *Daydreaming about the names is part of the fun.  Coding begins right after.*
 
 # Before We Built Anything We Decided on Keys
+![Root mail about invalid logins.]({{ site.url }}/assets/images/bastion/Capture_mail_invalid_ssh.PNG)
+*Don't forget to check that root account mail.  Most configurations will warn of failed ssh login attempts.  Brute forcers may try for many minutes.*
+
 With an account created at the hosting provider, we could quickly see that they offered us just enough power to get ourselves in trouble.  First off, they wanted us to set either a root password or upload an SSH key.  Choose the key.  Building an SSH key is a little more involved; but, we don't want to arrive at the node, in the root account via SSH, with a simplistic password.
 
 That's right:  the hosting provider, by default, chose to provide SSH into root, first thing.  Now, after a while, we'd all do what we could to plus up the node and improve things.  However, the Internet is the Wild West.  Already out there will be scanning nodes looking for new accounts like ours.  It'd be best to arrive tough enough to repel common attacks.  For this reason, we recommend setting up an SSH key if you have the choice.
 
 Since we chose the SSH key, we were not able to use the provided web console to look into our host.  You guessed it:  if you pick a public key, then you have to use it.  So, we did.  
 
+# Establishing a BIND DNS Server with MX to an Encrypted Email Provider
+
 ![Zone File SOA records]({{ site.url }}/assets/images/bastion/Capture_SOA.PNG)
 *Instead of the registrar's web interface, we build DNS records directly in text files that are used by the server.*
 
-# Establishing a BIND DNS Server with MX to an Encrypted Email Provider
-We quickly established a BIND9 DNS server, using this tutorial:
+We quickly established a BIND9 DNS server, using this tutorial: \[1\]
 
 Our domain name provider had a set of dialogs that allowed us, through our account, to direct our domain name to our own nameserver.  Armed with the IPs from the VMs and some progress through the DNS server tutorial, we were able to adapt and fill out the records wtih the registrar.
 
@@ -57,10 +61,11 @@ It was just easier to have some addresses with simple names, through dynamic DNS
 
 In the case of whitelisting hosts in firewall rules, it can be helpful to also list some hosts using their dynamic dns domain name.  If the IPs change, and firewall rules hold hardcoded IP addresses, then how will you get back in to the host you've just secured?  Dynamic DNS addresses in the firewall rules offer a saftey during the confusing moments of configuration.
 
+# Firewall Rules with pf
+
 ![pf firewall repelling callers]({{ site.url }}/assets/images/bastion/Capture_pf_cloud.PNG)
 *Our pf firewall immediately set to work repelling callers on port 18888.  Whomever had our IP before must have had a DHT service running on that port.*
 
-# Firewall Rules with pf
 Pf comes installed as part of the base operating system in FreeBSD.  There are also two others we could choose from.  It's mostly a matter of preference.  We picked pf.  
 
 To set up the rules, we consulted some tutorials.  Early on, we wrote pass in rules for our favorite IPs and those dynamic DNS host and domain names, as mentioned above.  
@@ -69,10 +74,11 @@ We soon found out we were locking out critical services.  By using searches of /
 
 When setting up firewall rules and login limitations, it's helpful to use more than one ssh session.  Use one session to maintain a connection and adjust the config.  Use another to test access to the host.  If you don't, and you mess up, then you might find yourself locked out.  
 
+# External Monitoring with Shodan
+
 ![Shodan.io login]({{ site.url }}/assets/images/bastion/Capture_shodanLogin.PNG)
 *Shodan, a search engine which provides technical details about computers on the Internet, also provides developer APIs and monitoring services.*
 
-# External Monitoring with Shodan
 Shodan.io offers a monitoring service.  It's free with the developer's account, up to about a dozen hosts.  Around 14 or 15, they start to require a paid Enterprise account.  Since we have few computers to look after, we snapped up Shodan Monitor.  
 
 With Shodan, we learned the painful history of the past users of our IP address.  We also learned about the locations and open ports of whomever it was who was calling us on port 18888 over 2,500 times in 20 minutes.  One IP had once been misused as an Internet scanner.  The other seemed to be getting scanned constantly.  It's a good thing we activated pf.  Until we did, we didn't have easy visibility of who was calling the node unsuccessfully.  
@@ -91,10 +97,11 @@ With standoff distance, we have a link between our data center demarc and the ge
 
 Now, as traffic arrives at our data center demarc, it'll hit a firewall right away.  Later, as it moves down the line to our desired server, it'll hit some auth.  So, inside our data center we could react to traffic; but, the proxies on the distant hosts will help us control traffic that arrives to the server that's our goal.  At the data center demarc, we can have a firewall rule that will refuse traffic for our desired server unless it walks down the path from our proxy.
 
+# Installing HAProxy
+
 ![Shodan 443 on Tattletale]({{ site.url }}/assets/images/bastion/Capture_shodan_nginx.PNG)
 *haproxy in tcp mode passes our traffic from the bastion node to our webserver, which is on another host.  To other machines, it appears as if it is on the same machine.*
 
-# Installing HAProxy
 Installing the program was a snap.  We had to read some documentation, and follow some suggestions; but, it all worked without a hitch.  There are several techniques we can choose from with HAProxy.  Ultimately, we chose 
 TCP Forwarding.  This is a "layer 4" proxy.  HAProxy has OSI Layer 7 capabilities that can let us filter traffic based on contents.  With tcp mode, haproxy will just pass the traffic on down to our data center demarc, invisibly.
 
@@ -102,10 +109,11 @@ SSL stayed on the web host.  Before we began with these DNS servers, we had alre
 
 To check out our proxy install, we started with calling the nameserver host address.  It would then use haproxy to walk us down the line, reques our page from the webserver, and then the page we called would come back up the line.  Satisfied that the proxies were working, it was time to change the DNS records.
 
+# DNS Load Balancing
+
 ![Zone records Alias records]({{ site.url }}/assets/images/bastion/Capture_dnsLoadBalancing.PNG)
 *By alternating Alias records when zone files are requested, DNS servers can offer some load balancing.  Both hosts on our A records are proxies for our site.*
 
-# DNS Load Balancing
 Most DNS records get served round-robin, by default.  That is, when multiple aliases (A records) are listed, they'll be shown in a rotating order by the nameserver who answers.  Since our proxies were now on the nameserver hosts, we could direct our traffic to each.  We changed our A Records for the domain to point to each DNS server, instead of our demarc IP.  This is the outside half of getting our traffic to walk down the funnel into our screen.  
 
 As mentioned earlier, there are firewall rules near the demarc to do the initial onsite screen to require incoming traffic to only be considered if it used the proxy.  
@@ -114,10 +122,11 @@ Notice how the DNS load balancing could have some unenforceable conditions.  For
 
 HAProxy offers load balancing.  In our case, we were only going to one destination, so most of those features didn't yet need to be activated.  They might be more useful on a haproxy install inside the demarc.  It's true load balancing.  We can set rules that will filter traffic by subdomain to specific servers.  We can ensure high availability with health checks on servers that precede traffic routing.  
 
+# TOTP with Google Authenticator
+
 ![Google Auth prompt]({{ site.url }}/assets/images/bastion/Capture_googleauth.PNG)
 *When using Google Authenticator with SSH, we will get a "Verification Code" prompt after entering our passphrase for the SSH public key.*
 
-# TOTP with Google Authenticator
 Remember our login situation?  We chose to use SSH public keys on the server, which was a good idea; but, we wanted to do a little more.  We added on Google Authenticator's time-based one time passwords (TOTP) to the ssh login accounts.  
 FreeBSD ports have a package for this.  It's pam_google_authenticator.  Thanks to scant and incomplete documentation, setting up Google Authenticator on FreeBSD was a real bear.  When editing the sshd_config, we have to choose carefully which password options we want to keep and which we want to comment out.  On one hand, we're using ssh public key.  On the other, if we turn off all of the password functions, TOTP won't work.  
 
@@ -132,10 +141,11 @@ Setting up the Google Authenticator on the host wasn't too hard, dialog-wise.  T
 
 Similar procedures can be used with other TOTP products and FreeBSD.  With our VM far away, we'll never be able to plug in a USB dongle.  Also, with programs like Google Authenticator, there are other programs that may not require the possession of a specific phone.  Keep these ideas in mind when assessing risk related to TOTP products.  Their fascinating to watch, but they have their limitations just like everything else.
 
+# Backup and Restore with tar
+
 ![Script section that uses tar to archive.]({{ site.url }}/assets/images/bastion/Capture_tarAndRestore.PNG)
 *Using a shell script, we can copy critical files to a directory that will be zipped up with tar and exfiltrated from the computer with scp.*
 
-# Backup and Restore with tar
 We've done enough work to not want to do it all again.  Time for a backup and retore policy.  We'll need to make our own.
 
 The hosting provider does weekly, automated backups.  They also offer snapshots of the host.  However, that doesn't quite meet our needs.  The hosting company retains control of and access to the backups.  We can apply them to the host through a web interface, but we can never download and store them on physical media we control.
@@ -157,7 +167,13 @@ In upcoming drafts, we may discuss:
 - snort
 - tcpdump for continuous packet capture for archiving traffic history.
 
+{% highlight shell %}
+You need to create main configuration file:
+/usr/local/ossec-hids/etc/ossec.conf
 
+For information on proper configuration see:
+https://www.ossec.net/docs/syntax/ossec_config.html
+{% endhighlight %}
 
 
 
@@ -168,4 +184,4 @@ In upcoming drafts, we may discuss:
 ## Annotated Bibliography
 
 
-\[1\] _____.  INTERNET:   [`https://`](https://)
+\[1\] _____.  INTERNET:   [`https://blog.andreev.it/?p=4096`](https://blog.andreev.it/?p=4096)
