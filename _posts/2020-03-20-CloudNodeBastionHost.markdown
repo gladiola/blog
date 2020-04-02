@@ -4,6 +4,9 @@ date:   2020-03-20 08:30:00
 description: Hardening a cloud VM to withstand normal Internet traffic.
 ---
 
+![System diagram]({{ site.url }}/assets/images/bastion/bastion.jpeg)
+*We constructed two bastion hosts to shuttle Internet traffic in a funnel through a firewall screen. Our goal was to protect the demarc by providing operational leverage opportunities for future defensive actions.*
+
 Cloud providers hook us in with cheap teaser rates; and then they slowly offer us feature after feature, at $10 each.  Before you know it, the $5 a month budget has grown to $50, $60, or $70.  We'll tell the story of how we can took a bare bones FreeBSD VM from a major cloud hosting company and built it up to be a standalone bastion host that works as a nameserver and more.  
 
 ![Poudriere package server]({{ site.url }}/assets/images/bastion/Capture_poudriere_ports.PNG)
