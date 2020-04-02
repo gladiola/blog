@@ -1,7 +1,7 @@
 ---
 title:  "FreeBSD Jailhost for VMs"
 date:   2019-12-15 08:30:00
-description: FreeBSD Jails with VNET Subnets for Virtual Machines
+description: FreeBSD Jails with VNET Subnets
 ---
 
 In this tutorial, we'll walkthrough the process of setting up a host for hacking targets.  Our host will be based on FreeBSD; we'll use jails to control the individual target accounts; we'll use virtual machines as the targets inside those accounts.  Our goal will be to turn a modest Dell i5 salvaged desktop into a machine that we can hack and reset at will.  
