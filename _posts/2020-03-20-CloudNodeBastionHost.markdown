@@ -165,6 +165,7 @@ This means that if we had to reconsitute or rebuild the host from scratch, we wo
 To give ourselves offsite, offline backups, we're going to use tar to take a sample of critical files used in the installation of the programs above.  One by one, we went through directories that held configs.  We built a script that would automatically copy them to a directory.  Then we tarred the achive, g-zipped it, and exfiltrated it with scp.  Once on a computer we could physically access, we saved the archive to removable storage.  Cataloged and moved to a safe place, our tar and restore sample was ready for a restoration rehearsal.
 
 # Installing OSSEC-HIDS
+
 {% highlight shell %}
 You need to create main configuration file:
 /usr/local/ossec-hids/etc/ossec.conf
