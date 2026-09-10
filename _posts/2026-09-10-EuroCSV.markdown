@@ -1,0 +1,57 @@
+---
+title:  "EuroCSV: A Focused Tool for Regional CSV Conversion"
+date:   2026-09-10 13:30:00
+description: A review of EuroCSV, a browser-based CSV localization converter aimed at delimiter and decimal-separator differences between regional formats.
+---
+
+[EuroCSV](https://www.eurocsv.com/) looks like a deliberately narrow tool, and that is a compliment. Instead of trying to become a full spreadsheet platform, ETL service, or team collaboration suite, it focuses on one stubborn problem that shows up constantly in real data work: CSV files do not travel cleanly across regional conventions.
+
+If you have ever moved data between systems that disagree about commas, semicolons, and decimal separators, you already understand the pain EuroCSV is trying to remove. A file that behaves perfectly in one locale can become misread, shifted, or numerically mangled in another. EuroCSV positions itself as a simple way to fix that before the damage spreads downstream.
+
+# What the site appears to do
+
+From the public site description, EuroCSV is a **CSV localization converter** that works directly in the browser. Its core use case is converting CSV content between regional formatting expectations, especially the familiar split between:
+
+- comma-delimited CSV common in English-language environments,
+- semicolon-delimited CSV common in parts of Europe,
+- decimal points versus decimal commas,
+- and quoted values that must survive conversion intact.
+
+That makes the tool immediately understandable. It is not trying to invent a new format. It is trying to keep ordinary CSV usable when different countries and software defaults interpret the same file differently.
+
+# What stands out
+
+The strongest thing about EuroCSV is that it appears to be built around three practical ideas.
+
+- **Regional format conversion is the whole point.** The site is centered on delimiter and decimal-separator differences rather than treating them as an advanced edge case.
+- **Processing happens in the browser.** Public descriptions emphasize that data stays on the device instead of being uploaded to a remote server.
+- **The interface seems intentionally lightweight.** That matters for utility software. When the task is "fix this CSV so another system will read it correctly," a compact workflow is often better than a giant data-workbench UI.
+
+Privacy is probably the most attractive part of that combination. Many CSV files contain finance, operations, or customer data that people should not casually upload to a third-party service. A browser-local conversion model is a good fit for that concern.
+
+# Where EuroCSV seems most useful
+
+EuroCSV looks most useful for people who are not fighting with CSV as a programming exercise, but as a recurring operational annoyance.
+
+That includes:
+
+- analysts exchanging spreadsheet exports across countries,
+- developers importing CSV into locale-sensitive software,
+- finance or operations teams moving files between Excel and backend systems,
+- and anyone who has had a decimal comma accidentally treated as a field boundary.
+
+In that sense, EuroCSV is solving a very real interoperability problem. CSV is "simple" right up until regional defaults get involved.
+
+# What is harder to judge from the public site
+
+The public-facing material appears fairly minimal, so some things are not obvious.
+
+I did not find public pricing, detailed product tiers, or a deep feature matrix. I also did not see clear public evidence of broader workflow features such as integrations, APIs, shared workspaces, or automation hooks. That does not mean those things do not exist; it just means the visible site presents EuroCSV more like a focused utility than a large platform.
+
+For this kind of tool, that may be perfectly fine. But it does mean a technical buyer looking for large-scale pipeline integration would likely want more detail.
+
+# Final thoughts
+
+What I like about EuroCSV is its restraint. The site appears to understand that CSV localization problems are common, annoying, and surprisingly expensive in time, even when the fix itself is conceptually small.
+
+If you need a quick, privacy-conscious way to adapt CSV files between regional delimiter and number-format conventions, [EuroCSV](https://www.eurocsv.com/) looks like a sensible tool to check first.
