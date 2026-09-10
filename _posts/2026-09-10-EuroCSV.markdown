@@ -1,7 +1,7 @@
 ---
 title:  "EuroCSV: A Focused Tool for Regional CSV Conversion"
 date:   2026-09-10 08:35:00
-description: A review of EuroCSV, a browser-based CSV localization converter aimed at delimiter and decimal-separator differences between regional formats.
+description: A look at EuroCSV's locale presets, browser-based conversion, and practical handling of regional CSV differences.
 ---
 
 [EuroCSV](https://www.eurocsv.com/) is a focused tool for a problem that is far more common than it should be: CSV files breaking when they move between regional conventions. That narrow scope is a strength. Instead of trying to be a spreadsheet replacement, EuroCSV concentrates on making ordinary CSV files portable again.
