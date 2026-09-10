@@ -1,6 +1,6 @@
 ---
 title:  "WindowsOpenBSDdistributor Bridges an Offline Gap"
-date:   2026-09-10 13:35:00
+date:   2026-09-10 08:40:00
 description: A look at WindowsOpenBSDdistributor, a two-script workflow for moving GitHub repositories from Windows onto OpenBSD systems without direct internet access.
 ---
 

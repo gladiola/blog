@@ -1,6 +1,6 @@
 ---
 title:  "Introducing WebAppExperimental26"
-date:   2026-09-10 12:57:00
+date:   2026-09-10 08:30:00
 description: A look at WebAppExperimental26, an ASP.NET Core 9 web app that combines identity, certificate, security-header, localization, and multi-cloud integration experiments in one repository.
 ---
 
