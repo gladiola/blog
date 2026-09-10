@@ -1,6 +1,6 @@
 ---
 title:  "CAGenerationAndMaintenance Builds an Air-Gapped CA Workflow"
-date:   2026-09-10 13:50:00
+date:   2026-09-10 08:55:00
 description: Reviewing CAGenerationAndMaintenance, a shell-script toolkit for operating an offline OpenBSD certificate authority and synchronizing status data by USB.
 ---
 
